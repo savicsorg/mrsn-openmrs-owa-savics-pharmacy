@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "name": "Savics GMAO",
+  "description": "Lets you manage Equipement list and maintenance",
+  "launch_path": "index.html",
+  "icons": {
+    "48": "/img/omrs-button.png"
+  },
+  "developer": {
+    "name": "anatoleabe",
+    "url": "https://github.com/anatoleabe/openmrs-owa-savics-gmao"
+  },
+  "default_locale": "en",
+    "activities": {
+      "openmrs": {
+        "href": "*"
+      }
+    }
+}

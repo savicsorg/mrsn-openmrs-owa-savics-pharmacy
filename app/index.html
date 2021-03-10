@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-strict-di ng-cloak>
+    <head>
+        <title>Inventory Maintenance Management</title>
+        <!-- openmrs favicon -->
+        <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico"/>
+        <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png"/>
+        <!--<link rel="stylesheet" href="../uicommons/css/openmrs-refapp.css" type="text/css"/>-->
+        <style>
+            [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+                display: none !important;
+            }
+        </style>
+    </head>
+    
+    <header>
+        <div ng-controller="IndexController as vm">
+            <openmrs-header></openmrs-header>
+        </div>
+    </header>
+
+    <body>
+        <div ng-controller="IndexController as vm">
+            <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
+            <div class="clear"></div>
+        </div>
+        <div ng-view></div>
+
+        <div ng-controller="IndexController as vm">
+            <small>
+                Choose language:
+                <a ng-click="vm.changeLanguage('en')">English</a>,
+                <a ng-click="vm.changeLanguage('es')">Spanish</a>
+            </small>
+        </div>
+    </body>
+</html>
