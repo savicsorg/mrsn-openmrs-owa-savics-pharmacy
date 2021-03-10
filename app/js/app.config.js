@@ -14,12 +14,7 @@ export default function appConfig($routeProvider, openmrsRest) {
                 template: require('./equipement/equipement.html'),
                 controller: 'EquipementsController',
                 controllerAs: 'vm'
-            }).otherwise({
-                redirectTo: '/',
-                template: require('./index/index.html'),
-                controller: 'IndexController',
-                controllerAs: 'vm'
             });
-
+    
 };
 

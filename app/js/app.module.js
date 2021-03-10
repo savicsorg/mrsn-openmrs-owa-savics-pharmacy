@@ -28,7 +28,8 @@ export default angular.module('app',
         .controller('EquipementsController', EquipementsController)
 
         .config(['$routeProvider', appConfig])
-        .config(['openmrsTranslateProvider', translateConfig]);
+        .config(['openmrsTranslateProvider', translateConfig])
+        .config(['$qProvider', function ($qProvider) {$qProvider.errorOnUnhandledRejections(false);}])
 
 function translateConfig(openmrsTranslateProvider) {
     openmrsTranslateProvider.addTranslations('en', messagesEn);
