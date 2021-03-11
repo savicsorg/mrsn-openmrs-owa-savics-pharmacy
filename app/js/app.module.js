@@ -7,7 +7,8 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-import angular from 'angular';
+angular.lowercase = text => (text || '').toLowerCase(); 
+
 import ngRoute from 'angular-route';
 import openmrsContribUiCommons from 'openmrs-contrib-uicommons';
 
@@ -16,20 +17,30 @@ import messagesEs from '../translation/messages_es.json';
 
 import IndexController from './index/index.controller.js';
 import EquipementsController from './equipement/equipements.controller.js';
-
+ 
 import appConfig from './app.config.js';
 
-export default angular.module('app',
-        ['ngRoute',
-            'openmrs-contrib-uicommons'])
+import AngularMaterialCSS from '../../node_modules/angular-material/angular-material.min.css';
+import AngularMaterial from '../../node_modules/angular-material/angular-material.min.js';
+import style from '../css/main.css';
 
+export default angular.module('app', [
+    'ngRoute',
+    'ngMaterial',
+    'ui.router',
+    'ngSanitize',
+    'gettext',
+    'oc.lazyLoad',
+    'angular-jwt',
+    'openmrs-contrib-uicommons'
+]).controller('IndexController', IndexController)
+    .controller('EquipementsController', EquipementsController)
 
-        .controller('IndexController', IndexController)
-        .controller('EquipementsController', EquipementsController)
-
-        .config(['$routeProvider', appConfig])
-        .config(['openmrsTranslateProvider', translateConfig])
-        .config(['$qProvider', function ($qProvider) {$qProvider.errorOnUnhandledRejections(false);}])
+    .config(['$routeProvider', appConfig])
+    .config(['openmrsTranslateProvider', translateConfig])
+    .config(['$qProvider', function ($qProvider) {
+        $qProvider.errorOnUnhandledRejections(false);
+    }]);
 
 function translateConfig(openmrsTranslateProvider) {
     openmrsTranslateProvider.addTranslations('en', messagesEn);

@@ -150,7 +150,17 @@ var config = {
             'angular',
             'angular-translate',
             'angular-route',
-            'openmrs-contrib-uicommons'
+            'openmrs-contrib-uicommons',
+            'angular-material',
+            '@uirouter/angularjs',
+            'angular-animate',
+            'angular-jwt',
+            'angular-sanitize',
+            'textAngularJs',
+            'angular-gettext',
+            'oclazyload',
+            'angular-messages',
+            'angular-material-data-table'
         ]
     },
     devtool: devtool,
@@ -170,7 +180,7 @@ var config = {
                 }
             }, {
                 test: /\.css$/,
-                loader: 'css'
+                loader: "style-loader!css-loader"
             }, {
                 test: /\.(png|jpg|jpeg|gif|svg)$/,
                 loader: 'url'
