@@ -22,7 +22,10 @@ import appConfig from './app.config.js';
 
 import AngularMaterialCSS from '../../node_modules/angular-material/angular-material.min.css';
 import AngularMaterial from '../../node_modules/angular-material/angular-material.min.js';
+import AngularMaterialdatatableCSS from '../../node_modules/angular-material-data-table/dist/md-data-table.min.css';
+import AngularMaterialdatatableJS from '../../node_modules/angular-material-data-table/dist/md-data-table.min.js';
 import style from '../css/main.css';
+import fonts from '../css/fonts.css';
 
 export default angular.module('app', [
     'ngRoute',
