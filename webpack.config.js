@@ -145,7 +145,7 @@ plugins.push(new WebpackMd5Hash());
 
 var config = {
     entry: {
-        app: `${__dirname}/app/js/app.module.js`,
+        app: `${__dirname}/app/js/app.js`,
         vendor: [
             'angular',
             'angular-translate',
