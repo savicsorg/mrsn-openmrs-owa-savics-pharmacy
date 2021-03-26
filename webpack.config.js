@@ -85,7 +85,7 @@ if (env === 'production') {
         }
     }));
     plugins.push(new DedupePlugin());
-    outputFile = `${outputFile}.min.[chunkhash].js`;
+    outputFile = `${outputFile}.min.js`;
     vendorOutputFile = "vendor.bundle.[chunkhash].js";
     outputPath = `${__dirname}/build/dist/`;
     devtool = 'source-map';

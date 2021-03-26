@@ -9,10 +9,14 @@
  */
 
 export default function appConfig($routeProvider, openmrsRest) {
-    $routeProvider
-            .when('/equipements', {
+    $routeProvider.
+            when('/equipements', {
                 template: require('./equipement/equipement.html'),
                 controller: 'EquipementsController',
+                controllerAs: 'vm'
+            }).when('/agents', {
+                template: require('./agent/agents.html'),
+                controller: 'AgentsController',
                 controllerAs: 'vm'
             }).otherwise({
                 redirectTo: '/',
@@ -20,6 +24,5 @@ export default function appConfig($routeProvider, openmrsRest) {
                 controller: 'IndexController',
                 controllerAs: 'vm'
             });
-
 };
 

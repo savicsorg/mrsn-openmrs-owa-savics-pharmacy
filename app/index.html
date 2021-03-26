@@ -6,14 +6,14 @@
         <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico"/>
         <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png"/>
         <!--<link rel="stylesheet" href="../uicommons/css/openmrs-refapp.css" type="text/css"/>-->
-        
+
         <style>
             [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
                 display: none !important;
             }
         </style>
     </head>
-    
+
     <header>
         <div ng-controller="IndexController as vm">
             <openmrs-header></openmrs-header>
@@ -21,12 +21,12 @@
     </header>
 
     <body>
-        <div ng-controller="IndexController as vm">
-            <openmrs-breadcrumbs links="vm.links"></openmrs-breadcrumbs>
+        <div >
+            <openmrs-breadcrumbs links="links"></openmrs-breadcrumbs>
             <div class="clear"></div>
         </div>
         <div ng-view id="body-wrapper">
-            
+
         </div>
 
         <div ng-controller="IndexController as vm">

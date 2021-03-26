@@ -17,6 +17,7 @@ import messagesEs from '../translation/messages_es.json';
 
 import IndexController from './index/index.controller.js';
 import EquipementsController from './equipement/equipements.controller.js';
+import AgentsController from './agent/agents.controller.js';
  
 import appConfig from './app.config.js';
 
@@ -38,6 +39,7 @@ export default angular.module('app', [
     'openmrs-contrib-uicommons'
 ]).controller('IndexController', IndexController)
     .controller('EquipementsController', EquipementsController)
+    .controller('AgentsController', AgentsController)
 
     .config(['$routeProvider', appConfig])
     .config(['openmrsTranslateProvider', translateConfig])

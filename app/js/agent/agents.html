@@ -1,0 +1,50 @@
+<div id="content" class="container-fluid">
+
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex=""> Agent management </h1>
+
+        <md-button class="md-raised md-primary" aria-label="Add" >
+            <md-icon>add</md-icon>
+            <md-tooltip md-direction="top">
+                <span translate>New</span>
+            </md-tooltip>
+            Add new
+        </md-button>
+    </div>
+    <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <md-icon>search</md-icon>
+            <form flex="">
+                <input type="search" name="search" ng-model="filter.search" placeholder="{{ 'Search...' | translate }}">
+            </form>
+        </div>
+    </md-toolbar>
+
+    <md-card >
+        <md-table-container class="container" fixed-column-table>
+            <table md-table md-progress="promise">
+                <thead md-head md-order="query.order">
+                    <tr md-row>
+                        <th md-column md-order-by="fullName"><span translate>Full Name</span></th>
+                        <th md-column md-order-by="agentAddress"><span translate>Address</span></th>
+                        <th md-column md-order-by="phoneNumber" ><span translate>Phone Number</span></th>
+                        <th md-column md-order-by="rollNumber" ><span translate>roll Number</span></th>
+                        <th md-column md-order-by="actions"><span translate>Actions</span></th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row data-ng-repeat="agent in agents" >
+                        <td md-cell >{{agent.fullName}}</td>
+                        <td md-cell>{{agent.agentAddress}}</td>
+                        <td md-cell >{{agent.phoneNumber}}</td>
+                        <td md-cell >{{agent.rollNumber}}</td>
+                        <td md-cell >aaa aaaa</td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-limit="query.limit" md-limit-options="[10, 15, 50, 100]" md-page="query.page" md-total="{{agents.count}}" md-page-select="true" md-label="$parent.label">
+        </md-table-pagination>
+    </md-card>
+
+</div>
