@@ -7,15 +7,13 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-angular.lowercase = text => (text || '').toLowerCase(); 
+angular.lowercase = text => (text || '').toLowerCase();
 
 import openmrsContribUiCommons from 'openmrs-contrib-uicommons';
 import routes from './routes.js';
 
 import messagesEn from '../translation/messages_en.json';
 import messagesEs from '../translation/messages_es.json';
-
-//import appConfig from './app.config.js';
 
 import AngularMaterialCSS from '../../node_modules/angular-material/angular-material.min.css';
 import AngularMaterial from '../../node_modules/angular-material/angular-material.min.js';
@@ -35,10 +33,8 @@ export default angular.module('app', [
     'oc.lazyLoad',
     'angular-jwt',
     'openmrs-contrib-uicommons'
-])
-    //.config(['$routeProvider', appConfig])
-    .config(['openmrsTranslateProvider', translateConfig])
-    .config(['$qProvider', function ($qProvider) {
+]).config(['openmrsTranslateProvider', translateConfig])
+  .config(['$qProvider', function ($qProvider) {
         $qProvider.errorOnUnhandledRejections(false);
     }]);
 
