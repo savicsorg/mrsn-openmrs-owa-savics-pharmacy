@@ -94,7 +94,7 @@ if (env === 'production') {
         //create zip file
         var archiver = require('archiver');
         var pjson = require('./package.json');
-        var output = fs.createWriteStream('build/' + appName + "-" + pjson.version + '.zip');
+        var output = fs.createWriteStream('build/' + appName + '.zip');
         var archive = archiver('zip')
 
         output.on('close', function () {

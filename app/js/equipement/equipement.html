@@ -38,7 +38,7 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row data-ng-repeat="data in vm.datas" >
+                    <tr md-row data-ng-repeat="data in equipements" >
                         <td md-cell >{{data.serialnumber}}</td>
                         <td md-cell>{{data.designation}}</td>
                         <td md-cell >{{data.type}}</td>
@@ -51,7 +51,7 @@
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-limit-options="[10, 15, 50, 100]" md-page="query.page" md-total="{{batches.count}}" md-page-select="true" md-label="$parent.label">
+        <md-table-pagination md-limit="query.limit" md-limit-options="[10, 15, 50, 100]" md-page="query.page" md-total="{{equipements.count}}" md-page-select="true" md-label="$parent.label">
         </md-table-pagination>
     </md-card>
 </div>

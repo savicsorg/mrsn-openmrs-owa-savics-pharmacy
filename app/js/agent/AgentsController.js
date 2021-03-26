@@ -1,8 +1,7 @@
-
-AgentsController.$inject = ['$scope', '$rootScope', 'openmrsRest'];
-
-export default function AgentsController($scope, $rootScope, openmrsRest) {
-    console.log("EquipementsController ---")
+angular.module('AgentsController', []).controller('AgentsController', ['$scope', '$rootScope', 'openmrsRest', function ($scope, $rootScope, openmrsRest) {
+    $scope.rootscope = $rootScope;
+    
+    console.log("AgentsController new form ---")
     $scope.myAgents = [{}];
     $scope.appTitle = "Gestion des equipements";
     $scope.resource = "savicsgmao/agent";
@@ -19,8 +18,4 @@ export default function AgentsController($scope, $rootScope, openmrsRest) {
             $scope.agents = response.results;
         })
     }
-
-    
-
-}
-
+}]);
