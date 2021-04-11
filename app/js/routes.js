@@ -39,7 +39,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }
         }).state('home.error', {
             url: 'error',
-            template: '<div>Error 4000000004</div>',
+            template: '<div>Error 404</div>',
         }).state('home.equipements', {
             url: 'equipements',
             template: require('./equipement/equipement.html'),
