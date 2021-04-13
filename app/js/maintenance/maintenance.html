@@ -1,0 +1,74 @@
+<div id="content" class="container-fluid" ng-controller="MaintenanceController as vm">
+
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex=""> Do a maintenance</h1>
+    </div>
+    <!--<div >
+        <openmrs-list resource="vm.resource" columns="vm.columns" actions="vm.actions" list-all="true"></openmrs-list>
+    </div>-->
+    <md-card>
+        <md-card-title>Equipment information</md-card-title>
+        <md-card-content>
+            <div layout="row" layout-xs="column">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Equipment name</label>
+                    <input disabled ng-model="vm.equipment.designation" >
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Serial number</label>
+                    <input disabled ng-model="vm.equipment.serial_number" >
+                </md-input-container>
+            </div>           
+        </md-card-content>
+    </md-card>
+
+    <md-card>
+        <md-card-title>Maintenance information</md-card-title>
+        <md-card_content>
+            <div layout="row" layout-xs="column"  class="flex flex-col">
+                <md-input-container class="md-block"  flex="50">
+                    <label translate>Type of maintenance</label>
+                    <md-select ng-model="vm.maintenance.maintenance_type_id" >
+                        <md-option ng-repeat="t in vm.maintenance_types" ng-value="t.maintenance_type_id">
+                            {{t.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex="50">
+                    <label translate>Done by</label>
+                    <md-select ng-model="vm.maintenance.agent_id" >
+                        <md-option ng-repeat="a in vm.agents" ng-value="a.agent_id">
+                            {{a.full_name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>  
+            <div layout="row" layout-xs="column"  class="flex flex-col">
+                <md-input-container class="md-block" flexx="100">
+                    <label translate>State</label>
+                    <md-radio-group ng-model="vm.maintenance.status" layout="row" required>
+                        <md-radio-button value="1" class="md-primary" >In progress</md-radio-button>
+                        <md-radio-button value="2" class="md-primary" >Completed</md-radio-button>
+                    </md-radio-group>
+                </md-input-container>
+            </div>   
+            <div layout="row" layout-xs="column">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Reason</label>
+                    <textarea ng-model="vm.maintenance.reason" ></textarea>
+                </md-input-container>
+            </div>    
+            <div layout="row" layout-xs="column">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Start date</label>
+                    <input type="date" ng-model="vm.maintenance.start_date" ></textarea>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>End date</label>
+                    <input type="date" ng-model="vm.maintenance.end_date" ></textarea>
+                </md-input-container>
+            </div>                      
+        </md-card_content>
+    </md-card>
+    
+</div>

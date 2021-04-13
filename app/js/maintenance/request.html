@@ -1,0 +1,95 @@
+<div id="content" class="container-fluid"  ng-controller="MaintenanceController as vm">
+
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex="" translate>Request a maintenance</h1>
+    </div>
+    <!--<div ng-controller="EquipementController as vm">
+        <openmrs-list resource="vm.resource" columns="vm.columns" actions="vm.actions" list-all="true"></openmrs-list>
+    </div>-->
+    <md-card>
+        <md-card-title translate>General Informations</md-card-title>
+        <md-card-content>  
+            <div layout="row" layout-xs="column"  class="flex flex-col">
+                <md-input-container class="md-block" flex="50">
+                    <label translate>System number</label>
+                    <input disabled ng-model="vm.request.system_number">
+                </md-input-container>
+                <md-input-container  class="md-block" flex="50">
+                    <label translate>Register number</label>
+                    <input  ng-model="vm.request.register_number">
+                </md-input-container>               
+            </div>
+            <div layout="row" layout-xs="column" class="flex flex-col">
+                <md-input-container class="md-block"  flex="50">
+                    <label translate>Department</label>
+                    <md-select ng-model="vm.request.department_id" >
+                        <md-option ng-value="1">Department 1</md-option>
+                        <md-option ng-value="2">Department 2</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block"  flex="50">
+                    <label translate>Date</label>
+                    <input type="date" ng-model="vm.request.request_date">
+                </md-input-container>
+            </div>   
+            <div layout="row" layout-xs="column" class="flex flex-col">
+                <md-input-container class="md-block"  flex="33">
+                    <label translate>Nature of work</label>
+                    <md-select ng-model="vm.request.nature_of_work" >
+                        <md-option ng-value="1">Maintain</md-option>
+                        <md-option ng-value="2">Repair</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block"  flex="33">
+                    <label translate>Localization</label>
+                    <md-select ng-model="vm.request.site_id" >
+                        <md-option ng-value="1">Gaya</md-option>
+                        <md-option ng-value="2">Gote</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block"  flex="33">
+                    <label translate>Priority</label>
+                    <md-select ng-model="vm.request.priority" >
+                        <md-option ng-value="1">Normal</md-option>
+                        <md-option ng-value="2">Urgent</md-option>
+                    </md-select>
+                </md-input-container>
+            </div> 
+              
+            <div layout="row" layout-xs="column"  class="flex flex-col">             
+                <md-input-container class="md-block md-input-has-value" flex="100">
+                    <label translate>Motif</label>
+                    <textarea ng-model="vm.request.motif"></textarea>
+                </md-input-container>                            
+            </div>                
+        </md-card-content>
+    </md-card>
+    <md-card>
+        <md-card-title>
+            Equipments
+        </md-card-title>
+        <md-card-content>
+            <md-chips ng-model="vm.operation.equipments" md-autocomplete-snap>
+                <md-autocomplete md-selected-item="selectedItem"
+                                 md-search-text="searchText"
+                                 md-items="item in equipments"
+                                 md-item-text="item.serial_number"
+                                 placeholder="{{'Equipments' | translate}}">
+                    <span md-highlight-text="searchText">{{item.serial_number}} {{item.designation}}</span>
+                </md-autocomplete>
+                <md-chip-template>
+                    <span>{{$chip.serial_number}} {{$chip.designation}}</span>
+                </md-chip-template>
+            </md-chips>
+        </md-card-content>
+    </md-card>
+    <div layout="row" layout-xs="column">
+        <md-button class="md-raised md-primary" aria-label="Add" >
+            <md-icon>save</md-icon>
+            <md-tooltip md-direction="top">
+                <span translate>Save</span>
+            </md-tooltip>
+            Save
+        </md-button>
+    </div> 
+</div>

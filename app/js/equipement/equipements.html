@@ -1,0 +1,50 @@
+<div id="content" class="container-fluid" ng-controller="EquipementController as vm">           
+    <!--<div ng-controller="EquipementController as vm">
+        <openmrs-list resource="vm.resource" columns="vm.columns" actions="vm.actions" list-all="true"></openmrs-list>
+    </div>-->
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex="">Equipments management</h1>
+        <md-button class="md-raised md-primary" aria-label="Add" >
+            <md-icon>add</md-icon>
+            <md-tooltip md-direction="top">
+                <span translate>Add new equipment</span>
+            </md-tooltip>
+            Add new
+        </md-button>
+    </div>   
+    
+    <md-card>
+        <md-card-content>
+            <md-table-container class="container" fixed-column-table>
+                <table md-table md-progress="promise">
+                    <thead md-head md-order="query.order">
+                        <tr md-row>
+                            <th md-column md-order-by="serialnumber"><span translate>Serial No</span></th>
+                            <th md-column md-order-by="designation"><span translate>Designation</span></th>
+                            <th md-column md-order-by="type" ><span translate>type</span></th>
+                            <th md-column md-order-by="department" ><span translate>Department</span></th>
+                            <th md-column md-order-by="localization"><span translate>Localization</span></th>
+                            <th md-column md-order-by="status"><span translate>Status</span></th>
+                            <th md-column md-order-by="lastModified"><span translate>Last modified</span></th>
+                            <th md-column md-order-by="actions"><span translate>Actions</span></th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row data-ng-repeat="data in vm.datas" >
+                            <td md-cell >{{data.serialnumber}}</td>
+                            <td md-cell>{{data.designation}}</td>
+                            <td md-cell >{{data.type}}</td>
+                            <td md-cell >{{data.department}}</td>
+                            <td md-cell >{{data.localization}}</td>
+                            <td md-cell >{{data.status}}</td>
+                            <td md-cell>{{data.lastModified| date:'dd/MM/yyyy'}}</td>
+                            <td md-cell >aaa aaaa</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-pagination md-limit="query.limit" md-limit-options="[10, 15, 50, 100]" md-page="query.page" md-total="{{batches.count}}" md-page-select="true" md-label="$parent.label">
+            </md-table-pagination>
+        </md-card-content>
+    </md-card>    
+</div>

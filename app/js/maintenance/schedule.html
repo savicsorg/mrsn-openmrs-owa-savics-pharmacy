@@ -1,0 +1,80 @@
+<div id="content" class="container-fluid" ng-controller="MaintenanceController as vm">
+
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex="">Schedule a maintenance</h1>
+    </div>
+    <md-card>
+        <md-card-title translate>General Informations</md-card-title>
+        <md-card-content>  
+            <div layout="row" layout-xs="column"  class="flex flex-col">
+                <md-input-container class="md-block" flex="50">
+                    <label translate>Designation</label>
+                    <input ng-model="vm.maintenance.designation">
+                </md-input-container>
+                <md-input-container  class="md-block" flex="25">
+                    <label translate>Start date</label>
+                    <md-datepicker ng-model="vm.maintenance.maintenance_date"></md-datepicker>
+                </md-input-container>   
+                <md-input-container class="md-block"  flex="25">
+                    <label translate>Recurrence</label>
+                    <md-select ng-model="vm.reccurence" >
+                        <md-option ng-value="1">Weekly</md-option>
+                        <md-option ng-value="2">Monthly</md-option>
+                        <md-option ng-value="3">Quaterly</md-option>
+                        <md-option ng-value="4">Yearly</md-option>
+                    </md-select>
+                </md-input-container>                    
+            </div>
+                             
+        </md-card-content>
+    </md-card>
+    <md-card>
+        <md-card-title>
+            Equipments
+        </md-card-title>
+        <md-card-content>
+            <md-input-container class="md-block"  flex="100">
+                <label translate>Selection mode</label>
+                <md-select ng-model="vm.equipment_selection" >
+                    <md-option ng-value="1" selected>Select categories</md-option>
+                    <md-option ng-value="2">Select equipments</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block"  flex="100">
+                <md-chips ng-model="vm.operation.equipments" md-autocomplete-snap ng-if="vm.equipment_selection == 2">
+                    <md-autocomplete md-selected-item="selectedItem"
+                                     md-search-text="searchText"
+                                     md-items="item in equipments"
+                                     md-item-text="item.serial_number"
+                                     placeholder="{{'Equipments' | translate}}">
+                        <span md-highlight-text="searchText">{{item.serial_number}} {{item.designation}}</span>
+                    </md-autocomplete>
+                    <md-chip-template>
+                        <span>{{$chip.serial_number}} {{$chip.designation}}</span>
+                    </md-chip-template>
+                </md-chips>
+                <md-chips ng-model="vm.equipment_types" md-autocomplete-snap md-autocomplete-snap ng-if="vm.equipment_selection == 1">
+                    <md-autocomplete md-selected-item="selectedItem"
+                                    md-search-text="searchText"s
+                                    md-items="item in equipment_types"
+                                    md-item-text="item.name"
+                                    placeholder="{{'Equipments categories' | translate}}">
+                        <span md-highlight-text="searchText">{{item.name}}</span>
+                    </md-autocomplete>
+                    <md-chip-template>
+                        <span>{{$chip.name}}</span>
+                    </md-chip-template>
+                </md-chips>
+            </md-input-container>          
+        </md-card-content>
+    </md-card>
+    <div layout="row" layout-xs="column">
+        <md-button class="md-raised md-primary" aria-label="Add" >
+            <md-icon>save</md-icon>
+            <md-tooltip md-direction="top">
+                <span translate>Save</span>
+            </md-tooltip>
+            Save
+        </md-button>
+    </div> 
+</div>
