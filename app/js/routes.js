@@ -40,24 +40,24 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         }).state('home.error', {
             url: 'error',
             template: '<div>Error 4000000004</div>',
-        }).state('home.equipements', {
-            url: 'equipements',
-            template: require('./equipement/equipement.html'),
-            controller: 'EquipementsController',
+        }).state('home.drugs', {
+            url: 'drugs',
+            template: require('./drug/drug.html'),
+            controller: 'DrugsController',
             resolve: {
                 loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
                     var deferred = $q.defer();
                     require.ensure([], function () {
-                        var mod = require('./equipement/EquipementsController.js');
+                        var mod = require('./drug/DrugsController.js');
                         $ocLazyLoad.load({
-                            name: 'EquipementsController'
+                            name: 'DrugsController'
                         });
                         deferred.resolve(mod.controller);
                     });
                     return deferred.promise;
                 }]
             },
-            breadcrumbs: ["Home", "Equipements"]
+            breadcrumbs: ["Home", "Drugs"]
         }).state('home.agents', {
             url: 'agents',
             template: require('./agent/agents.html'),
