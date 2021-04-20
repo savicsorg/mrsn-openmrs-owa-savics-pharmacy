@@ -38,9 +38,9 @@
                 </md-input-container>
             </div>
             <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
+                <md-input-container class="md-block md-input-has-value" flex-gt-sm>
                     <label translate>Expiry date</label>
-                    <input ng-model="vm.drug.expirydate" flex-gt-sm>
+                    <md-datepicker ng-model="vm.drug.expirydate"></md-datepicker>
                 </md-input-container>
             </div>
         </md-card-content>
