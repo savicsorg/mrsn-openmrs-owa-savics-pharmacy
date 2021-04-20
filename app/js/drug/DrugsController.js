@@ -1,7 +1,7 @@
 angular.module('DrugsController', []).controller('DrugsController', ['$scope', '$rootScope', 'openmrsRest', function ($scope, $rootScope, openmrsRest) {
     $scope.rootscope = $rootScope;
-    $scope.appTitle = "Gestion des Drugs";
-    $scope.resource = "savicsgmao/drugs";
+    $scope.appTitle = "Gestion des drugs";
+    $scope.resource = "savicspharmcy/drugs";
     //Breadcrumbs properties
     $rootScope.links = {};
     $rootScope.links["Home"] = "";
@@ -9,7 +9,7 @@ angular.module('DrugsController', []).controller('DrugsController', ['$scope', '
 
     var vm = this;
     vm.appTitle = "Gestion des Drugs";
-    vm.resource = "savicsgmao/drugs";
+    vm.resource = "savicspharmcy/drugs";
 
     //TODO replace this by real data comming from openmrsRest
     $scope.drugs = [

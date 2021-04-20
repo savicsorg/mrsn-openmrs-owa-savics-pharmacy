@@ -1,14 +1,15 @@
 angular.module('DrugController', []).controller('DrugController', ['$scope', '$rootScope', 'openmrsRest', function ($scope, $rootScope, openmrsRest) {
     $scope.rootscope = $rootScope;
-    $scope.appTitle = "Gestion des Drugs";
-    $scope.resource = "savicsgmao/drug";
+    $scope.appTitle = "Gestion des drugs";
+    $scope.resource = "savicspharmcy/drug";
     //Breadcrumbs properties
     $rootScope.links = {};
     $rootScope.links["Home"] = "";
-    $rootScope.links["Drug"] = "/drug";
+    $rootScope.links["Drugs"] = "/drugs";
+    $rootScope.links["New"] = "/drug";
 
     var vm = this;
-    vm.appTitle = "Gestion des Drugs";
-    vm.resource = "savicsgmao/drug";
+    vm.appTitle = "New Drug entry";
+    vm.resource = "savicspharmcy/drug";
 
 }]);
