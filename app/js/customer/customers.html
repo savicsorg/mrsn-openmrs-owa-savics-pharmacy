@@ -1,9 +1,9 @@
 <div id="content" class="container-fluid">
 
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""> Drug management </h1>
+        <h1 md-truncate="" flex=""> Customer management </h1>
 
-        <a href="index.html#!/drug">
+        <a href="index.html#!/customer">
             <md-button class="md-raised md-primary" aria-label="Add">
                 <md-icon>add</md-icon>
                 <md-tooltip md-direction="top">
@@ -26,26 +26,28 @@
             <table md-table md-progress="promise">
                 <thead md-head md-order="query.order">
                     <tr md-row>
-                        <th md-column md-order-by="code"><span translate>Drug code</span></th>
-                        <th md-column md-order-by="designation"><span translate>Designation</span></th>
-                        <th md-column md-order-by="unit"><span translate>Unit</span></th>
-                        <th md-column md-order-by="route"><span translate>Route</span></th>
-                        <th md-column md-order-by="actions"><span translate>Actions</span></th>
+                        <th md-column md-order-by="code"><span translate>customer code</span></th>
+                        <th md-column md-order-by="designation"><span translate>Name</span></th>
+                        <th md-column md-order-by="unit"><span translate>Address</span></th>
+                        <th md-column md-order-by="route"><span translate>Email</span></th>
+                        <th md-column md-order-by="actions"><span translate>Tel</span></th>
+                        <th md-column md-order-by="actions"><span translate>Action</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row data-ng-repeat="data in drugs">
+                    <tr md-row data-ng-repeat="data in customers">
                         <td md-cell>{{data.code}}</td>
-                        <td md-cell>{{data.designation}}</td>
-                        <td md-cell>{{data.unit}}</td>
-                        <td md-cell>{{data.route}}</td>
+                        <td md-cell>{{data.name}}</td>
+                        <td md-cell>{{data.address}}</td>
+                        <td md-cell>{{data.email}}</td>
+                        <td md-cell>{{data.tel}}</td>
                         <td md-cell><a href="">Edit</a> | <a href="">Delete</a></td>
                     </tr>
                 </tbody>
             </table>
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-limit-options="[10, 15, 50, 100]" md-page="query.page"
-            md-total="{{drugs.count}}" md-page-select="true" md-label="$parent.label">
+            md-total="{{customers.count}}" md-page-select="true" md-label="$parent.label">
         </md-table-pagination>
     </md-card>
 </div>

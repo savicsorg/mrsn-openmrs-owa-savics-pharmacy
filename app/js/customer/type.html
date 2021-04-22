@@ -1,0 +1,25 @@
+<div id="content" class="container-fluid" ng-controller="TypeController as vm">
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
+    </div>
+    <md-card>
+        <md-card-title translate>General Informations</md-card-title>
+        <md-card-content>
+            <div layout="row" layout-xs="column">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Name</label>
+                    <input ng-model="vm.type.name" flex-gt-sm>
+                </md-input-container>
+            </div>
+        </md-card-content>
+    </md-card>
+    <div layout="row" layout-xs="column">
+        <md-button class="md-raised md-primary" aria-label="Add">
+            <md-icon>save</md-icon>
+            <md-tooltip md-direction="top">
+                <span translate>Save</span>
+            </md-tooltip>
+            Save
+        </md-button>
+    </div>
+</div>

@@ -30,17 +30,36 @@
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>route</label>
-                    <md-select ng-model="vm.drug.department_id">
-                        <md-option ng-repeat="d in vm.departments" ng-value="d.department_id">
+                    <md-select ng-model="vm.drug.route_id">
+                        <md-option ng-repeat="d in vm.routes" ng-value="d.drug_route_id">
                             {{d.name}}
                         </md-option>
                     </md-select>
                 </md-input-container>
             </div>
+        </md-card-content>
+    </md-card>
+    <md-card>
+        <md-card-title translate>Inventory Informations</md-card-title>
+        <md-card-content>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block md-input-has-value" flex-gt-sm>
-                    <label translate>Expiry date</label>
-                    <md-datepicker ng-model="vm.drug.expirydate" flex-gt-sm></md-datepicker>
+                    <label translate>Buy price</label>
+                    <input type="number" ng-model="vm.drug.buy_price">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Sell price</label>
+                    <input type="number" ng-model="vm.drug.sell_price">
+                </md-input-container>
+            </div>
+            <div layout="row" layout-xs="column">
+                <md-input-container class="md-block md-input-has-value" flex-gt-sm>
+                    <label translate>Min Stock</label>
+                    <input type="number" ng-model="vm.drug.min_stock">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Max Stock</label>
+                    <input type="number" ng-model="vm.drug.max_stock">
                 </md-input-container>
             </div>
         </md-card-content>
