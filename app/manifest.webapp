@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "name": "Savics Pharmacy",
-  "description": "Lets you manage Equipement list and maintenance",
+  "description": "Lets you manage Drugs",
   "launch_path": "index.html",
   "icons": {
     "48": "/img/omrs-button.png"
