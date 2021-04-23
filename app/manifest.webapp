@@ -1,14 +1,14 @@
 {
   "version": "1.0.0",
-  "name": "Savics GMAO",
+  "name": "Savics Pharmacy",
   "description": "Lets you manage Equipement list and maintenance",
   "launch_path": "index.html",
   "icons": {
     "48": "/img/omrs-button.png"
   },
   "developer": {
-    "name": "anatoleabe",
-    "url": "https://github.com/anatoleabe/openmrs-owa-savics-gmao"
+    "name": "Peter",
+    "url": "https://github.com/savicsorg/mrsn-openmrs-owa-savics-pharmacy"
   },
   "default_locale": "en",
     "activities": {

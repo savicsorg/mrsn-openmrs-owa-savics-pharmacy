@@ -1,10 +1,10 @@
 {
-  "name": "openmrs-owa-savics-gmao",
+  "name": "openmrs-owa-savics-pharmacy",
   "version": "1.0.0",
-  "description": "OpenMRS Savics Gmao OWA module",
+  "description": "OpenMRS Savics Pharmacy OWA module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/anatoleabe/openmrs-owa-savics-gmao"
+    "url": "https://github.com/savicsorg/mrsn-openmrs-owa-savics-pharmacy"
   },
   "dependencies": {
     "@uirouter/angularjs": "1.0.19",

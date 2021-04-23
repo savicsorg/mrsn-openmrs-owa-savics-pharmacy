@@ -1,8 +1,8 @@
 <img src="https://cloud.githubusercontent.com/assets/668093/12567089/0ac42774-c372-11e5-97eb-00baf0fccc37.jpg" alt="OpenMRS"/>
 
-# Savics Gmao
+# Savics Pharmacy
 
-This repository contains the Savics Gmao OpenMRS Open Web App.
+This repository contains the Savics Pharmacy OpenMRS Open Web App.
 
 > Add a description of what your app does here.
 
@@ -27,7 +27,7 @@ Build the distributable using [Webpack](https://webpack.github.io/) as follows:
 npm run build:prod
 ````
 
-This will create a file called `Savics Gmao.zip` file in the `dist` directory,
+This will create a file called `Savics Pharmacy.zip` file in the `dist` directory,
 which can be uploaded to the OpenMRS Open Web Apps module.
 
 ### Local Deploy
@@ -58,7 +58,7 @@ will need the `APP_ENTRY_POINT` entry in your `config.json` file:
 ```js
 {
   "LOCAL_OWA_FOLDER": "/Users/anatoleabe/openmrs/openmrs-platform/owa",
-  "APP_ENTRY_POINT": "http://localhost:8080/openmrs/owa/Savics Gmao/index.html"
+  "APP_ENTRY_POINT": "http://localhost:8080/openmrs/owa/Savics Pharmacy/index.html"
 }
 ```
 Run Browsersync as follows:

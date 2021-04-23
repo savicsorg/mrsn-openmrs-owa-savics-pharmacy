@@ -30,7 +30,7 @@ const nodeModulesDir = path.resolve(__dirname, '../node_modules');
 
 
 const fileName = 'app';
-const appName = 'savicsgmao'
+const appName = 'savicspharmacy'
 
 const plugins = [];
 const nodeModules = {};
@@ -50,7 +50,7 @@ try {
     appEntryPoint = configJson.APP_ENTRY_POINT;
     localOwaFolder = configJson.LOCAL_OWA_FOLDER;
 } catch (err) {
-    appEntryPoint = "http://localhost:8080//openmrs//owa//savicsgmao//index.html";
+    appEntryPoint = "http://localhost:8080//openmrs//owa//savicspharmacy//index.html";
     localOwaFolder = `${__dirname}/build/dist/`;
 }
 
