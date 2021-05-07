@@ -1,0 +1,148 @@
+<div id="content" class="container-fluid" ng-controller="DispenseController as vm">
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex="">
+            <md-icon>content_paste</md-icon> {{vm.appTitle}}
+        </h1>
+        <md-input-container class="md-block" flex-gt-sm>
+            <label translate>Type of Dispensation</label>
+            <md-select ng-model="vm.dispense_type" ng-change="selectDispensationType(vm.dispense_type)">
+                <md-option ng-repeat="t in vm.dispense_types" ng-value="t.id">
+                    {{t.name}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+    <md-card>
+        <md-card-title translate>New dispense details</md-card-title>
+        <md-card-content>
+            <div layout="row" layout-xs="column">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Customer</label>
+                    <input ng-model="vm.customer_name">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Date</label>
+                    <md-datepicker ng-model="vm.dispense.date" md-placeholder="Enter date"
+                        input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header ">
+                    </md-datepicker>
+                </md-input-container>
+            </div>
+        </md-card-content>
+    </md-card>
+    <md-card>
+        <md-card-title translate>Drug prescribed list</md-card-title>
+        <md-card-content>
+            <div layout="row" layout-xs="column">
+                <md-card-title>
+                    Name
+                </md-card-title>
+                <md-card-title>
+                    Batch
+                </md-card-title>
+                <md-card-title>
+                    Unit
+                </md-card-title>
+                <md-card-title>
+                    Avl Qty
+                </md-card-title>
+                <md-card-title>
+                    Qty
+                </md-card-title>
+                <md-card-title>
+                    Price
+                </md-card-title>
+                <md-card-title>
+                    Exp date
+                </md-card-title>
+                <md-card-title>
+                    Total
+                </md-card-title>
+                <md-card-title>
+                    Actions
+                </md-card-title>
+            </div>
+            <div layout="row" layout-xs="column" data-ng-repeat="choice in choices">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Drug</label>
+                    <input class="form-control" type="text" ng-model="choice.drug_name">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Batch</label>
+                    <md-select ng-model="choice.drug_batch">
+                        <md-option ng-repeat="b in vm.batches" ng-value="b.id">
+                            {{b.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Unit</label>
+                    <md-select ng-model="choice.drug_unit">
+                        <md-option ng-repeat="u in vm.units" ng-value="u.id">
+                            {{u.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Avl qty</label>
+                    <input class="form-control" type="number" ng-model="choice.avl_qty">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Qty</label>
+                    <input class="form-control" type="number" ng-model="choice.qty">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>price</label>
+                    <input class="form-control" type="number" ng-model="choice.price">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <!-- <label translate>Exp date</label> -->
+                    <input class="form-control" type="text" ng-model="choice.drug_exp_date">
+                    </md-datepicker>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Total</label>
+                    <input class="form-control" type="number" ng-model="choice.total">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <!-- <a href="" ng-click="removeChoice(choice.id)"  ng-if="choice.id!=index">Remove</a>
+                    <a href="" ng-click="addNewChoice()"  ng-if="choice.id===index">Add</a> -->
+                    <md-button class="md-raised md-primary" aria-label="remove" ng-click="removeChoice(choice.id)"
+                        ng-if="choice.id!=index">
+                        <md-icon>remove</md-icon>
+                    </md-button>
+                    <md-button class="md-raised md-primary" aria-label="Add" ng-click="addNewChoice()"
+                        ng-if="choice.id===index">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                </md-input-container>
+            </div>
+            <br>
+            <md-button class="md-raised md-primary" ng-click="addNewChoice()">
+                <md-icon>add</md-icon> Add fields
+            </md-button>
+            <br>
+            <hr>
+            <div layout="row" layout-xs="column">
+                <table md-table md-progress="promise">
+                    <thead md-head md-order="query.order">
+                        <tr md-row>
+                            <th colspan="8"><span translate>Total: </span></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="choicesDisplay">
+                <!-- {{ choices }} -->
+            </div>
+        </md-card-content>
+    </md-card>
+    <div layout="row" layout-xs="column">
+        <md-button class="md-raised md-primary" aria-label="Add">
+            <md-icon>save</md-icon>
+            <md-tooltip md-direction="top">
+                <span translate>Save</span>
+            </md-tooltip>
+            Save
+        </md-button>
+    </div>
+</div>

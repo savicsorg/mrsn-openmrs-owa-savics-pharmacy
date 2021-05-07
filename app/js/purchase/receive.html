@@ -1,19 +1,24 @@
 <div id="content" class="container-fluid">
 
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""> Unit management </h1>
-        <a href="index.html#!/drugs">
+        <h1 md-truncate="" flex=""> Supplier order management </h1>
+        <a href="index.html#!/">
             <md-button class="md-raised">
                 <md-icon>arrow_back</md-icon>Back
             </md-button>
         </a>
-        <a href="index.html#!/unit">
+        <a href="index.html#!/suppliers">
+            <md-button class="md-raised md-warn">
+                Supplier management
+            </md-button>
+        </a>
+        <a href="index.html#!/purchase">
             <md-button class="md-raised md-primary" aria-label="Add">
                 <md-icon>add</md-icon>
                 <md-tooltip md-direction="top">
                     <span translate>New</span>
                 </md-tooltip>
-                Add new
+                Order Drugs
             </md-button>
         </a>
     </div>
@@ -30,22 +35,28 @@
             <table md-table md-progress="promise">
                 <thead md-head md-order="query.order">
                     <tr md-row>
-                        <th md-column md-order-by="code"><span translate>Unit code</span></th>
-                        <th md-column md-order-by="name"><span translate>Name</span></th>
-                        <th md-column md-order-by="actions"><span translate>Action</span></th>
+                        <th md-column><span translate>Order No</span></th>
+                        <th md-column><span translate>Supplier name</span></th>
+                        <th md-column><span translate>Approbation date</span></th>
+                        <th md-column><span translate>Reception date</span></th>
+                        <th md-column><span translate>Total amount</span></th>
+                        <th md-column><span translate>Actions</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row data-ng-repeat="data in units">
-                        <td md-cell>{{data.code}}</td>
-                        <td md-cell>{{data.name}}</td>
-                        <td md-cell><a href="">Edit</a> | <a href="">Delete</a></td>
+                    <tr md-row data-ng-repeat="d in receives">
+                        <td md-cell>{{d.code}}</td>
+                        <td md-cell>{{d.supplier}}</td>
+                        <td md-cell>{{d.approbation}}</td>
+                        <td md-cell>{{d.reception}}</td>
+                        <td md-cell>{{d.total}}</td>
+                        <td md-cell><a href="index.html#!/purchase">View</a> | <a href="">Approve</a>| <a href="">Deny </a></td>
                     </tr>
                 </tbody>
             </table>
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-limit-options="[10, 15, 50, 100]" md-page="query.page"
-            md-total="{{units.count}}" md-page-select="true" md-label="$parent.label">
+            md-total="{{drugs.count}}" md-page-select="true" md-label="$parent.label">
         </md-table-pagination>
     </md-card>
 </div>

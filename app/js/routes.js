@@ -291,6 +291,78 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "Route", "New"]
+    }).state('home.dispense', {
+        url: 'dispense',
+        template: require('./dispense/dispense.html'),
+        controller: 'DispenseController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./dispense/DispenseController.js');
+                    $ocLazyLoad.load({
+                        name: 'DispenseController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "dispense", "New"]
+    }).state('home.purchase', {
+        url: 'purchase',
+        template: require('./purchase/purchase.html'),
+        controller: 'PurchaseController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./purchase/PurchaseController.js');
+                    $ocLazyLoad.load({
+                        name: 'PurchaseController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "purchase", "New"]
+    }).state('home.receive', {
+        url: 'receive',
+        template: require('./purchase/receive.html'),
+        controller: 'ReceiveController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./purchase/ReceiveController.js');
+                    $ocLazyLoad.load({
+                        name: 'ReceiveController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "receive", "New"]
+    }).state('home.stocktake', {
+        url: 'stocktake',
+        template: require('./stocktake/stocktake.html'),
+        controller: 'StocktakeController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./stocktake/StocktakeController.js');
+                    $ocLazyLoad.load({
+                        name: 'StocktakeController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "stocktake", "New"]
     })
     //$urlRouterProvider.otherwise('/error');
     //$locationProvider.html5Mode(true);
