@@ -65,12 +65,18 @@
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column">
-        <md-button class="md-raised md-primary" aria-label="Add">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="createDrug()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
             </md-tooltip>
             Save
         </md-button>
+        <a href="index.html#!/drugs">
+            <md-button class="md-raised" aria-label="Add">
+                <md-icon>close</md-icon>
+                Cancel
+            </md-button>
+        </a>
     </div>
 </div>

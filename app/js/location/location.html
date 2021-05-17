@@ -20,12 +20,21 @@
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column">
-        <md-button class="md-raised md-primary" aria-label="Add">
+        <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
+    </div>
+    <div layout="row" layout-xs="column">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="location()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
             </md-tooltip>
             Save
         </md-button>
+        <a href="index.html#!/locations">
+            <md-button class="md-raised" aria-label="Add">
+                <md-icon>close</md-icon>
+                Cancel
+            </md-button>
+        </a>
     </div>
 </div>

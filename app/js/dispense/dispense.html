@@ -23,7 +23,7 @@
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Date</label>
                     <md-datepicker ng-model="vm.dispense.date" md-placeholder="Enter date"
-                        input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header ">
+                        input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header" md-mode="day" md-hide-icons="calendar" md-current-view="month">
                     </md-datepicker>
                 </md-input-container>
             </div>
@@ -144,5 +144,11 @@
             </md-tooltip>
             Save
         </md-button>
+        <a href="index.html#!/">
+            <md-button class="md-raised" aria-label="Add">
+                <md-icon>close</md-icon>
+                Cancel
+            </md-button>
+        </a>
     </div>
 </div>

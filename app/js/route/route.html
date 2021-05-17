@@ -5,6 +5,7 @@
     <md-card>
         <md-card-title translate>General Informations</md-card-title>
         <md-card-content>
+            <form name="routeForm">
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Code</label>
@@ -17,15 +18,25 @@
                     <input ng-model="vm.route.name" flex-gt-sm>
                 </md-input-container>
             </div>
+        </form>
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column">
-        <md-button class="md-raised md-primary" aria-label="Add">
+        <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
+    </div>
+    <div layout="row" layout-xs="column">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="route()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
             </md-tooltip>
             Save
         </md-button>
+        <a href="index.html#!/routes">
+            <md-button class="md-raised" aria-label="Add">
+                <md-icon>close</md-icon>
+                Cancel
+            </md-button>
+        </a>
     </div>
 </div>

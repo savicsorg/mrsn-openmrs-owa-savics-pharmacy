@@ -1,7 +1,7 @@
 angular.module('DrugController', []).controller('DrugController', ['$scope', '$rootScope', 'openmrsRest', function ($scope, $rootScope, openmrsRest) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des drugs";
-    $scope.resource = "savicspharmcy/drug";
+    $scope.resource = "savicspharmacy";
     //Breadcrumbs properties
     $rootScope.links = {};
     $rootScope.links["Home"] = "";
@@ -29,5 +29,24 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$r
         { drug_route_id: "5", name: "Rectal" },
         { drug_route_id: "6", name: "Vaginal" }
     ];
+
+    $scope.createDrug = function () {
+        var payload = {
+            "name": "Item 1",
+            "code": "IT003",
+            "description": "Desc Item 1",
+            "buyPrice": 200.0,
+            "sellPrice": 200.0,
+            "virtualstock": 20,
+            "soh": 3,
+            "stockMin": 0,
+            "stockMax": 2000,
+            "unit": 1,
+            "route": 1
+        }
+        openmrsRest.create($scope.resource + "/item", payload).then(function (response) {
+            console.log(response);
+        })
+    }
 
 }]);

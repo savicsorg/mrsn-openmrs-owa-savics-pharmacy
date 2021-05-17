@@ -5,27 +5,42 @@
     <md-card>
         <md-card-title translate>General Informations</md-card-title>
         <md-card-content>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Code</label>
-                    <input ng-model="vm.unit.code">
-                </md-input-container>
-            </div>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Name</label>
-                    <input ng-model="vm.unit.name" flex-gt-sm>
-                </md-input-container>
-            </div>
+            <form name="unitForm">
+                <div layout="row" layout-xs="column">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Code</label>
+                        <input ng-model="vm.unit.code" required flex-gt-sm>
+                    </md-input-container>
+                    <span ng-show="unitForm.vm.unit.code.$touched && unitForm.vm.unit.code.$invalid">The code is
+                        required.</span>
+                </div>
+                <div layout="row" layout-xs="column">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Name</label>
+                        <input ng-model="vm.unit.name" required flex-gt-sm>
+                    </md-input-container>
+                    <span ng-show="unitForm.vm.unit.name.$touched && unitForm.vm.unit.name.$invalid">The name is
+                        required.</span>
+                </div>
+            </form>
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column">
-        <md-button class="md-raised md-primary" aria-label="Add">
+        <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
+    </div>
+    <div layout="row" layout-xs="column">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="unit()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
             </md-tooltip>
             Save
         </md-button>
+        <a href="index.html#!/units">
+            <md-button class="md-raised" aria-label="Add">
+                <md-icon>close</md-icon>
+                Cancel
+            </md-button>
+        </a>
     </div>
 </div>

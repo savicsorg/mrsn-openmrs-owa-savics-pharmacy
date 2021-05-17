@@ -3,9 +3,7 @@ angular.module('DispenseController', []).controller('DispenseController', ['$sco
     $scope.appTitle = "Gestion des drugs";
     $scope.resource = "savicspharmcy/dispense";
     //Breadcrumbs properties
-    $rootScope.links = {};
-    $rootScope.links["Home"] = "";
-    $rootScope.links["New"] = "/dispense";
+    $rootScope.links = { "Pharmacy management module": "", "Dispense": "dispense" };
 
     var vm = this;
     vm.appTitle = "Dispension";

@@ -203,6 +203,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "Locations"]
     }).state('home.location', {
         url: 'location',
+        params: { code: undefined, name: undefined, id: undefined },
         template: require('./location/location.html'),
         controller: 'LocationController',
         resolve: {
@@ -239,6 +240,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "Units"]
     }).state('home.unit', {
         url: 'unit',
+        params: { code: undefined, name: undefined, id: undefined },
         template: require('./unit/unit.html'),
         controller: 'UnitController',
         resolve: {
@@ -275,6 +277,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "Routes"]
     }).state('home.route', {
         url: 'route',
+        params: { code: undefined, name: undefined, id: undefined },
         template: require('./route/route.html'),
         controller: 'RouteController',
         resolve: {

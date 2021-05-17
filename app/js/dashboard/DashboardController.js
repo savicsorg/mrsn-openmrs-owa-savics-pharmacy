@@ -3,8 +3,7 @@ angular.module('DashboardController', []).controller('DashboardController', ['$s
     $scope.appTitle = "Gestion des drugs";
     $scope.resource = "savicspharmcy/";
     //Breadcrumbs properties
-    $rootScope.links = {};
-    $rootScope.links["Home"] = "";
+    $rootScope.links = { "Pharmacy management module": "" };
 
     var vm = this;
     vm.appTitle = "Gestion des Drugs";
