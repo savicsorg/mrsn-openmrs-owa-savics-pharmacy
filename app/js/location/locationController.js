@@ -1,4 +1,4 @@
-angular.module('LocationController', []).controller('LocationController', ['$scope', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $stateParams, $rootScope, $mdToast, openmrsRest) {
+angular.module('LocationController', []).controller('LocationController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des locations";
     $scope.resource = "savicspharmacy";
@@ -9,15 +9,17 @@ angular.module('LocationController', []).controller('LocationController', ['$sco
     var vm = this;
     vm.appTitle = "New location entry";
 
-    if ($stateParams.id) {
+    var type = "";
+    var msg = "";
+
+    if ($stateParams.uuid) {
         //we are in edit mode
         vm.location = $stateParams;
         vm.appTitle = "Edit type entry";
     }
 
     $scope.location = function () {
-        var type = "";
-        var msg = "";
+  
         if (!vm.location || !vm.location.code || !vm.location.name) {
             type = "error";
             msg = "Please check if your input are valid ones."
@@ -26,29 +28,47 @@ angular.module('LocationController', []).controller('LocationController', ['$sco
         }
         document.getElementById("loading_submit").style.visibility = "visible";
 
-        var payload = vm.location.id ? { name: vm.location.name, code: vm.location.code, id: vm.location.id } : { name: vm.location.name, code: vm.location.code };
+        var payload = $stateParams.uuid ? { name: vm.location.name, code: vm.location.code, uuid: vm.location.uuid } : { name: vm.location.name, code: vm.location.code };
 
-        openmrsRest.create($scope.resource + "/location", payload).then(function (response) {
-            document.getElementById("loading_submit").style.visibility = "hidden";
-            if (response.id) {
-                type = "success";
-                msg = response.name + " is Well saved.";
-                vm.location.name = "";
-                vm.location.code = "";
-            } else {
-                type = "error";
-                msg = "we can't save your data.";
-            }
-            showToast(msg, type);
-        }).catch(function (e) {
-            document.getElementById("loading_submit").style.visibility = "hidden";
+        if ($stateParams.uuid) {
+            openmrsRest.update($scope.resource + "/location", payload).then(function (response) {
+                handleResponse(response)
+            }).catch(function (e) {
+                handleResponse(response, e)
+            });
+        } else {
+            openmrsRest.create($scope.resource + "/location", payload).then(function (response) {
+                handleResponse(response)
+            }).catch(function (e) {
+                handleResponse(response, e)
+            });
+        }
+    }
+
+    function handleResponse(response, e = null) {
+        document.getElementById("loading_submit").style.visibility = "hidden";
+        if (e) {
             type = "error";
             msg = e.data.error.message;
             showToast(msg, type);
-        });
+            return;
+        }
+        if (response.uuid) {
+            type = "success";
+            msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
+            vm.location.name = "";
+            vm.location.code = "";
+        } else {
+            type = "error";
+            msg = "we can't save your data.";
+        }
+        showToast(msg, type);
     }
 
     function showToast(msg, type) {
+        if (type != "error") {
+            $state.go('home.locations')
+        }
         $mdToast.show(
             $mdToast.simple()
                 .content(msg)

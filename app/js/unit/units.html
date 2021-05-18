@@ -39,7 +39,7 @@
                         <tr md-row ng-repeat="unit in units |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                             <td> {{unit.code}} </td>
                             <td> {{unit.name}} </td>
-                            <td> <a href="" ng-click="openEdit(unit)"> Edit</a> | <a href="">Delete</a> </td>
+                            <td> <a href="" ng-click="openEdit(unit)"> Edit</a> | <a href="" ng-click="delete(unit.uuid)">Delete</a> </td>
                         </tr>
                     </tbody>
                 </table>

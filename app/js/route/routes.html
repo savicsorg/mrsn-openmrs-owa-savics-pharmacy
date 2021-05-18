@@ -36,11 +36,10 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row
-                        data-ng-repeat="route in routes |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                    <tr md-row data-ng-repeat="route in routes |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{route.code}}</td>
                         <td>{{route.name}}</td>
-                        <td><a href="" ng-click="openEdit(route)">Edit</a> | <a href="">Delete</a></td>
+                        <td><a href="" ng-click="openEdit(route)">Edit</a> | <a href="" ng-click="delete(route.uuid)">Delete</a></td>
                     </tr>
                 </tbody>
             </table>

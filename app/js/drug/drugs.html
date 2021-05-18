@@ -3,9 +3,9 @@
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex=""> Drug management </h1>
         <a href="index.html#!/">
-        <md-button class="md-raised">
-            <md-icon>arrow_back</md-icon>Back
-        </md-button>
+            <md-button class="md-raised">
+                <md-icon>arrow_back</md-icon>Back
+            </md-button>
         </a>
         <a href="index.html#!/units">
             <md-button class="md-raised md-warn">
@@ -43,6 +43,7 @@
                         <th md-column md-order-by="designation"><span translate>Designation</span></th>
                         <th md-column md-order-by="unit"><span translate>Unit</span></th>
                         <th md-column md-order-by="route"><span translate>Route</span></th>
+                        <th md-column md-order-by="route"><span translate>Price</span></th>
                         <th md-column md-order-by="actions"><span translate>Actions</span></th>
                     </tr>
                 </thead>
@@ -52,7 +53,17 @@
                         <td md-cell>{{data.designation}}</td>
                         <td md-cell>{{data.unit}}</td>
                         <td md-cell>{{data.route}}</td>
-                        <td md-cell><a href="">Edit</a> | <a href="">Delete</a></td>
+                        <td md-cell>{{data.route}}</td>
+                        <td md-cell>
+                            <button class="md-fab md-mini md-primary md-button" type="button"
+                                aria-label="Add">
+                                <md-icon class=" material-icons" role="img" aria-hidden="true">edit</md-icon>
+                            </button>
+                            <button class="md-fab md-mini md-primary md-button" type="button"
+                                aria-label="Remove">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

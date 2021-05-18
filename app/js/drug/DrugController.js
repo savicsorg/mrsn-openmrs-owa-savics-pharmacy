@@ -1,52 +1,108 @@
-angular.module('DrugController', []).controller('DrugController', ['$scope', '$rootScope', 'openmrsRest', function ($scope, $rootScope, openmrsRest) {
+angular.module('DrugController', []).controller('DrugController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des drugs";
     $scope.resource = "savicspharmacy";
+    $scope.concept_ressource = "concept";
     //Breadcrumbs properties
-    $rootScope.links = {};
-    $rootScope.links["Home"] = "";
-    $rootScope.links["Drugs"] = "/drugs";
-    $rootScope.links["New"] = "/drug";
+    $rootScope.links = { "Pharmacy management module": "", "Drugs": "drugs", "New": "drug" };
 
     var vm = this;
     vm.appTitle = "New Drug entry";
-    vm.resource = "savicspharmcy/drug";
-    vm.drugTypes = [
-        { drug_type_id: "1", name: "Box" },
-        { drug_type_id: "2", name: "Tablets" },
-        { drug_type_id: "3", name: "Capsules" },
-        { drug_type_id: "4", name: "Enrob tablets" },
-        { drug_type_id: "5", name: "Flacon" },
-        { drug_type_id: "6", name: "Sachets" },
-        { drug_type_id: "7", name: "Platelets" }
-    ];
 
-    vm.routes = [
-        { drug_route_id: "1", name: "Mouth" },
-        { drug_route_id: "2", name: "Cutanée" },
-        { drug_route_id: "3", name: "IV" },
-        { drug_route_id: "4", name: "Ocular" },
-        { drug_route_id: "5", name: "Rectal" },
-        { drug_route_id: "6", name: "Vaginal" }
-    ];
+    var type = "";
+    var msg = "";
 
-    $scope.createDrug = function () {
-        var payload = {
-            "name": "Item 1",
-            "code": "IT003",
-            "description": "Desc Item 1",
-            "buyPrice": 200.0,
-            "sellPrice": 200.0,
-            "virtualstock": 20,
-            "soh": 3,
-            "stockMin": 0,
-            "stockMax": 2000,
-            "unit": 1,
-            "route": 1
-        }
-        openmrsRest.create($scope.resource + "/item", payload).then(function (response) {
-            console.log(response);
-        })
+    if ($stateParams.uuid) {
+        //we are in edit mode
+        vm.drug = $stateParams;
+        vm.appTitle = "Edit type entry";
     }
+
+    $scope.drug = function () {
+        if (!vm.drug || !vm.drug.code || !vm.drug.name || !vm.drug.address || !vm.drug.email || !vm.drug.tel) {
+            type = "error";
+            msg = "Please check if your input are valid ones."
+            showToast(msg, type);
+            return;
+        }
+        document.getElementById("loading_submit").style.visibility = "visible";
+
+        var payload = $stateParams.uuid ? { name: vm.drug.name, code: vm.drug.code, address: vm.drug.address, email: vm.drug.email, tel: vm.drug.tel, uuid: vm.drug.uuid } : { name: vm.drug.name, code: vm.drug.code, address: vm.drug.address, email: vm.drug.email, tel: vm.drug.tel };
+
+        if ($stateParams.uuid) {
+            openmrsRest.update($scope.resource + "/drug", payload).then(function (response) {
+                handleResponse(response)
+            }).catch(function (e) {
+                handleResponse(response, e)
+            });
+        } else {
+            openmrsRest.create($scope.resource + "/drug", payload).then(function (response) {
+                handleResponse(response)
+            }).catch(function (e) {
+                handleResponse(response, e)
+            });
+        }
+    }
+
+    function handleResponse(response, e = null) {
+        document.getElementById("loading_submit").style.visibility = "hidden";
+        if (e) {
+            type = "error";
+            msg = e.data.error.message;
+            showToast(msg, type);
+            return;
+        }
+        if (response.uuid) {
+            type = "success";
+            msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
+            vm.drug.name = "";
+            vm.drug.code = "";
+            vm.drug.address = "";
+            vm.drug.email = "";
+            vm.drug.tel = "";
+        } else {
+            type = "error";
+            msg = "we can't save your data.";
+        }
+        showToast(msg, type);
+    }
+
+    function showToast(msg, type) {
+        if (type != "error") {
+            $state.go('home.drugs')
+        }
+        $mdToast.show(
+            $mdToast.simple()
+                .content(msg)
+                .theme(type + "-toast")
+                .position('top right')
+                .hideDelay(3000))
+            .then(function () {
+                $log.log('Toast dismissed.');
+            }).catch(function () {
+                $log.log('Toast failed or was forced to close early by another toast.');
+            });
+    }
+
+    $scope.getMatches = function (searchText) {
+        return openmrsRest.getFull($scope.concept_ressource + "?q=" + searchText).then(function (response) {
+            return response.results;
+        });
+    };
+
+    $scope.routes = function () {
+        openmrsRest.getFull($scope.resource + "/route").then(function (response) {
+            $scope.routes = response.results;
+        });
+    }
+
+    $scope.units = function () {
+        openmrsRest.getFull($scope.resource + "/unit").then(function (response) {
+            $scope.units = response.results;
+        });
+    }
+
+
+
 
 }]);

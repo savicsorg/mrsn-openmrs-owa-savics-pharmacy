@@ -21,37 +21,39 @@
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
-                <input type="search" name="search" ng-model="filter.search" placeholder="{{ 'Search...' | translate }}">
+                <input type="search" name="search" ng-model="searchAll" placeholder="{{ 'Search...' | translate }}">
             </form>
         </div>
     </md-toolbar>
     <md-card>
-        <md-table-container class="container" fixed-column-table>
+        <md-table-container class="container">
             <table md-table md-progress="promise">
-                <thead md-head md-order="query.order">
+                <thead md-head>
                     <tr md-row>
-                        <th md-column md-order-by="code"><span translate>supplier code</span></th>
-                        <th md-column md-order-by="name"><span translate>Name</span></th>
-                        <th md-column md-order-by="unit"><span translate>Address</span></th>
-                        <th md-column md-order-by="route"><span translate>Email</span></th>
-                        <th md-column md-order-by="actions"><span translate>Tel</span></th>
-                        <th md-column md-order-by="actions"><span translate>Action</span></th>
+                        <th><span translate>supplier code</span></th>
+                        <th><span translate>Name</span></th>
+                        <th><span translate>Address</span></th>
+                        <th><span translate>Email</span></th>
+                        <th><span translate>Tel</span></th>
+                        <th><span translate>Action</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row data-ng-repeat="data in suppliers">
-                        <td md-cell>{{data.code}}</td>
-                        <td md-cell>{{data.name}}</td>
-                        <td md-cell>{{data.address}}</td>
-                        <td md-cell>{{data.email}}</td>
-                        <td md-cell>{{data.tel}}</td>
-                        <td md-cell><a href="">Edit</a> | <a href="">Delete</a></td>
+                    <tr md-row
+                        data-ng-repeat="supplier in suppliers |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                        <td>{{supplier.code}}</td>
+                        <td>{{supplier.name}}</td>
+                        <td>{{supplier.address}}</td>
+                        <td>{{supplier.email}}</td>
+                        <td>{{supplier.tel}}</td>
+                        <td><a href="" ng-click="openEdit(supplier)">Edit</a> | <a href="" ng-click="delete(supplier.uuid)">Delete</a></td>
                     </tr>
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-limit-options="[10, 15, 50, 100]" md-page="query.page"
-            md-total="{{suppliers.count}}" md-page-select="true" md-label="$parent.label">
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{suppliers.length}}"
+            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+            md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
         </md-table-pagination>
     </md-card>
 </div>

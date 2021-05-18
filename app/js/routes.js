@@ -95,6 +95,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "Suppliers"]
     }).state('home.supplier', {
         url: 'supplier',
+        params: { code: undefined, name: undefined, address: undefined, email: undefined, tel: undefined, uuid: undefined },
         template: require('./supplier/supplier.html'),
         controller: 'SupplierController',
         resolve: {
@@ -203,7 +204,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "Locations"]
     }).state('home.location', {
         url: 'location',
-        params: { code: undefined, name: undefined, id: undefined },
+        params: { code: undefined, name: undefined, uuid: undefined },
         template: require('./location/location.html'),
         controller: 'LocationController',
         resolve: {
@@ -240,7 +241,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "Units"]
     }).state('home.unit', {
         url: 'unit',
-        params: { code: undefined, name: undefined, id: undefined },
+        params: { code: undefined, name: undefined, uuid: undefined },
         template: require('./unit/unit.html'),
         controller: 'UnitController',
         resolve: {
@@ -277,7 +278,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "Routes"]
     }).state('home.route', {
         url: 'route',
-        params: { code: undefined, name: undefined, id: undefined },
+        params: { code: undefined, name: undefined, uuid: undefined },
         template: require('./route/route.html'),
         controller: 'RouteController',
         resolve: {
