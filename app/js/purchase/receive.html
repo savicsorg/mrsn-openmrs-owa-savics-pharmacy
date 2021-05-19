@@ -44,13 +44,26 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row data-ng-repeat="d in receives">
-                        <td md-cell>{{d.code}}</td>
-                        <td md-cell>{{d.supplier}}</td>
-                        <td md-cell>{{d.approbation}}</td>
-                        <td md-cell>{{d.reception}}</td>
-                        <td md-cell>{{d.total}}</td>
-                        <td md-cell><a href="index.html#!/purchase">View</a> | <a href="">Approve</a>| <a href="">Deny </a></td>
+                    <tr md-row data-ng-repeat="receive in receives">
+                        <td md-cell>{{receive.code}}</td>
+                        <td md-cell>{{receive.supplier}}</td>
+                        <td md-cell>{{receive.approbation}}</td>
+                        <td md-cell>{{receive.reception}}</td>
+                        <td md-cell>{{receive.total}}</td>
+                        <td md-cell>
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Add" ng-click="openView(receive)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">visibility</md-icon>
+                                <md-tooltip md-direction="top"><span translate>View</span></md-tooltip>
+                            </button>
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove" ng-click="openView(receive)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">check_circle</md-icon>
+                                <md-tooltip md-direction="top"><span translate>Received</span></md-tooltip>
+                            </button>
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove" ng-click="delete(receive)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">highlight_off</md-icon>
+                                <md-tooltip md-direction="top"><span translate>Delete</span></md-tooltip>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

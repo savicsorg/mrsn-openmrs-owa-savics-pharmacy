@@ -8,9 +8,11 @@
             <div layout="row" layout-xs="column">
                 <md-autocomplete class="md-block" flex-gt-sm md-floating-label="Search drug"
                     md-selected-item="selectedItem" md-search-text="searchText"
-                    md-items="item in getMatches(searchText)" md-item-text="item.display">
+                    md-items="item in getMatches(searchText)" md-item-text="item.display" md-clear-button="true">
                     <md-item-template>
                         <span md-highlight-text="searchText">{{item.display}}</span>
+                        <input type="text" ng-model="vm.drug.name" value="{{item.display}}" style="visibility: hidden;">
+                        <input type="text" ng-model="vm.drug.uuid" value="{{item.uuid}}" style="visibility: hidden;">
                     </md-item-template>
                     <md-not-found>
                         No matches found.
@@ -23,12 +25,12 @@
                     <input ng-model="vm.drug.code">
                 </md-input-container>
             </div>
-            <div layout="row" layout-xs="column">
+            <!-- <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Designation</label>
                     <input ng-model="vm.drug.designation" flex-gt-sm>
                 </md-input-container>
-            </div>
+            </div> -->
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Type</label>

@@ -39,7 +39,6 @@ angular.module('LocationsController', ['ngMaterial', 'md.data.table']).controlle
 
     $scope.openEdit = function (data) {
         $state.go('home.location', { code: data.code, name: data.name, uuid: data.uuid });
-
     }
 
     $scope.delete = function (uuid) {

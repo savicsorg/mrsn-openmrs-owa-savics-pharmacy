@@ -1,4 +1,4 @@
-angular.module('DrugsController', []).controller('DrugsController', ['$scope', '$rootScope', 'openmrsRest', function ($scope, $rootScope, openmrsRest) {
+angular.module('DrugsController', []).controller('DrugsController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des drugs";
     $scope.resource = "savicspharmcy/drugs";
@@ -20,6 +20,8 @@ angular.module('DrugsController', []).controller('DrugsController', ['$scope', '
         { code: "N02BE01", designation: "Acetaminophen", unit: "Tablet", route: "oral", lastModified: "2020-03-12" }
     ];
 
-    
+    $scope.openView = function () {
+        $state.go('home.drug', {});
+    }
 
 }]);

@@ -24,12 +24,12 @@
                     <label translate>Order N<sub>o</sub></label>
                     <input ng-model="vm.order_number">
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
+                <!-- <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Reception Date</label>
                     <md-datepicker ng-model="vm.reception_date" md-placeholder="Enter date"
                         input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header ">
                     </md-datepicker>
-                </md-input-container>
+                </md-input-container> -->
             </div>
         </md-card-content>
     </md-card>
@@ -40,11 +40,11 @@
                 <md-card-title>
                     Name
                 </md-card-title>
-                <md-card-title>
+                <!-- <md-card-title>
                     Batch
-                </md-card-title>
+                </md-card-title> -->
                 <md-card-title>
-                    Unit
+                    Type
                 </md-card-title>
                 <md-card-title>
                     Avl Qty
@@ -55,12 +55,12 @@
                 <md-card-title>
                     Manufacturer Price
                 </md-card-title>
-                <md-card-title>
+                <!-- <md-card-title>
                     Exp date
                 </md-card-title>
                 <md-card-title>
                     Total
-                </md-card-title>
+                </md-card-title> -->
                 <md-card-title>
                     Actions
                 </md-card-title>
@@ -70,14 +70,14 @@
                     <label translate>Drug</label>
                     <input class="form-control" type="text" ng-model="choice.drug_name">
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
+                <!-- <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Batch</label>
                     <md-select ng-model="choice.drug_batch">
                         <md-option ng-repeat="b in vm.batches" ng-value="b.id">
                             {{b.name}}
                         </md-option>
                     </md-select>
-                </md-input-container>
+                </md-input-container> -->
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Unit</label>
                     <md-select ng-model="choice.drug_unit">
@@ -91,30 +91,30 @@
                     <input class="form-control" type="number" ng-model="choice.avl_qty">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Qty</label>
+                    <label translate>Qty to order</label>
                     <input class="form-control" type="number" ng-model="choice.qty">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>price</label>
                     <input class="form-control" type="number" ng-model="choice.price">
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <!-- <label translate>Exp date</label> -->
+                <!-- <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Exp date</label> 
                     <input class="form-control" type="text" ng-model="choice.drug_exp_date">
                     </md-datepicker>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Total</label>
                     <input class="form-control" type="number" ng-model="choice.total">
-                </md-input-container>
+                </md-input-container> -->
                 <md-input-container class="md-block" flex-gt-sm>
                     <!-- <a href="" ng-click="removeChoice(choice.id)"  ng-if="choice.id!=index">Remove</a>
                     <a href="" ng-click="addNewChoice()"  ng-if="choice.id===index">Add</a> -->
-                    <md-button class="md-raised md-primary" aria-label="remove" ng-click="removeChoice(choice.id)"
+                    <md-button class="md-fab md-mini md-primary md-button" aria-label="remove" ng-click="removeChoice(choice.id)"
                         ng-if="choice.id!=index">
                         <md-icon>remove</md-icon>
                     </md-button>
-                    <md-button class="md-raised md-primary" aria-label="Add" ng-click="addNewChoice()"
+                    <md-button class="md-fab md-mini md-primary md-button" aria-label="Add" ng-click="addNewChoice()"
                         ng-if="choice.id===index">
                         <md-icon>add</md-icon>
                     </md-button>

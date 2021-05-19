@@ -46,7 +46,16 @@
                         <td>{{supplier.address}}</td>
                         <td>{{supplier.email}}</td>
                         <td>{{supplier.tel}}</td>
-                        <td><a href="" ng-click="openEdit(supplier)">Edit</a> | <a href="" ng-click="delete(supplier.uuid)">Delete</a></td>
+                        <td>
+                            <button ng-click="openEdit(supplier)" class="md-fab md-mini md-primary md-button"
+                                type="button" aria-label="Add">
+                                <md-icon class=" material-icons" role="img" aria-hidden="true">edit</md-icon>
+                            </button>
+                            <button ng-click="delete(supplier.uuid)" class="md-fab md-mini md-primary md-button"
+                                type="button" aria-label="Remove">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

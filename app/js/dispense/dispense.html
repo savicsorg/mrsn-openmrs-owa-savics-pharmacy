@@ -46,7 +46,7 @@
                     Avl Qty
                 </md-card-title>
                 <md-card-title>
-                    Qty
+                    Qty to dispense
                 </md-card-title>
                 <md-card-title>
                     Price
@@ -54,9 +54,9 @@
                 <md-card-title>
                     Exp date
                 </md-card-title>
-                <md-card-title>
+                <!-- <md-card-title>
                     Total
-                </md-card-title>
+                </md-card-title> -->
                 <md-card-title>
                     Actions
                 </md-card-title>
@@ -99,18 +99,18 @@
                     <input class="form-control" type="text" ng-model="choice.drug_exp_date">
                     </md-datepicker>
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
+                <!-- <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Total</label>
                     <input class="form-control" type="number" ng-model="choice.total">
-                </md-input-container>
+                </md-input-container> -->
                 <md-input-container class="md-block" flex-gt-sm>
                     <!-- <a href="" ng-click="removeChoice(choice.id)"  ng-if="choice.id!=index">Remove</a>
                     <a href="" ng-click="addNewChoice()"  ng-if="choice.id===index">Add</a> -->
-                    <md-button class="md-raised md-primary" aria-label="remove" ng-click="removeChoice(choice.id)"
+                    <md-button class="md-fab md-mini md-primary md-button" aria-label="remove" ng-click="removeChoice(choice.id)"
                         ng-if="choice.id!=index">
                         <md-icon>remove</md-icon>
                     </md-button>
-                    <md-button class="md-raised md-primary" aria-label="Add" ng-click="addNewChoice()"
+                    <md-button class="md-fab md-mini md-primary md-button" aria-label="Add" ng-click="addNewChoice()"
                         ng-if="choice.id===index">
                         <md-icon>add</md-icon>
                     </md-button>
