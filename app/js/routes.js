@@ -370,12 +370,18 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
     })
     //$urlRouterProvider.otherwise('/error');
     //$locationProvider.html5Mode(true);
-}]).run(['$rootScope', '$state', '$transitions', function ($rootScope, $state, $transitions) {
+}]).run(['$rootScope', '$state', '$transitions', 'openmrsTranslate', function ($rootScope, $state, $transitions, openmrsTranslate) {
     $rootScope.kernel = {
 
     }
+    
+    //CHange language function
+    $rootScope.changeLanguage = function (langKey) {
+       return openmrsTranslate.changeLanguage(langKey);
+    };
+    
+    
     //$state.go('home.dashboard.main');
-    console.log($state);
     $transitions.onStart({}, function (trans) {
 
         var nextState = trans.to();
@@ -384,7 +390,6 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         $rootScope.kernel.version = "1.0.0";
         $rootScope.kernel.released = "00/00/0000";
         $rootScope.state = nextState.name;
-        console.log(nextState);
 
         // Build the breadcrumb
         if (nextState.breadcrumbs) {

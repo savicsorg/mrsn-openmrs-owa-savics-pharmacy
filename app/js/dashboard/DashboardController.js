@@ -8,5 +8,5 @@ angular.module('DashboardController', []).controller('DashboardController', ['$s
     var vm = this;
     vm.appTitle = "Gestion des Drugs";
     vm.resource = "savicspharmcy/";
-
+    
 }]);
