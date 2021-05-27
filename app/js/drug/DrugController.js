@@ -31,7 +31,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
         // "stockMax": 2000,
         // "unit": 1,
         // "route": 1
-
+        console.log(searchText);
         console.log(vm.drug);
         return;
 
@@ -43,7 +43,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
         }
         document.getElementById("loading_submit").style.visibility = "visible";
 
-    
+
 
         var payload = $stateParams.uuid ? { name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: vm.drug.buyPrice, sellPrice: vm.drug.sellPrice, uuid: vm.drug.uuid, uuid: vm.drug.uuid, uuid: vm.drug.uuid, uuid: vm.drug.uuid, uuid: vm.drug.uuid, uuid: vm.drug.uuid, uuid: vm.drug.uuid } : { name: vm.drug.name, code: vm.drug.code, address: vm.drug.address, email: vm.drug.email, tel: vm.drug.tel };
 
