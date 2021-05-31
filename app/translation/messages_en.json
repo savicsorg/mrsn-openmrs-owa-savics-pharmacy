@@ -1,9 +1,9 @@
 {
     "pharmacy.home.title": "Pharmacy management module",
     "pharmacy.chooselanguage": "Choose language",
-    "pharmacy.dispensedrugs": "Dispense drugs",
-    "pharmacy.locationmanagement": "Pharmacy Location management",
-    "pharmacy.inventorymanagement": "Inventory management",
+    "pharmacy.dispensedrugs": "Dispense and distribution",
+    "pharmacy.administration": "Pharmacy settings",
+    "pharmacy.inventorymanagement": "Stock and inventory",
     "pharmacy.productmanagement": "Product management",
     "pharmacy.ordermanagement": "Order management",
     "Name": "Name",

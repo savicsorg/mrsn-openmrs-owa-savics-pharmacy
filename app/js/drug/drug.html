@@ -8,11 +8,10 @@
             <div layout="row" layout-xs="column">
                 <md-autocomplete class="md-block" flex-gt-sm md-floating-label="Search drug"
                     md-selected-item="selectedItem" md-search-text="searchText"
-                    md-items="item in getMatches(searchText)" md-item-text="item.display" md-clear-button="true" ng-model="vm.drug.name">
+                    md-items="item in getMatches(searchText)" md-item-text="item.display" md-clear-button="true"
+                    md-selected-item-change="selectedItemChange(item)">
                     <md-item-template>
                         <span md-highlight-text="searchText">{{item.display}}</span>
-                        <input type="text" ng-model="vm.drug.name" value="{{item.display}}" style="visibility: hidden;">
-                        <input type="text" ng-model="vm.drug.uuid" value="{{item.uuid}}" style="visibility: hidden;">
                     </md-item-template>
                     <md-not-found>
                         No matches found.
@@ -53,21 +52,21 @@
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block md-input-has-value" flex-gt-sm>
                     <label translate>Buy price</label>
-                    <input type="number" ng-model="vm.drug.buy_price">
+                    <input type="number" min="0" ng-model="vm.drug.buy_price">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Sell price</label>
-                    <input type="number" ng-model="vm.drug.sell_price">
+                    <input type="number" min="0" ng-model="vm.drug.sell_price">
                 </md-input-container>
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block md-input-has-value" flex-gt-sm>
                     <label translate>Min Stock</label>
-                    <input type="number" ng-model="vm.drug.min_stock">
+                    <input type="number" min="0" ng-model="vm.drug.stock_min">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Max Stock</label>
-                    <input type="number" ng-model="vm.drug.max_stock">
+                    <input type="number" min="0" ng-model="vm.drug.stock_max">
                 </md-input-container>
             </div>
             <div layout="row" layout-xs="column">

@@ -2,7 +2,7 @@
     "pharmacy.home.title": "Module de gestion des pharmacies",
     "pharmacy.chooselanguage": "Choisir la langue",
     "pharmacy.dispensedrugs": "Dispenser des médicaments",
-    "pharmacy.locationmanagement": "Gestion des emplacements de pharmacie",
+    "pharmacy.administration": "Paramètres de la pharmacie",
     "pharmacy.inventorymanagement": "Gestion des stocks",
     "pharmacy.productmanagement": "Gestion des produits",
     "pharmacy.ordermanagement": "Gestion des commandes",

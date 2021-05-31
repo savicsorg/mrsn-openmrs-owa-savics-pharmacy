@@ -11,50 +11,39 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
 
     var type = "";
     var msg = "";
+    vm.drug = {};
 
     if ($stateParams.uuid) {
         //we are in edit mode
         vm.drug = $stateParams;
         vm.appTitle = "Edit type entry";
+
+        console.log(vm.drug);
     }
 
     $scope.drug = function () {
 
-        // "name": "Item 1",
-        // "code": "IT003",
-        // "description": "Desc Item 1",
-        // "buyPrice": 200.0,
-        // "sellPrice": 200.0,
-        // "virtualstock": 20,
-        // "soh": 3,
-        // "stockMin": 0,
-        // "stockMax": 2000,
-        // "unit": 1,
-        // "route": 1
-        console.log(searchText);
+        vm.drug.virtualstock = 1;
+        vm.drug.soh = 1;
         console.log(vm.drug);
-        return;
-
-        if (!vm.drug.name || !vm.drug.code || !vm.drug.description || !vm.drug.buyPrice || !vm.drug.sellPrice || !vm.drug.virtualstock || !vm.drug.soh || !vm.drug.stockMin || !vm.drug.stockMax || !vm.drug.unit || !vm.drug.route) {
-            type = "error";
-            msg = "Please check if your input are valid ones."
-            showToast(msg, type);
-            return;
-        }
+        // if (!vm.drug.name || !vm.drug.code || !vm.drug.description || !vm.drug.buy_price || !vm.drug.sell_price || !vm.drug.stock_min || !vm.drug.stock_max || !vm.drug.type.id || !vm.drug.route.id) {
+        //     type = "error";
+        //     msg = "Please check if your input are valid ones."
+        //     showToast(msg, type);
+        //     return;
+        // }
         document.getElementById("loading_submit").style.visibility = "visible";
 
-
-
-        var payload = $stateParams.uuid ? { name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: vm.drug.buyPrice, sellPrice: vm.drug.sellPrice, uuid: vm.drug.uuid, uuid: vm.drug.uuid, uuid: vm.drug.uuid, uuid: vm.drug.uuid, uuid: vm.drug.uuid, uuid: vm.drug.uuid, uuid: vm.drug.uuid } : { name: vm.drug.name, code: vm.drug.code, address: vm.drug.address, email: vm.drug.email, tel: vm.drug.tel };
+        var payload = $stateParams.uuid ? { virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buy_price), sellPrice: addZeroes(vm.drug.sell_price), uuid: vm.drug.uuid, soh: vm.drug.soh, stockMin: vm.drug.stock_min, stockMax: vm.drug.stock_max, unit: vm.drug.type.id, route: vm.drug.route.id } : { virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buy_price), sellPrice: addZeroes(vm.drug.sell_price), soh: vm.drug.soh, stockMin: vm.drug.stock_min, stockMax: vm.drug.stock_max, unit: vm.drug.type.id, route: vm.drug.route.id };
 
         if ($stateParams.uuid) {
-            openmrsRest.update($scope.resource + "/drug", payload).then(function (response) {
+            openmrsRest.update($scope.resource + "/item", payload).then(function (response) {
                 handleResponse(response)
             }).catch(function (e) {
                 handleResponse(response, e)
             });
         } else {
-            openmrsRest.create($scope.resource + "/drug", payload).then(function (response) {
+            openmrsRest.create($scope.resource + "/item", payload).then(function (response) {
                 handleResponse(response)
             }).catch(function (e) {
                 handleResponse(response, e)
@@ -107,6 +96,15 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
             return response.results;
         });
     };
+
+    $scope.selectedItemChange = function (item) {
+        vm.drug.name = item.name.display;
+        vm.drug.uuid = item.name.uuid
+    }
+
+    function addZeroes(num) {
+        return num + 0.01;
+    }
 
     $scope.routes = function () {
         openmrsRest.getFull($scope.resource + "/route").then(function (response) {

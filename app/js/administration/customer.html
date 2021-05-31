@@ -38,7 +38,10 @@
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column">
-        <md-button class="md-raised md-primary" aria-label="Add">
+        <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
+    </div>
+    <div layout="row" layout-xs="column">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="customer()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Save</span>

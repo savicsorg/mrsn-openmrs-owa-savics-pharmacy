@@ -60,6 +60,20 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
     }).state('home.drug', {
         url: 'drug',
         template: require('./drug/drug.html'),
+        params: {
+            code: undefined,
+            name: undefined,
+            uuid: undefined,
+            description: undefined,
+            route: undefined,
+            unit: undefined,
+            sellPrice: undefined,
+            buyPrice: undefined,
+            soh: undefined,
+            virtualstock: undefined,
+            stockMax: undefined,
+            stockMin: undefined
+        },
         controller: 'DrugController',
         resolve: {
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
@@ -75,6 +89,24 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "Drug", "New"]
+    }).state('home.drugview', {
+        url: 'drugview',
+        template: require('./drug/drugview.html'),
+        controller: 'DrugViewController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./drug/DrugViewController.js');
+                    $ocLazyLoad.load({
+                        name: 'DrugViewController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "Drug", "View"]
     }).state('home.suppliers', {
         url: 'suppliers',
         template: require('./administration/suppliers.html'),
@@ -132,6 +164,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "Customers"]
     }).state('home.customer', {
         url: 'customer',
+        params: { code: undefined, name: undefined, address: undefined, email: undefined, tel: undefined, uuid: undefined },
         template: require('./administration/customer.html'),
         controller: 'CustomerController',
         resolve: {
@@ -360,13 +393,13 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
     $rootScope.kernel = {
 
     }
-    
+
     //CHange language function
     $rootScope.changeLanguage = function (langKey) {
-       return openmrsTranslate.changeLanguage(langKey);
+        return openmrsTranslate.changeLanguage(langKey);
     };
-    
-    
+
+
     //$state.go('home.dashboard.main');
     $transitions.onStart({}, function (trans) {
 
