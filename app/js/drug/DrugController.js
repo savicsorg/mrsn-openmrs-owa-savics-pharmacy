@@ -12,17 +12,19 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
     var type = "";
     var msg = "";
     vm.drug = {};
+    $scope.item = null;
 
     if ($stateParams.uuid) {
         //we are in edit mode
         vm.drug = $stateParams;
+        $scope.drug_type_id = vm.drug.unit.id;
+        $scope.drug_route_id = vm.drug.route.id;
+        $scope.item = { display: vm.drug.name, uuid: vm.drug.uuid };
+        $scope.selectedItem = vm.drug.name;
         vm.appTitle = "Edit type entry";
-
-        console.log(vm.drug);
     }
 
     $scope.drug = function () {
-
         vm.drug.virtualstock = 1;
         vm.drug.soh = 1;
         console.log(vm.drug);
@@ -34,7 +36,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
         // }
         document.getElementById("loading_submit").style.visibility = "visible";
 
-        var payload = $stateParams.uuid ? { virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buy_price), sellPrice: addZeroes(vm.drug.sell_price), uuid: vm.drug.uuid, soh: vm.drug.soh, stockMin: vm.drug.stock_min, stockMax: vm.drug.stock_max, unit: vm.drug.type.id, route: vm.drug.route.id } : { virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buy_price), sellPrice: addZeroes(vm.drug.sell_price), soh: vm.drug.soh, stockMin: vm.drug.stock_min, stockMax: vm.drug.stock_max, unit: vm.drug.type.id, route: vm.drug.route.id };
+        var payload = $stateParams.uuid ? { virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), uuid: vm.drug.uuid, soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id } : { virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id };
 
         if ($stateParams.uuid) {
             openmrsRest.update($scope.resource + "/item", payload).then(function (response) {
@@ -67,6 +69,12 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
             vm.drug.address = "";
             vm.drug.email = "";
             vm.drug.tel = "";
+            vm.drug.unit = "";
+            vm.drug.route = "";
+            vm.drug.buyPrice = "";
+            vm.drug.sellPrice = "";
+            vm.drug.stockMin = "";
+            vm.drug.stockMax = "";
         } else {
             type = "error";
             msg = "we can't save your data.";
@@ -98,8 +106,10 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
     };
 
     $scope.selectedItemChange = function (item) {
-        vm.drug.name = item.name.display;
-        vm.drug.uuid = item.name.uuid
+        if (item) {
+            vm.drug.name = (item.name) ? item.name.display : item.display;
+            vm.drug.uuid = (item.name) ? item.name.uuid : item.uuid;
+        }
     }
 
     function addZeroes(num) {
