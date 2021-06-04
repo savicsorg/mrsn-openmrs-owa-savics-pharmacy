@@ -38,7 +38,7 @@ angular.module('CustomersController', ['ngMaterial', 'md.data.table']).controlle
     }
 
     $scope.openEdit = function (data) {
-        $state.go('home.customer', { code: data.code, name: data.name, address: data.address, email: data.email, tel: data.tel, customer_type_id: data.customer_type_id, uuid: data.uuid });
+        $state.go('home.customer', { code: data.code, name: data.name, address: data.address, email: data.email, tel: data.tel, customer_type_id: data.customerType, uuid: data.uuid });
     }
 
     $scope.delete = function (uuid) {

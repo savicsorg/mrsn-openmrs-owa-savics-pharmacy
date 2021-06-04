@@ -1,15 +1,12 @@
-angular.module('PurchaseController', []).controller('PurchaseController', ['$scope', '$rootScope', 'openmrsRest', function ($scope, $rootScope, openmrsRest) {
+angular.module('PurchaseController', []).controller('PurchaseController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des achats";
-    $scope.resource = "savicspharmcy/purchase";
+    $scope.resource = "savicspharmacy";
     //Breadcrumbs properties
-    $rootScope.links = {};
-    $rootScope.links["Home"] = "";
-    $rootScope.links["New"] = "/purchase";
+    $rootScope.links = { "Pharmacy management module": "", "New": "purchase" };
 
     var vm = this;
     vm.appTitle = "Order to Supplier";
-    vm.resource = "savicspharmcy/purchase";
 
 
     $scope.choices = [
@@ -42,5 +39,12 @@ angular.module('PurchaseController', []).controller('PurchaseController', ['$sco
         $scope.choices.splice(index, 1);
     };
 
+    $scope.getAllSupplier = function () {
+        openmrsRest.getFull($scope.resource + "/supplier").then(function (response) {
+            vm.suppliers = response.results;
+        })
+    }
+
+    $scope.getAllSupplier();
 
 }]);

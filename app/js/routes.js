@@ -92,6 +92,20 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
     }).state('home.drugview', {
         url: 'drugview',
         template: require('./drug/drugview.html'),
+        params: {
+            code: undefined,
+            name: undefined,
+            uuid: undefined,
+            description: undefined,
+            route: undefined,
+            unit: undefined,
+            sellPrice: undefined,
+            buyPrice: undefined,
+            soh: undefined,
+            virtualstock: undefined,
+            stockMax: undefined,
+            stockMin: undefined
+        },
         controller: 'DrugViewController',
         resolve: {
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {

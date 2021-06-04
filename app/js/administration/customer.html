@@ -22,7 +22,7 @@
                     <label translate>Type</label>
                     <md-select ng-model="vm.customer.type.id">
                         <md-option ng-repeat="t in vm.customertypes" ng-value="t.id"
-                            ng-selected="t.id == vm.customer.type.id">
+                            ng-selected="t.id == customer_type_id">
                             {{t.name}}
                         </md-option>
                     </md-select>

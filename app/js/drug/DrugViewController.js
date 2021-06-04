@@ -9,6 +9,7 @@ angular.module('DrugViewController', []).controller('DrugViewController', ['$sco
     var vm = this;
     vm.appTitle = "View Drug";
 
-    vm.drug = {};
+    vm.drug = $stateParams;
+    console.log(vm.drug);
 
 }]);

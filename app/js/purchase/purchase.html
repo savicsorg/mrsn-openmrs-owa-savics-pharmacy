@@ -10,7 +10,11 @@
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Supplier Name</label>
-                    <input ng-model="vm.supplier_name">
+                    <md-select ng-model="vm.supplier_name">
+                        <md-option ng-repeat="s in vm.suppliers" ng-value="s.id">
+                            {{s.name}}
+                        </md-option>
+                    </md-select>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Approbation Date</label>
@@ -24,12 +28,6 @@
                     <label translate>Order N<sub>o</sub></label>
                     <input ng-model="vm.order_number">
                 </md-input-container>
-                <!-- <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Reception Date</label>
-                    <md-datepicker ng-model="vm.reception_date" md-placeholder="Enter date"
-                        input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header ">
-                    </md-datepicker>
-                </md-input-container> -->
             </div>
         </md-card-content>
     </md-card>
@@ -110,8 +108,8 @@
                 <md-input-container class="md-block" flex-gt-sm>
                     <!-- <a href="" ng-click="removeChoice(choice.id)"  ng-if="choice.id!=index">Remove</a>
                     <a href="" ng-click="addNewChoice()"  ng-if="choice.id===index">Add</a> -->
-                    <md-button class="md-fab md-mini md-primary md-button" aria-label="remove" ng-click="removeChoice(choice.id)"
-                        ng-if="choice.id!=index">
+                    <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
+                        ng-click="removeChoice(choice.id)" ng-if="choice.id!=index">
                         <md-icon>remove</md-icon>
                     </md-button>
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="Add" ng-click="addNewChoice()"

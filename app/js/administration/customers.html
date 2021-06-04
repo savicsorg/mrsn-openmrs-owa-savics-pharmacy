@@ -30,7 +30,8 @@
             <table md-table md-progress="promise">
                 <thead md-head>
                     <tr md-row>
-                        <th><span translate>customer code</span></th>
+                        <th><span translate>Code</span></th>
+                        <th><span translate>Type</span></th>
                         <th><span translate>Name</span></th>
                         <th><span translate>Address</span></th>
                         <th><span translate>Email</span></th>
@@ -42,6 +43,7 @@
                     <tr md-row
                         data-ng-repeat="customer in customers |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{customer.code}}</td>
+                        <td>{{customer.customerType.name}}</td>
                         <td>{{customer.name}}</td>
                         <td>{{customer.address}}</td>
                         <td>{{customer.email}}</td>

@@ -121,7 +121,4 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
     $scope.routes();
     $scope.units();
 
-
-
-
 }]);
