@@ -1,7 +1,7 @@
 angular.module('CustomersController', ['ngMaterial', 'md.data.table']).controller('CustomersController', ['$scope', '$state', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $rootScope, $mdToast, openmrsRest) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des customers";
-    $scope.resource = "savicspharmcy/customers";
+    $scope.resource = "savicspharmacy";
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Customers": "customers" };
 
@@ -38,7 +38,7 @@ angular.module('CustomersController', ['ngMaterial', 'md.data.table']).controlle
     }
 
     $scope.openEdit = function (data) {
-        $state.go('home.customer', { code: data.code, name: data.name, address: data.address, email: data.email, tel: data.tel, uuid: data.uuid });
+        $state.go('home.customer', { code: data.code, name: data.name, address: data.address, email: data.email, tel: data.tel, customer_type_id: data.customer_type_id, uuid: data.uuid });
     }
 
     $scope.delete = function (uuid) {

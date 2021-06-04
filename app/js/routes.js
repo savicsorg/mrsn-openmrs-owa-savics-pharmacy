@@ -164,7 +164,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "Customers"]
     }).state('home.customer', {
         url: 'customer',
-        params: { code: undefined, name: undefined, address: undefined, email: undefined, tel: undefined, uuid: undefined },
+        params: { code: undefined, name: undefined, address: undefined, email: undefined, tel: undefined, customer_type_id: undefined, uuid: undefined },
         template: require('./administration/customer.html'),
         controller: 'CustomerController',
         resolve: {
@@ -181,6 +181,25 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "Customer", "New"]
+    }).state('home.customertype', {
+        url: 'customertype',
+        params: { name: undefined, uuid: undefined },
+        template: require('./administration/customertype.html'),
+        controller: 'CustomertypeController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./administration/CustomertypeController.js');
+                    $ocLazyLoad.load({
+                        name: 'CustomertypeController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "Customertype", "New"]
     }).state('home.types', {
         url: 'types',
         template: require('./administration/types.html'),

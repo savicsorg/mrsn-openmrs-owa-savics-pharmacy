@@ -13,12 +13,14 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     if ($stateParams.uuid) {
         //we are in edit mode
         vm.customer = $stateParams;
+        vm.customer.type.id = vm.customer.customer_type_id;
         vm.appTitle = "Edit type entry";
     }
 
     $scope.customer = function () {
 
-        if (!vm.customer || !vm.customer.code || !vm.customer.name || !vm.customer.address || !vm.customer.email || !vm.customer.tel) {
+
+        if (!vm.customer || !vm.customer.code || !vm.customer.name || !vm.customer.address || !vm.customer.email || !vm.customer.tel || !vm.customer.type.id) {
             type = "error";
             msg = "Please check if your input are valid ones."
             showToast(msg, type);
@@ -26,7 +28,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
         }
         document.getElementById("loading_submit").style.visibility = "visible";
 
-        var payload = $stateParams.uuid ? { name: vm.customer.name, code: vm.customer.code, address: vm.customer.address, email: vm.customer.email, tel: vm.customer.tel, uuid: vm.customer.uuid } : { name: vm.customer.name, code: vm.customer.code, address: vm.customer.address, email: vm.customer.email, tel: vm.customer.tel };
+        var payload = $stateParams.uuid ? { name: vm.customer.name, code: vm.customer.code, address: vm.customer.address, email: vm.customer.email, customer_type_id: vm.customer.type.id, tel: vm.customer.tel, uuid: vm.customer.uuid } : { name: vm.customer.name, code: vm.customer.code, address: vm.customer.address, email: vm.customer.email, tel: vm.customer.tel, customer_type_id: vm.customer.type.id };
 
         if ($stateParams.uuid) {
             openmrsRest.update($scope.resource + "/customer", payload).then(function (response) {
@@ -82,5 +84,13 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
                 $log.log('Toast failed or was forced to close early by another toast.');
             });
     }
+
+    $scope.customertype = function () {
+        openmrsRest.getFull($scope.resource + "/customerType").then(function (response) {
+            vm.customertypes = response.results;
+        });
+    }
+
+    $scope.customertype();
 
 }]);

@@ -19,6 +19,17 @@
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Type</label>
+                    <md-select ng-model="vm.customer.type.id">
+                        <md-option ng-repeat="t in vm.customertypes" ng-value="t.id"
+                            ng-selected="t.id == vm.customer.type.id">
+                            {{t.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <div layout="row" layout-xs="column">
+                <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Address</label>
                     <input ng-model="vm.customer.address" flex-gt-sm>
                 </md-input-container>
