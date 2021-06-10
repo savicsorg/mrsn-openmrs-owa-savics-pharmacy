@@ -1,7 +1,7 @@
 angular.module('SupplierController', []).controller('SupplierController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des Suppliers";
-    $scope.resource = "savicspharmacy;"
+    $scope.resource = "savicspharmacy"
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Suppliers": "suppliers", "New": "supplier" };
     var vm = this;
@@ -82,6 +82,11 @@ angular.module('SupplierController', []).controller('SupplierController', ['$sco
                 $log.log('Toast failed or was forced to close early by another toast.');
             });
     }
+
+
+
+
+    
 
 
 }]);

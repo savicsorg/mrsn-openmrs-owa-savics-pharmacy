@@ -41,8 +41,8 @@ angular.module('SuppliersController', ['ngMaterial', 'md.data.table']).controlle
         $state.go('home.supplier', { code: data.code, name: data.name, address: data.address, email: data.email, tel: data.tel, uuid: data.uuid });
     }
 
-    $scope.delete = function (uuid) {
-        openmrsRest.remove($scope.resource + "/supplier", uuid, "Reason for deletion").then(function (response) {
+    $scope.delete = function (supplier) {
+        openmrsRest.remove($scope.resource + "/supplier", supplier, "Reason for deletion").then(function (response) {
             console.log(response);
             type = "success";
             msg = "Deleted";
