@@ -41,14 +41,14 @@ angular.module('LocationsController', ['ngMaterial', 'md.data.table']).controlle
         $state.go('home.location', { code: data.code, name: data.name, uuid: data.uuid });
     }
 
-    $scope.delete = function (uuid) {
-        openmrsRest.remove($scope.resource + "/location", uuid, "Reason for deletion").then(function (response) {
+    $scope.delete = function (location) {
+        openmrsRest.remove($scope.resource + "/location", location, "Generic Reason").then(function (response) {
             console.log(response);
             type = "success";
             msg = "Deleted";
             showToast(msg, type);
             $scope.getAllLocation();
-        }).catch(function (e) {
+        },function (e) {
             type = "error";
             msg = e.data.error.message;
             showToast(msg, type);
