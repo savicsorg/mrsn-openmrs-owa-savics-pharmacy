@@ -1,4 +1,4 @@
-angular.module('CustomertypeController', []).controller('CustomertypeController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
+angular.module('CustomertypeController', []).controller('CustomertypeController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des type customers";
     $scope.resource = "savicspharmacy";
@@ -126,6 +126,21 @@ angular.module('CustomertypeController', []).controller('CustomertypeController'
             showToast(msg, type);
         });
     }
+
+    $scope.showConfirm = function (ev, obj) {
+        var confirm = $mdDialog.confirm()
+            .title('Would you like to delete your data?')
+            .textContent('If you choose `Yes` this record will be deleted and you will not be able to recover it')
+            .ariaLabel('Lucky day')
+            .targetEvent(ev)
+            .ok('Yes')
+            .cancel('Cancel');
+        $mdDialog.show(confirm).then(function () {
+            $scope.delete(obj);
+        }, function () {
+            $mdDialog.cancel();
+        });
+    };
 
     function showToast(msg, type) {
         $mdToast.show(

@@ -1,4 +1,4 @@
-angular.module('CustomersController', ['ngMaterial', 'md.data.table']).controller('CustomersController', ['$scope', '$state', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $rootScope, $mdToast, openmrsRest) {
+angular.module('CustomersController', ['ngMaterial', 'md.data.table']).controller('CustomersController', ['$scope', '$state', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', function ($scope, $state, $rootScope, $mdToast, openmrsRest, $mdDialog) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des customers";
     $scope.resource = "savicspharmacy";
@@ -7,6 +7,9 @@ angular.module('CustomersController', ['ngMaterial', 'md.data.table']).controlle
 
     var vm = this;
     vm.appTitle = "Gestion des customers";
+
+    var type = "";
+    var msg = "";
 
     $scope.getAllCustomer = function () {
         $scope.customers = [];
@@ -54,6 +57,21 @@ angular.module('CustomersController', ['ngMaterial', 'md.data.table']).controlle
             showToast(msg, type);
         });
     }
+
+    $scope.showConfirm = function (ev, obj) {
+        var confirm = $mdDialog.confirm()
+            .title('Would you like to delete your data?')
+            .textContent('If you choose `Yes` this record will be deleted and you will not be able to recover it')
+            .ariaLabel('Lucky day')
+            .targetEvent(ev)
+            .ok('Yes')
+            .cancel('Cancel');
+        $mdDialog.show(confirm).then(function () {
+            $scope.delete(obj);
+        }, function () {
+            $mdDialog.cancel();
+        });
+    };
 
     function showToast(msg, type) {
         $mdToast.show(

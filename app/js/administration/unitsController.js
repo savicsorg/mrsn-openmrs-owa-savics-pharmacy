@@ -1,4 +1,4 @@
-angular.module('UnitsController', ['ngMaterial', 'md.data.table']).controller('UnitsController', ['$scope', '$state', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $rootScope, $mdToast, openmrsRest) {
+angular.module('UnitsController', ['ngMaterial', 'md.data.table']).controller('UnitsController', ['$scope', '$state', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', function ($scope, $state, $rootScope, $mdToast, openmrsRest, $mdDialog) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des units";
     $scope.resource = "savicspharmacy";
@@ -7,6 +7,9 @@ angular.module('UnitsController', ['ngMaterial', 'md.data.table']).controller('U
 
     var vm = this;
     vm.appTitle = "Gestion des types";
+
+    var type = "";
+    var msg = "";
 
     $scope.getAllUnit = function () {
         $scope.units = [];
@@ -42,9 +45,8 @@ angular.module('UnitsController', ['ngMaterial', 'md.data.table']).controller('U
 
     }
 
-    $scope.delete = function (uuid) {
-        openmrsRest.remove($scope.resource + "/unit", uuid, "Reason for deletion").then(function (response) {
-            console.log(response);
+    $scope.delete = function (obj) {
+        openmrsRest.remove($scope.resource + "/unit", obj, "Reason for deletion").then(function (response) {
             type = "success";
             msg = "Deleted";
             showToast(msg, type);
@@ -55,6 +57,36 @@ angular.module('UnitsController', ['ngMaterial', 'md.data.table']).controller('U
             showToast(msg, type);
         });
     }
+
+    $scope.showConfirm = function (ev, obj) {
+        var confirm = $mdDialog.confirm()
+            .title('Would you like to delete your data?')
+            .textContent('If you choose `Yes` this record will be deleted and you will not be able to recover it')
+            .ariaLabel('Lucky day')
+            .targetEvent(ev)
+            .ok('Yes')
+            .cancel('Cancel');
+        $mdDialog.show(confirm).then(function () {
+            $scope.delete(obj);
+        }, function () {
+            $mdDialog.cancel();
+        });
+    };
+
+    $scope.showConfirm = function (ev, obj) {
+        var confirm = $mdDialog.confirm()
+            .title('Would you like to delete your data?')
+            .textContent('If you choose `Yes` this record will be deleted and you will not be able to recover it')
+            .ariaLabel('Lucky day')
+            .targetEvent(ev)
+            .ok('Yes')
+            .cancel('Cancel');
+        $mdDialog.show(confirm).then(function () {
+            $scope.delete(obj);
+        }, function () {
+            $mdDialog.cancel();
+        });
+    };
 
     function showToast(msg, type) {
         $mdToast.show(

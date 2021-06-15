@@ -58,9 +58,8 @@
                                 <md-tooltip md-direction="top"><span translate>Edit</span></md-tooltip>
                             </button>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove"
-                                ng-click="delete(drug)">
-                                <md-icon class="material-icons" role="img" aria-hidden="true">highlight_off</md-icon>
-                                <md-tooltip md-direction="top"><span translate>View</span></md-tooltip>
+                                ng-click="showConfirm($event,drug)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
                                 <md-tooltip md-direction="top"><span translate>Delete</span></md-tooltip>
                             </button>
                         </td>
