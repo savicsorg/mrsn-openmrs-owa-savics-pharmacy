@@ -415,6 +415,24 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "receive", "New"]
+    }).state('home.stock', {
+        url: 'stock',
+        template: require('./inventory/stock.html'),
+        controller: 'InventoryController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/InventoryController.js');
+                    $ocLazyLoad.load({
+                        name: 'InventoryController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home"]
     }).state('home.administration', {
         url: 'administration',
         template: require('./administration/main.html'),
