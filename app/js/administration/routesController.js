@@ -87,4 +87,8 @@ angular.module('RoutesController', []).controller('RoutesController', ['$scope',
             });
     }
 
+    $scope.search = function (row) {
+        return (angular.lowercase(row.name).indexOf($scope.searchAll || '') !== -1 || angular.lowercase(row.code).indexOf($scope.searchAll || '') !== -1);
+    };
+
 }])

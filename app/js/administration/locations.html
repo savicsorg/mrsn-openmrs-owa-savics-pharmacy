@@ -38,7 +38,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="location in locations |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="location in locations |filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{location.uuid}}</td>
                         <td>{{location.code}}</td>
                         <td>{{location.name}}</td>

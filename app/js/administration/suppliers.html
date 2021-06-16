@@ -40,7 +40,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="supplier in suppliers |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="supplier in suppliers |filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{supplier.code}}</td>
                         <td>{{supplier.name}}</td>
                         <td>{{supplier.address}}</td>

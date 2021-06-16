@@ -73,13 +73,12 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
         });
     }
 
-    $scope.delete = function (uuid) {
-        openmrsRest.remove($scope.resource + "/item", uuid, "Reason for deletion").then(function (response) {
-            console.log(response);
+    $scope.delete = function (obj) {
+        openmrsRest.remove($scope.resource + "/item", obj, "Reason for deletion").then(function (response) {
             type = "success";
             msg = "Deleted";
             showToast(msg, type);
-            $scope.getAlldrug();
+            $scope.getAllDrug();
         }).catch(function (e) {
             type = "error";
             msg = e.data.error.message;
@@ -117,6 +116,9 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
             });
     }
 
+    $scope.search = function (row) {
+        return (angular.lowercase(row.name).indexOf($scope.searchAll || '') !== -1 || angular.lowercase(row.code).indexOf($scope.searchAll || '') !== -1);
+    };
 
 
 }]);

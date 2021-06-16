@@ -102,4 +102,8 @@ angular.module('UnitsController', ['ngMaterial', 'md.data.table']).controller('U
             });
     }
 
+    $scope.search = function (row) {
+        return (angular.lowercase(row.name).indexOf($scope.searchAll || '') !== -1 || angular.lowercase(row.code).indexOf($scope.searchAll || '') !== -1);
+    };
+
 }])

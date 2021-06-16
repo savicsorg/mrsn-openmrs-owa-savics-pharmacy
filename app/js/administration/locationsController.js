@@ -86,4 +86,8 @@ angular.module('LocationsController', ['ngMaterial', 'md.data.table']).controlle
             });
     }
 
+    $scope.search = function (row) {
+        return (angular.lowercase(row.name).indexOf($scope.searchAll || '') !== -1 || angular.lowercase(row.code).indexOf($scope.searchAll || '') !== -1);
+    };
+
 }])
