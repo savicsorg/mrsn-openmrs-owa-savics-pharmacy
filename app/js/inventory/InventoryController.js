@@ -1,4 +1,4 @@
-angular.module('InventoryController', ['ngMaterial', 'md.data.table']).controller('LocationsController', ['$scope', '$state', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $rootScope, $mdToast, openmrsRest) {
+angular.module('InventoryController', ['ngMaterial', 'md.data.table']).controller('InventoryController', ['$scope', '$state', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $rootScope, $mdToast, openmrsRest) {
     $scope.resource = "savicspharmacy";
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Location": "locations" };
