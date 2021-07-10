@@ -434,7 +434,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         },
         breadcrumbs: ["Home"]
     }).state('home.orders', {
-        url: 'stock',
+        url: 'orders',
         template: require('./order/orders.html'),
         controller: 'OrderController',
         resolve: {
@@ -452,7 +452,9 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         },
         breadcrumbs: ["Home"]
     }).state('home.order', {
-        url: 'stock',
+        url: 'order',
+        params: { order: null },
+        template: require('./administration/supplier.html'),
         template: require('./order/order.html'),
         controller: 'OrderController',
         resolve: {
