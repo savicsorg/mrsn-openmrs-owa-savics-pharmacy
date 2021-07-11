@@ -162,6 +162,7 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
                 console.log(response);
                 $scope.lines.splice(index,1);   
                 $scope.updateOrderAmount();
+                $scope.loading = false;
                 toastr.success('Data removed successfully.', 'Success');
             },function(e){
                 console.error(e);
