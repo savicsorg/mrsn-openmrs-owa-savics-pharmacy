@@ -21,6 +21,16 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         });
     };
 
+    $scope.initText = function(item,line){
+        console.log("item:"+ item);
+        console.log("line:"+ line);
+        if(line && line.item)
+            return line.item.name; 
+        else if(item && item.name)
+            return item.name;
+        else return "";
+    };
+
     $scope.selectedItemChange = function (item,index) {
         $scope.lines[index].item = item;
         console.log($scope.lines);
