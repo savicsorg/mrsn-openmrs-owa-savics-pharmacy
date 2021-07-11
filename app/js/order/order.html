@@ -39,7 +39,7 @@
                 <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in searchItems(searchText)" 
                     md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug" md-clear-button="true" 
                     md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="45"
-                    ng-if="l.uuid === null && l.uuid === undefined">
+                    ng-if="l.uuid === null || l.uuid === undefined">
                     <md-item-template>
                       <span md-highlight-text="searchText">{{item.name}}</span>
                     </md-item-template>
