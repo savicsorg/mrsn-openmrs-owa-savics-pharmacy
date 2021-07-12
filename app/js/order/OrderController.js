@@ -22,8 +22,6 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
     };
 
     $scope.initText = function(item,line){
-        console.log("item:"+ item);
-        console.log("line:"+ line);
         if(line && line.item)
             return line.item.name; 
         else if(item && item.name)
@@ -123,6 +121,7 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         $scope.loading = true;
         line.item = line.item.id;
         if (line && line.uuid) {    //Edit
+            line.pharmacyOrder = line.pharmacyOrder.id;
             console.log("Updating the order detail", line.uuid)
             openmrsRest.update($scope.resource + "/orderDetail", line).then(function (response) {
                 console.log(response);

@@ -61,16 +61,16 @@
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="add"
-                        ng-click="saveOrderDetail(l, $index)" >
+                        ng-click="saveOrderDetail(l, $index)" ng-if="order.dateApprobation === null">
                         <md-icon>save</md-icon>
                     </md-button>
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
-                        ng-click="deteleOrderDetail(l, $index)" >
+                        ng-click="deteleOrderDetail(l, $index)" ng-if="order.dateApprobation === null">
                         <md-icon>remove</md-icon>
                     </md-button>
                 </md-input-container>
             </div>
-            <md-button class=" md-primary md-button" aria-label="Add" ng-click="addOrderLine()">
+            <md-button class=" md-primary md-button" aria-label="Add" ng-click="addOrderLine()"  ng-if="order.dateApprobation === null">
                 <md-icon>add</md-icon> Add a line
             </md-button>
             <strong>Total: {{order.amount}}</strong>
