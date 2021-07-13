@@ -1,8 +1,15 @@
 <div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">
-            <md-icon>content_paste</md-icon> Place an order
+            <md-icon>content_paste</md-icon> Place an order 
         </h1>
+        <md-button class="md-raised md-primary" aria-label="Add" ng-if="approveBtn.visible" ng-disabled="!approveBtn.enabled" ng-click="approve()">
+            <md-icon class=" material-icons" role="img" aria-hidden="true">check_circle</md-icon>
+            <md-tooltip md-direction="top">
+                <span translate>{{approveBtn.text}}</span>
+            </md-tooltip>
+            {{approveBtn.text}}
+        </md-button>
     </div>
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
@@ -77,7 +84,7 @@
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column" ng-if="order.id !== undefined && !loading">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveOrder()">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveOrder()" ng-if="order.dateApprobation === null">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Save</span>

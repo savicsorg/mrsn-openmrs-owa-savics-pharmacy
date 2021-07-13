@@ -11,6 +11,12 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
     $scope.loading = false;
     $scope.item = null;
     $scope.lines = [];
+    $scope.approveBtn = {
+        text: "Approve",
+        enabled: false,
+        visible: false
+    };
+
     var _ = require("underscore");
 
     $scope.searchItems = function (searchText) {
@@ -52,7 +58,28 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
                 openmrsRest.getFull($scope.resource + "/orderDetail?orderId=" + $scope.order.id).then(function (response) {
                     $scope.lines = response.results;     
                     $scope.updateOrderAmount();
-                    $scope.loading = false; 
+                    if($scope.order.dateApprobation !== null){
+                        $scope.approveBtn.text = "Approved on " + new Date($scope.order.dateApprobation).toLocaleDateString();
+                        $scope.approveBtn.enabled = false;
+                        $scope.approveBtn.visible = true;
+                        $scope.loading = false; 
+                    } else {
+                        openmrsRest.getFull("session").then(function (response) {
+                            if(_.some(response.user.roles, function(item){ return item.display === "Approve Orders" || item.name === "Approve Orders"; })){
+                                $scope.approveBtn.text = "Approve";
+                                $scope.approveBtn.enabled = true;     
+                                $scope.approveBtn.visible = true;  
+                                $scope.loading = false; 
+                            } else {
+                                $scope.approveBtn.visible = false;  
+                                $scope.loading = false;
+                            }
+                        },function(e){
+                            console.error(e);
+                            $scope.loading = false;
+                            toastr.error('An unexpected error has occured.', 'Error');
+                        });
+                    }
                 },function(e){
                     console.error(e);
                     $scope.loading = false;
@@ -81,6 +108,20 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         $scope.lines.push({ pharmacyOrder: $scope.order.id, item : { name: "" }, itemSoh: 0, itemAmc: 0 });
     }
 
+    $scope.approve = function(){
+        $mdDialog.show($mdDialog.confirm()
+        .title('Confirmation')
+        .textContent('Do you really want to approve this order ?')
+        .ok('Yes')
+        .cancel('Cancel')).then(function () {
+            $scope.order.dateApprobation = new Date();
+            $scope.saveOrder();
+        }, function () {
+            
+        });
+        
+    }
+
     $scope.saveOrder = function () {
         $scope.loading = true;
         console.log($scope.order);
@@ -101,7 +142,6 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
             console.log("Creating new order ");
             openmrsRest.create($scope.resource + "/order", $scope.order).then(function (response) {
                 console.log(response);
-                response.acquisitionDate = new Date(response.acquisitionDate);
                 $scope.order = response;
                 loadData();
                 toastr.success('Data saved successfully.', 'Success');   
