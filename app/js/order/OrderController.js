@@ -1,4 +1,4 @@
-angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controller('OrderController', ['$scope', '$rootScope', '$state', '$stateParams', 'openmrsRest', 'toastr', function ($scope, $rootScope, $state, $stateParams, openmrsRest, toastr) {
+angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controller('OrderController', ['$scope', '$rootScope', '$state', '$stateParams', '$mdDialog', 'openmrsRest', 'toastr', function ($scope, $rootScope, $state, $stateParams, $mdDialog,  openmrsRest, toastr) {
     $scope.rootscope = $rootScope;
     console.log("OrderController new form ---")
     $scope.resource = "savicspharmacy";
@@ -149,17 +149,27 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
     }
 
     $scope.deleteOrder = function (order) {
-        $scope.loading = true;
-        console.log(order)
-        openmrsRest.remove($scope.resource + "/order", order, "Generic Reason").then(function (response) {
-            console.log(response);
-            loadData();
-            toastr.success('Data removed successfully.', 'Success');
-        },function(e){
-            console.error(e);
-            $scope.loading = false;
-            toastr.error('An unexpected error has occured.', 'Error');
+        var confirm = $mdDialog.confirm()
+          .title('Confirmation')
+          .textContent('Do you really want to delete this order ?')
+          .ok('Yes')
+          .cancel('Cancel');
+        $mdDialog.show(confirm).then(function () {
+            $scope.loading = true;
+            console.log(order)
+            openmrsRest.remove($scope.resource + "/order", order, "Generic Reason").then(function (response) {
+                console.log(response);
+                loadData();
+                toastr.success('Data removed successfully.', 'Success');
+            },function(e){
+                console.error(e);
+                $scope.loading = false;
+                toastr.error('An unexpected error has occured.', 'Error');
+            });
+        }, function () {
+            
         });
+        
     }
 
     $scope.deteleOrderDetail = function (orderDetail, index) {
