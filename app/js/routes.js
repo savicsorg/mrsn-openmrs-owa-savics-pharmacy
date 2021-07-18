@@ -214,7 +214,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "Customertype", "New"]
-    }).state('home.Locations', {
+    }).state('home.locations', {
         url: 'locations',
         template: require('./administration/locations.html'),
         controller: 'LocationsController',

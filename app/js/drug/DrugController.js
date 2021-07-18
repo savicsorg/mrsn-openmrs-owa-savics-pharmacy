@@ -28,12 +28,6 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
         vm.drug.virtualstock = 1;
         vm.drug.soh = 1;
         console.log(vm.drug);
-        // if (!vm.drug.name || !vm.drug.code || !vm.drug.description || !vm.drug.buy_price || !vm.drug.sell_price || !vm.drug.stock_min || !vm.drug.stock_max || !vm.drug.type.id || !vm.drug.route.id) {
-        //     type = "error";
-        //     msg = "Please check if your input are valid ones."
-        //     showToast(msg, type);
-        //     return;
-        // }
         document.getElementById("loading_submit").style.visibility = "visible";
 
         var payload = $stateParams.uuid ? { virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), uuid: vm.drug.uuid, soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id } : { virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id };

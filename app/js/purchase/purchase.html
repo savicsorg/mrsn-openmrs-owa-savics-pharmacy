@@ -17,7 +17,7 @@
                     </md-select>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Approbation Date</label>
+                    <label translate>Date</label>
                     <md-datepicker name="dateField" ng-model="vm.approbation.date" md-placeholder="Enter date"
                         input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header">
                     </md-datepicker>
@@ -39,9 +39,6 @@
                 <md-card-title>
                     Name
                 </md-card-title>
-                <!-- <md-card-title>
-                    Batch
-                </md-card-title> -->
                 <md-card-title>
                     Type
                 </md-card-title>
@@ -52,36 +49,33 @@
                     Qty
                 </md-card-title>
                 <md-card-title>
-                    Manufacturer Price
+                    Price
                 </md-card-title>
-                <!-- <md-card-title>
-                    Exp date
-                </md-card-title>
-                <md-card-title>
-                    Total
-                </md-card-title> -->
                 <md-card-title>
                     Actions
                 </md-card-title>
             </div>
             <div layout="row" layout-xs="column" data-ng-repeat="choice in choices">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Drug</label>
-                    <input class="form-control" type="text" ng-model="choice.drug_name">
+                <md-input-container class="md-block" flex-gt-sm style="margin:0px auto">
+                    <!-- <label translate>Drug</label>
+                    <input class="form-control" type="text" ng-model="choice.drug_name"> -->
+                    <md-autocomplete class="md-block" flex-gt-sm md-floating-label="Search drug"
+                        md-selected-item="selectedItem" md-search-text="searchText"
+                        md-items="item in getMatches(searchText)" md-item-text="item.display" md-clear-button="true"
+                        md-selected-item-change="selectedItemChange(item)">
+                        <md-item-template>
+                            <span md-highlight-text="searchText">{{item.display}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No matches found.
+                        </md-not-found>
+                    </md-autocomplete>
                 </md-input-container>
-                <!-- <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Batch</label>
-                    <md-select ng-model="choice.drug_batch">
-                        <md-option ng-repeat="b in vm.batches" ng-value="b.id">
-                            {{b.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container> -->
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Unit</label>
                     <md-select ng-model="choice.drug_unit">
-                        <md-option ng-repeat="u in vm.units" ng-value="u.id">
-                            {{u.name}}
+                        <md-option ng-repeat="d in vm.units" ng-value="d.id" ng-selected="d.id == drug_type_id">
+                            {{d.name}}
                         </md-option>
                     </md-select>
                 </md-input-container>
@@ -97,18 +91,7 @@
                     <label translate>price</label>
                     <input class="form-control" type="number" ng-model="choice.price">
                 </md-input-container>
-                <!-- <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Exp date</label> 
-                    <input class="form-control" type="text" ng-model="choice.drug_exp_date">
-                    </md-datepicker>
-                </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Total</label>
-                    <input class="form-control" type="number" ng-model="choice.total">
-                </md-input-container> -->
-                <md-input-container class="md-block" flex-gt-sm>
-                    <!-- <a href="" ng-click="removeChoice(choice.id)"  ng-if="choice.id!=index">Remove</a>
-                    <a href="" ng-click="addNewChoice()"  ng-if="choice.id===index">Add</a> -->
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
                         ng-click="removeChoice(choice.id)" ng-if="choice.id!=index">
                         <md-icon>remove</md-icon>
@@ -140,7 +123,10 @@
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column">
-        <md-button class="md-raised md-primary" aria-label="Add">
+        <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
+    </div>
+    <div layout="row" layout-xs="column">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="purchase()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
