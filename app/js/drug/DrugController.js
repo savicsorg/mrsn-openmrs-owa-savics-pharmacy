@@ -2,7 +2,6 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des drugs";
     $scope.resource = "savicspharmacy";
-    $scope.concept_ressource = "concept";
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Drugs": "drugs", "New": "drug" };
 
@@ -100,7 +99,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
     }
 
     $scope.getMatches = function (searchText) {
-        return openmrsRest.getFull($scope.concept_ressource + "?q=" + searchText).then(function (response) {
+        return openmrsRest.getFull("drug?q=" + searchText).then(function (response) {
             return response.results;
         });
     };
