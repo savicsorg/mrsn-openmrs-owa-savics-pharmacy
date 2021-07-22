@@ -50,7 +50,7 @@ angular.module('LocationsController', ['ngMaterial', 'md.data.table']).controlle
             msg = "Deleted";
             showToast(msg, type);
             $scope.getAllLocation();
-        }).catch(function (e) {
+        }, function (e) {
             type = "error";
             msg = e.data.error.message;
             showToast(msg, type);

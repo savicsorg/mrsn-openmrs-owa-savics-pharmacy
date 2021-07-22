@@ -1,0 +1,60 @@
+<div id="content" class="container-fluid">           
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex="">Orders management</h1>
+        <a href = "index.html#!/order">
+            <md-button class="md-raised md-primary" aria-label="Add" >
+                <md-icon class=" material-icons" role="img" aria-hidden="true">add</md-icon>
+                <md-tooltip md-direction="top">
+                    <span translate>Place an order</span>
+                </md-tooltip>
+                Place an order
+            </md-button>
+        </a>       
+    </div>   
+    <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div> 
+    <md-card   ng-show="!loading">
+        <md-card-content>
+            <md-table-container class="container" fixed-column-table>
+                <table md-table md-progress="promise">
+                    <thead md-head md-order="query.order">
+                        <tr md-row>
+                            <th md-column md-order-by="id"><span translate>Order N°</span></th>
+                            <th md-column md-order-by="supplier.name"><span translate>Supplier</span></th>
+                            <th md-column md-order-by="date"><span translate>Date</span></th>
+                            <th md-column md-order-by="dateApprobation" ><span translate>Approved on</span></th>
+                            <th md-column md-order-by="amount" ><span translate>Amount</span></th>
+                            <th><span translate>Actions</span></th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row data-ng-repeat="data in orders" >
+                            <td md-cell >CMD#{{data.id}}</td>
+                            <td md-cell >{{data.supplier.name}}</td>
+                            <td md-cell >{{data.date | date: 'dd/MM/yyyy'}}</td>
+                            <td md-cell >{{data.dateApprobation | date: 'dd/MM/yyyy'}}</td>
+                            <td md-cell >{{data.amount}}</td>
+                            <td md-cell >
+                                <md-button class="md-fab md-mini md-primary md-button" aria-label="add"
+                                    ng-click="view(data)" >
+                                    <md-icon>edit</md-icon>
+                                </md-button>
+                                <md-button class="md-fab md-mini md-primary md-button" aria-label="add" ng-if="data.dateReception === null && data.dateApprobation !== null"
+                                    ng-click="receive(data)" >
+                                    <md-icon>check_circle</md-icon>
+                                </md-button>
+                                <md-button class="md-fab md-mini md-primary md-button" aria-label="add" ng-if="data.dateApprobation === null"
+                                    ng-click="deleteOrder(data)" >
+                                    <md-icon>remove</md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-pagination md-limit="query.limit" md-limit-options="[10, 15, 50, 100]" md-page="query.page" md-total="{{orders.count}}" md-page-select="true">
+            </md-table-pagination>
+        </md-card-content>
+    </md-card>    
+</div>

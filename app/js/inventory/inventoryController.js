@@ -7,9 +7,6 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
     var vm = this;
     vm.appTitle = "Stock and inventory";
 
-    var type = "";
-    var msg = "";
-
     $scope.viewstocks = [
         { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" },
         { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" },
@@ -17,6 +14,5 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
         { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" },
         { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" }
     ];
-
 
 }]);

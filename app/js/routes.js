@@ -379,6 +379,9 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "receive", "New"]
+    }).state('home.stock', { // to check with Kabir
+        url: 'stock',
+        template: require('./inventory/stock.html'),
     }).state('home.inventory', {
         url: 'inventory',
         template: require('./inventory/main.html'),
@@ -387,7 +390,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
                 var deferred = $q.defer();
                 require.ensure([], function () {
-                    var mod = require('./inventory/inventoryController.js');
+                    var mod = require('./inventory/InventoryController.js');
                     $ocLazyLoad.load({
                         name: 'InventoryController'
                     });
@@ -396,7 +399,46 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
                 return deferred.promise;
             }]
         },
-        breadcrumbs: ["Home", "inventory"]
+        breadcrumbs: ["Home"]
+    }).state('home.orders', { // to check with Kabir
+        url: 'orders',
+        template: require('./order/orders.html'),
+        controller: 'OrderController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./order/OrderController.js');
+                    $ocLazyLoad.load({
+                        name: 'OrderController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home"]
+    }).state('home.order', {
+        url: 'order',
+        params: { order: null },
+        template: require('./administration/supplier.html'),
+        template: require('./order/order.html'),
+        controller: 'OrderController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./order/OrderController.js');
+                    $ocLazyLoad.load({
+                        name: 'OrderController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home"]
+        // breadcrumbs: ["Home", "inventory"]
     }).state('home.administration', {
         url: 'administration',
         template: require('./administration/main.html'),

@@ -1,24 +1,9 @@
 <div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""> Drug management </h1>
-        <a href="">
-            <md-button class="md-raised md-secondary " aria-label="Add" ng-click="donwload()">
-                <md-icon>cloud_download</md-icon>Download
-            </md-button>
-        </a>
+        <h1 md-truncate="" flex=""> Stock details for {{currentDrug}}</h1>
         <a href="index.html#!/">
             <md-button class="md-raised">
                 <md-icon>arrow_back</md-icon>Back
-            </md-button>
-        </a>
-        <!-- <md-button class="md-raised">Accent</md-button>  -->
-        <a href="index.html#!/drug">
-            <md-button class="md-raised md-primary" aria-label="Add">
-                <md-icon>add</md-icon>
-                <md-tooltip md-direction="top">
-                    <span translate>New</span>
-                </md-tooltip>
-                Add new
             </md-button>
         </a>
     </div>
@@ -45,7 +30,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="drug in drugs|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="drug in drugs|filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{drug.code}}</td>
                         <td>{{drug.name}}</td>
                         <td>{{drug.unit.code}}</td>
@@ -63,8 +48,9 @@
                                 <md-tooltip md-direction="top"><span translate>Edit</span></md-tooltip>
                             </button>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove"
-                                ng-click="showConfirm($event,drug)">
-                                <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
+                                ng-click="delete(drug)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">highlight_off</md-icon>
+                                <md-tooltip md-direction="top"><span translate>View</span></md-tooltip>
                                 <md-tooltip md-direction="top"><span translate>Delete</span></md-tooltip>
                             </button>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove" ng-click="stock(drug)">
