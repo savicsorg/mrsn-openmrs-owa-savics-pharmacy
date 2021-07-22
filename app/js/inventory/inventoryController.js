@@ -18,5 +18,4 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
         { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" }
     ];
 
-
 }]);
