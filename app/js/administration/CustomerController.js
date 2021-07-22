@@ -24,6 +24,20 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
             showToast(msg, type);
             return;
         }
+
+        if (!Regvalidate("email", vm.customer.email)) {
+            type = "error";
+            msg = "Please check if your email is a valid one.";
+            showToast(msg, type);
+            return;
+        }
+        if (!Regvalidate("phone", vm.customer.tel)) {
+            type = "error";
+            msg = "Please check if your phone number is a valid one.";
+            showToast(msg, type);
+            return;
+        }
+
         document.getElementById("loading_submit").style.visibility = "visible";
 
         var payload = $stateParams.uuid ? { name: vm.customer.name, code: vm.customer.code, address: vm.customer.address, email: vm.customer.email, customerType: vm.customer.type.id, tel: vm.customer.tel, uuid: vm.customer.uuid } : { name: vm.customer.name, code: vm.customer.code, address: vm.customer.address, email: vm.customer.email, tel: vm.customer.tel, customerType: vm.customer.type.id };
@@ -82,6 +96,18 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
             }).catch(function () {
                 $log.log('Toast failed or was forced to close early by another toast.');
             });
+    }
+
+
+    function Regvalidate(type, value) {
+        if (type == "email") {
+            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(value).toLowerCase());
+        }
+        else {
+            const re = /^(\+{0,})(\d{0,})([(]{1}\d{1,3}[)]{0,}){0,}(\s?\d+|\+\d{2,3}\s{1}\d+|\d+){1}[\s|-]?\d+([\s|-]?\d+){1,2}(\s){0,}$/gm;
+            return re.test(String(value).toLowerCase());
+        }
     }
 
     $scope.customertype = function () {

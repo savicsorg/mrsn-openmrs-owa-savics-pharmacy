@@ -52,7 +52,7 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row
-                            data-ng-repeat="customer in customertypes |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                            data-ng-repeat="customer in customertypes |filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                             <td>{{customer.uuid}}</td>
                             <td>{{customer.name}}</td>
                             <td>
@@ -60,7 +60,7 @@
                                     type="button" aria-label="Add">
                                     <md-icon class=" material-icons" role="img" aria-hidden="true">edit</md-icon>
                                 </button>
-                                <button ng-click="delete(customer)" class="md-fab md-mini md-primary md-button"
+                                <button ng-click="showConfirm($event,customer)" class="md-fab md-mini md-primary md-button"
                                     type="button" aria-label="Remove">
                                     <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
                                 </button>
