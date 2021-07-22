@@ -120,5 +120,10 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
         return (angular.lowercase(row.name).indexOf($scope.searchAll || '') !== -1 || angular.lowercase(row.code).indexOf($scope.searchAll || '') !== -1);
     };
 
+    $scope.donwload = function () {
+        let link = $scope.resource + "/openmrs/ws/rest/v1/savicspharmacy/items/export";
+        window.location = link;
+    }
+
 
 }]);
