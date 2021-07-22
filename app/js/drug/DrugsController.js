@@ -121,7 +121,8 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
     };
 
     $scope.donwload = function () {
-        let link = $scope.resource + "/openmrs/ws/rest/v1/savicspharmacy/items/export";
+        let link = window.location.protocol + "//" + window.location.host + "/openmrs/ws/rest/v1/savicspharmacy/items/export";
+        localStorage.setItem("export_link", link);
         window.location = link;
     }
 
