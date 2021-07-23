@@ -1,0 +1,84 @@
+<div id="content" class="container-fluid">
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex=""> Stock and inventory </h1>
+        <a href="index.html#!/">
+            <md-button class="md-raised">
+                <md-icon>arrow_back</md-icon>Back
+            </md-button>
+        </a>
+        <a href="index.html#!/drug">
+            <md-button class="md-raised md-primary" aria-label="Add">
+                <md-icon>...</md-icon>
+                <md-tooltip md-direction="top">
+                    <span translate>Stock at risk</span>
+                </md-tooltip>
+                Stock at risk
+            </md-button>
+        </a>
+        <a href="index.html#!/drug">
+            <md-button class="md-raised md-primary" aria-label="Add">
+                <md-icon>...</md-icon>
+                <md-tooltip md-direction="top">
+                    <span translate>Stocktakes</span>
+                </md-tooltip>
+                Stocktakes
+            </md-button>
+        </a>
+    </div>
+    <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <md-icon>search</md-icon>
+            <form flex="">
+                <input type="search" name="search" ng-model="searchAll" placeholder="{{ 'Search...' | translate }}">
+            </form>
+        </div>
+    </md-toolbar>
+    <md-card>
+        <md-table-container class="container" fixed-column-table>
+            <table md-table md-progress="promise">
+                <thead md-head>
+                    <tr md-row>
+                        <th><span translate>Drug code</span></th>
+                        <th><span translate>Designation</span></th>
+                        <th><span translate>Stock Min</span></th>
+                        <th><span translate>Stock Max</span></th>
+                        <th><span translate>Available Qty</span></th>
+                        <th><span translate>Physical Qty</span></th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row
+                        data-ng-repeat="drug in viewOnStock|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                        <td>{{drug.code}}</td>
+                        <td>{{drug.name}}</td>
+                        <td>{{drug.stockMin}}</td>
+                        <td>{{drug.stockMax}}</td>
+                        <td>{{drug.availableQty}}</td>
+                        <td>{{drug.physicalQty}}</td>
+                        <td>
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Add"
+                                ng-click="openView(drug)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">visibility</md-icon>
+                                <md-tooltip md-direction="top"><span translate>Stock details</span></md-tooltip>
+                            </button>
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove"
+                                ng-click="openEdit(drug)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">edit</md-icon>
+                                <md-tooltip md-direction="top"><span translate>Adjustment</span></md-tooltip>
+                            </button>
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove"
+                                ng-click="showConfirm($event,drug)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">history</md-icon>
+                                <md-tooltip md-direction="top"><span translate>History</span></md-tooltip>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{drugs.length}}"
+            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+            md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
+        </md-table-pagination>
+    </md-card>
+</div>
