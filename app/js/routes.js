@@ -439,6 +439,25 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         },
         breadcrumbs: ["Home"]
         // breadcrumbs: ["Home", "inventory"]
+    }).state('home.adjustment', {
+        url: 'adjustment',
+        params: { adjustment: null },
+        template: require('./inventory/adjustment.html'),
+        controller: 'AdjustmentController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/AdjustmentController.js');
+                    $ocLazyLoad.load({
+                        name: 'AdjustmentController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "inventory", "adjustment"]
     }).state('home.administration', {
         url: 'administration',
         template: require('./administration/main.html'),
