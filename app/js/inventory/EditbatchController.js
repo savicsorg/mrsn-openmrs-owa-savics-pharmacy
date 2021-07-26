@@ -6,7 +6,7 @@ angular.module('EditbatchController', []).controller('EditbatchController', ['$s
     $rootScope.links = { "Pharmacy management module": "", "Editbatch": "Editbatch" };
 
     var vm = this;
-    vm.appTitle = "Editbatch";
+    vm.appTitle = "Edit batch";
 
     var type = "";
     var msg = "";
