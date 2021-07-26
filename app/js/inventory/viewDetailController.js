@@ -17,8 +17,6 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
         { bath: "5775874", date: "2010-07-31", unit: "box", qty: 45 }
     ];
 
-
-
     function handleResponse(response, e = null) {
         document.getElementById("loading_submit").style.visibility = "hidden";
         if (e) {
@@ -55,7 +53,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     }
 
     $scope.addbatch = function () {
-        $state.go('home.addbatch', {});
+        $state.go('home.addbatch');
     }
 
     $scope.editbatch = function (data) {
