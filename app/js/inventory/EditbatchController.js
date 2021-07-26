@@ -1,22 +1,15 @@
-angular.module('viewDetailController', []).controller('viewDetailController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
+angular.module('EditbatchController', []).controller('EditbatchController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
     $scope.rootscope = $rootScope;
-    $scope.appTitle = "View detail";
+    $scope.appTitle = "Editbatch";
     $scope.resource = "savicspharmacy";
     //Breadcrumbs properties
-    $rootScope.links = { "Pharmacy management module": "", "Viewdetail": "View detail" };
+    $rootScope.links = { "Pharmacy management module": "", "Editbatch": "Editbatch" };
 
     var vm = this;
-    vm.appTitle = "View detail";
+    vm.appTitle = "Editbatch";
 
     var type = "";
     var msg = "";
-
-    $scope.batches = [
-        { bath: "5775874", date: "2010-07-31", unit: "box", qty: 45 },
-        { bath: "5775874", date: "2010-07-31", unit: "box", qty: 45 },
-        { bath: "5775874", date: "2010-07-31", unit: "box", qty: 45 }
-    ];
-
 
 
     function handleResponse(response, e = null) {
@@ -52,16 +45,6 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
             }).catch(function () {
                 $log.log('Toast failed or was forced to close early by another toast.');
             });
-    }
-
-    $scope.addbatch = function () {
-        $state.go('home.addbatch', {});
-    }
-
-    $scope.editbatch = function (data) {
-        $state.go('home.editbatch', {
-            code: data.code,
-        });
     }
 
 }]);

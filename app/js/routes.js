@@ -493,6 +493,44 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "inventory", "adjustment"]
+    }).state('home.addbatch', {
+        url: 'addbatch',
+        params: { adjustment: null },
+        template: require('./inventory/addNewbatch.html'),
+        controller: 'AddNewbatchController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/AddNewbatchController.js');
+                    $ocLazyLoad.load({
+                        name: 'AddNewbatchController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "inventory", "addbatch"]
+    }).state('home.editbacth', {
+        url: 'editbacth',
+        params: { adjustment: null },
+        template: require('./inventory/editbatch.html'),
+        controller: 'EditbatchController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/EditbatchController.js');
+                    $ocLazyLoad.load({
+                        name: 'EditbatchController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "inventory", "editbacth"]
     }).state('home.administration', {
         url: 'administration',
         template: require('./administration/main.html'),
