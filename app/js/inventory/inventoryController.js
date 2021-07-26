@@ -8,11 +8,11 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
     vm.appTitle = "Stock and inventory";
 
     $scope.viewstocks = [
-        { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" },
-        { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" },
-        { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" },
-        { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" },
-        { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" }
+        { code: "N02BE01", name: "Kipharma", stockMin: "10", stockMax: "10", availableQty: "10", physicalQty: "50000" },
+        { code: "N02BE01", name: "Kipharma", stockMin: "10", stockMax: "10", availableQty: "10", physicalQty: "50000" },
+        { code: "N02BE01", name: "Kipharma", stockMin: "10", stockMax: "10", availableQty: "10", physicalQty: "50000" },
+        { code: "N02BE01", name: "Kipharma", stockMin: "10", stockMax: "10", availableQty: "10", physicalQty: "50000" },
+        { code: "N02BE01", name: "Kipharma", stockMin: "10", stockMax: "10", availableQty: "10", physicalQty: "50000" },
     ];
 
 }]);

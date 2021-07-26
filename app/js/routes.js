@@ -384,7 +384,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         template: require('./inventory/stock.html'),
     }).state('home.inventory', {
         url: 'inventory',
-        template: require('./inventory/main.html'),
+        template: require('./inventory/viewOnStock.html'),
         controller: 'InventoryController',
         resolve: {
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
