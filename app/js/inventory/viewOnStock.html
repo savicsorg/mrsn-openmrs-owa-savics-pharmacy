@@ -6,22 +6,20 @@
                 <md-icon>arrow_back</md-icon>Back
             </md-button>
         </a>
-        <a href="index.html#!/drug">
+        <a href="index.html#!/inventory">
             <md-button class="md-raised md-primary" aria-label="Add">
-                <md-icon>inventory</md-icon>
+                <md-icon>report_problem</md-icon> Stock at risk
                 <md-tooltip md-direction="top">
                     <span translate>Stock at risk</span>
                 </md-tooltip>
-                Stock at risk
             </md-button>
         </a>
-        <a href="index.html#!/drug">
+        <a href="index.html#!/inventory">
             <md-button class="md-raised md-primary" aria-label="Add">
-                <md-icon>takeout_dining</md-icon>
+                <md-icon>insights</md-icon>Stocktakes
                 <md-tooltip md-direction="top">
                     <span translate>Stocktakes</span>
                 </md-tooltip>
-                Stocktakes
             </md-button>
         </a>
     </div>
@@ -57,18 +55,19 @@
                         <td>{{drug.availableQty}}</td>
                         <td>{{drug.physicalQty}}</td>
                         <td>
-                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Add"
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
                                 ng-click="openView(drug)">
-                                <md-icon class="material-icons" role="img" aria-hidden="true">format_list_bulleted</md-icon>
+                                <md-icon class="material-icons" role="img" aria-hidden="true">format_list_bulleted
+                                </md-icon>
                                 <md-tooltip md-direction="top"><span translate>Stock details</span></md-tooltip>
                             </button>
-<!--                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove"
-                                ng-click="openEdit(drug)">
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Adjustment"
+                                ng-click="openAdjustement(drug)">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">adjust</md-icon>
                                 <md-tooltip md-direction="top"><span translate>Adjustment</span></md-tooltip>
-                            </button>-->
-                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove"
-                                ng-click="showConfirm($event,drug)">
+                            </button>
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="History"
+                                ng-click="openHistory(drug)">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">history</md-icon>
                                 <md-tooltip md-direction="top"><span translate>History</span></md-tooltip>
                             </button>

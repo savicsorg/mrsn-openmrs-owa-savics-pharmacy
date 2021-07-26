@@ -379,9 +379,44 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "receive", "New"]
-    }).state('home.stock', { // to check with Kabir
-        url: 'stock',
-        template: require('./inventory/stock.html'),
+    }).state('home.viewdetail', {
+        url: 'viewdetail',
+        params: { code: undefined },
+        template: require('./inventory/viewDetail.html'),
+        controller: 'viewDetailController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/viewDetailController.js');
+                    $ocLazyLoad.load({
+                        name: 'viewDetailController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "viewdetail"]
+    }).state('home.viewhistory', {
+        url: 'viewhistory',
+        params: { code: undefined },
+        template: require('./inventory/viewHistory.html'),
+        controller: 'viewHistoryController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/viewHistoryController.js');
+                    $ocLazyLoad.load({
+                        name: 'viewHistoryController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "viewhistory"]
     }).state('home.inventory', {
         url: 'inventory',
         template: require('./inventory/viewOnStock.html'),
@@ -399,7 +434,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
                 return deferred.promise;
             }]
         },
-        breadcrumbs: ["Home"]
+        breadcrumbs: ["Home", "viewhistory"]
     }).state('home.orders', { // to check with Kabir
         url: 'orders',
         template: require('./order/orders.html'),

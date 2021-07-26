@@ -1,4 +1,4 @@
-<div id="content" class="container-fluid">
+<div id="content" class="container-fluid" ng-controller="viewDetailController as vm">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex=""> Stock details for {{currentDrug}}</h1>
         <a href="index.html#!/">
@@ -53,7 +53,8 @@
                                 <md-tooltip md-direction="top"><span translate>View</span></md-tooltip>
                                 <md-tooltip md-direction="top"><span translate>Delete</span></md-tooltip>
                             </button>
-                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove" ng-click="stock(drug)">
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove"
+                                ng-click="stock(drug)">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">visibility</md-icon>
                                 <md-tooltip md-direction="top"><span translate>Stock details</span></md-tooltip>
                             </button>
