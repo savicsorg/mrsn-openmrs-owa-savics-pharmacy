@@ -1,6 +1,6 @@
 angular.module('AddNewbatchController', []).controller('AddNewbatchController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
     $scope.rootscope = $rootScope;
-    $scope.appTitle = "AddNewbatch";
+    $scope.appTitle = "Add New batch";
     $scope.resource = "savicspharmacy";
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "AddNewbatch": "AddNewbatch" };

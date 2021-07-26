@@ -53,10 +53,12 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     }
 
     $scope.addbatch = function () {
+        console.log("go to add new")
         $state.go('home.addbatch');
     }
 
     $scope.editbatch = function (data) {
+        console.log("go to edit")
         $state.go('home.editbatch', {
             code: data.code,
         });
