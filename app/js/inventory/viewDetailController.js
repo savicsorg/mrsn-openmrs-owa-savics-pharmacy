@@ -17,13 +17,12 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
         { bath: "5775874", date: "2010-07-31", unit: "box", qty: 45 }
     ];
 
-
-    $scope.addbatch = function () {
+    $scope.addBatch = function () {
         console.log("go to add new")
         $state.go('home.addbatch');
     }
 
-    $scope.editbatch = function (data) {
+    $scope.editBatch = function (data) {
         console.log("go to edit")
         $state.go('home.editbatch', {
             code: data.code,
