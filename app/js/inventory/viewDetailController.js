@@ -10,6 +10,17 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
 
     var type = "";
     var msg = "";
+    
+    $scope.getItemsLines = function () {
+        $scope.viewOnStock = [];
+        openmrsRest.getFull($scope.resource + "/item").then(function (response) {
+            if (response.results.length >= 1) {
+                $scope.viewOnStock = response.results;
+                console.log($scope.viewOnStock)
+            }
+        })
+    }
+    $scope.getItemsLines();
 
     $scope.batches = [
         { bath: "5775874", date: "2010-07-31", unit: "box", qty: 45 },
@@ -17,7 +28,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
         { bath: "5775874", date: "2010-07-31", unit: "box", qty: 45 }
     ];
 
-
+    $scope.item = $stateParams.item;
 
     function handleResponse(response, e = null) {
         document.getElementById("loading_submit").style.visibility = "hidden";

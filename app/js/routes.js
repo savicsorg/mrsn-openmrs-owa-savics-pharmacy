@@ -381,7 +381,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "receive", "New"]
     }).state('home.viewdetail', {
         url: 'viewdetail',
-        params: { code: undefined },
+        params: { item: undefined },
         template: require('./inventory/viewDetail.html'),
         controller: 'viewDetailController',
         resolve: {
@@ -400,7 +400,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "viewdetail"]
     }).state('home.viewhistory', {
         url: 'viewhistory',
-        params: { code: undefined },
+        params: { item: undefined },
         template: require('./inventory/viewHistory.html'),
         controller: 'viewHistoryController',
         resolve: {

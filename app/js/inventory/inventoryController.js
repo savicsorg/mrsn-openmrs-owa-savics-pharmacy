@@ -19,21 +19,22 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
     $scope.getAllDrug();
 
     $scope.openView = function (data) {
+        console.log(data)
         $state.go('home.viewdetail', {
-            code: data.code,
+            item: data
         });
     }
 
     $scope.openAdjustement = function (data) {
         $state.go('home.adjustment', {
-            code: data.code,
+            item: data.code,
         });
     }
 
 
     $scope.openHistory = function (data) {
         $state.go('home.viewhistory', {
-            code: data.code,
+            item: data.code,
         });
     }
 
