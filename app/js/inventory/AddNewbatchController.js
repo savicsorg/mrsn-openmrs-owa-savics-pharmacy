@@ -4,7 +4,6 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
     $scope.resource = "savicspharmacy";
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "AddNewbatch": "AddNewbatch" };
-
     var vm = this;
     vm.appTitle = "Add New batch";
 
@@ -20,8 +19,10 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
         }
         vm.batch.item_id = $stateParams.item_id;
         vm.batch.item_soh = vm.batch.item_virtualstock;
+
         document.getElementById("loading_submit").style.visibility = "visible";
         var payload = vm.batch;
+        console.log(payload);
         openmrsRest.create($scope.resource + "/itemsLine", payload).then(function (response) {
             handleResponse(response)
         }).catch(function (e) {

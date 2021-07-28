@@ -7,8 +7,6 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
     var vm = this;
     vm.appTitle = "Stock and inventory";
 
-
-
     $scope.getAllDrug = function () {
         $scope.viewOnStock = [];
         openmrsRest.getFull($scope.resource + "/item").then(function (response) {
@@ -17,12 +15,11 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
             }
         })
     }
+
     $scope.getAllDrug();
 
     $scope.openView = function (data) {
         $state.go('home.viewdetail', {
-            item_id: data.id,
-            item_name: data.name,
             item: data,
             id: data.id
         });
@@ -30,14 +27,13 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
 
     $scope.openAdjustement = function (data) {
         $state.go('home.adjustment', {
-            item: data.code,
+            item: data
         });
     }
 
-
     $scope.openHistory = function (data) {
         $state.go('home.viewhistory', {
-            item: data.code,
+            item: data
         });
     }
 
