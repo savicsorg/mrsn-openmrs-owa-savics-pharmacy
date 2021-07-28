@@ -399,15 +399,15 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "purchase", "New"]
     }).state('home.receive', {
         url: 'receive',
-        template: require('./purchase/receive.html'),
-        controller: 'ReceiveController',
+        template: require('./inventory/receive.html'),
+        controller: 'InventoryController',
         resolve: {
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
                 var deferred = $q.defer();
                 require.ensure([], function () {
-                    var mod = require('./purchase/ReceiveController.js');
+                    var mod = require('./inventory/InventoryController.js');
                     $ocLazyLoad.load({
-                        name: 'ReceiveController'
+                        name: 'InventoryController'
                     });
                     deferred.resolve(mod.controller);
                 });

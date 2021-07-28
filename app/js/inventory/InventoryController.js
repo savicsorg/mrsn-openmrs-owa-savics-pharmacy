@@ -1,21 +1,35 @@
 angular.module('InventoryController', ['ngMaterial', 'md.data.table']).controller('InventoryController', ['$scope', '$state', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $rootScope, $mdToast, openmrsRest) {
     $scope.resource = "savicspharmacy";
-    //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Location": "locations" };
 
     var vm = this;
     vm.appTitle = "Gestion des locations";
+    $scope.location = null;
+    $scope.locations = [];
+    $scope.orders = [];
 
-    $scope.getAllLocation = function () {
-        $scope.locations = [];
+    $scope.getData = function () {
         openmrsRest.getFull($scope.resource + "/location").then(function (response) {
-            if (response.results.length >= 1) {
-                $scope.locations = response.results;
-            }
+            $scope.locations = response.results;
+            openmrsRest.getFull($scope.resource + "/order").then(function (response) {
+                $scope.orders = response.results;
+            },function(e){
+
+            })
+        },function(e){
+
         })
     }
 
-    $scope.getAllLocation();
+    $scope.searchItems = function (searchText) {
+        return openmrsRest.getFull($scope.resource + "/item?name=" + searchText).then(function (response) {
+            return response.results;
+        }, function(e){
+            return [];
+        });
+    };
+
+    $scope.getData();
 
     $scope.options = {
         autoSelect: true,
