@@ -380,8 +380,8 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         },
         breadcrumbs: ["Home", "receive", "New"]
     }).state('home.viewdetail', {
-        url: 'viewdetail',
-        params: { item_id: item_id, item_name: item_name },
+        url: 'viewdetail/:id',
+        params: { item: item },
         template: require('./inventory/viewDetail.html'),
         controller: 'viewDetailController',
         resolve: {

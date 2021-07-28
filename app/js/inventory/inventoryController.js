@@ -14,7 +14,6 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
         openmrsRest.getFull($scope.resource + "/item").then(function (response) {
             if (response.results.length >= 1) {
                 $scope.viewOnStock = response.results;
-                console.log($scope.viewOnStock)
             }
         })
     }
@@ -24,6 +23,8 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
         $state.go('home.viewdetail', {
             item_id: data.id,
             item_name: data.name,
+            item: data,
+            id: data.id
         });
     }
 

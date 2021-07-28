@@ -3,6 +3,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     $scope.appTitle = "View detail";
     $scope.resource = "savicspharmacy";
     $scope.item = $stateParams.item;
+    $scope.item_id = $stateParams.id;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Viewdetail": "View detail" };
 
@@ -17,10 +18,10 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
 
     $scope.getItemsLines = function () {
         $scope.batches = [];
-        openmrsRest.get($scope.resource + "/itemsLine?item=" + $scope.item.id).then(function (response) {
+        openmrsRest.get($scope.resource + "/itemsLine?item=" + $scope.item_id).then(function (response) {
             if (response.results.length >= 1) {
                 $scope.batches = response.results;
-                console.log($scope.batches)
+                $scope.item = response.results[0].item;
             }
         })
     }
