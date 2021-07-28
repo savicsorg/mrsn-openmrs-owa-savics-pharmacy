@@ -12,16 +12,15 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
         openmrsRest.getFull($scope.resource + "/item").then(function (response) {
             if (response.results.length >= 1) {
                 $scope.viewOnStock = response.results;
-                console.log($scope.viewOnStock)
             }
         })
     }
     $scope.getAllDrug();
 
     $scope.openView = function (data) {
-        console.log(data)
         $state.go('home.viewdetail', {
-            item: data
+            item: data,
+            id: data.id
         });
     }
 
