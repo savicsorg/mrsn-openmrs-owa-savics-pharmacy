@@ -106,8 +106,8 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
 
     $scope.selectedItemChange = function (item) {
         if (item) {
-            vm.drug.name = (item.name) ? item.name.display : item.display;
-            vm.drug.uuid = (item.name) ? item.name.uuid : item.uuid;
+            vm.drug.name = item.name;
+            vm.drug.uuid = item.uuid;
         }
     }
 
