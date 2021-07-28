@@ -28,11 +28,15 @@
                             <td>{{batch.itemSoh}}</td>
                             <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}}</td>
                             <td>
-                                <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
-                                    ng-click="editBatch(batch)">
-                                    <md-icon class="material-icons" role="img" aria-hidden="true">edit
-                                    </md-icon>
+                                <button ng-click="editBatch(batch)" class="md-fab md-mini md-primary md-button"
+                                    type="button" aria-label="View">
+                                    <md-icon class="material-icons" role="img" aria-hidden="true">edit</md-icon>
                                     <md-tooltip md-direction="top"><span translate>edit</span></md-tooltip>
+                                </button>
+                                <button ng-click="showConfirm($event,batch)" class="md-fab md-mini md-primary md-button"
+                                    type="button" aria-label="Remove">
+                                    <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
+                                    <md-tooltip md-direction="top"><span translate>delete</span></md-tooltip>
                                 </button>
                             </td>
                         </tr>
@@ -50,7 +54,6 @@
                 </md-button>
                 <br>
             </div>
-
         </md-card-content>
     </md-card>
 </div>

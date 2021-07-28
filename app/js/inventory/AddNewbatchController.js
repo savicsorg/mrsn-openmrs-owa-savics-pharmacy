@@ -11,6 +11,33 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
     var type = "";
     var msg = "";
 
+    $scope.batch = function () {
+        if (!vm.batch || !vm.batch.item_batch || !vm.batch.location_id || !vm.batch.item_virtualstock || !vm.batch.expiry_date) {
+            type = "error";
+            msg = "Please check if your input are valid ones."
+            showToast(msg, type);
+            return;
+        }
+        vm.batch.item_id = 0;
+        vm.batch.item_soh = vm.batch.item_virtualstock;
+        document.getElementById("loading_submit").style.visibility = "visible";
+        var payload = vm.batch;
+        openmrsRest.create($scope.resource + "/itemsLine", payload).then(function (response) {
+            handleResponse(response)
+        }).catch(function (e) {
+            handleResponse(response, e)
+        });
+
+    }
+
+    $scope.locations = function () {
+        openmrsRest.getFull($scope.resource + "/location").then(function (response) {
+            vm.locations = response.results;
+        });
+    }
+
+    $scope.locations();
+
 
     function handleResponse(response, e = null) {
         document.getElementById("loading_submit").style.visibility = "hidden";
