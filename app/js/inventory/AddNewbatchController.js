@@ -18,7 +18,7 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
             showToast(msg, type);
             return;
         }
-        vm.batch.item_id = 0;
+        vm.batch.item_id = $stateParams.item_id;
         vm.batch.item_soh = vm.batch.item_virtualstock;
         document.getElementById("loading_submit").style.visibility = "visible";
         var payload = vm.batch;

@@ -1,4 +1,4 @@
-angular.module('viewDetailController', []).controller('viewDetailController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
+angular.module('viewDetailController', []).controller('viewDetailController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "View detail";
     $scope.resource = "savicspharmacy";
@@ -12,9 +12,12 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     var type = "";
     var msg = "";
 
+    $scope.item_name = $stateParams.item_name;
+    $scope.item_id = $stateParams.item_id;
+
     $scope.getItemsLines = function () {
         $scope.batches = [];
-        openmrsRest.get($scope.resource + "/itemsLine?item="+$scope.item.id).then(function (response) {
+        openmrsRest.get($scope.resource + "/itemsLine?item=" + $scope.item.id).then(function (response) {
             if (response.results.length >= 1) {
                 $scope.batches = response.results;
                 console.log($scope.batches)
@@ -23,17 +26,18 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     }
     $scope.getItemsLines();
 
-    $scope.addBatch = function () {
-        $state.go('home.addbatch');
+    $scope.addBatch = function (item_id) {
+        $state.go('home.addbatch', {
+            item_id: item_id
+        });
     }
 
     $scope.editBatch = function (data) {
-        console.log("go to edit")
         $state.go('home.editbatch', {
             code: data.code,
         });
     }
-    
+
 
     $scope.showConfirm = function (ev, obj) {
         var confirm = $mdDialog.confirm()
