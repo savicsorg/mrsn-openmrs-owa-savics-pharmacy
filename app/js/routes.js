@@ -495,7 +495,6 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "inventory", "adjustment"]
     }).state('home.addbatch', {
         url: 'addbatch',
-        params: { adjustment: null },
         template: require('./inventory/addNewbatch.html'),
         controller: 'AddNewbatchController',
         resolve: {
@@ -512,9 +511,9 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "inventory", "addbatch"]
-    }).state('home.editbacth', {
-        url: 'editbacth',
-        params: { adjustment: null },
+    }).state('home.editbatch', {
+        url: 'editbatch',
+        params: { code: null },
         template: require('./inventory/editbatch.html'),
         controller: 'EditbatchController',
         resolve: {
@@ -530,7 +529,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
                 return deferred.promise;
             }]
         },
-        breadcrumbs: ["Home", "inventory", "editbacth"]
+        breadcrumbs: ["Home", "inventory", "editbatch"]
     }).state('home.administration', {
         url: 'administration',
         template: require('./administration/main.html'),

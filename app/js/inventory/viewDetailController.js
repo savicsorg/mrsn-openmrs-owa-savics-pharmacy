@@ -28,6 +28,17 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
         { bath: "5775874", date: "2010-07-31", unit: "box", qty: 45 }
     ];
 
+    $scope.addBatch = function () {
+        console.log("go to add new")
+        $state.go('home.addbatch');
+    }
+
+    $scope.editBatch = function (data) {
+        console.log("go to edit")
+        $state.go('home.editbatch', {
+            code: data.code,
+        });
+    }
     $scope.item = $stateParams.item;
 
     function handleResponse(response, e = null) {
@@ -65,14 +76,5 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
             });
     }
 
-    $scope.addbatch = function () {
-        $state.go('home.addbatch', {});
-    }
-
-    $scope.editbatch = function (data) {
-        $state.go('home.editbatch', {
-            code: data.code,
-        });
-    }
 
 }]);

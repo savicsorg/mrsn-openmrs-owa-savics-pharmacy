@@ -54,7 +54,7 @@
                         <td>{{drug.stockMax}}</td>
                         <td>{{drug.virtualstock}}</td>
                         <td>{{drug.soh}}</td>
-                        <td>
+                        <td width="200px">
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
                                 ng-click="openView(drug)">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">format_list_bulleted
@@ -76,7 +76,7 @@
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{drugs.length}}"
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{viewOnStock.length}}"
             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
             md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
         </md-table-pagination>

@@ -29,7 +29,7 @@
                             <td>{{batch.date}}</td>
                             <td>
                                 <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
-                                    ng-click="editBatch(drug)">
+                                    ng-click="editBatch(batch)">
                                     <md-icon class="material-icons" role="img" aria-hidden="true">edit
                                     </md-icon>
                                     <md-tooltip md-direction="top"><span translate>edit</span></md-tooltip>
@@ -44,8 +44,6 @@
 
     <md-card>
         <md-card-content>
-
-
             <div layout="row" layout-xs="column">
                 <md-button class="md-raised md-accent" ng-click="addBatch()">
                     <md-icon>add</md-icon> Add batch
