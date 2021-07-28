@@ -10,7 +10,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
 
     var type = "";
     var msg = "";
-    
+
     $scope.getItemsLines = function () {
         $scope.viewOnStock = [];
         openmrsRest.getFull($scope.resource + "/item").then(function (response) {
@@ -29,7 +29,6 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     ];
 
     $scope.addBatch = function () {
-        console.log("go to add new")
         $state.go('home.addbatch');
     }
 
@@ -40,6 +39,35 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
         });
     }
     $scope.item = $stateParams.item;
+
+    $scope.showConfirm = function (ev, obj) {
+        var confirm = $mdDialog.confirm()
+            .title('Would you like to delete your data?')
+            .textContent('If you choose `Yes` this record will be deleted and you will not be able to recover it')
+            .ariaLabel('Lucky day')
+            .targetEvent(ev)
+            .ok('Yes')
+            .cancel('Cancel');
+        $mdDialog.show(confirm).then(function () {
+            $scope.delete(obj);
+        }, function () {
+            $mdDialog.cancel();
+        });
+    };
+
+    $scope.delete = function (uuid) {
+        openmrsRest.remove($scope.resource + "/customerType", uuid, "Reason for deletion").then(function (response) {
+            console.log(response);
+            type = "success";
+            msg = "Deleted";
+            showToast(msg, type);
+            // $scope.getAllCustomertype();
+        }).catch(function (e) {
+            type = "error";
+            msg = e.data.error.message;
+            showToast(msg, type);
+        });
+    }
 
     function handleResponse(response, e = null) {
         document.getElementById("loading_submit").style.visibility = "hidden";

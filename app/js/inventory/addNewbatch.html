@@ -7,14 +7,14 @@
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Batch</label>
-                    <input class="form-control" type="text" ng-model="choice.drug_name">
+                    <input class="form-control" type="text" ng-model="vm.batch.item_batch">
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Unit</label>
-                    <md-select ng-model="choice.drug_unit">
-                        <md-option ng-repeat="u in vm.units" ng-value="u.id">
-                            {{u.name}}
+                    <label translate>Location</label>
+                    <md-select ng-model="vm.batch.location_id">
+                        <md-option ng-repeat="l in vm.locations" ng-value="l.id">
+                            {{l.name}}
                         </md-option>
                     </md-select>
                 </md-input-container>
@@ -22,11 +22,13 @@
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Qty</label>
-                    <input class="form-control" type="number" ng-model="choice.avl_qty">
+                    <input class="form-control" type="number" ng-model="vm.batch.item_virtualstock">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Exp date</label>
-                    <input class="form-control" type="text" ng-model="choice.drug_exp_date">
+                    <label translate>Date</label>
+                    <md-datepicker ng-model="vm.batch.expiry_date" md-placeholder="Enter date"
+                        input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header"
+                        md-mode="day" md-hide-icons="calendar" md-current-view="month">
                     </md-datepicker>
                 </md-input-container>
             </div>
@@ -36,7 +38,7 @@
         <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
     </div>
     <div layout="row" layout-xs="column">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="adjustment()">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="batch()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
