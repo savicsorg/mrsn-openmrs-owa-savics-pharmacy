@@ -40,7 +40,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="supplier in suppliers |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="supplier in suppliers |filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{supplier.code}}</td>
                         <td>{{supplier.name}}</td>
                         <td>{{supplier.address}}</td>
@@ -51,7 +51,7 @@
                                 type="button" aria-label="Add">
                                 <md-icon class=" material-icons" role="img" aria-hidden="true">edit</md-icon>
                             </button>
-                            <button ng-click="delete(supplier)" class="md-fab md-mini md-primary md-button"
+                            <button ng-click="showConfirm($event,supplier)" class="md-fab md-mini md-primary md-button"
                                 type="button" aria-label="Remove">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
                             </button>

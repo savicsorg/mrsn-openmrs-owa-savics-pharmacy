@@ -38,7 +38,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="location in locations |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="location in locations |filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{location.uuid}}</td>
                         <td>{{location.code}}</td>
                         <td>{{location.name}}</td>
@@ -47,7 +47,7 @@
                                 type="button" aria-label="Add">
                                 <md-icon class=" material-icons" role="img" aria-hidden="true">edit</md-icon>
                             </button>
-                            <button ng-click="delete(location)" class="md-fab md-mini md-primary md-button"
+                            <button ng-click="showConfirm($event,location)" class="md-fab md-mini md-primary md-button"
                                 type="button" aria-label="Remove">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
                             </button>
