@@ -2,6 +2,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     $scope.rootscope = $rootScope;
     $scope.appTitle = "View detail";
     $scope.resource = "savicspharmacy";
+    $scope.item = $stateParams.item;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Viewdetail": "View detail" };
 
@@ -12,21 +13,15 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     var msg = "";
 
     $scope.getItemsLines = function () {
-        $scope.viewOnStock = [];
-        openmrsRest.getFull($scope.resource + "/item").then(function (response) {
+        $scope.batches = [];
+        openmrsRest.get($scope.resource + "/itemsLine?item="+$scope.item.id).then(function (response) {
             if (response.results.length >= 1) {
-                $scope.viewOnStock = response.results;
-                console.log($scope.viewOnStock)
+                $scope.batches = response.results;
+                console.log($scope.batches)
             }
         })
     }
     $scope.getItemsLines();
-
-    $scope.batches = [
-        { bath: "5775874", date: "2010-07-31", unit: "box", qty: 45 },
-        { bath: "5775874", date: "2010-07-31", unit: "box", qty: 45 },
-        { bath: "5775874", date: "2010-07-31", unit: "box", qty: 45 }
-    ];
 
     $scope.addBatch = function () {
         $state.go('home.addbatch');
@@ -38,7 +33,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
             code: data.code,
         });
     }
-    $scope.item = $stateParams.item;
+    
 
     $scope.showConfirm = function (ev, obj) {
         var confirm = $mdDialog.confirm()

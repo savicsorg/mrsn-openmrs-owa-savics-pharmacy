@@ -1,6 +1,6 @@
 <div id="content" class="container-fluid" ng-controller="viewDetailController as vm">
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""> Stock details for <b>{{item.name}}</b></h1>
+        <h1 md-truncate="" flex=""> Stock details for: <b>{{item.name}}</b></h1>
         <a href="index.html#!/inventory">
             <md-button class="md-raised">
                 <md-icon>arrow_back</md-icon>Back
@@ -23,10 +23,10 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row data-ng-repeat="batch in batches">
-                            <td>{{batch.bath}}</td>
-                            <td>{{batch.unit}}</td>
-                            <td>{{batch.qty}}</td>
-                            <td>{{batch.date}}</td>
+                            <td>{{batch.itemBatch}}</td>
+                            <td>{{batch.item.unit.name}}</td>
+                            <td>{{batch.itemSoh}}</td>
+                            <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}}</td>
                             <td>
                                 <button ng-click="editBatch(batch)" class="md-fab md-mini md-primary md-button"
                                     type="button" aria-label="View">
