@@ -23,10 +23,10 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row data-ng-repeat="batch in batches">
-                            <td>{{batch.bath}}</td>
-                            <td>{{batch.unit}}</td>
-                            <td>{{batch.qty}}</td>
-                            <td>{{batch.date}}</td>
+                            <td>{{batch.itemBatch}}</td>
+                            <td>{{batch.item.unit.name}}</td>
+                            <td>{{batch.itemSoh}}</td>
+                            <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}}</td>
                             <td>
                                 <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
                                     ng-click="editBatch(batch)">
