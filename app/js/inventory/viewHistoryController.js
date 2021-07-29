@@ -11,6 +11,11 @@ angular.module('viewHistoryController', []).controller('viewHistoryController', 
     var type = "";
     var msg = "";
 
+    $scope.histories = [
+        { "item": "aspirine", "bath": "89809809", "type": "negative", "qty": "100", "date": "2014-12-31" },
+        { "item": "aspirine", "bath": "89809809", "type": "positive", "qty": "100", "date": "2014-12-31" }
+    ]
+
 
     function handleResponse(response, e = null) {
         document.getElementById("loading_submit").style.visibility = "hidden";
