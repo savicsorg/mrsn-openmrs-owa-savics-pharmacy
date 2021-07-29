@@ -11,14 +11,14 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
     var msg = "";
 
     $scope.batch = function () {
-        if (!vm.batch || !vm.batch.item_batch || !vm.batch.location_id || !vm.batch.item_virtualstock || !vm.batch.expiry_date) {
+        if (!vm.batch || !vm.batch.itemBatch || !vm.batch.pharmacyLocation || !vm.batch.itemVirtualstock || !vm.batch.itemExpiryDate) {
             type = "error";
             msg = "Please check if your input are valid ones."
             showToast(msg, type);
             return;
         }
-        vm.batch.item_id = $stateParams.item_id;
-        vm.batch.item_soh = vm.batch.item_virtualstock;
+        vm.batch.item = $stateParams.item_id;
+        vm.batch.itemSoh = vm.batch.itemVirtualstock;
 
         document.getElementById("loading_submit").style.visibility = "visible";
         var payload = vm.batch;
@@ -60,7 +60,7 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
 
     function showToast(msg, type) {
         if (type != "error") {
-            $state.go('home.drugs')
+            $state.go('home.viewdetail');
         }
         $mdToast.show(
             $mdToast.simple()

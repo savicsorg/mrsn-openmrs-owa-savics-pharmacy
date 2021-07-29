@@ -7,12 +7,12 @@
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Batch</label>
-                    <input class="form-control" type="text" ng-model="vm.batch.item_batch">
+                    <input class="form-control" type="text" ng-model="vm.batch.itemBatch">
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Location</label>
-                    <md-select ng-model="vm.batch.location_id">
+                    <md-select ng-model="vm.batch.pharmacyLocation">
                         <md-option ng-repeat="l in vm.locations" ng-value="l.id">
                             {{l.name}}
                         </md-option>
@@ -22,11 +22,11 @@
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Qty</label>
-                    <input class="form-control" type="number" ng-model="vm.batch.item_virtualstock">
+                    <input class="form-control" type="number" ng-model="vm.batch.itemVirtualstock">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Date</label>
-                    <md-datepicker ng-model="vm.batch.expiry_date" md-placeholder="Enter date"
+                    <md-datepicker ng-model="vm.batch.itemExpiryDate" md-placeholder="Enter date"
                         input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header"
                         md-mode="day" md-hide-icons="calendar" md-current-view="month">
                     </md-datepicker>
