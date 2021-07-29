@@ -126,6 +126,8 @@
     "Concept.id.help": "Plages de valeurs numériques 3",
     "Concept.uiid.help": "Plages de valeurs numériques 4",
     "Concept.locale.help": "Plages de valeurs numériques 5",
-    "Concept.retired.help": "Plages de valeurs numériques 6"
+    "Concept.retired.help": "Plages de valeurs numériques 6",
+    "adjustmentp": "Adjustment +",
+    "adjustmentn": "Adjustment -"
 }
 

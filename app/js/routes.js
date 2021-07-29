@@ -401,7 +401,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         },
         breadcrumbs: ["Home", "viewdetail"]
     }).state('home.adjustment', {
-        url: 'adjustment',
+        url: 'adjustment/:id',
         params: { adjustment: null },
         template: require('./inventory/adjustment.html'),
         controller: 'AdjustmentController',

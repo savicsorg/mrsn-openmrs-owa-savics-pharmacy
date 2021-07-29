@@ -27,7 +27,8 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
 
     $scope.openAdjustement = function (data) {
         $state.go('home.adjustment', {
-            item: data
+            item: data.code,
+            id: data.id
         });
     }
 
