@@ -6,23 +6,23 @@
         <md-card>
             <md-card-content>
                 <div layout="row" layout-xs="column">
-                    <md-radio-group ng-model="adjustment.toggle" layout="row" required>
-                        <md-radio-button value="+" class="md-primary" >+ adjustment</md-radio-button>
-                        <md-radio-button value="-" class="md-primary" >- adjustment</md-radio-button>
+                    <md-radio-group ng-model="transactionType" layout="row" required>
+                        <md-radio-button value="padj" class="md-primary" >+ adjustment</md-radio-button>
+                        <md-radio-button value="nadj" class="md-primary" >- adjustment</md-radio-button>
                     </md-radio-group>
                 </div>
                 <div layout="row" layout-xs="column">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label translate>Batch number</label>
-                        <md-select ng-model="adjustment.batchid" required>
-                            <md-option ng-repeat="b in batches" ng-value="b.id" >
+                        <md-select ng-model="selectedBatch" required>
+                            <md-option ng-repeat="b in batches" ng-value="b" >
                                 {{b.itemBatch}}
                             </md-option>
                         </md-select>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm >
                         <label translate>Quantity</label>
-                        <input type="number" min="0" ng-model="adjustment.qty" required>
+                        <input type="number" min="0" ng-model="adjustment.quantity" required>
                     </md-input-container>
                 </div>
                 <div layout="row" layout-xs="column">

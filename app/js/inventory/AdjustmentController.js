@@ -4,6 +4,8 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
         $scope.resource = "savicspharmacy";
         $scope.item_id = $stateParams.id;
         $scope.adjustment = {};
+        $scope.selectedBatch = {};
+        $scope.transactionType = "padj";
 
         //Breadcrumbs properties
         $rootScope.links = {"Pharmacy management module": "", "adjustment": "Adjustment"};
@@ -30,16 +32,32 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
         // Add a new contact
         $scope.submit = function () {
             console.log("aaaaaaaa")
-            console.log($scope.adjustment)
-            $scope.loading = true;
             
-            $scope.order.supplier = $scope.order.supplier.id;
+            if ($scope.transactionType == "padj"){
+                $scope.adjustment.transactionType = 1;
+                $scope.adjustment.transactionTypeId = 1;
+            }else{
+                $scope.adjustment.transactionType = 2;
+                $scope.adjustment.transactionTypeId = 2;
+            }
+            
+            $scope.adjustment.itemBatch = $scope.selectedBatch.itemBatch;
+            $scope.adjustment.date = new Date();
+            $scope.adjustment.itemExpiryDate = $scope.selectedBatch.itemExpiryDate;
+            //$scope.adjustment.amount = ??;
+            $scope.adjustment.status = "INIT";
+            $scope.adjustment.adjustmentDate = new Date();
+            $scope.adjustment.pharmacyLocation = $scope.selectedBatch.pharmacyLocation.id;
+            $scope.adjustment.item = $scope.selectedBatch.item.id;
+            
+            console.log($scope.adjustment);
+            $scope.loading = true;
             //Creation
             console.log("Creating new adjustment");
             openmrsRest.create($scope.resource + "/transaction", $scope.adjustment).then(function (response) {
                 console.log(response);
                 $scope.adjustmentRes = response;
-                loadData();
+                $state.go('home.inventory')
                 toastr.success('Data saved successfully.', 'Success');
             }, function (e) {
                 console.error(e);
