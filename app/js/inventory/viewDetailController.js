@@ -3,8 +3,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     $scope.appTitle = "View detail";
     $scope.resource = "savicspharmacy";
     $scope.item = $stateParams.item;
-    $scope.item_id = $stateParams.item.id;
-    $scope.item_name = $stateParams.item.name;
+    $scope.item_id = $stateParams.id;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Viewdetail": "View detail" };
 
@@ -55,13 +54,16 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
 
     $scope.addBatch = function () {
         $state.go('home.addbatch', {
-            item_id: $scope.item_id
+            item_id: $scope.item_id,
+            item: $scope.item
         });
     }
 
     $scope.editBatch = function (data) {
         $state.go('home.editbatch', {
-            code: data,
+            batch: data,
+            item_id: $scope.item_id,
+            item: $scope.item
         });
     }
 

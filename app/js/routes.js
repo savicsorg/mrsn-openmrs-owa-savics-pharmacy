@@ -382,7 +382,8 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
     }).state('home.viewdetail', {
         url: 'viewdetail/:id',
         params: {
-            item: undefined
+            item: undefined,
+            id: undefined
         },
         template: require('./inventory/viewDetail.html'),
         controller: 'viewDetailController',
@@ -421,7 +422,10 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "inventory", "adjustment"]
     }).state('home.addbatch', {
         url: 'addbatch',
-        params: { item_id: undefined },
+        params: {
+            item_id: undefined,
+            item: undefined
+        },
         template: require('./inventory/addNewbatch.html'),
         controller: 'AddNewbatchController',
         resolve: {
@@ -440,7 +444,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "inventory", "addbatch"]
     }).state('home.editbatch', {
         url: 'editbatch',
-        params: { code: null },
+        params: { batch: null, item_id: undefined, item: undefined },
         template: require('./inventory/editbatch.html'),
         controller: 'EditbatchController',
         resolve: {

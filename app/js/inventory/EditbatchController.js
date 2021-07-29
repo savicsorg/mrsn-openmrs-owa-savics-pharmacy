@@ -11,6 +11,42 @@ angular.module('EditbatchController', []).controller('EditbatchController', ['$s
     var type = "";
     var msg = "";
 
+    if ($stateParams.batch) {
+        //we are in edit mode
+        console.log($stateParams);
+        vm.batch = $stateParams.batch;
+        $scope.pharmacy_location_id = vm.batch.pharmacyLocation.id;
+
+    }
+
+    $scope.batch = function () {
+        if (!vm.batch || !vm.batch.itemBatch || !vm.batch.pharmacyLocation || !vm.batch.itemVirtualstock || !vm.batch.itemExpiryDate) {
+            type = "error";
+            msg = "Please check if your input are valid ones."
+            showToast(msg, type);
+            return;
+        }
+        vm.batch.item = parseInt($stateParams.item_id);
+        vm.batch.itemSoh = vm.batch.itemVirtualstock;
+
+        document.getElementById("loading_submit").style.visibility = "visible";
+        var payload = vm.batch;
+        console.log(payload);
+        openmrsRest.update($scope.resource + "/itemsLine", payload).then(function (response) {
+            handleResponse(response)
+        }).catch(function (e) {
+            handleResponse(response, e)
+        });
+
+    }
+
+    $scope.locations = function () {
+        openmrsRest.getFull($scope.resource + "/location").then(function (response) {
+            vm.locations = response.results;
+        });
+    }
+
+    $scope.locations();
 
     function handleResponse(response, e = null) {
         document.getElementById("loading_submit").style.visibility = "hidden";
@@ -22,7 +58,7 @@ angular.module('EditbatchController', []).controller('EditbatchController', ['$s
         }
         if (response.uuid) {
             type = "success";
-            msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
+            msg = response.itemBatch + " is Well edited.";
         } else {
             type = "error";
             msg = "we can't save your data.";
@@ -32,7 +68,10 @@ angular.module('EditbatchController', []).controller('EditbatchController', ['$s
 
     function showToast(msg, type) {
         if (type != "error") {
-            $state.go('home.drugs')
+            $state.go('home.viewdetail', {
+                item: $stateParams.item,
+                id: $stateParams.item_id
+            });
         }
         $mdToast.show(
             $mdToast.simple()

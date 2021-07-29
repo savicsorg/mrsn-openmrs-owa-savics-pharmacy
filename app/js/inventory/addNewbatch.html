@@ -12,7 +12,7 @@
 
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Location</label>
-                    <md-select ng-model="vm.batch.pharmacyLocation">
+                    <md-select ng-model="vm.batch.pharmacyLocation" ng-selected="l.id == pharmacy_location_id">
                         <md-option ng-repeat="l in vm.locations" ng-value="l.id">
                             {{l.name}}
                         </md-option>
@@ -45,7 +45,7 @@
             </md-tooltip>
             Save
         </md-button>
-        <a href="index.html#!/viewdetail">
+        <a href="index.html#!/viewdetail/1">
             <md-button class="md-raised" aria-label="Add">
                 <md-icon>close</md-icon>
                 Cancel

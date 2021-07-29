@@ -17,7 +17,7 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
             showToast(msg, type);
             return;
         }
-        vm.batch.item = $stateParams.item_id;
+        vm.batch.item = parseInt($stateParams.item_id);
         vm.batch.itemSoh = vm.batch.itemVirtualstock;
 
         document.getElementById("loading_submit").style.visibility = "visible";
@@ -50,7 +50,7 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
         }
         if (response.uuid) {
             type = "success";
-            msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
+            msg = response.itemBatch + " is Well saved.";
         } else {
             type = "error";
             msg = "we can't save your data.";
@@ -60,7 +60,10 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
 
     function showToast(msg, type) {
         if (type != "error") {
-            $state.go('home.viewdetail');
+            $state.go('home.viewdetail', {
+                item: $stateParams.item,
+                id: $stateParams.item_id
+            });
         }
         $mdToast.show(
             $mdToast.simple()
