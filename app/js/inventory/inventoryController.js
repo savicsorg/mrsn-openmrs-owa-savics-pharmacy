@@ -34,7 +34,7 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
 
     $scope.openHistory = function (data) {
         $state.go('home.viewhistory', {
-            item: data
+            item: data.code,
         });
     }
 
