@@ -15,6 +15,7 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
             }
         })
     }
+
     $scope.getAllDrug();
 
     $scope.openView = function (data) {
@@ -31,13 +32,10 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
         });
     }
 
-
     $scope.openHistory = function (data) {
         $state.go('home.viewhistory', {
-            item: data.code,
+            item: data
         });
     }
-
-
 
 }]);
