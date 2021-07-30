@@ -55,20 +55,21 @@ angular.module('InventoryController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
 
     $scope.saveReception = function () {
         $scope.loading = true;
+        if(!($scope.reception.pharmacyOrder && $scope.reception.pharmacyOrder.uuid))
+            $scope.reception.pharmacyOrder = undefined; //delete it from payload
         if ($scope.reception && $scope.reception.uuid) {    //Edit
             openmrsRest.update($scope.resource + "/reception", $scope.reception).then(function (response) {
                 $scope.reception = response;
-                loadData();
+                $scope.getData();
                 toastr.success('Data saved successfully.', 'Success');   
             },function(e){
-                console.error(e);
                 $scope.loading = false;
                 toastr.error('An unexpected error has occured.', 'Error');
             });
         } else {    //Creation
             openmrsRest.create($scope.resource + "/reception", $scope.reception).then(function (response) {
                 $scope.reception = response;
-                loadData();
+                $scope.getData();
                 toastr.success('Data saved successfully.', 'Success');   
             },function(e) {
                 $scope.loading = false;

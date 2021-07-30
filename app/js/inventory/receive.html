@@ -63,7 +63,7 @@
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="20">
                     <label translate>Expiry date</label>
-                    <input class="form-control" type="text" ng-model="l.itemExpiryDate">
+                    <input class="form-control" type="date" ng-model="l.itemExpiryDate">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="add"
@@ -90,7 +90,7 @@
             Save
         </md-button>
     </div>
-    <div layout="row" layout-xs="column" ng-if="!loading">
+    <div layout="row" layout-xs="column" ng-if="reception.id === undefined && !loading">
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveReception()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
