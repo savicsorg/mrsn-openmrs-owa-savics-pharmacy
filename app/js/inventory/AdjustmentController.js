@@ -32,7 +32,7 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
 
         $scope.getAdjutementTransactionTypes = function () {
             $scope.batches = [];
-            openmrsRest.get($scope.resource + "transactionType?name=adjustment").then(function (response) {
+            openmrsRest.get($scope.resource + "/transactionType?name=adjustment").then(function (response) {
                 if (response.results.length >= 1) {
                     $scope.transactionTypes = response.results;
                     console.log($scope.transactionTypes)
@@ -45,12 +45,14 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
         $scope.submit = function () {
             console.log("aaaaaaaa")
             if ($scope.transactionTypes && $scope.transactionTypes.length > 0) {
-                if ($scope.transactionType == "padj") {
+                if ($scope.transactionType == "nadj") {
                     $scope.adjustment.transactionType = 1;
                     $scope.adjustment.transactionTypeId = 1;
+                    $scope.adjustment.transactionTypeCode = "nadj";
                 } else {
                     $scope.adjustment.transactionType = 2;
                     $scope.adjustment.transactionTypeId = 2;
+                    $scope.adjustment.transactionTypeCode = "padj";
                 }
 
                 $scope.adjustment.itemBatch = $scope.selectedBatch.itemBatch;
@@ -61,6 +63,7 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                 $scope.adjustment.adjustmentDate = new Date();
                 $scope.adjustment.pharmacyLocation = $scope.selectedBatch.pharmacyLocation.id;
                 $scope.adjustment.item = $scope.selectedBatch.item.id;
+                $scope.adjustment.selectedBatchUuid = $scope.selectedBatch.uuid;
 
                 console.log($scope.adjustment);
                 $scope.loading = true;
