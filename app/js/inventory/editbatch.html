@@ -1,0 +1,53 @@
+<div id="content" class="container-fluid" ng-controller="EditbatchController as vm">
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
+    </div>
+    <md-card>
+        <md-card-content>
+            <div layout="row" layout-xs="column">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Batch</label>
+                    <input class="form-control" type="text" ng-model="choice.drug_name">
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Unit</label>
+                    <md-select ng-model="choice.drug_unit">
+                        <md-option ng-repeat="u in vm.units" ng-value="u.id">
+                            {{u.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <div layout="row" layout-xs="column">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Qty</label>
+                    <input class="form-control" type="number" ng-model="choice.avl_qty">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Exp date</label>
+                    <input class="form-control" type="text" ng-model="choice.drug_exp_date">
+                    </md-datepicker>
+                </md-input-container>
+            </div>
+        </md-card-content>
+    </md-card>
+    <div layout="row" layout-xs="column">
+        <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
+    </div>
+    <div layout="row" layout-xs="column">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="adjustment()">
+            <md-icon>save</md-icon>
+            <md-tooltip md-direction="top">
+                <span translate>Save</span>
+            </md-tooltip>
+            Save
+        </md-button>
+        <a href="index.html#!/viewdetail">
+            <md-button class="md-raised" aria-label="Add">
+                <md-icon>close</md-icon>
+                Cancel
+            </md-button>
+        </a>
+    </div>
+</div>

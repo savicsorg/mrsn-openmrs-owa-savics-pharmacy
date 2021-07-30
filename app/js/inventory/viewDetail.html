@@ -1,0 +1,54 @@
+<div id="content" class="container-fluid" ng-controller="viewDetailController as vm">
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex=""> Stock details for: <b>{{item.name}}</b></h1>
+        <a href="index.html#!/inventory">
+            <md-button class="md-raised">
+                <md-icon>arrow_back</md-icon>Back
+            </md-button>
+        </a>
+    </div>
+
+    <md-card>
+        <md-card-content>
+            <md-table-container class="container" fixed-column-table>
+                <table md-table md-progress="promise">
+                    <thead md-head>
+                        <tr md-row>
+                            <th><span translate>Batch Number</span></th>
+                            <th><span translate>Unit</span></th>
+                            <th><span translate>Qty</span></th>
+                            <th><span translate>Exp date</span></th>
+                            <th><span translate>Action</span></th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row data-ng-repeat="batch in batches">
+                            <td>{{batch.itemBatch}}</td>
+                            <td>{{batch.item.unit.name}}</td>
+                            <td>{{batch.itemSoh}}</td>
+                            <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}}</td>
+                            <td>
+                                <button ng-click="showConfirm($event,batch)" class="md-fab md-mini md-primary md-button"
+                                    type="button" aria-label="Remove">
+                                    <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
+                                    <md-tooltip md-direction="top"><span translate>delete</span></md-tooltip>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </md-card-content>
+    </md-card>
+
+    <md-card>
+        <md-card-content>
+            <div layout="row" layout-xs="column">
+                <md-button class="md-raised md-accent" ng-click="addBatch()">
+                    <md-icon>add</md-icon> Add batch
+                </md-button>
+                <br>
+            </div>
+        </md-card-content>
+    </md-card>
+</div>

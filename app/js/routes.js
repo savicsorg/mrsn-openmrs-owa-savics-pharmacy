@@ -380,12 +380,110 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "receive", "New"]
-    }).state('home.stock', { // to check with Kabir
-        url: 'stock',
-        template: require('./inventory/stock.html'),
+    }).state('home.viewdetail', {
+        url: 'viewdetail/:id',
+        params: {
+            item: undefined,
+            id: undefined
+        },
+        template: require('./inventory/viewDetail.html'),
+        controller: 'viewDetailController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/viewDetailController.js');
+                    $ocLazyLoad.load({
+                        name: 'viewDetailController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "viewdetail"]
+    }).state('home.adjustment', {
+        url: 'adjustment/:id',
+        params: { adjustment: null },
+        template: require('./inventory/adjustment.html'),
+        controller: 'AdjustmentController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/AdjustmentController.js');
+                    $ocLazyLoad.load({
+                        name: 'AdjustmentController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "inventory", "adjustment"]
+    }).state('home.addbatch', {
+        url: 'addbatch',
+        params: {
+            item_id: undefined,
+            item: undefined
+        },
+        template: require('./inventory/addNewbatch.html'),
+        controller: 'AddNewbatchController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/AddNewbatchController.js');
+                    $ocLazyLoad.load({
+                        name: 'AddNewbatchController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "inventory", "addbatch"]
+    }).state('home.editbatch', {
+        url: 'editbatch',
+        params: { batch: null, item_id: undefined, item: undefined },
+        template: require('./inventory/editbatch.html'),
+        controller: 'EditbatchController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/EditbatchController.js');
+                    $ocLazyLoad.load({
+                        name: 'EditbatchController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "inventory", "editbatch"]
+    }).state('home.viewhistory', {
+        url: 'viewhistory',
+        params: { item: undefined },
+        template: require('./inventory/viewHistory.html'),
+        controller: 'viewHistoryController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/viewHistoryController.js');
+                    $ocLazyLoad.load({
+                        name: 'viewHistoryController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "viewhistory"]
     }).state('home.inventory', {
         url: 'inventory',
-        template: require('./inventory/main.html'),
+        template: require('./inventory/viewOnStock.html'),
         controller: 'InventoryController',
         resolve: {
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
@@ -400,7 +498,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
                 return deferred.promise;
             }]
         },
-        breadcrumbs: ["Home"]
+        breadcrumbs: ["Home", "viewhistory"]
     }).state('home.orders', { // to check with Kabir
         url: 'orders',
         template: require('./order/orders.html'),

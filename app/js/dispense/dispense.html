@@ -23,7 +23,8 @@
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Date</label>
                     <md-datepicker ng-model="vm.dispense.date" md-placeholder="Enter date"
-                        input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header" md-mode="day" md-hide-icons="calendar" md-current-view="month">
+                        input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header"
+                        md-mode="day" md-hide-icons="calendar" md-current-view="month">
                     </md-datepicker>
                 </md-input-container>
             </div>
@@ -97,7 +98,7 @@
                 <md-input-container class="md-block" flex-gt-sm>
                     <!-- <label translate>Exp date</label> -->
                     <input class="form-control" type="text" ng-model="choice.drug_exp_date">
-                    </md-datepicker>
+                    <!-- </md-datepicker> -->
                 </md-input-container>
                 <!-- <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Total</label>
@@ -106,8 +107,8 @@
                 <md-input-container class="md-block" flex-gt-sm>
                     <!-- <a href="" ng-click="removeChoice(choice.id)"  ng-if="choice.id!=index">Remove</a>
                     <a href="" ng-click="addNewChoice()"  ng-if="choice.id===index">Add</a> -->
-                    <md-button class="md-fab md-mini md-primary md-button" aria-label="remove" ng-click="removeChoice(choice.id)"
-                        ng-if="choice.id!=index">
+                    <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
+                        ng-click="removeChoice(choice.id)" ng-if="choice.id!=index">
                         <md-icon>remove</md-icon>
                     </md-button>
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="Add" ng-click="addNewChoice()"

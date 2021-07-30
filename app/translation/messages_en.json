@@ -418,5 +418,7 @@
     "ConceptReferenceTerm.newTermForm": "New Reference Term Form",
     "ConceptReferenceTerm.term.alreadyMapped": "Cannot map a reference term multiple times to the same concept",
     "ConceptRefereceTerm.inUse": "Reference term is in use",
-    "ConceptReferenceTerm.termToTerm.alreadyMapped": "Cannot map a reference term multiple times to the same reference term"
+    "ConceptReferenceTerm.termToTerm.alreadyMapped": "Cannot map a reference term multiple times to the same reference term",
+    "adjustmentp": "+ adjustment",
+    "adjustmentn": "- adjustment"
 }
