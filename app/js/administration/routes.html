@@ -38,7 +38,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="route in routes |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="route in routes |filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{route.uuid}}</td>
                         <td>{{route.code}}</td>
                         <td>{{route.name}}</td>
@@ -46,7 +46,7 @@
                             <button ng-click="openEdit(route)" class="md-fab md-mini md-primary md-button" type="button" aria-label="Add">
                                 <md-icon class=" material-icons" role="img" aria-hidden="true">edit</md-icon>
                             </button>
-                            <button ng-click="delete(route)" class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove">
+                            <button ng-click="showConfirm($event,route)" class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
                             </button>
                         </td>

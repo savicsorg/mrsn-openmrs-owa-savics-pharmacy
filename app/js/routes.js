@@ -214,43 +214,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "Customertype", "New"]
-    }).state('home.types', {
-        url: 'types',
-        template: require('./administration/types.html'),
-        controller: 'TypesController',
-        resolve: {
-            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
-                var deferred = $q.defer();
-                require.ensure([], function () {
-                    var mod = require('./administration/TypesController.js');
-                    $ocLazyLoad.load({
-                        name: 'TypesController'
-                    });
-                    deferred.resolve(mod.controller);
-                });
-                return deferred.promise;
-            }]
-        },
-        breadcrumbs: ["Home", "Types"]
-    }).state('home.type', {
-        url: 'type',
-        template: require('./administration/type.html'),
-        controller: 'TypeController',
-        resolve: {
-            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
-                var deferred = $q.defer();
-                require.ensure([], function () {
-                    var mod = require('./administration/TypeController.js');
-                    $ocLazyLoad.load({
-                        name: 'TypeController'
-                    });
-                    deferred.resolve(mod.controller);
-                });
-                return deferred.promise;
-            }]
-        },
-        breadcrumbs: ["Home", "Type", "New"]
-    }).state('home.Locations', {
+    }).state('home.locations', {
         url: 'locations',
         template: require('./administration/locations.html'),
         controller: 'LocationsController',
@@ -416,9 +380,12 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "receive", "New"]
-    }).state('home.stock', {
+    }).state('home.stock', { // to check with Kabir
         url: 'stock',
         template: require('./inventory/stock.html'),
+    }).state('home.inventory', {
+        url: 'inventory',
+        template: require('./inventory/main.html'),
         controller: 'InventoryController',
         resolve: {
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
@@ -434,7 +401,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home"]
-    }).state('home.orders', {
+    }).state('home.orders', { // to check with Kabir
         url: 'orders',
         template: require('./order/orders.html'),
         controller: 'OrderController',
@@ -472,6 +439,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home"]
+        // breadcrumbs: ["Home", "inventory"]
     }).state('home.administration', {
         url: 'administration',
         template: require('./administration/main.html'),
