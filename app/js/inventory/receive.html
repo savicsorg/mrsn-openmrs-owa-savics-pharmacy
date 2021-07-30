@@ -26,7 +26,7 @@
                 <md-input-container class="md-block" flex-gt-sm flex="33">
                     <label translate>Location</label>
                     <md-select ng-model="location">
-                        <md-option ng-repeat="l in locations" ng-value="l.id">
+                        <md-option ng-repeat="l in locations" ng-value="l.uuid">
                             {{l.name}}
                         </md-option>
                     </md-select>

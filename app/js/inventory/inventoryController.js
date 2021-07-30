@@ -50,7 +50,7 @@ angular.module('InventoryController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
     $scope.getData();
 
     $scope.addReceptionLine = function(){
-        $scope.lines.push({ reception: $scope.reception.id, item : { name: "" }, quantityReceived: 0 });
+        $scope.lines.push({ reception: $scope.reception.id, item : { name: "" }, quantityReceived: 0, location: $scope.location});
     }
 
     $scope.saveReception = function () {
@@ -153,8 +153,7 @@ angular.module('InventoryController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
     };
 
     $scope.logPagination = function (page, limit) {
-        console.log('page: ', page);
-        console.log('limit: ', limit);
+        
     }
 
 }])
