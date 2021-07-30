@@ -7,12 +7,35 @@ angular.module('InventoryController', []).controller('InventoryController', ['$s
     var vm = this;
     vm.appTitle = "Stock and inventory";
 
-    $scope.viewstocks = [
-        { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" },
-        { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" },
-        { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" },
-        { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" },
-        { code: "N02BE01", name: "Kipharma", min: "10", max: "10", avail: "10", phys: "50000" }
-    ];
+    $scope.getAllDrug = function () {
+        $scope.viewOnStock = [];
+        openmrsRest.getFull($scope.resource + "/item").then(function (response) {
+            if (response.results.length >= 1) {
+                $scope.viewOnStock = response.results;
+            }
+        })
+    }
+
+    $scope.getAllDrug();
+
+    $scope.openView = function (data) {
+        $state.go('home.viewdetail', {
+            item: data,
+            id: data.id
+        });
+    }
+
+    $scope.openAdjustement = function (data) {
+        $state.go('home.adjustment', {
+            item: data.code,
+            id: data.id
+        });
+    }
+
+    $scope.openHistory = function (data) {
+        $state.go('home.viewhistory', {
+            item: data.code,
+        });
+    }
 
 }]);

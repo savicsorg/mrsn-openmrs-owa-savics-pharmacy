@@ -1,0 +1,43 @@
+<div id="content" class="container-fluid" ng-controller="viewHistoryController as vm">
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
+    </div>
+    <md-card>
+        <md-table-container class="container" fixed-column-table>
+            <table md-table md-progress="promise">
+                <thead md-head>
+                    <tr md-row>
+                        <th><span translate>Item name</span></th>
+                        <th><span translate>Bath name</span></th>
+                        <th><span translate>Adjustment type</span></th>
+                        <th><span translate>Adjustment qty</span></th>
+                        <th><span translate>Date modified</span></th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row
+                        data-ng-repeat="history in histories| limitTo: query.limit : (query.page -1) * query.limit">
+                        <td>{{history.item}}</td>
+                        <td>{{history.bath}}</td>
+                        <td>{{history.type}}</td>
+                        <td>{{history.qty}}</td>
+                        <td>{{history.date}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{histories.length}}"
+            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+            md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
+        </md-table-pagination>
+    </md-card>
+
+    <div layout="row" layout-xs="column">
+        <a href="index.html#!/inventory">
+            <md-button class="md-raised" aria-label="Add">
+                <md-icon>close</md-icon>
+                Cancel
+            </md-button>
+        </a>
+    </div>
+</div>

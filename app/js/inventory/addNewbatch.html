@@ -1,0 +1,55 @@
+<div id="content" class="container-fluid" ng-controller="AddNewbatchController as vm">
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
+    </div>
+    <md-card>
+        <md-card-content>
+            <div layout="row" layout-xs="column">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Batch</label>
+                    <input class="form-control" type="text" ng-model="vm.batch.itemBatch">
+                </md-input-container>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Location</label>
+                    <md-select ng-model="vm.batch.pharmacyLocation" ng-selected="l.id == pharmacy_location_id">
+                        <md-option ng-repeat="l in vm.locations" ng-value="l.id">
+                            {{l.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <div layout="row" layout-xs="column">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Qty</label>
+                    <input class="form-control" type="number" ng-model="vm.batch.itemVirtualstock">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>Date</label>
+                    <md-datepicker ng-model="vm.batch.itemExpiryDate" md-placeholder="Enter date"
+                        input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header"
+                        md-mode="day" md-hide-icons="calendar" md-current-view="month">
+                    </md-datepicker>
+                </md-input-container>
+            </div>
+        </md-card-content>
+    </md-card>
+    <div layout="row" layout-xs="column">
+        <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
+    </div>
+    <div layout="row" layout-xs="column">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="batch()">
+            <md-icon>save</md-icon>
+            <md-tooltip md-direction="top">
+                <span translate>Save</span>
+            </md-tooltip>
+            Save
+        </md-button>
+        <a href="index.html#!/viewdetail/1">
+            <md-button class="md-raised" aria-label="Add">
+                <md-icon>close</md-icon>
+                Cancel
+            </md-button>
+        </a>
+    </div>
+</div>

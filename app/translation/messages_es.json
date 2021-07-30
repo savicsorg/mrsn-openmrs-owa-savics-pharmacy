@@ -360,5 +360,7 @@
   "ConceptWord.rangeError":"Usted específico de un rango inválido. La entrada válida es n o n-m",
   "ConceptWord.title":"Actualizar Almacenamiento de índice de Concepto",
   "ConceptWord.updated":"Las palabras de Concepto se han actualizado con éxito.",
-  "ConceptWord.updateInProgress":"Actualización del índice de concepto está en curso y podría tomar 5-10 minutos. La Tarea programada 'Actualización del índice de concepto' será marcado como detenida cuando haya terminado."
+  "ConceptWord.updateInProgress":"Actualización del índice de concepto está en curso y podría tomar 5-10 minutos. La Tarea programada 'Actualización del índice de concepto' será marcado como detenida cuando haya terminado.",
+   "adjustmentp": "Adjustment +",
+   "adjustmentn": "Adjustment -"
 }

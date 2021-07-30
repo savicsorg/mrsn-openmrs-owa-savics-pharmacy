@@ -24,6 +24,10 @@ html.md-default-theme, html {
     background-color: #eeeeee;
 }
 
+.md-virtual-repeat-container{
+    overflow: visible !important;
+}
+
 md-toast.md-error-toast-theme div.md-toast-content{
     color: white !important;
     background-color: red !important;
