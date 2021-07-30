@@ -6,6 +6,7 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
         $scope.adjustment = {};
         $scope.selectedBatch = {};
         $scope.transactionType = "padj";
+        $scope.transactionTypes = [];
 
         //Breadcrumbs properties
         $rootScope.links = {"Pharmacy management module": "", "adjustment": "Adjustment"};
@@ -29,41 +30,56 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
         }
         $scope.getItemsLines();
 
+        $scope.getAdjutementTransactionTypes = function () {
+            $scope.batches = [];
+            openmrsRest.get($scope.resource + "transactionType?name=adjustment").then(function (response) {
+                if (response.results.length >= 1) {
+                    $scope.transactionTypes = response.results;
+                    console.log($scope.transactionTypes)
+                }
+            })
+        }
+        $scope.getAdjutementTransactionTypes();
+
         // Add a new contact
         $scope.submit = function () {
             console.log("aaaaaaaa")
-            
-            if ($scope.transactionType == "padj"){
-                $scope.adjustment.transactionType = 1;
-                $scope.adjustment.transactionTypeId = 1;
+            if ($scope.transactionTypes && $scope.transactionTypes.length > 0) {
+                if ($scope.transactionType == "padj") {
+                    $scope.adjustment.transactionType = 1;
+                    $scope.adjustment.transactionTypeId = 1;
+                } else {
+                    $scope.adjustment.transactionType = 2;
+                    $scope.adjustment.transactionTypeId = 2;
+                }
+
+                $scope.adjustment.itemBatch = $scope.selectedBatch.itemBatch;
+                $scope.adjustment.date = new Date();
+                $scope.adjustment.itemExpiryDate = $scope.selectedBatch.itemExpiryDate;
+                //$scope.adjustment.amount = ??;
+                $scope.adjustment.status = "INIT";
+                $scope.adjustment.adjustmentDate = new Date();
+                $scope.adjustment.pharmacyLocation = $scope.selectedBatch.pharmacyLocation.id;
+                $scope.adjustment.item = $scope.selectedBatch.item.id;
+
+                console.log($scope.adjustment);
+                $scope.loading = true;
+                //Creation
+                console.log("Creating new adjustment");
+                openmrsRest.create($scope.resource + "/transaction", $scope.adjustment).then(function (response) {
+                    console.log(response);
+                    $scope.adjustmentRes = response;
+                    $state.go('home.inventory')
+                    toastr.success('Data saved successfully.', 'Success');
+                }, function (e) {
+                    console.error(e);
+                    $scope.loading = false;
+                    toastr.error('An unexpected error has occured.', 'Error');
+                });
             }else{
-                $scope.adjustment.transactionType = 2;
-                $scope.adjustment.transactionTypeId = 2;
+                toastr.error('Transaction type are missing.', 'Error');
             }
-            
-            $scope.adjustment.itemBatch = $scope.selectedBatch.itemBatch;
-            $scope.adjustment.date = new Date();
-            $scope.adjustment.itemExpiryDate = $scope.selectedBatch.itemExpiryDate;
-            //$scope.adjustment.amount = ??;
-            $scope.adjustment.status = "INIT";
-            $scope.adjustment.adjustmentDate = new Date();
-            $scope.adjustment.pharmacyLocation = $scope.selectedBatch.pharmacyLocation.id;
-            $scope.adjustment.item = $scope.selectedBatch.item.id;
-            
-            console.log($scope.adjustment);
-            $scope.loading = true;
-            //Creation
-            console.log("Creating new adjustment");
-            openmrsRest.create($scope.resource + "/transaction", $scope.adjustment).then(function (response) {
-                console.log(response);
-                $scope.adjustmentRes = response;
-                $state.go('home.inventory')
-                toastr.success('Data saved successfully.', 'Success');
-            }, function (e) {
-                console.error(e);
-                $scope.loading = false;
-                toastr.error('An unexpected error has occured.', 'Error');
-            });
+
         }
 
 
