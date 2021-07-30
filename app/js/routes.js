@@ -399,6 +399,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "purchase", "New"]
     }).state('home.receive', {
         url: 'receive',
+        params: { reception: null },
         template: require('./inventory/receive.html'),
         controller: 'InventoryController',
         resolve: {

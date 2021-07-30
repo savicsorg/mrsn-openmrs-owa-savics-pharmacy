@@ -1,7 +1,7 @@
 <div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">
-            <md-icon>content_paste</md-icon> Make a drug reception 
+            <md-icon>vertical_align_bottom</md-icon> Make a drug reception 
         </h1>
     </div>
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
@@ -13,7 +13,7 @@
             <div layout="row" layout-xs="column" class="flex flex-col">
                 <md-input-container class="md-block" flex-gt-sm flex="33">
                     <label translate>Order N°</label>
-                    <md-select ng-model="reception.order.id">
+                    <md-select ng-model="reception.pharmacyOrder.id">
                         <md-option ng-repeat="o in orders" ng-value="o.id">
                             [CMD#{{o.id}}] {{o.name}}
                         </md-option>
@@ -79,7 +79,6 @@
             <md-button class=" md-primary md-button" aria-label="Add" ng-click="addReceptionLine()">
                 <md-icon>add</md-icon> Add a line
             </md-button>
-            <strong>Total: {{reception.amount}}</strong>
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column" ng-if="reception.id !== undefined && !loading">
@@ -90,14 +89,8 @@
             </md-tooltip>
             Save
         </md-button>
-        <a href="index.html#!/receptions">
-            <md-button class="md-raised" aria-label="Add">
-                <md-icon>close</md-icon>
-                Cancel
-            </md-button>
-        </a>
     </div>
-    <div layout="row" layout-xs="column" >
+    <div layout="row" layout-xs="column" ng-if="!loading">
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveReception()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
