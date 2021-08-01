@@ -361,18 +361,37 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "purchase", "New"]
-    }).state('home.receive', {
-        url: 'receive',
+    }).state('home.reception', {
+        url: 'reception/:uuid',
         params: { reception: null },
-        template: require('./inventory/receive.html'),
-        controller: 'InventoryController',
+        template: require('./inventory/reception.html'),
+        controller: 'ReceptionController',
         resolve: {
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
                 var deferred = $q.defer();
                 require.ensure([], function () {
-                    var mod = require('./inventory/InventoryController.js');
+                    var mod = require('./inventory/ReceptionController.js');
                     $ocLazyLoad.load({
-                        name: 'InventoryController'
+                        name: 'ReceptionController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "receive", "New"]
+    }).state('home.receptions', {
+        url: 'receptions',
+        params: { receptions: null },
+        template: require('./inventory/receptions.html'),
+        controller: 'ReceptionController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/ReceptionController.js');
+                    $ocLazyLoad.load({
+                        name: 'ReceptionController'
                     });
                     deferred.resolve(mod.controller);
                 });

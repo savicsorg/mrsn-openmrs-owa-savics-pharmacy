@@ -1,10 +1,9 @@
 angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controller('OrderController', ['$scope', '$rootScope', '$state', '$stateParams', '$mdDialog', 'openmrsRest', 'toastr', function ($scope, $rootScope, $state, $stateParams, $mdDialog,  openmrsRest, toastr) {
     $scope.rootscope = $rootScope;
-    console.log("OrderController new form ---")
     $scope.resource = "savicspharmacy";
     $rootScope.links = {};
-    $rootScope.links["Home"] = "";
-    $rootScope.links["Orders"] = "orders";
+    $rootScope.links["Pharmacy management module"] = "";
+    $rootScope.links["Orders"] = "index.html#!/orders";
     $scope.order = { supplier: {}, person: {} };
     $scope.suppliers = [];
     $scope.orders = [];
@@ -16,6 +15,23 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         enabled: false,
         visible: false
     };
+    $scope.searchText = "";
+    $scope.options = {
+        autoSelect: true,
+        boundaryLinks: false,
+        largeEditDialog: true,
+        pageSelector: true,
+        rowSelection: true
+    };
+
+    $scope.query = {
+        limit: 5,
+        page: 1
+    };
+
+    $scope.logPagination = function (page, limit) {
+        
+    }
 
     var _ = require("underscore");
 
@@ -37,14 +53,13 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
     }
 
     $scope.receive = function(data){
-        $state.go('home.receive', { reception: { pharmacyOrder: data }});
+        $state.go('home.reception', { order:  data });
     }
 
     function loadData() {
         $scope.loading = true;
         openmrsRest.getFull($scope.resource + "/supplier").then(function (response) {
             $scope.suppliers = response.results;  
-            console.log($stateParams);
             if($stateParams.order){
                 $scope.order = $stateParams.order;
                 openmrsRest.getFull($scope.resource + "/orderDetail?orderId=" + $scope.order.id).then(function (response) {
@@ -67,13 +82,11 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
                                 $scope.loading = false;
                             }
                         },function(e){
-                            console.error(e);
                             $scope.loading = false;
                             toastr.error('An unexpected error has occured.', 'Error');
                         });
                     }
                 },function(e){
-                    console.error(e);
                     $scope.loading = false;
                     toastr.error('An unexpected error has occured.', 'Error');
                 });
@@ -82,13 +95,11 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
                     $scope.orders = response.results;     
                     $scope.loading = false; 
                 },function(e){
-                    console.error(e);
                     $scope.loading = false;
                     toastr.error('An unexpected error has occured.', 'Error');
                 });
             }
         },function(e){
-            console.error(e);
             $scope.loading = false;
             toastr.error('An unexpected error has occured.', 'Error');
         });
@@ -116,12 +127,9 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
 
     $scope.saveOrder = function () {
         $scope.loading = true;
-        console.log($scope.order);
         $scope.order.supplier = $scope.order.supplier.id;
         if ($scope.order && $scope.order.uuid) {    //Edit
-            console.log("Updating the order ", $scope.order.uuid)
             openmrsRest.update($scope.resource + "/order", $scope.order).then(function (response) {
-                console.log(response);
                 $scope.order = response;
                 loadData();
                 toastr.success('Data saved successfully.', 'Success');   
@@ -131,14 +139,11 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
                 toastr.error('An unexpected error has occured.', 'Error');
             });
         } else {    //Creation
-            console.log("Creating new order ");
             openmrsRest.create($scope.resource + "/order", $scope.order).then(function (response) {
-                console.log(response);
                 $scope.order = response;
                 loadData();
                 toastr.success('Data saved successfully.', 'Success');   
             },function(e){
-                console.error(e);
                 $scope.loading = false;
                 toastr.error('An unexpected error has occured.', 'Error');
             });         
@@ -154,26 +159,20 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         line.item = line.item.id;
         if (line && line.uuid) {    //Edit
             line.pharmacyOrder = line.pharmacyOrder.id;
-            console.log("Updating the order detail", line.uuid)
             openmrsRest.update($scope.resource + "/orderDetail", line).then(function (response) {
-                console.log(response);
                 $scope.lines[index] = response;
                 $scope.loading = false;
                 toastr.success('Data saved successfully.', 'Success');   
             },function(e){
-                console.error(e);
                 $scope.loading = false;
                 toastr.error('An unexpected error has occured.', 'Error');
             });
         } else {    //Creation
-            console.log("Creating new order detail");
             openmrsRest.create($scope.resource + "/orderDetail", line).then(function (response) {
-                console.log(response);
                 $scope.lines[index] = response;
                 $scope.loading = false;
                 toastr.success('Data saved successfully.', 'Success');   
             },function(e){
-                console.error(e);
                 $scope.loading = false;
                 toastr.error('An unexpected error has occured.', 'Error');
             });
@@ -188,13 +187,10 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
           .cancel('Cancel');
         $mdDialog.show(confirm).then(function () {
             $scope.loading = true;
-            console.log(order)
             openmrsRest.remove($scope.resource + "/order", order, "Generic Reason").then(function (response) {
-                console.log(response);
                 loadData();
                 toastr.success('Data removed successfully.', 'Success');
             },function(e){
-                console.error(e);
                 $scope.loading = false;
                 toastr.error('An unexpected error has occured.', 'Error');
             });
@@ -208,15 +204,12 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         console.log("deleted detail index: " + index);
         if(orderDetail.uuid){
             $scope.loading = true;
-            console.log(orderDetail)
             openmrsRest.remove($scope.resource + "/orderDetail", orderDetail, "Generic Reason").then(function (response) {
-                console.log(response);
                 $scope.lines.splice(index,1);   
                 $scope.updateOrderAmount();
                 $scope.loading = false;
                 toastr.success('Data removed successfully.', 'Success');
             },function(e){
-                console.error(e);
                 $scope.loading = false;
                 toastr.error('An unexpected error has occured.', 'Error');
             });
