@@ -1,4 +1,4 @@
-angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.data.table']).controller('ReceptionController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest','toastr', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, toastr) {
+angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.data.table']).controller('ReceptionController', ['$scope', '$state', '$stateParams', '$rootScope', 'openmrsRest','toastr', 'gettextCatalog',  function ($scope, $state, $stateParams, $rootScope, openmrsRest, toastr, gettextCatalog) {
     $scope.resource = "savicspharmacy";
     $rootScope.links = { 
         "Pharmacy management module": "", 
