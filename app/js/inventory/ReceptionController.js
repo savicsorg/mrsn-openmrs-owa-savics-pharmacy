@@ -54,7 +54,10 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
                             $scope.reception = response;
                             $scope.reception.date = new Date($scope.reception.date);
                             openmrsRest.getFull($scope.resource + "/receptionDetail?receptionId=" + $scope.reception.id).then(function (response) {
-                                $scope.lines = response.results;    
+                                $scope.lines = response.results;  
+                                for(var i=0; i<$scope.lines.length; i++){
+                                    $scope.lines[i].itemExpiryDate = new Date($scope.lines[i].itemExpiryDate);
+                                }  
                                 $scope.loading = false; 
                             },function(e){
                                 $scope.loading = false;
