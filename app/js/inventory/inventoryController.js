@@ -51,6 +51,7 @@ angular.module('InventoryController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
     $scope.openHistory = function (data) {
         $state.go('home.viewhistory', {
             item: data.code,
+            uuid: data.uuid
         });
     };
 

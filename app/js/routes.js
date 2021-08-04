@@ -482,7 +482,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         },
         breadcrumbs: ["Home", "inventory", "editbatch"]
     }).state('home.viewhistory', {
-        url: 'viewhistory',
+        url: 'viewhistory/:uuid',
         params: { item: undefined },
         template: require('./inventory/viewHistory.html'),
         controller: 'viewHistoryController',
@@ -518,6 +518,27 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "viewhistory"]
+    }).state('home.viewtransaction', {
+        url: 'viewtransaction/:uuid',
+        template: require('./inventory/Transactionview.html'),
+        params: {
+            unit: undefined
+        },
+        controller: 'TransactionViewController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/TransactionViewController.js');
+                    $ocLazyLoad.load({
+                        name: 'TransactionViewController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "Drug", "View"]
     }).state('home.orders', { // to check with Kabir
         url: 'orders',
         template: require('./order/orders.html'),

@@ -12,21 +12,39 @@
                         <th><span translate>Adjustment type</span></th>
                         <th><span translate>Adjustment qty</span></th>
                         <th><span translate>Date modified</span></th>
+                        <th><span translate>Actions</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="history in histories| limitTo: query.limit : (query.page -1) * query.limit">
-                        <td>{{history.item}}</td>
-                        <td>{{history.bath}}</td>
-                        <td>{{history.type}}</td>
-                        <td>{{history.qty}}</td>
-                        <td>{{history.date}}</td>
+                        data-ng-repeat="history in transactions| limitTo: query.limit : (query.page -1) * query.limit">
+                        <td>{{history.item.name}}</td>
+                        <td>{{history.itemBatch}}</td>
+                        <td>{{history.transactionType.name}}</td>
+                        <td>{{history.quantity}}</td>
+                        <td>{{history.date | date:'dd/MM/yyyy'}}</td>
+                        <td>
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Add"
+                                ng-click="openViewTransaction(history)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">visibility</md-icon>
+                                <md-tooltip md-direction="top"><span translate>Transaction detail</span></md-tooltip>
+                            </button>
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove"
+                                ng-click="openEditTransaction(history)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">edit</md-icon>
+                                <md-tooltip md-direction="top"><span translate>Edit</span></md-tooltip>
+                            </button>
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove"
+                                ng-click="openDeleteTransaction($event,history)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
+                                <md-tooltip md-direction="top"><span translate>Delete</span></md-tooltip>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{histories.length}}"
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{histories.transactions}}"
             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
             md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
         </md-table-pagination>
