@@ -483,7 +483,6 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "inventory", "editbatch"]
     }).state('home.viewhistory', {
         url: 'viewhistory/:uuid',
-        params: { item: undefined },
         template: require('./inventory/viewHistory.html'),
         controller: 'viewHistoryController',
         resolve: {

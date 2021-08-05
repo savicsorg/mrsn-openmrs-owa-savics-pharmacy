@@ -7,7 +7,7 @@
 
     <div class="md-toolbar-tools">
         <div flex></div>
-        <md-button class="md-raised md-primary" aria-label="Add" ng-disabled="approveBtn.approved" ng-click="approve()">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-disabled='transaction.status !== "INIT"' ng-click="approve()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">check_circle</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>{{approveBtn.text}}</span>
@@ -35,12 +35,12 @@
             <div layout="row" layout-xs="column" style="margin-bottom: 8px">
                 <div flex-gt-sm class="opblock-summary">
                     <md-card-title-text>
-                        <span class="md-headline">Operation type : {{transaction.transactionType.name}}</span>
+                        <span class="md-headline">Batch number : {{transaction.itemBatch}}</span>
                     </md-card-title-text>
                 </div>
                 <div flex-gt-sm class="opblock-summary">
                     <md-card-title-text>
-                        <span class="md-headline">Operation date : {{transaction.date| date:'dd/MM/yyyy'}}</span>
+                        <span class="md-headline">Operation type : {{transaction.transactionType.name}}</span>
                     </md-card-title-text>
                 </div>
             </div>
@@ -53,6 +53,18 @@
                 <div flex-gt-sm class="opblock-summary">
                     <md-card-title-text>
                         <span class="md-headline">Location : {{transaction.pharmacyLocation.name}}</span>
+                    </md-card-title-text>
+                </div>
+            </div>
+            <div layout="row" layout-xs="column" style="margin-top: 10px; background-color:  {{approveBtn.background}}">
+                <div flex-gt-sm class="opblock-summary">
+                    <md-card-title-text>
+                        <span class="md-headline">Status : {{approveBtn.status}}</span>
+                    </md-card-title-text>
+                </div>
+                <div flex-gt-sm class="opblock-summary">
+                    <md-card-title-text>
+                        <span class="md-headline">Operation date : {{transaction.date| date:'dd/MM/yyyy'}}</span>
                     </md-card-title-text>
                 </div>
             </div>

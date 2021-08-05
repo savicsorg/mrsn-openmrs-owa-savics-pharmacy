@@ -60,7 +60,6 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                 $scope.adjustment.itemExpiryDate = $scope.selectedBatch.itemExpiryDate;
                 //$scope.adjustment.amount = ??;
                 $scope.adjustment.status = "INIT";
-                $scope.adjustment.adjustmentDate = new Date();
                 $scope.adjustment.pharmacyLocation = $scope.selectedBatch.pharmacyLocation.id;
                 $scope.adjustment.item = $scope.selectedBatch.item.id;
                 $scope.adjustment.selectedBatchUuid = $scope.selectedBatch.uuid;
