@@ -440,6 +440,24 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "inventory", "adjustment"]
+    }).state('home.editAdjustment', {
+        url: 'adjustment/edit/:id/:itembatch/:adjustmentuuid',
+        template: require('./inventory/adjustment.html'),
+        controller: 'AdjustmentController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/AdjustmentController.js');
+                    $ocLazyLoad.load({
+                        name: 'AdjustmentController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "inventory", "adjustment", , "editAdjustment"]
     }).state('home.addbatch', {
         url: 'addbatch',
         params: {

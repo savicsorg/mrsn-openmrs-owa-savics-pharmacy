@@ -42,20 +42,6 @@ angular.module('viewHistoryController', []).controller('viewHistoryController', 
             });
         };
 
-        $scope.openEditTransaction = function (data) {
-//            $state.go('home.adjustment', {
-//                item: data.code,
-//                id: data.id
-//            });
-        };
-
-        $scope.openDeleteTransaction = function (data) {
-//            $state.go('home.viewhistory', {
-//                item: data.code,
-//                uuid: data.uuid
-//            });
-        };
-
         function handleResponse(response, e = null) {
             document.getElementById("loading_submit").style.visibility = "hidden";
             if (e) {
