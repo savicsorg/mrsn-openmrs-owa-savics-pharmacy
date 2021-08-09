@@ -108,6 +108,7 @@ dist
 
 # any zip file
 .zip
+/nbproject
 /nbproject/private/
 
 build
