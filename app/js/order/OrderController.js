@@ -52,8 +52,9 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         $state.go('home.order', { order: data });
     }
 
-    $scope.receive = function(data){
-        $state.go('home.reception', { order:  data });
+    $scope.receive = function(order){
+        console.log({ order: order, uuid: "0" });
+        $state.go('home.reception', { order: order, uuid: "0" });
     }
 
     function loadData() {

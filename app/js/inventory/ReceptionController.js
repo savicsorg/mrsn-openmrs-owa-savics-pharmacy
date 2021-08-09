@@ -7,7 +7,7 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
     };
     $scope.loading = false;
     $scope.receptions = [];
-    $scope.reception = { pharmacyOrder: {} };
+    $scope.reception = { pharmacyOrder: { } };
     $scope.location = null;
     $scope.locations = [];
     $scope.orders = [];
@@ -44,6 +44,7 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
 
     $scope.getData = function () {
         $scope.loading = true;
+        console.log($stateParams);
         if($stateParams.uuid){
             openmrsRest.getFull($scope.resource + "/location").then(function (response) {
                 $scope.locations = response.results;
@@ -57,6 +58,7 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
                                 $scope.lines = response.results;  
                                 for(var i=0; i<$scope.lines.length; i++){
                                     $scope.lines[i].itemExpiryDate = new Date($scope.lines[i].itemExpiryDate);
+                                    //$scope.lines[i].location = $scope.lines[i].item.pharmacyLocation.uuid;
                                 }  
                                 $scope.loading = false; 
                             },function(e){
@@ -68,7 +70,8 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
                             toastr.error('An unexpected error has occured.', 'Error');
                         });
                     else if($stateParams.order){
-                        $scope.reception.pharmacyOrder = order;
+                        $scope.reception.pharmacyOrder = $stateParams.order;
+                        console.log($scope.reception.pharmacyOrder);
                         $scope.loading = false;
                     } else $scope.loading = false;
                 },function(e){
@@ -93,13 +96,14 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
     $scope.getData();
 
     $scope.addReceptionLine = function(){
-        $scope.lines.push({ reception: $scope.reception.id, item : { name: "" }, quantityReceived: 0, location: $scope.location});
+        $scope.lines.push({ reception: $scope.reception.id, quantityReceived: 0, item : { name: "" }, itemLineLocation: ""});
     }
 
     $scope.saveReception = function () {
         $scope.loading = true;
         if(!($scope.reception.pharmacyOrder && $scope.reception.pharmacyOrder.uuid))
             $scope.reception.pharmacyOrder = undefined; //delete it from payload
+        else $scope.reception.pharmacyOrder = $scope.reception.pharmacyOrder.id;
         if ($scope.reception && $scope.reception.uuid) {    //Edit
             openmrsRest.update($scope.resource + "/reception", $scope.reception).then(function (response) {
                 $scope.reception = response;
@@ -125,9 +129,11 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
         $scope.loading = true;
         line.item = line.item.id;
         if (line && line.uuid) {    //Edit
-            line.pharmacyReception = line.pharmacyReception.id;
+            line.reception = line.reception.id;
             openmrsRest.update($scope.resource + "/receptionDetail", line).then(function (response) {
+                response.itemExpiryDate = new Date(response.itemExpiryDate);
                 $scope.lines[index] = response;
+                //$scope.lines[index].location = $scope.lines[i].item.pharmacyLocation.uuid;
                 $scope.loading = false;
                 toastr.success('Data saved successfully.', 'Success');   
             },function(e){
@@ -136,7 +142,9 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
             });
         } else {    //Creation
             openmrsRest.create($scope.resource + "/receptionDetail", line).then(function (response) {
+                response.itemExpiryDate = new Date(response.itemExpiryDate);
                 $scope.lines[index] = response;
+                //$scope.lines[index].location = $scope.lines[i].item.pharmacyLocation.uuid;
                 $scope.loading = false;
                 toastr.success('Data saved successfully.', 'Success');   
             },function(e){

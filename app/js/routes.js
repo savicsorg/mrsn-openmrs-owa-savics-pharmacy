@@ -363,7 +363,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "purchase", "New"]
     }).state('home.reception', {
         url: 'reception/:uuid',
-        params: { reception: null },
+        params: { reception: null , order: null},
         template: require('./inventory/reception.html'),
         controller: 'ReceptionController',
         resolve: {
