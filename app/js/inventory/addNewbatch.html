@@ -26,10 +26,11 @@
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Date</label>
-                    <md-datepicker ng-model="vm.batch.itemExpiryDate" md-placeholder="Enter date"
+                    <input type="date" ng-model="vm.batch.itemExpiryDate">
+                    <!-- <md-datepicker ng-model="vm.batch.itemExpiryDate" md-placeholder="Enter date"
                         input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header"
                         md-mode="day" md-hide-icons="calendar" md-current-view="month">
-                    </md-datepicker>
+                    </md-datepicker> -->
                 </md-input-container>
             </div>
         </md-card-content>

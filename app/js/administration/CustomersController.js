@@ -2,6 +2,7 @@ angular.module('CustomersController', ['ngMaterial', 'md.data.table']).controlle
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des customers";
     $scope.resource = "savicspharmacy";
+    $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Customers": "customers" };
 
@@ -12,12 +13,19 @@ angular.module('CustomersController', ['ngMaterial', 'md.data.table']).controlle
     var msg = "";
 
     $scope.getAllCustomer = function () {
+        $scope.loading = true;
         $scope.customers = [];
         openmrsRest.getFull($scope.resource + "/customer").then(function (response) {
             if (response.results.length >= 1) {
+                $scope.loading = false;
                 $scope.customers = response.results;
             }
-        })
+        }, function (e) {
+            type = "error";
+            msg = "An unexpected error has occured.";
+            showToast(msg, type);
+            $scope.loading = false;
+        });
     }
 
     $scope.getAllCustomer();

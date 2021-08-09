@@ -126,5 +126,4 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
         window.location = link;
     }
 
-
 }]);
