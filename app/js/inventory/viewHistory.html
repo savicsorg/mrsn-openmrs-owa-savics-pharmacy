@@ -1,8 +1,16 @@
 <div id="content" class="container-fluid" ng-controller="viewHistoryController as vm">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
+        <a href="index.html#!/inventory">
+            <md-button class="md-raised">
+                <md-icon>arrow_back</md-icon>Back
+            </md-button>
+        </a>
     </div>
-    <md-card>
+    <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-card ng-show="!loading">
         <md-table-container class="container" fixed-column-table>
             <table md-table md-progress="promise">
                 <thead md-head>
@@ -31,13 +39,4 @@
             md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
         </md-table-pagination>
     </md-card>
-
-    <div layout="row" layout-xs="column">
-        <a href="index.html#!/inventory">
-            <md-button class="md-raised" aria-label="Add">
-                <md-icon>close</md-icon>
-                Cancel
-            </md-button>
-        </a>
-    </div>
 </div>

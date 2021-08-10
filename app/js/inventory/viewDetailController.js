@@ -4,6 +4,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     $scope.resource = "savicspharmacy";
     $scope.item = $stateParams.item;
     $scope.item_id = $stateParams.id;
+    $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Viewdetail": "View detail" };
 
@@ -15,11 +16,16 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
 
     $scope.getItemsLines = function () {
         $scope.batches = [];
+        $scope.loading = true;
         openmrsRest.get($scope.resource + "/itemsLine?item=" + $scope.item_id).then(function (response) {
+            $scope.loading = false;
             if (response.results.length >= 1) {
                 $scope.batches = response.results;
                 $scope.item = response.results[0].item;
             }
+        }, function (e) {
+            $scope.loading = false;
+            toastr.error('An unexpected error has occured.', 'Error');
         })
     }
     $scope.getItemsLines();

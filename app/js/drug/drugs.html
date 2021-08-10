@@ -21,7 +21,10 @@
             </md-button>
         </a>
     </div>
-    <md-toolbar class="md-table-toolbar md-default">
+    <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-toolbar class="md-table-toolbar md-default" ng-show="!loading">
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
@@ -29,7 +32,7 @@
             </form>
         </div>
     </md-toolbar>
-    <md-card>
+    <md-card ng-show="!loading">
         <md-table-container class="container" fixed-column-table>
             <table md-table md-progress="promise">
                 <thead md-head>

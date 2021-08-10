@@ -7,8 +7,10 @@
             </md-button>
         </a>
     </div>
-
-    <md-card>
+    <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-card ng-show="!loading">
         <md-card-content>
             <md-table-container class="container" fixed-column-table>
                 <table md-table md-progress="promise">

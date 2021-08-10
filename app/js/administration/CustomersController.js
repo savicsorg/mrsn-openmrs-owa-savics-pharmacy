@@ -16,15 +16,13 @@ angular.module('CustomersController', ['ngMaterial', 'md.data.table']).controlle
         $scope.loading = true;
         $scope.customers = [];
         openmrsRest.getFull($scope.resource + "/customer").then(function (response) {
+            $scope.loading = false;
             if (response.results.length >= 1) {
-                $scope.loading = false;
                 $scope.customers = response.results;
             }
         }, function (e) {
-            type = "error";
-            msg = "An unexpected error has occured.";
-            showToast(msg, type);
             $scope.loading = false;
+            showToast("An unexpected error has occured.", "error");
         });
     }
 

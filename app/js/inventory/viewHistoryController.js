@@ -2,6 +2,7 @@ angular.module('viewHistoryController', []).controller('viewHistoryController', 
     $scope.rootscope = $rootScope;
     $scope.appTitle = "View history";
     $scope.resource = "savicspharmacy";
+    $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Viewhistory": "View history" };
 
@@ -14,7 +15,8 @@ angular.module('viewHistoryController', []).controller('viewHistoryController', 
     $scope.histories = [
         { "item": "aspirine", "bath": "89809809", "type": "negative", "qty": "100", "date": "2014-12-31" },
         { "item": "aspirine", "bath": "89809809", "type": "positive", "qty": "100", "date": "2014-12-31" }
-    ]
+    ];
+    //$scope.loading = true;
 
 
     function handleResponse(response, e = null) {
