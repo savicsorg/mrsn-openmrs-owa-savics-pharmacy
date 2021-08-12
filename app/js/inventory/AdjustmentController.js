@@ -58,6 +58,7 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                                 $scope.adjustment.transactionTypeCode = "padj";
                             }
 
+                            $scope.adjustment.adjustmentDate = new Date();
                             $scope.adjustment.itemBatch = $scope.selectedBatch.itemBatch;
                             $scope.adjustment.date = new Date();
                             $scope.adjustment.itemExpiryDate = $scope.selectedBatch.itemExpiryDate;

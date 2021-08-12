@@ -26,11 +26,11 @@
                 <table md-table md-progress="promise">
                     <thead md-head>
                         <tr md-row>
-                            <th><span translate>Batch Number</span></th>
+                            <th><span translate>Lot Number</span></th>
                             <th><span translate>Unit</span></th>
                             <th><span translate>Qty</span></th>
                             <th><span translate>Exp date</span></th>
-                            <th><span translate>Status</span></th>
+                            <th><span translate>Creation</span></th>
                             <th><span translate>Action</span></th>
                         </tr>
                     </thead>
@@ -39,8 +39,8 @@
                             <td>{{batch.itemBatch}}</td>
                             <td>{{batch.item.unit.name}}</td>
                             <td>{{batch.itemSoh}}</td>
-                            <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}}</td>
-                            <td style="text-align: center"><md-icon style="color:{{batch.expired == true ?'red':'green'}}">fiber_manual_record  </md-icon></td>
+                            <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}} <small ng-if="batch.expired" class="chip-normal status-4" > Expired</small> </td>
+                            <td> Unknown </td>
                             <td>
                                 <button ng-click="showConfirm($event,batch)" class="md-fab md-mini md-primary md-button"
                                     type="button" aria-label="Remove">

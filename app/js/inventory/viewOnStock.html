@@ -54,8 +54,7 @@
                         <th><span translate>Max</span></th>
                         <th><span translate>Available Qty</span></th>
                         <th><span translate>Physical Qty</span></th>
-                        <th><span translate>Quantity status</span></th>
-                        <th><span translate>Expiration status</span></th>
+                        <th><span translate>Lots status</span></th>
                         <th><span translate>Actions</span></th>
                     </tr>
                 </thead>
@@ -67,9 +66,15 @@
                         <td>{{drug.stockMin}}</td>
                         <td>{{drug.stockMax}}</td>
                         <td>{{drug.virtualstock}}</td>
-                        <td>{{drug.soh}}</td>
-                        <td style="text-align: center"><md-icon ng-if="drug.soh < drug.stockMin" style="color:red">trending_down</md-icon> <md-icon ng-if="drug.soh <= drug.stockMax" style="color:green">trending_up</md-icon> </td>
-                <td style="text-align: center"><md-icon style="color:{{drug.soh > 0 ?'red':'green'}}">fiber_manual_record  </md-icon> </td>
+                        <td>{{drug.soh}} <small ng-if="drug.soh > drug.stockMax || drug.soh < drug.stockMin" class="chip-normal status-4" > {{drug.soh > drug.stockMax ?'Over': (drug.soh < drug.stockMin ?'Under':'')}}</small></td>
+                        <td style="text-align: center" >
+                            
+                            <md-icon style="color:{{drug.soh > 0 ?'red':'green'}}">
+                                <md-tooltip>
+                                2 lot(s) expired
+                            </md-tooltip>
+                                fiber_manual_record </md-icon> 
+                        </td>
                 <td width="200px">
                     <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
                             ng-click="openView(drug)">
