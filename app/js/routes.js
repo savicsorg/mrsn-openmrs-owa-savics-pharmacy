@@ -325,6 +325,24 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "Route", "New"]
+    }).state('home.dispensemain', {
+        url: 'dispenses',
+        template: require('./dispense/dispensingManagement.html'),
+        controller: 'DispensingManagementController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./dispense/DispensingManagementController.js');
+                    $ocLazyLoad.load({
+                        name: 'DispensingManagementController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "Dispense", "Dispensing management"]
     }).state('home.dispense', {
         url: 'dispense',
         template: require('./dispense/dispense.html'),
@@ -535,6 +553,24 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "viewhistory"]
+    }).state('home.stockatrisk', {
+        url: 'stockatrisk',
+        template: require('./inventory/stockatrisk/stockatrisk.html'),
+        controller: 'StockAtRiskController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/stockatrisk/StockAtRiskController.js');
+                    $ocLazyLoad.load({
+                        name: 'StockAtRiskController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "inventory", "stockatrisk"]
     }).state('home.viewtransaction', {
         url: 'viewtransaction/:uuid',
         template: require('./inventory/Transactionview.html'),

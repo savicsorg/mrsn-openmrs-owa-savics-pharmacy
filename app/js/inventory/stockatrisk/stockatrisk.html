@@ -1,0 +1,70 @@
+<div id="content" class="container-fluid">
+    <div class="md-toolbar-tools">
+        <h1 md-truncate="" flex=""> {{"pharmacy.stockatrisk.title" | translate}} </h1>
+        <a href="index.html#!/inventory">
+            <md-button class="md-raised">
+                <md-icon>arrow_back</md-icon>Back
+            </md-button>
+        </a>
+        <a href="index.html#!/print">
+            <md-button class="md-raised md-primary" aria-label="Add">
+                <md-icon>print</md-icon> Print
+                <md-tooltip md-direction="top">
+                    <span translate>Print</span>
+                </md-tooltip>
+            </md-button>
+        </a>
+        <a href="index.html#!/export">
+            <md-button class="md-raised md-primary" aria-label="Add">
+                <md-icon>cloud_download</md-icon> Export
+                <md-tooltip md-direction="top">
+                    <span translate>Export</span>
+                </md-tooltip>
+            </md-button>
+        </a>
+    </div>
+    <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <md-icon>search</md-icon>
+            <form flex="">
+                <input type="search" name="search" ng-model="searchAll" placeholder="{{ 'Search by name and code...' | translate }}">
+            </form>
+        </div>
+    </md-toolbar>
+    <md-card>
+        <md-table-container class="container" fixed-column-table>
+            <table md-table md-progress="promise">
+                <thead md-head>
+                    <tr md-row>
+                        <th><span translate>Code</span></th>
+                        <th><span translate>Designation</span></th>
+                        <th><span translate>Batch</span></th>
+                        <th><span translate>Exp date</span></th>
+                        <th><span translate>Location</span></th>
+                        <th><span translate>Available Qty</span></th>
+                        <th><span translate>Physical Qty</span></th>
+                        <th><span translate>Status</span></th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row
+                        data-ng-repeat="stock in stockAtRisk|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                        <td>{{stock.code}}</td>
+                        <td>{{stock.name}}</td>
+                        <td>{{stock.itemBatch}}</td>
+                        <td>{{stock.expirationDate}}</td>
+                        <td>{{stock.location.name}}</td>
+                        <td>{{stock.virtualstock}}</td>
+                        <td>{{stock.soh}}</td>
+                        <td>Expired</td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{stockAtRisk.length}}"
+            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+            md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
+        </md-table-pagination>
+    </md-card>
+</div>
