@@ -326,7 +326,8 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         },
         breadcrumbs: ["Home", "Route", "New"]
     }).state('home.dispense', {
-        url: 'dispense',
+        url: 'dispense/:uuid',
+        params: { sending: null },
         template: require('./dispense/dispense.html'),
         controller: 'DispenseController',
         resolve: {
