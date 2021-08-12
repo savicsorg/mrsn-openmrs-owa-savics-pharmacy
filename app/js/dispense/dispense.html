@@ -1,37 +1,37 @@
 <div id="content" class="container-fluid" ng-controller="DispenseController as vm">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">
-            <md-icon>content_paste</md-icon> {{vm.appTitle}}
+            <md-icon>local_pharmacy</md-icon> Dispense drugs
         </h1>
-        <md-input-container class="md-block" flex-gt-sm>
-            <label translate>Type of Dispensation</label>
-            <md-select ng-model="vm.dispense_type" ng-change="selectDispensationType(vm.dispense_type)">
-                <md-option ng-repeat="t in vm.dispense_types" ng-value="t.id">
-                    {{t.name}}
-                </md-option>
-            </md-select>
-        </md-input-container>
     </div>
     <md-card>
-        <md-card-title translate>New dispense details</md-card-title>
+        <md-card-title translate>Dispense details</md-card-title>
         <md-card-content>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Customer</label>
-                    <input ng-model="vm.customer_name">
+            <div layout="row"  layout-xs="column" class="flex flex-col">                
+                <md-input-container class="md-block" class="md-block" flex-gt-sm flex="20">
+                    <label translate>Type of Dispensation</label>
+                    <md-select ng-model="dispenseMode">
+                        <md-option ng-value="1">Internal</md-option>
+                        <md-option ng-value="2">External</md-option>
+                    </md-select>
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
+                <md-input-container class="md-block"  class="md-block" flex-gt-sm flex="20">
                     <label translate>Date</label>
-                    <md-datepicker ng-model="vm.dispense.date" md-placeholder="Enter date"
-                        input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header"
-                        md-mode="day" md-hide-icons="calendar" md-current-view="month">
-                    </md-datepicker>
-                </md-input-container>
+                    <input type="date" ng-model="sending.date">
+                </md-input-container>               
+                <md-input-container class="md-block"  class="md-block" flex-gt-sm flex="60" ng-if="dispenseMode == 2">
+                    <label translate>Customer</label>
+                    <input type="text" ng-model="sending.customer.id">
+                </md-input-container>                             
+                <md-input-container class="md-block"  class="md-block" flex-gt-sm flex="60" ng-if="dispenseMode == 1">
+                    <label translate>Patient</label>
+                    <input type="text"  ng-model="sending.person.uuid">
+                </md-input-container>                
             </div>
         </md-card-content>
     </md-card>
     <md-card>
-        <md-card-title translate>Drug prescribed list</md-card-title>
+        <md-card-title translate>List of drugs</md-card-title>
         <md-card-content>
             <div layout="row" layout-xs="column">
                 <md-card-title>
@@ -55,9 +55,6 @@
                 <md-card-title>
                     Exp date
                 </md-card-title>
-                <!-- <md-card-title>
-                    Total
-                </md-card-title> -->
                 <md-card-title>
                     Actions
                 </md-card-title>
