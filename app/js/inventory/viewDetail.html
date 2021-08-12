@@ -13,8 +13,8 @@
             <form flex="">
                 <input type="search" name="search" flex ng-model="searchAll" placeholder="{{ 'Search...' | translate }}">
             </form>
-            <md-switch flex ng-model="data.cb1" aria-label="Switch 1">
-                Expired batches only: {{ data.cb1}}
+            <md-switch flex ng-model="onlyExpired" aria-label="Switch 1">
+                Expired batches only
             </md-switch>
 
         </div>
@@ -35,7 +35,7 @@
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row data-ng-repeat="batch in batches">
+                        <tr md-row data-ng-repeat="batch in batches|filter:onlyExpiredLots">
                             <td>{{batch.itemBatch}}</td>
                             <td>{{batch.item.unit.name}}</td>
                             <td>{{batch.itemSoh}}</td>

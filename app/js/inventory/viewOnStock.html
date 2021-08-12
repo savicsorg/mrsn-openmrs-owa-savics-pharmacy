@@ -6,14 +6,14 @@
                 <md-icon>arrow_back</md-icon>Back
             </md-button>
         </a>
-        <a href="index.html#!/stockatrisk">
+<!--        <a href="index.html#!/stockatrisk">
             <md-button class="md-raised md-primary" aria-label="Add">
                 <md-icon>report_problem</md-icon> Stock at risk
                 <md-tooltip md-direction="top">
                     <span translate>Stock at risk</span>
                 </md-tooltip>
             </md-button>
-        </a>
+        </a>-->
         <a href="index.html#!/inventory">
             <md-button class="md-raised md-primary" aria-label="Add">
                 <md-icon>trending_up</md-icon>Stocktakes
@@ -37,8 +37,8 @@
             <form flex="">
                 <input type="search" name="search" flex ng-model="searchAll" placeholder="{{ 'Search...' | translate }}">
             </form>
-            <md-switch flex ng-model="data.cb1" aria-label="Switch 1">
-                Stock at risk only: {{ data.cb1}}
+            <md-switch flex ng-model="stockAtRisOnly" aria-label="Switch 1">
+                Stock at risk only: {{ stockAtRisOnly}}
             </md-switch>
 
         </div>
@@ -60,7 +60,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="drug in viewOnStock|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="drug in viewOnStock|filter:onlyStockAtRisk | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{drug.code}}</td>
                         <td>{{drug.name}}</td>
                         <td>{{drug.stockMin}}</td>
@@ -71,7 +71,7 @@
                             
                             <md-icon style="color:{{drug.soh > 0 ?'red':'green'}}">
                                 <md-tooltip>
-                                2 lot(s) expired
+                                {{drug.numberOfExpiredLots}} lot(s) expired
                             </md-tooltip>
                                 fiber_manual_record </md-icon> 
                         </td>
