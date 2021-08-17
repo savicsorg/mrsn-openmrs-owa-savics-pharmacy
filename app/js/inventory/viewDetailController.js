@@ -21,7 +21,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
         };
 
         $scope.propertyName = 'itemExpiryDate';
-        $scope.reverse = true;
+        $scope.reverse = false;
 
         $scope.getItemsLines = function () {
             var deferred = $q.defer();
