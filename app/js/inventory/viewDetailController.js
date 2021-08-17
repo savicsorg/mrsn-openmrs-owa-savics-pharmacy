@@ -1,4 +1,4 @@
-angular.module('viewDetailController', []).controller('viewDetailController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog) {
+angular.module('viewDetailController', []).controller('viewDetailController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'orderByFilter', '$q', '$mdDialog', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, orderBy, $q, $mdDialog) {
         $scope.rootscope = $rootScope;
         $scope.appTitle = "View detail";
         $scope.resource = "savicspharmacy";
@@ -14,16 +14,32 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
         var type = "";
         var msg = "";
 
+        $scope.query = {
+            limit: 25,
+            page: 1,
+            order: "-itemExpiryDate"
+        };
+
+        $scope.propertyName = 'itemExpiryDate';
+        $scope.reverse = true;
+
         $scope.getItemsLines = function () {
+            var deferred = $q.defer();
+            $scope.promise = deferred.promise;
             $scope.batches = [];
             openmrsRest.get($scope.resource + "/itemsLine?item=" + $scope.item_id).then(function (response) {
                 if (response.results.length >= 1) {
                     $scope.batches = response.results;
+                    $scope.batches = orderBy($scope.batches, $scope.propertyName, $scope.reverse);
                     $scope.item = response.results[0].item;
                 }
+                deferred.resolve(response);
             })
         }
         $scope.getItemsLines();
+
+
+
 
         $scope.showConfirm = function (ev, obj) {
             var confirm = $mdDialog.confirm()
@@ -38,6 +54,13 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
             }, function () {
                 $mdDialog.cancel();
             });
+        };
+
+        $scope.sortBy = function (propertyName) {
+            $scope.reverse = (propertyName !== null && $scope.propertyName === propertyName)
+                    ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
+            $scope.batches = orderBy($scope.batches, $scope.propertyName, $scope.reverse);
         };
 
         $scope.delete = function (item) {

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!--<base href="/">-->
+        <title>Inventory Maintenance Management</title>
+        <meta name="description" content="Inventory Maintenance Management."/>
+        <!-- openmrs favicon -->
+        <link rel="shortcut icon" type="image/ico" href="../../images/openmrs-favicon.ico"/>
+        <link rel="icon" type="image/png" href="../../images/openmrs-favicon.png"/>
+
+        <style>
+            [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+                display: none !important;
+            }
+        </style>
+    <script type="text/javascript" src="vendor"></script><script type="text/javascript" src="app.bundle"></script></head>
+    
+    <body ng-app="app">
+        <div >
+            <div ui-view="header">
+                
+            </div>
+            
+            <openmrs-breadcrumbs links="links"></openmrs-breadcrumbs>
+            
+            <div class="clear"></div>
+            <div  id="body-wrapper">
+                <div ui-view="content" class="container-fluid">
+
+                </div>
+            </div>
+            
+            <div ui-view="footer">
+                
+            </div>
+        </div>
+    </body>
+</html>

@@ -6,14 +6,14 @@
                 <md-icon>arrow_back</md-icon>Back
             </md-button>
         </a>
-<!--        <a href="index.html#!/stockatrisk">
-            <md-button class="md-raised md-primary" aria-label="Add">
-                <md-icon>report_problem</md-icon> Stock at risk
-                <md-tooltip md-direction="top">
-                    <span translate>Stock at risk</span>
-                </md-tooltip>
-            </md-button>
-        </a>-->
+        <!--        <a href="index.html#!/stockatrisk">
+                    <md-button class="md-raised md-primary" aria-label="Add">
+                        <md-icon>report_problem</md-icon> Stock at risk
+                        <md-tooltip md-direction="top">
+                            <span translate>Stock at risk</span>
+                        </md-tooltip>
+                    </md-button>
+                </a>-->
         <a href="index.html#!/inventory">
             <md-button class="md-raised md-primary" aria-label="Add">
                 <md-icon>trending_up</md-icon>Stocktakes
@@ -30,6 +30,12 @@
                 </md-tooltip>
             </md-button>       
         </a>
+        <md-button class="md-raised md-primary" aria-label="Add">
+            <md-icon>cloud_download</md-icon> Export
+            <md-tooltip md-direction="top">
+                <span translate>Export</span>
+            </md-tooltip>
+        </md-button>
     </div>
     <md-toolbar class="md-table-toolbar md-default">
         <div class="md-toolbar-tools">
@@ -68,13 +74,13 @@
                         <td>{{drug.virtualstock}}</td>
                         <td>{{drug.soh}} <small ng-if="drug.soh > drug.stockMax || drug.soh < drug.stockMin" class="chip-normal status-4" > {{drug.soh > drug.stockMax ?'Over': (drug.soh < drug.stockMin ?'Under':'')}}</small></td>
                         <td style="text-align: center" >
-                            
-                            <md-icon style="color:{{drug.soh > 0 ?'red':'green'}}">
-                                <md-tooltip>
-                                {{drug.numberOfExpiredLots}} lot(s) expired
-                            </md-tooltip>
-                                fiber_manual_record </md-icon> 
-                        </td>
+
+                <md-icon style="color:{{drug.soh > 0 ?'red':'green'}}">
+                    <md-tooltip>
+                        {{drug.numberOfExpiredLots}} lot(s) expired
+                    </md-tooltip>
+                    fiber_manual_record </md-icon> 
+                </td>
                 <td width="200px">
                     <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
                             ng-click="openView(drug)">
