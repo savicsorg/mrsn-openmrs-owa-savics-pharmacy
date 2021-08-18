@@ -58,10 +58,17 @@ angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
 
         $scope.onlyStockAtRisk = function (item) {
             if ($scope.stockAtRisOnly == true) {
-                return item.numberOfExpiredLots > 0 ;
+                return item.numberOfExpiredLots > 0;
             } else {
                 return true;
             }
         };
+
+
+        $scope.donwload = function () {
+            let link = window.location.protocol + "//" + window.location.host + "/openmrs/ws/rest/v1/savicspharmacy/items/stockatrisk";
+            localStorage.setItem("export_link", link);
+            window.location = link;
+        }
 
     }])
