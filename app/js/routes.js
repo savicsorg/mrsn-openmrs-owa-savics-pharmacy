@@ -222,7 +222,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
                 var deferred = $q.defer();
                 require.ensure([], function () {
-                    var mod = require('./administration/LocationsController.js');
+                    var mod = require('./administration/locationsController.js');
                     $ocLazyLoad.load({
                         name: 'LocationsController'
                     });
@@ -241,7 +241,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
                 var deferred = $q.defer();
                 require.ensure([], function () {
-                    var mod = require('./administration/LocationController.js');
+                    var mod = require('./administration/locationController.js');
                     $ocLazyLoad.load({
                         name: 'LocationController'
                     });
@@ -259,7 +259,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
                 var deferred = $q.defer();
                 require.ensure([], function () {
-                    var mod = require('./administration/UnitsController.js');
+                    var mod = require('./administration/unitsController.js');
                     $ocLazyLoad.load({
                         name: 'UnitsController'
                     });
@@ -278,7 +278,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
                 var deferred = $q.defer();
                 require.ensure([], function () {
-                    var mod = require('./administration/UnitController.js');
+                    var mod = require('./administration/unitController.js');
                     $ocLazyLoad.load({
                         name: 'UnitController'
                     });
@@ -296,7 +296,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
                 var deferred = $q.defer();
                 require.ensure([], function () {
-                    var mod = require('./administration/RoutesController.js');
+                    var mod = require('./administration/routesController.js');
                     $ocLazyLoad.load({
                         name: 'RoutesController'
                     });
@@ -315,7 +315,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
                 var deferred = $q.defer();
                 require.ensure([], function () {
-                    var mod = require('./administration/RouteController.js');
+                    var mod = require('./administration/routeController.js');
                     $ocLazyLoad.load({
                         name: 'RouteController'
                     });
@@ -528,7 +528,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
                 var deferred = $q.defer();
                 require.ensure([], function () {
-                    var mod = require('./inventory/InventoryController.js');
+                    var mod = require('./inventory/inventoryController.js');
                     $ocLazyLoad.load({
                         name: 'InventoryController'
                     });
