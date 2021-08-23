@@ -66,7 +66,7 @@ angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
 
 
         $scope.donwload = function () {
-            let link = window.location.protocol + "//" + window.location.host + "/openmrs/ws/rest/v1/savicspharmacy/items/stockatrisk";
+            let link = window.location.protocol + "//" + window.location.host + "/openmrs/ws/rest/v1/savicspharmacy/items/stockatrisk?atriskOnly="+$scope.stockAtRisOnly;
             localStorage.setItem("export_link", link);
             window.location = link;
         }
