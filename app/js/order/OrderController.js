@@ -8,6 +8,7 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
     $scope.suppliers = [];
     $scope.orders = [];
     $scope.loading = false;
+    $scope.loadingStack = 0;
     $scope.item = null;
     $scope.lines = [];
     $scope.approveBtn = {

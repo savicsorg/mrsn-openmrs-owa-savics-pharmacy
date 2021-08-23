@@ -3,7 +3,7 @@
         <h1 md-truncate="" flex="">
             <md-icon>local_pharmacy</md-icon> Dispense drugs
         </h1>
-        <a href="index.html#!/">
+        <a href="index.html#!/"  ng-if="!loading">
             <md-button class="" aria-label="Add">
                 <md-icon>chevron_left</md-icon>
                 Back
@@ -13,7 +13,7 @@
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div> 
-    <md-card>
+    <md-card ng-if="!loading">
         <md-card-title translate>Dispense details</md-card-title>
         <md-card-content>
             <div layout="row"  layout-xs="column" class="flex flex-col">                
@@ -28,23 +28,23 @@
                     <label translate>Date</label>
                     <input type="date" ng-model="sending.date">
                 </md-input-container>               
-                <md-autocomplete md-selected-item="selectedCustomer" md-search-text="searchText" md-items="customer in searchCustomers(searchText)" 
+                <md-autocomplete md-selected-item="selectedCustomer" md-search-text="customerSearchText" md-items="customer in searchCustomers(customerSearchText)" 
                     md-item-text="customer.name" class="md-block" flex-gt-sm md-floating-label="Customer" md-clear-button="true" 
                     md-no-cache="true" md-selected-item-change="selectedCustomerChange(customer,$index)" flex-gt-sm flex="60"
                     ng-if="dispenseMode == 2">
                     <md-item-template>
-                    <span md-highlight-text="searchText">{{customer.name}}</span>
+                    <span md-highlight-text="customerSearchText">{{customer.name}}</span>
                     </md-item-template>
                     <md-not-found>
                         No matches found.
                     </md-not-found>
-                </md-autocomplete>                            
-                <md-autocomplete md-selected-item="selectedPatient" md-search-text="searchText" md-items="patient in searchPatients(searchText)" 
+                </md-autocomplete>                           
+                <md-autocomplete md-selected-item="selectedPatient" md-search-text="patientSearchText" md-items="patient in searchPatients(patientSearchText)" 
                     md-item-text="patient.display" class="md-block" flex-gt-sm md-floating-label="Patient" md-clear-button="true" 
                     md-no-cache="true" md-selected-item-change="selectedPatientChange(patient,$index)" flex-gt-sm flex="60"
                     ng-if="dispenseMode == 1">
                     <md-item-template>
-                    <span md-highlight-text="searchText">{{patient.display}}</span>
+                    <span md-highlight-text="patientSearchText">{{patient.display}}</span>
                     </md-item-template>
                     <md-not-found>
                         No matches found.
@@ -53,40 +53,50 @@
             </div>
         </md-card-content>
     </md-card>
-    <md-card>
+    <md-card ng-if="!loading">
         <md-card-title translate>List of drugs</md-card-title>
         <md-card-content>
             <div layout="row" layout-xs="column" data-ng-repeat="l in lines"  class="flex flex-col">
-                <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in searchItems(searchText)" 
+                <md-autocomplete md-selected-item="selectedItem" md-search-text="itemSearchText" md-items="item in searchItems(itemSearchText)" 
                     md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug" md-clear-button="true" 
-                    md-no-cache="true" md-selected-item-change="selectedItemChange(patient,$index)" flex-gt-sm flex="33">
+                    md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="33"
+                    ng-if="l.uuid === null || l.uuid === undefined">
                     <md-item-template>
-                    <span md-highlight-text="searchText">{{item.name}}</span>
+                    <span md-highlight-text="itemSearchText">{{item.name}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        No matches found.
+                    </md-not-found>
+                </md-autocomplete>                 
+                <md-input-container class="md-block" flex-gt-sm flex="33" ng-if="l.uuid  !== null && l.uuid !== undefined">
+                    <label translate>{{"pharmacy.order.drug" | translate}}</label>
+                    <input class="form-control" disabled type="text" ng-model="l.item.name" >
+                </md-input-container> 
+                <md-autocomplete md-selected-item="selectedItemLine" md-search-text="batchSearchText" md-items="line in searchItemLines(batchSearchText, l.item)" 
+                    md-item-text="itemBatch" class="md-block" flex-gt-sm md-floating-label="Batch n°" md-clear-button="true" 
+                    md-no-cache="true" md-selected-item-change="selectedItemLineChange(line,$index)" flex-gt-sm flex="30"
+                    ng-if="l.uuid === null || l.uuid === undefined">
+                    <md-item-template>
+                    <span md-highlight-text="batchSearchText">{{line.itemBatch}}</span>
                     </md-item-template>
                     <md-not-found>
                         No matches found.
                     </md-not-found>
                 </md-autocomplete> 
-                <md-autocomplete md-selected-item="selectedItemLine" md-search-text="searchText" md-items="line in searchItemLines(searchText)" 
-                    md-item-text="line.itemBatch" class="md-block" flex-gt-sm md-floating-label="Batch n°" md-clear-button="true" 
-                    md-no-cache="true" md-selected-item-change="selectedItemLineChange(line,$index)" flex-gt-sm flex="30">
-                    <md-item-template>
-                    <span md-highlight-text="searchText">{{line.itemBatch}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        No matches found.
-                    </md-not-found>
-                </md-autocomplete> 
+                <md-input-container class="md-block" flex-gt-sm flex="30" ng-if="l.uuid  !== null && l.uuid !== undefined">
+                    <label translate>Batch n°</label>
+                    <input class="form-control" disabled type="text" ng-model="l.sendingItemBatch" >
+                </md-input-container> 
                 <md-input-container class="md-block" flex-gt-sm flex="15">
                     <label translate>Quantity</label>
-                    <input class="form-control" type="number" ng-model="l.sendingDetailsQuantity">
+                    <input class="form-control" type="number" ng-model="l.sendingDetailsQuantity" ng-change="updateLineValue($index)">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
                     <label translate>Price</label>
                     <input class="form-control" ng-disabled="true" type="number" ng-model="l.sendingDetailsValue">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="7">
-                    <md-button class="md-fab md-mini md-danger md-button" aria-label="remove" ng-click="deleteSendingDetail(l)">
+                    <md-button class="md-fab md-mini md-danger md-button" aria-label="remove" ng-click="deleteSendingDetail(l,$index)">
                         <md-icon>remove</md-icon>
                     </md-button>
                 </md-input-container>
@@ -105,8 +115,8 @@
             </div>
         </md-card-content>
     </md-card>
-    <div layout="row" layout-xs="column">
-        <md-button class="md-raised md-primary" aria-label="Add">
+    <div layout="row" layout-xs="column"  ng-if="!loading">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveSending()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
