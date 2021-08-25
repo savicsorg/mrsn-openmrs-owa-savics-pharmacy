@@ -38,9 +38,6 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     }
     $scope.getItemsLines();
 
-
-
-
     $scope.showConfirm = function (ev, obj) {
         var confirm = $mdDialog.confirm()
             .title('Would you like to delete your data?')
@@ -98,8 +95,6 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
             return true;
         }
     };
-
-
     function showToast(msg, type) {
         if (type != "error") {
             $state.go('home.viewdetail');
@@ -116,13 +111,9 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
                 $log.log('Toast failed or was forced to close early by another toast.');
             });
     }
-
-
     $scope.donwload = function () {
         let link = window.location.protocol + "//" + window.location.host + "/openmrs/ws/rest/v1/savicspharmacy/items/expiredstock?item=" + $scope.item_id + "&expired=" + $scope.onlyExpired;
         localStorage.setItem("export_link", link);
         window.location = link;
     }
-
-
 }]);
