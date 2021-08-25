@@ -7,6 +7,8 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
         $scope.selectedBatch = {};
         $scope.transactionType = "padj";
         $scope.transactionTypes = [];
+        
+        var dictionary = require("../utils/dictionary");
 
         //Breadcrumbs properties
         $rootScope.links = {"Pharmacy management module": "", "adjustment": "Adjustment"};
@@ -32,18 +34,14 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
 
         $scope.getAdjutementTransactionTypes = function () {
             $scope.batches = [];
-            openmrsRest.get($scope.resource + "/transactionType?name=adjustment").then(function (response) {
-                if (response.results.length >= 1) {
-                    $scope.transactionTypes = response.results;
-                    console.log($scope.transactionTypes)
-                }
-            })
+            $scope.transactionTypes = dictionary.getJSONList('../../resources/dictionary/patient/registerReasons.json', "en");
+            console.log($scope.transactionTypes)
+            
         }
         $scope.getAdjutementTransactionTypes();
 
         // Add a new contact
         $scope.submit = function () {
-            console.log("aaaaaaaa")
             if ($scope.transactionTypes && $scope.transactionTypes.length > 0) {
                 if ($scope.transactionType == "nadj") {
                     $scope.adjustment.transactionType = 1;
