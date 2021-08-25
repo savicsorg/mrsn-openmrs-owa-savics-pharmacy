@@ -49,6 +49,7 @@
     "pharmacy.item.listOfItemsReceived": "List of items received",
     "pharmacy.item.batchNumber": "Batch n°",
     "pharmacy.item.expiryDate": "Date of expiry",
+    "pharmacy.stockatrisk.title": "Stock at risk management",
     "Name": "Name",
     "Description": "Description",
     "Display": "Display",

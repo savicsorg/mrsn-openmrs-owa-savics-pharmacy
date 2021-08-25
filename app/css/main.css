@@ -93,3 +93,33 @@ header .logo img {
 .instructions {
     align-self: center;
 }*/
+
+
+.chip-normal {
+    border: 1px solid rgb(224,224,224);;
+    /*color: rgb(66,66,66);;*/
+    padding: .1rem .325rem;
+    font-size: 10px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    /*font-weight: 600;*/
+    border-radius: 4px;
+    margin-right: .125rem;
+}
+
+/*In progress*/
+.status-2 {
+    background-color: rgba(255, 140, 2, 0.3);
+    font-weight: bold
+}
+/*Completed*/
+.status-3 {
+    background-color: rgb(227, 252, 239);
+    font-weight: bold
+}
+/*Blocked*/
+.status-4 {
+    background-color: rgba(220, 22, 63, 0.7);
+    color: #fff;
+    font-weight: bold;
+}

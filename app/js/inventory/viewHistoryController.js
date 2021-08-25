@@ -2,7 +2,7 @@ angular.module('viewHistoryController', []).controller('viewHistoryController', 
     $scope.rootscope = $rootScope;
     $scope.appTitle = "View history";
     $scope.resource = "savicspharmacy";
-    $scope.loading = false;
+    $scope.item_uuid = $stateParams.uuid;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Viewhistory": "View history" };
 
@@ -15,9 +15,32 @@ angular.module('viewHistoryController', []).controller('viewHistoryController', 
     $scope.histories = [
         { "item": "aspirine", "bath": "89809809", "type": "negative", "qty": "100", "date": "2014-12-31" },
         { "item": "aspirine", "bath": "89809809", "type": "positive", "qty": "100", "date": "2014-12-31" }
-    ];
-    //$scope.loading = true;
+    ]
 
+    $scope.transactions = [];
+    console.log("response==== 1")
+    openmrsRest.get($scope.resource + "/item/" + $scope.item_uuid).then(function (response) {
+        console.log(response);
+        if (response && response.uuid) {
+            $scope.item = response;
+            console.log($scope.item);
+
+            console.log("response==== 2")
+            openmrsRest.get($scope.resource + "/transaction?item=" + $scope.item.id).then(function (response) {
+                console.log(response)
+                if (response.results.length >= 1) {
+                    $scope.transactions = response.results;
+                    console.log($scope.transactions)
+                }
+            })
+        }
+    })
+
+    $scope.openViewTransaction = function (data) {
+        $state.go('home.viewtransaction', {
+            uuid: data.uuid
+        });
+    };
 
     function handleResponse(response, e = null) {
         document.getElementById("loading_submit").style.visibility = "hidden";

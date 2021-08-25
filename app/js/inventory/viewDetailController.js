@@ -1,10 +1,10 @@
-angular.module('viewDetailController', []).controller('viewDetailController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog) {
+angular.module('viewDetailController', []).controller('viewDetailController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'orderByFilter', '$q', '$mdDialog', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, orderBy, $q, $mdDialog) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "View detail";
     $scope.resource = "savicspharmacy";
     $scope.item = $stateParams.item;
     $scope.item_id = $stateParams.id;
-    $scope.loading = false;
+    $scope.onlyExpired = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Viewdetail": "View detail" };
 
@@ -14,21 +14,32 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     var type = "";
     var msg = "";
 
+    $scope.query = {
+        limit: 25,
+        page: 1,
+        order: "-itemExpiryDate"
+    };
+
+    $scope.propertyName = 'itemExpiryDate';
+    $scope.reverse = false;
+
     $scope.getItemsLines = function () {
+        var deferred = $q.defer();
+        $scope.promise = deferred.promise;
         $scope.batches = [];
-        $scope.loading = true;
         openmrsRest.get($scope.resource + "/itemsLine?item=" + $scope.item_id).then(function (response) {
-            $scope.loading = false;
             if (response.results.length >= 1) {
                 $scope.batches = response.results;
+                $scope.batches = orderBy($scope.batches, $scope.propertyName, $scope.reverse);
                 $scope.item = response.results[0].item;
             }
-        }, function (e) {
-            $scope.loading = false;
-            toastr.error('An unexpected error has occured.', 'Error');
+            deferred.resolve(response);
         })
     }
     $scope.getItemsLines();
+
+
+
 
     $scope.showConfirm = function (ev, obj) {
         var confirm = $mdDialog.confirm()
@@ -43,6 +54,13 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
         }, function () {
             $mdDialog.cancel();
         });
+    };
+
+    $scope.sortBy = function (propertyName) {
+        $scope.reverse = (propertyName !== null && $scope.propertyName === propertyName)
+            ? !$scope.reverse : false;
+        $scope.propertyName = propertyName;
+        $scope.batches = orderBy($scope.batches, $scope.propertyName, $scope.reverse);
     };
 
     $scope.delete = function (item) {
@@ -73,6 +91,14 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
         });
     }
 
+    $scope.onlyExpiredLots = function (item) {
+        if ($scope.onlyExpired == true) {
+            return item.expired;
+        } else {
+            return true;
+        }
+    };
+
 
     function showToast(msg, type) {
         if (type != "error") {
@@ -89,6 +115,13 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
             }).catch(function () {
                 $log.log('Toast failed or was forced to close early by another toast.');
             });
+    }
+
+
+    $scope.donwload = function () {
+        let link = window.location.protocol + "//" + window.location.host + "/openmrs/ws/rest/v1/savicspharmacy/items/expiredstock?item=" + $scope.item_id + "&expired=" + $scope.onlyExpired;
+        localStorage.setItem("export_link", link);
+        window.location = link;
     }
 
 

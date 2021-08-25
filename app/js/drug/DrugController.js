@@ -24,8 +24,8 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
     }
 
     $scope.drug = function () {
-        vm.drug.virtualstock = 1;
-        vm.drug.soh = 1;
+        vm.drug.virtualstock = 0;
+        vm.drug.soh = 0;
         console.log(vm.drug);
         // if (!vm.drug.name || !vm.drug.code || !vm.drug.description || !vm.drug.buy_price || !vm.drug.sell_price || !vm.drug.stock_min || !vm.drug.stock_max || !vm.drug.type.id || !vm.drug.route.id) {
         //     type = "error";
