@@ -67,8 +67,8 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
                 $scope.loading = true;
                 $scope.transaction.adjustmentDate = new Date();
                 $scope.transaction.status = "REJEC";
-                $scope.transaction.transactionType = $scope.transaction.transactionType.id;
-                $scope.transaction.transactionTypeId = $scope.transaction.transactionType.id;
+//                $scope.transaction.transactionType = $scope.transaction.transactionType.id;
+//                $scope.transaction.transactionTypeId = $scope.transaction.transactionType.id;
                 $scope.transaction.pharmacyLocation = $scope.transaction.pharmacyLocation.id;
                 var itemuuid = $scope.transaction.item.uuid;
                 $scope.transaction.item = $scope.transaction.item.id;

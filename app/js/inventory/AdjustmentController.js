@@ -9,7 +9,12 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
         $scope.selectedBatch = {};
         $scope.transactionType = "padj";
         $scope.transactionTypes = [];
+
+        var dictionary = require("../utils/dictionary");
         $scope.batches = [];
+        $scope.batches = [];
+        $scope.transactionTypes = dictionary.getJSONList('../../resources/dictionary/patient/registerReasons.json', "en");
+        console.log($scope.transactionTypes)
 
         //Breadcrumbs properties
         $rootScope.links = {"Pharmacy management module": "", "adjustment": "Adjustment"};
@@ -44,7 +49,7 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                             }
                         })
                     }
-
+                    
                     // Add a new contact
                     $scope.submit = function () {
                         if ($scope.transactionTypes && $scope.transactionTypes.length > 0) {
