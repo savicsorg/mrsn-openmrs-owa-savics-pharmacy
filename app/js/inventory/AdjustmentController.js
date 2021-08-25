@@ -12,9 +12,7 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
 
         var dictionary = require("../utils/dictionary");
         $scope.batches = [];
-        $scope.batches = [];
-        $scope.transactionTypes = dictionary.getJSONList('../../resources/dictionary/patient/registerReasons.json', "en");
-        console.log($scope.transactionTypes)
+        $scope.transactionTypes = dictionary.getTransactionTypes("en");
 
         //Breadcrumbs properties
         $rootScope.links = {"Pharmacy management module": "", "adjustment": "Adjustment"};
@@ -31,65 +29,59 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                 $scope.batches = response.results;
                 $scope.item = response.results[0].item;
 
-                openmrsRest.get($scope.resource + "/transactionType?name=adjustment").then(function (response) {
-                    if (response.results.length >= 1) {
-                        $scope.transactionTypes = response.results;
-                    }
+                //for edition
+                if ($stateParams.itembatch && $stateParams.adjustmentuuid) {
+                    $scope.selectedBatch = $scope.batches.find(element => element.itemBatch == $stateParams.itembatch);
 
-                    //for edition
-                    if ($stateParams.itembatch && $stateParams.adjustmentuuid) {
-                        $scope.selectedBatch = $scope.batches.find(element => element.itemBatch == $stateParams.itembatch);
+                    openmrsRest.get($scope.resource + "/transaction/" + $scope.adjustmentuuid).then(function (response) {
+                        if (response && response.uuid) {
+                            $scope.adjustment = response;
+                            $scope.adjustment.oldTransactionType = $scope.adjustment.transactionType.code;
+                            $scope.adjustment.oldQuantity = $scope.adjustment.quantity;
+                            $scope.transactionType = $scope.adjustment.transactionType.code;
+                        }
+                    })
+                }
 
-                        openmrsRest.get($scope.resource + "/transaction/" + $scope.adjustmentuuid).then(function (response) {
-                            if (response && response.uuid) {
-                                $scope.adjustment = response;
-                                $scope.adjustment.oldTransactionType = $scope.adjustment.transactionType.code;
-                                $scope.adjustment.oldQuantity = $scope.adjustment.quantity;
-                                $scope.transactionType = $scope.adjustment.transactionType.code;
-                            }
-                        })
-                    }
-                    
-                    // Add a new contact
-                    $scope.submit = function () {
-                        if ($scope.transactionTypes && $scope.transactionTypes.length > 0) {
-                            if ($scope.transactionType == "nadj") {
-                                $scope.adjustment.transactionType = 1;
-                                $scope.adjustment.transactionTypeId = 1;
-                                $scope.adjustment.transactionTypeCode = "nadj";
-                            } else {
-                                $scope.adjustment.transactionType = 2;
-                                $scope.adjustment.transactionTypeId = 2;
-                                $scope.adjustment.transactionTypeCode = "padj";
-                            }
-
-                            $scope.adjustment.adjustmentDate = new Date();
-                            $scope.adjustment.itemBatch = $scope.selectedBatch.itemBatch;
-                            $scope.adjustment.date = new Date();
-                            $scope.adjustment.itemExpiryDate = $scope.selectedBatch.itemExpiryDate;
-                            $scope.adjustment.status = "INIT";
-                            $scope.adjustment.pharmacyLocation = $scope.selectedBatch.pharmacyLocation.id;
-                            $scope.adjustment.item = $scope.selectedBatch.item.id;
-                            $scope.adjustment.selectedBatchUuid = $scope.selectedBatch.uuid;
-
-                            $scope.loading = true;
-                            //Creation
-                            openmrsRest.create($scope.resource + "/transaction", $scope.adjustment).then(function (response) {
-                                $scope.adjustmentRes = response;
-                                $state.go('home.inventory')
-                                toastr.success('Data saved successfully.', 'Success');
-                            }, function (e) {
-                                console.error(e);
-                                $scope.loading = false;
-                                toastr.error('An unexpected error has occured.', 'Error');
-                            });
+                // Add a new contact
+                $scope.submit = function () {
+                    if ($scope.transactionTypes && $scope.transactionTypes.length > 0) {
+                        if ($scope.transactionType == "nadj") {
+                            $scope.adjustment.transactionType = 1;
+                            $scope.adjustment.transactionTypeId = 1;
+                            $scope.adjustment.transactionTypeCode = "nadj";
                         } else {
-                            toastr.error('Transaction type are missing.', 'Error');
+                            $scope.adjustment.transactionType = 2;
+                            $scope.adjustment.transactionTypeId = 2;
+                            $scope.adjustment.transactionTypeCode = "padj";
                         }
 
+                        $scope.adjustment.adjustmentDate = new Date();
+                        $scope.adjustment.itemBatch = $scope.selectedBatch.itemBatch;
+                        $scope.adjustment.date = new Date();
+                        $scope.adjustment.itemExpiryDate = $scope.selectedBatch.itemExpiryDate;
+                        $scope.adjustment.status = "INIT";
+                        $scope.adjustment.pharmacyLocation = $scope.selectedBatch.pharmacyLocation.id;
+                        $scope.adjustment.item = $scope.selectedBatch.item.id;
+                        $scope.adjustment.selectedBatchUuid = $scope.selectedBatch.uuid;
+
+                        $scope.loading = true;
+                        //Creation
+                        openmrsRest.create($scope.resource + "/transaction", $scope.adjustment).then(function (response) {
+                            $scope.adjustmentRes = response;
+                            $state.go('home.inventory')
+                            toastr.success('Data saved successfully.', 'Success');
+                        }, function (e) {
+                            console.error(e);
+                            $scope.loading = false;
+                            toastr.error('An unexpected error has occured.', 'Error');
+                        });
+                    } else {
+                        toastr.error('Transaction type are missing.', 'Error');
                     }
 
-                })
+                }
+
             }
         })
 

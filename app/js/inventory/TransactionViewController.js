@@ -5,6 +5,7 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
         $scope.concept_ressource = "concept";
         $scope.transactionuuid = $stateParams.uuid;
         $scope.itembatch = undefined;
+        var dictionary = require("../utils/dictionary");
         //Breadcrumbs properties
         $rootScope.links = {"Pharmacy management module": "", "Stock and inventory": "inventory", "History": "viewhistory", "Details": "Transactionview"};
 
@@ -23,6 +24,10 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
             status: "Initiated",
             canceled: false,
             background: "#ccc"
+        };
+        
+        $scope.getTransactionType = function (id) {
+            return  dictionary.getTransactionTypeById(id, "en");
         };
 
         openmrsRest.get($scope.resource + "/transaction/" + $scope.transactionuuid).then(function (response) {
