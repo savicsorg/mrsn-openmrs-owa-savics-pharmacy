@@ -2,21 +2,11 @@ var _ = require('underscore');
 
 
 var getValueFromJSON = function (file, id, language) {
-    var server = controllers.configuration.getConf().server;
-    var country = server.country;
     var value = id;
-    
+
     if (id && id !== "") {
-        var found = _.findWhere(require(file), { id: id });
+        var found = _.findWhere(require(file), {id: id});
         if (found) {
-            if ((country !== "" || country !== null || country !== undefined)) {
-                if (language !== "" && language !== null && language !== undefined) {
-                    value = found[country + "." + language];
-                }
-                if (value === undefined) {
-                    value = found[country];
-                }
-            }
             if (value === undefined) {
                 if (language === "" || language === null || language === undefined) {
                     value = found['en'];
@@ -30,12 +20,31 @@ var getValueFromJSON = function (file, id, language) {
 };
 exports.getValueFromJSON = getValueFromJSON;
 
+var getTransactionTypeById = function (id, language) {
+    var value = id;
+
+    if (id && id !== "") {
+        var found = _.findWhere(require('../../json/transaction/transactionTypes.json'), {id: id});
+        if (found) {
+            if (language === "" || language === null || language === undefined) {
+                value = found['en'];
+            } else {
+                value = ((language !== "" && found[language] !== undefined && found[language] !== "") ? found[language] : found['en']);
+            }
+        }
+    }
+    return value;
+};
+exports.getTransactionTypeById = getTransactionTypeById;
+
 
 
 var getIdFromJSON = function (file, value) {
     var json = require(file);
     for (i = 0; i < json.length; i++) {
-        var valueArray = Object.values(json[i]).map(function (val) { return val.toLowerCase(); });
+        var valueArray = Object.values(json[i]).map(function (val) {
+            return val.toLowerCase();
+        });
         if (_.contains(valueArray, value.trim().toLowerCase()) == true) {
             return json[i].id
         }
@@ -49,26 +58,22 @@ exports.getIdFromJSON = getIdFromJSON;
 /**
  * build json list from json file
  */
-var getJSONList = function (file, language) {
-    if (file && file !== "") {
-        var server = controllers.configuration.getConf().server;
-        var country = server.country;
-        var data = require(file);
-        language = language.toLowerCase();
-        var result = [];
-        function myLoopA(i) {
-            if (i < data.length) {
-                var item = data[i];
-                data[i].value = (country && country !== "" && data[i][country] !== undefined && data[i][country] !== "") ? (data[i][country]) : ((language && language !== "" && data[i][language] !== undefined && data[i][language] !== "") ? data[i][language] : data[i]['en']);
-                result.push(data[i]);
-                myLoopA(i + 1);
-            }
+var getTransactionTypes = function (language) {
+    var data = require('../../json/transaction/transactionTypes.json');
+    language = language.toLowerCase();
+    var result = [];
+    function myLoopA(i) {
+        if (i < data.length) {
+            var item = data[i];
+            data[i].value = ((language && language !== "" && data[i][language] !== undefined && data[i][language] !== "") ? data[i][language] : data[i]['en']);
+            result.push(data[i]);
+            myLoopA(i + 1);
         }
-        myLoopA(0);
-        return result;
     }
+    myLoopA(0);
+    return result;
 };
-exports.getJSONList = getJSONList;
+exports.getTransactionTypes = getTransactionTypes;
 
 
 var searchInJSON = function (json, query, language) {
