@@ -5,6 +5,7 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
         $scope.concept_ressource = "concept";
         $scope.transactionuuid = $stateParams.uuid;
         $scope.itembatch = undefined;
+        var dictionary = require("../utils/dictionary");
         //Breadcrumbs properties
         $rootScope.links = {"Pharmacy management module": "", "Stock and inventory": "inventory", "History": "viewhistory", "Details": "Transactionview"};
 
@@ -23,6 +24,10 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
             status: "Initiated",
             canceled: false,
             background: "#ccc"
+        };
+        
+        $scope.getTransactionType = function (id) {
+            return  dictionary.getTransactionTypeById(id, "en");
         };
 
         openmrsRest.get($scope.resource + "/transaction/" + $scope.transactionuuid).then(function (response) {
@@ -99,12 +104,11 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
                 $scope.loading = true;
                 $scope.transaction.adjustmentDate = new Date();
                 $scope.transaction.status = "VALID";
-                $scope.transaction.transactionType = $scope.transaction.transactionType.id;
-                $scope.transaction.transactionTypeId = $scope.transaction.transactionType.id;
                 $scope.transaction.pharmacyLocation = $scope.transaction.pharmacyLocation.id;
                 var itemuuid = $scope.transaction.item.uuid;
                 $scope.transaction.item = $scope.transaction.item.id;
                 openmrsRest.update($scope.resource + "/transaction", $scope.transaction).then(function (response) {
+                    console.log(response)
                     $scope.adjustmentRes = response;
                     toastr.success('Data saved successfully.', 'Success');
                     $scope.approveBtn.status = "Approved";

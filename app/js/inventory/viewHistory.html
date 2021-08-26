@@ -20,7 +20,7 @@
                         data-ng-repeat="history in transactions| limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{history.item.name}}</td>
                         <td>{{history.itemBatch}}</td>
-                        <td>{{history.transactionType.name}}</td>
+                        <td>{{getTransactionType(history.transactionType)}}</td>
                         <td>{{history.quantity}}</td>
                         <td>{{history.date | date:'dd/MM/yyyy'}}</td>
                         <td>
