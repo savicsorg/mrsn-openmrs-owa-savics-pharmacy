@@ -24,28 +24,18 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row
+                    <tr md-row  style="background: {{(history.status == 'VALID')?'#3dcc6785':(history.status == 'REJEC')?'#ea340aab':''}};"
                         data-ng-repeat="history in transactions| limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{history.item.name}}</td>
                         <td>{{history.itemBatch}}</td>
                         <td>{{getTransactionType(history.transactionType)}}</td>
                         <td>{{history.quantity}}</td>
-                        <td>{{history.date | date:'dd/MM/yyyy'}}</td>
+                        <td>{{history.date| date:'dd/MM/yyyy'}}</td>
                         <td>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Add"
-                                ng-click="openViewTransaction(history)">
+                                    ng-click="openViewTransaction(history)">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">visibility</md-icon>
                                 <md-tooltip md-direction="top"><span translate>Transaction detail</span></md-tooltip>
-                            </button>
-                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove"
-                                ng-click="openEditTransaction(history)">
-                                <md-icon class="material-icons" role="img" aria-hidden="true">edit</md-icon>
-                                <md-tooltip md-direction="top"><span translate>Edit</span></md-tooltip>
-                            </button>
-                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove"
-                                ng-click="openDeleteTransaction($event,history)">
-                                <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
-                                <md-tooltip md-direction="top"><span translate>Delete</span></md-tooltip>
                             </button>
                         </td>
                     </tr>
@@ -53,8 +43,8 @@
             </table>
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{histories.transactions}}"
-            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
-            md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
+                             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+                             md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
         </md-table-pagination>
     </md-card>
 </div>

@@ -36,9 +36,13 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                     openmrsRest.get($scope.resource + "/transaction/" + $scope.adjustmentuuid).then(function (response) {
                         if (response && response.uuid) {
                             $scope.adjustment = response;
-                            $scope.adjustment.oldTransactionType = $scope.adjustment.transactionType.code;
+                            $scope.adjustment.oldTransactionType = $scope.adjustment.transactionType;
                             $scope.adjustment.oldQuantity = $scope.adjustment.quantity;
-                            $scope.transactionType = $scope.adjustment.transactionType.code;
+                            if ($scope.adjustment.transactionType == 2){
+                                $scope.transactionType = "padj";
+                            }else if ($scope.adjustment.transactionType == 1){
+                                $scope.transactionType = "nadj";
+                            }
                         }
                     })
                 }
