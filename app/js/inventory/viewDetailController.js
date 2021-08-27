@@ -47,7 +47,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
             .ok('Yes')
             .cancel('Cancel');
         $mdDialog.show(confirm).then(function () {
-            $scope.delete(obj);
+            $scope.hide(obj);
         }, function () {
             $mdDialog.cancel();
         });
@@ -60,10 +60,10 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
         $scope.batches = orderBy($scope.batches, $scope.propertyName, $scope.reverse);
     };
 
-    $scope.delete = function (item) {
+    $scope.hide = function (item) {
         openmrsRest.remove($scope.resource + "/itemsLine?item=" + $scope.item_id, item, "Reason for deletion").then(function (response) {
             type = "success";
-            msg = "Deleted";
+            msg = "hidden";
             showToast(msg, type);
             $scope.getItemsLines();
         }).catch(function (e) {
@@ -80,10 +80,15 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
         });
     }
 
-    $scope.openAdjustement = function (data) {
-        $state.go('home.adjustment', {
-            item: data.code,
-            id: data.id
+    $scope.openAdjustement = function (batch) {
+        $state.go('home.adjustmentbatch', {
+            item: batch.item,
+            id: batch.item.id,
+            item_id: batch.item.id,
+            batch_id: batch.id,
+            batch_physical_qty: batch.itemSoh,
+            batch_counted_qty: batch.itemVirtualstock,
+            batch_reason: batch.reason,
         });
     };
 
