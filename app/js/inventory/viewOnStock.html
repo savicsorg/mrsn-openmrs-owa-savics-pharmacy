@@ -6,14 +6,6 @@
                 <md-icon>arrow_back</md-icon>Back
             </md-button>
         </a>
-        <!--        <a href="index.html#!/stockatrisk">
-                    <md-button class="md-raised md-primary" aria-label="Add">
-                        <md-icon>report_problem</md-icon> Stock at risk
-                        <md-tooltip md-direction="top">
-                            <span translate>Stock at risk</span>
-                        </md-tooltip>
-                    </md-button>
-                </a>-->
         <a href="index.html#!/inventory">
             <md-button class="md-raised md-primary" aria-label="Add">
                 <md-icon>trending_up</md-icon>Stocktakes
@@ -44,7 +36,8 @@
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
-                <input type="search" name="search" flex ng-model="searchAll" placeholder="{{ 'Search...' | translate }}">
+                <input type="search" name="search" flex ng-model="searchAll"
+                    placeholder="{{ 'Search...' | translate }}">
             </form>
             <md-switch flex ng-model="stockAtRisOnly" aria-label="Switch 1">
                 Stock at risk only: {{ stockAtRisOnly}}
@@ -75,40 +68,44 @@
                         <td>{{drug.stockMin}}</td>
                         <td>{{drug.stockMax}}</td>
                         <td>{{drug.virtualstock}}</td>
-                        <td>{{drug.soh}} <small ng-if="drug.soh > drug.stockMax || drug.soh < drug.stockMin" class="chip-normal status-4" > {{drug.soh > drug.stockMax ?'Over': (drug.soh < drug.stockMin ?'Under':'')}}</small></td>
-                        <td style="text-align: center" >
+                        <td>{{drug.soh}} <small ng-if="drug.soh > drug.stockMax || drug.soh < drug.stockMin"
+                                class="chip-normal status-4"> {{drug.soh > drug.stockMax ?'Over': (drug.soh <
+                                    drug.stockMin ?'Under':'')}}</small>
+                        </td>
+                        <td style="text-align: center">
 
-                <md-icon style="color:{{drug.soh > 0 ?'red':'green'}}">
-                    <md-tooltip>
-                        {{drug.numberOfExpiredLots}} lot(s) expired
-                    </md-tooltip>
-                    fiber_manual_record </md-icon> 
-                </td>
-                <td width="200px">
-                    <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
-                            ng-click="openView(drug)">
-                        <md-icon class="material-icons" role="img" aria-hidden="true">format_list_bulleted
-                        </md-icon>
-                        <md-tooltip md-direction="top"><span translate>Stock details</span></md-tooltip>
-                    </button>
-                    <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Adjustment"
-                            ng-click="openAdjustement(drug)">
-                        <md-icon class="material-icons" role="img" aria-hidden="true">adjust</md-icon>
-                        <md-tooltip md-direction="top"><span translate>Adjustment</span></md-tooltip>
-                    </button>
-                    <button class="md-fab md-mini md-primary md-button" type="button" aria-label="History"
-                            ng-click="openHistory(drug)">
-                        <md-icon class="material-icons" role="img" aria-hidden="true">history</md-icon>
-                        <md-tooltip md-direction="top"><span translate>History</span></md-tooltip>
-                    </button>
-                </td>
-                </tr>
+                            <md-icon style="color:{{drug.soh > 0 ?'red':'green'}}">
+                                <md-tooltip>
+                                    {{drug.numberOfExpiredLots}} lot(s) expired
+                                </md-tooltip>
+                                fiber_manual_record
+                            </md-icon>
+                        </td>
+                        <td width="200px">
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
+                                ng-click="openView(drug)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">format_list_bulleted
+                                </md-icon>
+                                <md-tooltip md-direction="top"><span translate>Stock details</span></md-tooltip>
+                            </button>
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Adjustment"
+                                ng-click="openAdjustement(drug)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">adjust</md-icon>
+                                <md-tooltip md-direction="top"><span translate>Adjustment</span></md-tooltip>
+                            </button>
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="History"
+                                ng-click="openHistory(drug)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">history</md-icon>
+                                <md-tooltip md-direction="top"><span translate>History</span></md-tooltip>
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{viewOnStock.length}}"
-                             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
-                             md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
+            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+            md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
         </md-table-pagination>
     </md-card>
 </div>

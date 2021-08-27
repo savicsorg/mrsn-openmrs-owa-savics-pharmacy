@@ -40,8 +40,8 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
 
     $scope.showConfirm = function (ev, obj) {
         var confirm = $mdDialog.confirm()
-            .title('Would you like to delete your data?')
-            .textContent('If you choose `Yes` this record will be deleted and you will not be able to recover it')
+            .title('Would you like to hide this data?')
+            .textContent('If you choose `Yes` this record will be hidden')
             .ariaLabel('Lucky day')
             .targetEvent(ev)
             .ok('Yes')
@@ -80,13 +80,19 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
         });
     }
 
-    $scope.editBatch = function (data) {
-        $state.go('home.editbatch', {
-            batch: data,
-            item_id: $scope.item_id,
-            item: $scope.item
+    $scope.openAdjustement = function (data) {
+        $state.go('home.adjustment', {
+            item: data.code,
+            id: data.id
         });
-    }
+    };
+
+    $scope.openHistory = function (data) {
+        $state.go('home.viewhistory', {
+            item: data.code,
+            uuid: data.uuid
+        });
+    };
 
     $scope.onlyExpiredLots = function (item) {
         if ($scope.onlyExpired == true) {
@@ -95,6 +101,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
             return true;
         }
     };
+
     function showToast(msg, type) {
         if (type != "error") {
             $state.go('home.viewdetail');

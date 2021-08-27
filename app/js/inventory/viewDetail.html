@@ -34,15 +34,16 @@
                     <table md-table md-progress="promise" class="table-fixed">
                         <thead md-head md-order="query.order">
                             <tr md-row>
-                                <th md-column md-order-by="itemBatch" ng-click="sortBy('itemBatch')"><span translate>Lot
-                                        Number</span></th>
+                                <th md-column md-order-by="itemBatch" ng-click="sortBy('itemBatch')"><span
+                                        translate>Batch</span></th>
                                 <th md-column md-order-by="item.unit.name" ng-click="sortBy('item.unit.name')"><span
                                         translate>Unit</span></th>
+                                <th md-column md-order-by=""><span translate>Location</span></th>
                                 <th md-column md-order-by="itemSoh" ng-click="sortBy('itemSoh')"><span
                                         translate>Qty</span></th>
                                 <th md-column md-order-by="itemExpiryDate" ng-click="sortBy('itemExpiryDate')"><span
                                         translate>Exp date</span></th>
-                                <th md-column md-order-by=""><span translate>Creation</span></th>
+
                                 <th md-column><span translate>Action</span></th>
                             </tr>
                         </thead>
@@ -50,15 +51,26 @@
                             <tr md-row data-ng-repeat="batch in batches|filter:onlyExpiredLots">
                                 <td md-cell>{{batch.itemBatch}}</td>
                                 <td md-cell>{{batch.item.unit.name}}</td>
+                                <td md-cell> {{batch.pharmacyLocation.name}} </td>
                                 <td md-cell>{{batch.itemSoh}}</td>
                                 <td md-cell>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}} <small ng-if="batch.expired"
                                         class="chip-normal status-4"> Expired</small> </td>
-                                <td md-cell> Unknown </td>
                                 <td md-cell>
                                     <button ng-click="showConfirm($event, batch)"
                                         class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove">
-                                        <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
-                                        <md-tooltip md-direction="top"><span translate>delete</span></md-tooltip>
+                                        <md-icon class="material-icons" role="img" aria-hidden="true">visibility_off
+                                        </md-icon>
+                                        <md-tooltip md-direction="top"><span translate>hide</span></md-tooltip>
+                                    </button>
+                                    <button class="md-fab md-mini md-primary md-button" type="button"
+                                        aria-label="Adjustment" ng-click="openAdjustement(batch)">
+                                        <md-icon class="material-icons" role="img" aria-hidden="true">adjust</md-icon>
+                                        <md-tooltip md-direction="top"><span translate>Adjustment</span></md-tooltip>
+                                    </button>
+                                    <button class="md-fab md-mini md-primary md-button" type="button"
+                                        aria-label="History" ng-click="openHistory(batch)">
+                                        <md-icon class="material-icons" role="img" aria-hidden="true">history</md-icon>
+                                        <md-tooltip md-direction="top"><span translate>History</span></md-tooltip>
                                     </button>
                                 </td>
                             </tr>
