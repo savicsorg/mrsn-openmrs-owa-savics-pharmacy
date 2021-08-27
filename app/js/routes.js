@@ -478,6 +478,24 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "inventory", "adjustment"]
+    }).state('home.editAdjustment', {
+        url: 'adjustment/edit/:id/:itembatch/:adjustmentuuid',
+        template: require('./inventory/adjustment.html'),
+        controller: 'AdjustmentController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/AdjustmentController.js');
+                    $ocLazyLoad.load({
+                        name: 'AdjustmentController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "inventory", "adjustment", , "editAdjustment"]
     }).state('home.addbatch', {
         url: 'addbatch',
         params: {
@@ -520,8 +538,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         },
         breadcrumbs: ["Home", "inventory", "editbatch"]
     }).state('home.viewhistory', {
-        url: 'viewhistory',
-        params: { item: undefined },
+        url: 'viewhistory/:uuid',
         template: require('./inventory/viewHistory.html'),
         controller: 'viewHistoryController',
         resolve: {
@@ -556,6 +573,45 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "viewhistory"]
+    }).state('home.stockatrisk', {
+        url: 'stockatrisk',
+        template: require('./inventory/stockatrisk/stockatrisk.html'),
+        controller: 'StockAtRiskController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/stockatrisk/StockAtRiskController.js');
+                    $ocLazyLoad.load({
+                        name: 'StockAtRiskController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "inventory", "stockatrisk"]
+    }).state('home.viewtransaction', {
+        url: 'viewtransaction/:uuid',
+        template: require('./inventory/Transactionview.html'),
+        params: {
+            unit: undefined
+        },
+        controller: 'TransactionViewController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./inventory/TransactionViewController.js');
+                    $ocLazyLoad.load({
+                        name: 'TransactionViewController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "Drug", "View"]
     }).state('home.orders', { // to check with Kabir
         url: 'orders',
         template: require('./order/orders.html'),

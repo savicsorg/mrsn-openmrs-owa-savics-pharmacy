@@ -37,3 +37,89 @@ md-toast.md-success-toast-theme div.md-toast-content{
     color: white !important;
     background-color: green !important;
 }
+
+/*header {
+    position: relative;
+    background-color: #00463f;
+    color: #CCC;
+    line-height: 1em;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    display: block;
+    min-height: 48px;
+}
+
+header .logo {
+    float: left;
+    margin: 4px;
+    display: block;
+}
+
+header .logo img {
+    width: 120px;
+}
+
+#body-wrapper {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: white;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    min-height: 500px;
+    display: table-cell;
+    display: flex;
+    justify-content: center;
+}
+
+.app-title {
+    display: block;
+    float: right;
+    color: #eeeeee;
+    font-size: 32px;
+    margin: 4px;
+    height: 100%;
+    padding-top: 12px;
+    padding-right: 5px;
+}
+
+.instructions {
+    align-self: center;
+}*/
+
+
+.chip-normal {
+    border: 1px solid rgb(224,224,224);;
+    /*color: rgb(66,66,66);;*/
+    padding: .1rem .325rem;
+    font-size: 10px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    /*font-weight: 600;*/
+    border-radius: 4px;
+    margin-right: .125rem;
+}
+
+/*In progress*/
+.status-2 {
+    background-color: rgba(255, 140, 2, 0.3);
+    font-weight: bold
+}
+/*Completed*/
+.status-3 {
+    background-color: rgb(227, 252, 239);
+    font-weight: bold
+}
+/*Blocked*/
+.status-4 {
+    background-color: rgba(220, 22, 63, 0.7);
+    color: #fff;
+    font-weight: bold;
+}

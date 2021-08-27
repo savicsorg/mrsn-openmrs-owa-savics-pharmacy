@@ -1,0 +1,37 @@
+[
+    
+    {
+        "id": 1,
+        "code": "nadj",
+        "en": "Negative adjustement",
+        "fr": "Negative adjustement",
+        "type": "Negative"
+    },{
+        "id": 2,
+        "code": "padj",
+        "fr": "Positive adjustement",
+        "en": "Positive adjustement",
+        "type": "Positive"
+    },
+    {
+        "id": 3,
+        "code": "bcreate",
+        "en": "Batch creation",
+        "fr": "Batch creation",
+        "type": "Positve"
+    },
+    {
+        "id": 4,
+        "code": "bremove",
+        "en": "Batch removal",
+        "fr": "Batch removal",
+        "type": "Negative"
+    },
+    {
+        "id": 5,
+        "code": "disp",
+        "en": "Drug dispense",
+        "fr": "Drug dispense",
+        "type": "Negative"
+    }
+]

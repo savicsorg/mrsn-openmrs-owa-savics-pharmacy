@@ -4752,3 +4752,14 @@ ul.icons li [class*=" icon-"] {
 .icon-tomo:before {
   content: "\e00e";
 }
+
+
+
+/*VALID*/
+.VALID {
+    background: #3dcc6785;
+}
+/*REJECT*/
+.REJECT {
+    background: #ea340aab;
+}
