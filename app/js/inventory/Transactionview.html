@@ -1,4 +1,4 @@
-<div id="content" class="container-fluid" >
+<div id="content" class="container-fluid">
     <a href="index.html#!/viewhistory/{{itemuuid}}">
         <md-button class="md-raised">
             <md-icon>arrow_back</md-icon>Back
@@ -7,21 +7,24 @@
 
     <div class="md-toolbar-tools">
         <div flex></div>
-        <md-button class="md-raised md-primary" aria-label="Add" ng-if='transaction.status == "INIT"' ng-click="approve()">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-if='transaction.status == "INIT"'
+            ng-click="approve()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">check_circle</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>{{approveBtn.text}}</span>
             </md-tooltip>
             {{approveBtn.text}}
         </md-button>
-        <md-button class="md-raised md-accent" aria-label="Add" ng-if='transaction.status == "INIT"' ng-click="reject()">
-            <md-icon class=" material-icons" role="img" aria-hidden="true">cancel</md-icon>
+        <md-button class="md-raised md-accent" aria-label="Add" ng-if='transaction.status == "INIT"'
+            ng-click="reject()">
+            <md-icon class=" material-icons" role="img" aria-hidden="true">Reject</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>{{cancelBtn.text}}</span>
             </md-tooltip>
             {{cancelBtn.text}}
         </md-button>
-        <md-button class="md-raised " aria-label="Add" ng-if='transaction.status == "INIT"' ng-click="openEditTransaction()">
+        <md-button class="md-raised " aria-label="Add" ng-if='transaction.status == "INIT"'
+            ng-click="openEditTransaction()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">edit</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Edit</span>
@@ -54,7 +57,8 @@
                 </div>
                 <div flex-gt-sm class="opblock-summary">
                     <md-card-title-text>
-                        <span class="md-headline">Operation type : {{getTransactionType(transaction.transactionType)}}</span>
+                        <span class="md-headline">Operation type :
+                            {{getTransactionType(transaction.transactionType)}}</span>
                     </md-card-title-text>
                 </div>
             </div>
