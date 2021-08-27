@@ -1,6 +1,12 @@
 <div id="content" class="container-fluid" ng-controller="AdjustmentController as vm">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
+        <md-button class="md-raised md-primary" aria-label="Add">
+            Counted qty: {{item.virtualstock}}
+        </md-button>
+        <md-button class="md-raised md-primary" aria-label="Add">
+            Physical qty: {{item.soh}}
+        </md-button>
     </div>
     <form ng-submit="submit();">
         <md-card>

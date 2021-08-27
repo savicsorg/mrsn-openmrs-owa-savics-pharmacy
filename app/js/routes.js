@@ -507,25 +507,6 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "inventory", "addbatch"]
-    }).state('home.editbatch', {
-        url: 'editbatch',
-        params: { batch: null, item_id: undefined, item: undefined },
-        template: require('./inventory/editbatch.html'),
-        controller: 'EditbatchController',
-        resolve: {
-            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
-                var deferred = $q.defer();
-                require.ensure([], function () {
-                    var mod = require('./inventory/EditbatchController.js');
-                    $ocLazyLoad.load({
-                        name: 'EditbatchController'
-                    });
-                    deferred.resolve(mod.controller);
-                });
-                return deferred.promise;
-            }]
-        },
-        breadcrumbs: ["Home", "inventory", "editbatch"]
     }).state('home.viewhistory', {
         url: 'viewhistory/:uuid',
         template: require('./inventory/viewHistory.html'),
