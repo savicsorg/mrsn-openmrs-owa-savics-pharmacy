@@ -20,7 +20,6 @@
                         <th><span translate>Transaction type</span></th>
                         <th><span translate>Transaction qty</span></th>
                         <th><span translate>Date modified</span></th>
-                        <th><span translate>Done by</span></th>
                         <th><span translate>Action</span></th>
                     </tr>
                 </thead>
@@ -33,7 +32,6 @@
                         <td>{{getTransactionType(history.transactionType)}}</td>
                         <td>{{history.quantity}}</td>
                         <td>{{history.date| date:'dd/MM/yyyy'}}</td>
-                        <td>{{history.personId}}</td>
                         <td>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Add"
                                 ng-click="openViewTransaction(history)">
