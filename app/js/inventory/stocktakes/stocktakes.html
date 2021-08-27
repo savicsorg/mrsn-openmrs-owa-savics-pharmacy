@@ -26,9 +26,9 @@
                         <th><span translate>Location</span></th>
                         <th><span translate>Physical qty</span></th>
                         <th><span translate>Unit</span></th>
-                        <th><span translate>System qty</span></th>
-                        <th><span translate>Diff</span></th>
-                        <th><span translate>Exp date</span></th>
+                        <th><span translate>Counted qty</span></th>
+                        <th><span translate>Difference</span></th>
+                        <th><span translate>Expiration date</span></th>
                         <th><span translate>Status</span></th>
                         <th><span translate>Date</span></th>
                         <th><span translate>Action</span></th>
@@ -41,9 +41,8 @@
                         <td>{{drug.name}}</td>
                         <td>{{drug.stockMin}}</td>
                         <td>{{drug.stockMax}}</td>
+                        <td>{{drug.soh}}</td>
                         <td><input type="text" ng-model="drug.virtualstock"></td>
-                        <td>{{drug.soh}}</td>
-                        <td>{{drug.soh}}</td>
                         <td>{{drug.soh}}</td>
                         <td>{{drug.soh}}</td>
                         <td style="text-align: center">
@@ -54,6 +53,7 @@
                                 fiber_manual_record
                             </md-icon>
                         </td>
+                        <td>{{drug.soh}}</td>
                         <td>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
                                 ng-click="openView(drug)">
