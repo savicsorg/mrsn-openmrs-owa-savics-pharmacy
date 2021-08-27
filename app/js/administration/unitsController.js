@@ -2,6 +2,7 @@ angular.module('UnitsController', ['ngMaterial', 'md.data.table']).controller('U
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des units";
     $scope.resource = "savicspharmacy";
+    $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Unit": "units" };
 
@@ -13,10 +14,15 @@ angular.module('UnitsController', ['ngMaterial', 'md.data.table']).controller('U
 
     $scope.getAllUnit = function () {
         $scope.units = [];
+        $scope.loading = true;
         openmrsRest.getFull($scope.resource + "/unit").then(function (response) {
+            $scope.loading = false;
             if (response.results.length >= 1) {
                 $scope.units = response.results;
             }
+        }, function (e) {
+            $scope.loading = false;
+            showToast("An unexpected error has occured.", "error");
         })
     }
 

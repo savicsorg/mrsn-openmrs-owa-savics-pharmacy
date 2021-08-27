@@ -2,6 +2,7 @@ angular.module('LocationsController', ['ngMaterial', 'md.data.table']).controlle
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des locations";
     $scope.resource = "savicspharmacy";
+    $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Location": "locations" };
 
@@ -13,10 +14,15 @@ angular.module('LocationsController', ['ngMaterial', 'md.data.table']).controlle
 
     $scope.getAllLocation = function () {
         $scope.locations = [];
+        $scope.loading = true;
         openmrsRest.getFull($scope.resource + "/location").then(function (response) {
+            $scope.loading = false;
             if (response.results.length >= 1) {
                 $scope.locations = response.results;
             }
+        }, function (e) {
+            $scope.loading = false;
+            showToast("An unexpected error has occured.", "error");
         })
     }
 

@@ -2,6 +2,7 @@ angular.module('SuppliersController', ['ngMaterial', 'md.data.table']).controlle
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des suppliers";
     $scope.resource = "savicspharmacy";
+    $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Suppliers": "Suppliers" };
 
@@ -13,10 +14,15 @@ angular.module('SuppliersController', ['ngMaterial', 'md.data.table']).controlle
 
     $scope.getAllSupplier = function () {
         $scope.suppliers = [];
+        $scope.loading = true;
         openmrsRest.getFull($scope.resource + "/supplier").then(function (response) {
+            $scope.loading = false;
             if (response.results.length >= 1) {
                 $scope.suppliers = response.results;
             }
+        }, function (e) {
+            $scope.loading = false;
+            showToast("An unexpected error has occured.", "error");
         })
     }
 

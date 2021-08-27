@@ -17,51 +17,73 @@
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
-                <input type="search" name="search" flex ng-model="searchAll" placeholder="{{ 'Search...' | translate }}">
+                <input type="search" name="search" flex ng-model="searchAll"
+                    placeholder="{{ 'Search...' | translate }}">
             </form>
             <md-switch flex ng-model="onlyExpired" aria-label="Switch 1">
                 Expired batches only
             </md-switch>
-
         </div>
     </md-toolbar>
-
     <md-card>
         <md-card-content>
             <md-table-container class="container" fixed-column-table>
-                <md-table-container class="container" fixed-column-table >
-                    <table md-table md-progress="promise" class="table-fixed">
-                        <thead md-head md-order="query.order">
-                            <tr md-row>
-                                <th md-column md-order-by="itemBatch" ng-click="sortBy('itemBatch')" ><span translate>Lot Number</span></th>
-                                <th md-column md-order-by="item.unit.name" ng-click="sortBy('item.unit.name')" ><span translate>Unit</span></th>
-                                <th md-column md-order-by="itemSoh" ng-click="sortBy('itemSoh')" ><span translate>Qty</span></th>
-                                <th md-column md-order-by="itemExpiryDate" ng-click="sortBy('itemExpiryDate')" ><span translate>Exp date</span></th>
-                                <th md-column md-order-by="" ><span translate>Creation</span></th>
-                                <th md-column><span translate>Action</span></th>
-                            </tr>
-                        </thead>
-                        <tbody md-body>
-                            <tr md-row data-ng-repeat="batch in batches|filter:onlyExpiredLots">
-                                <td md-cell>{{batch.itemBatch}}</td>
-                                <td md-cell>{{batch.item.unit.name}}</td>
-                                <td md-cell>{{batch.itemSoh}}</td>
-                                <td md-cell>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}} <small ng-if="batch.expired" class="chip-normal status-4" > Expired</small> </td>
-                                <td md-cell> Unknown </td>
-                                <td md-cell>
-                                    <button ng-click="showConfirm($event, batch)" class="md-fab md-mini md-primary md-button"
-                                            type="button" aria-label="Remove">
-                                        <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
-                                        <md-tooltip md-direction="top"><span translate>delete</span></md-tooltip>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </md-table-container>
-                <md-table-pagination md-limit="query.limit" md-limit-options="[10,15,25,50,100]" md-page="query.page" md-total="{{batches.size}}"
-                                     md-page-select="true" md-label="$parent.label" md-on-paginate="load">
-                </md-table-pagination>
+                <table md-table md-progress="promise">
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-order-by="itemBatch" ng-click="sortBy('itemBatch')">
+                                <span translate>Batch</span>
+                            </th>
+                            <th md-order-by="item.unit.name" ng-click="sortBy('item.unit.name')">
+                                <span translate>Unit</span>
+                            </th>
+                            <th md-order-by=""><span translate>Location</span></th>
+                            <th md-order-by="itemSoh" ng-click="sortBy('itemSoh')">
+                                <span translate>Physical qty</span>
+                            </th>
+                            <th md-order-by="itemSoh" ng-click="sortBy('itemVirtualstock')">
+                                <span translate>Counted qty</span>
+                            </th>
+                            <th md-order-by="itemExpiryDate" ng-click="sortBy('itemExpiryDate')">
+                                <span translate>Exp date</span>
+                            </th>
+                            <th><span translate>Action</span></th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row data-ng-repeat="batch in batches|filter:onlyExpiredLots">
+                            <td>{{batch.itemBatch}}</td>
+                            <td>{{batch.item.unit.name}}</td>
+                            <td> {{batch.pharmacyLocation.name}} </td>
+                            <td>{{batch.itemSoh}}</td>
+                            <td>{{batch.itemVirtualstock}}</td>
+                            <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}} <small ng-if="batch.expired"
+                                    class="chip-normal status-4"> Expired</small> </td>
+                            <td width="200px">
+                                <button ng-click="showConfirm($event, batch)"
+                                    class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove">
+                                    <md-icon class="material-icons" role="img" aria-hidden="true">visibility_off
+                                    </md-icon>
+                                    <md-tooltip md-direction="top"><span translate>hide</span></md-tooltip>
+                                </button>
+                                <button class="md-fab md-mini md-primary md-button" type="button"
+                                    aria-label="Adjustment" ng-click="openAdjustement(batch)">
+                                    <md-icon class="material-icons" role="img" aria-hidden="true">adjust</md-icon>
+                                    <md-tooltip md-direction="top"><span translate>Adjustment</span></md-tooltip>
+                                </button>
+                                <button class="md-fab md-mini md-primary md-button" type="button" aria-label="History"
+                                    ng-click="openHistory(batch)">
+                                    <md-icon class="material-icons" role="img" aria-hidden="true">history</md-icon>
+                                    <md-tooltip md-direction="top"><span translate>History</span></md-tooltip>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-pagination md-limit="query.limit" md-limit-options="[10,15,25,50,100]" md-page="query.page"
+                md-total="{{batches.size}}" md-page-select="true" md-label="$parent.label" md-on-paginate="load">
+            </md-table-pagination>
         </md-card-content>
     </md-card>
 
