@@ -43,9 +43,10 @@
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{histories.transactions}}"
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{transactions.length}}"
             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
             md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
         </md-table-pagination>
+
     </md-card>
 </div>

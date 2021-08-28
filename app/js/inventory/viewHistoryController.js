@@ -34,5 +34,11 @@ angular.module('viewHistoryController', []).controller('viewHistoryController', 
         return dictionary.getTransactionTypeById(id, "en");
     };
 
+    $scope.query = {
+        limit: 10,
+        page: 1
+    };
+
+
 
 }]);
