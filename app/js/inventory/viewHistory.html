@@ -1,11 +1,9 @@
 <div id="content" class="container-fluid" ng-controller="viewHistoryController as vm">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
-        <a href="index.html#!/inventory">
-            <md-button class="md-raised">
-                <md-icon>arrow_back</md-icon>Back
-            </md-button>
-        </a>
+        <md-button class="md-raised" ng-click="returnToPrevious()">
+            <md-icon>arrow_back</md-icon>Back
+        </md-button>
     </div>
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
@@ -47,6 +45,5 @@
             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
             md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
         </md-table-pagination>
-
     </md-card>
 </div>
