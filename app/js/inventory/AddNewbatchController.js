@@ -19,7 +19,9 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
         }
         vm.batch.item = parseInt($stateParams.item_id);
         vm.batch.itemSoh = vm.batch.itemVirtualstock;
-
+        vm.batch.transactionType = 3;
+        vm.batch.transactionTypeId = 3;
+        vm.batch.transactionTypeCode = "bcreate";
         document.getElementById("loading_submit").style.visibility = "visible";
         var payload = vm.batch;
         console.log(payload);
@@ -28,7 +30,6 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
         }).catch(function (e) {
             handleResponse(response, e)
         });
-
     }
 
     $scope.locations = function () {

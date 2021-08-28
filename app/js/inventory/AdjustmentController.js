@@ -10,8 +10,6 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
     $scope.transactionType = "padj";
     $scope.transactionTypes = [];
 
-    console.log($stateParams);
-
     if ($stateParams.batch_id) {
         $scope.batch_id = $stateParams.batch_id;
     }
@@ -32,8 +30,6 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
     var vm = this;
     vm.appTitle = "Adjustment";
 
-    var type = "";
-    var msg = "";
     $scope.batches = [];
 
     openmrsRest.get($scope.resource + "/itemsLine?item=" + $scope.item_id).then(function (response) {
@@ -105,10 +101,8 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
         console.log(params);
         if (params.item_id && params.batch_id) { //for parameters with two ids
             $state.go('home.viewdetail', { id: params.item_id });
-        } else if (params.item_id && params.batch_id == undefined) {//for parameters with one id
-            $state.go('home.inventory', {});
         } else {
-            showToast("Oops! refresh your", type);
+            $state.go('home.inventory', {});
         }
     }
 
@@ -126,38 +120,4 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
         return parameters;
     };
 
-    function handleResponse(response, e = null) {
-        document.getElementById("loading_submit").style.visibility = "hidden";
-        if (e) {
-            type = "error";
-            msg = e.data.error.message;
-            showToast(msg, type);
-            return;
-        }
-        if (response.uuid) {
-            type = "success";
-            msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
-        } else {
-            type = "error";
-            msg = "we can't save your data.";
-        }
-        showToast(msg, type);
-    }
-
-    function showToast(msg, type) {
-        if (type != "error") {
-            $state.go('home.drugs')
-        }
-        $mdToast.show(
-            $mdToast.simple()
-                .content(msg)
-                .theme(type + "-toast")
-                .position('top right')
-                .hideDelay(3000))
-            .then(function () {
-                $log.log('Toast dismissed.');
-            }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
-            });
-    }
 }]);

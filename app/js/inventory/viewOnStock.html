@@ -54,8 +54,8 @@
                         <th><span translate>Designation</span></th>
                         <th><span translate>Min Qty</span></th>
                         <th><span translate>Max Qty</span></th>
-                        <th><span translate>Counted Qty</span></th>
                         <th><span translate>Physical Qty</span></th>
+                        <th><span translate>Virtual Qty</span></th>
                         <th><span translate>Status</span></th>
                         <th><span translate>Actions</span></th>
                     </tr>
@@ -67,11 +67,11 @@
                         <td>{{drug.name}}</td>
                         <td>{{drug.stockMin}}</td>
                         <td>{{drug.stockMax}}</td>
-                        <td>{{drug.virtualstock}}</td>
                         <td>{{drug.soh}} <small ng-if="drug.soh > drug.stockMax || drug.soh < drug.stockMin"
                                 class="chip-normal status-4"> {{drug.soh > drug.stockMax ?'Over': (drug.soh <
                                     drug.stockMin ?'Under':'')}}</small>
                         </td>
+                        <td>{{drug.virtualstock}}</td>
                         <td style="text-align: center">
 
                             <md-icon style="color:{{drug.soh > 0 ?'red':'green'}}">
