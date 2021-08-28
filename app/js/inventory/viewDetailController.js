@@ -92,10 +92,11 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
         });
     };
 
-    $scope.openHistory = function (data) {
-        $state.go('home.viewhistory', {
-            item: data.code,
-            uuid: data.uuid
+    $scope.openHistory = function (batch) {
+        $state.go('home.viewhistorybatch', {
+            item_id: batch.item.id,
+            uuid: batch.item.uuid,
+            item_Batch: batch.itemBatch
         });
     };
 

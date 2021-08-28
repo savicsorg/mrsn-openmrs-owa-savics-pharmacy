@@ -98,7 +98,6 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
 
     $scope.returnToPrevious = function () {
         const params = getParameters('/adjustment/:item_id/:batch_id', $location.path());
-        console.log(params);
         if (params.item_id && params.batch_id) { //for parameters with two ids
             $state.go('home.viewdetail', { id: params.item_id });
         } else {

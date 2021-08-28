@@ -59,13 +59,13 @@
                             <td>{{batch.itemVirtualstock}}</td>
                             <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}} <small ng-if="batch.expired"
                                     class="chip-normal status-4"> Expired</small> </td>
-                            <td width="200px">
-                                <button ng-click="showConfirm($event, batch)"
+                            <td>
+                                <!-- <button ng-click="showConfirm($event, batch)"
                                     class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove">
                                     <md-icon class="material-icons" role="img" aria-hidden="true">visibility_off
                                     </md-icon>
                                     <md-tooltip md-direction="top"><span translate>Remove</span></md-tooltip>
-                                </button>
+                                </button> -->
                                 <button class="md-fab md-mini md-primary md-button" type="button"
                                     aria-label="Adjustment" ng-click="openAdjustement(batch)">
                                     <md-icon class="material-icons" role="img" aria-hidden="true">adjust</md-icon>
@@ -81,8 +81,9 @@
                     </tbody>
                 </table>
             </md-table-container>
-            <md-table-pagination md-limit="query.limit" md-limit-options="[10,15,25,50,100]" md-page="query.page"
-                md-total="{{batches.size}}" md-page-select="true" md-label="$parent.label" md-on-paginate="load">
+            <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{batches.length}}"
+                md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+                md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
             </md-table-pagination>
         </md-card-content>
     </md-card>
