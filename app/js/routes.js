@@ -458,8 +458,17 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "inventory", "adjustment"]
-    }).state('home.editAdjustment', {
-        url: 'adjustment/edit/:id/:itembatch/:adjustmentuuid',
+    }).state('home.adjustmentbatch', {
+        url: 'adjustment/:item_id/:batch_id',
+        params: {
+            adjustment: null,
+            id: null,
+            item_id: null,
+            batch_id: null,
+            batch_physical_qty: null,
+            batch_counted_qty: null,
+            batch_reason: null,
+        },
         template: require('./inventory/adjustment.html'),
         controller: 'AdjustmentController',
         resolve: {
@@ -475,7 +484,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
                 return deferred.promise;
             }]
         },
-        breadcrumbs: ["Home", "inventory", "adjustment", , "editAdjustment"]
+        breadcrumbs: ["Home", "inventory", "adjustment"]
     }).state('home.addbatch', {
         url: 'addbatch',
         params: {
@@ -498,25 +507,6 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "inventory", "addbatch"]
-    }).state('home.editbatch', {
-        url: 'editbatch',
-        params: { batch: null, item_id: undefined, item: undefined },
-        template: require('./inventory/editbatch.html'),
-        controller: 'EditbatchController',
-        resolve: {
-            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
-                var deferred = $q.defer();
-                require.ensure([], function () {
-                    var mod = require('./inventory/EditbatchController.js');
-                    $ocLazyLoad.load({
-                        name: 'EditbatchController'
-                    });
-                    deferred.resolve(mod.controller);
-                });
-                return deferred.promise;
-            }]
-        },
-        breadcrumbs: ["Home", "inventory", "editbatch"]
     }).state('home.viewhistory', {
         url: 'viewhistory/:uuid',
         template: require('./inventory/viewHistory.html'),

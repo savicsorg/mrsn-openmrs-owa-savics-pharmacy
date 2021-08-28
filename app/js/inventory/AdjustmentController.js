@@ -1,4 +1,4 @@
-angular.module('AdjustmentController', []).controller('AdjustmentController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'toastr', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, toastr) {
+angular.module('AdjustmentController', []).controller('AdjustmentController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'toastr', '$location', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, toastr, $location) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Adjustment";
     $scope.resource = "savicspharmacy";
@@ -9,6 +9,18 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
     $scope.selectedBatch = {};
     $scope.transactionType = "padj";
     $scope.transactionTypes = [];
+
+    console.log($stateParams);
+
+    if ($stateParams.batch_id) {
+        $scope.batch_id = $stateParams.batch_id;
+    }
+    if ($stateParams.batch_counted_qty) {
+        $scope.adjustment.quantity = $stateParams.batch_counted_qty;
+    }
+    if ($stateParams.batch_reason) {
+        $scope.adjustment.reason = $stateParams.batch_reason;
+    }
 
     var dictionary = require("../utils/dictionary");
     $scope.batches = [];
@@ -36,9 +48,13 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                 openmrsRest.get($scope.resource + "/transaction/" + $scope.adjustmentuuid).then(function (response) {
                     if (response && response.uuid) {
                         $scope.adjustment = response;
-                        $scope.adjustment.oldTransactionType = $scope.adjustment.transactionType.code;
+                        $scope.adjustment.oldTransactionType = $scope.adjustment.transactionType;
                         $scope.adjustment.oldQuantity = $scope.adjustment.quantity;
-                        $scope.transactionType = $scope.adjustment.transactionType.code;
+                        if ($scope.adjustment.transactionType == 2) {
+                            $scope.transactionType = "padj";
+                        } else if ($scope.adjustment.transactionType == 1) {
+                            $scope.transactionType = "nadj";
+                        }
                     }
                 })
             }
@@ -81,43 +97,31 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                 }
 
             }
-
         }
     })
 
-    function handleResponse(response, e = null) {
-        document.getElementById("loading_submit").style.visibility = "hidden";
-        if (e) {
-            type = "error";
-            msg = e.data.error.message;
-            showToast(msg, type);
-            return;
-        }
-        if (response.uuid) {
-            type = "success";
-            msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
+    $scope.returnToPrevious = function () {
+        const params = getParameters('/adjustment/:item_id/:batch_id', $location.path());
+        console.log(params);
+        if (params.item_id && params.batch_id) { //for parameters with two ids
+            $state.go('home.viewdetail', { id: params.item_id });
         } else {
-            type = "error";
-            msg = "we can't save your data.";
+            $state.go('home.inventory', {});
         }
-        showToast(msg, type);
     }
 
-    function showToast(msg, type) {
-        if (type != "error") {
-            $state.go('home.drugs')
+    const getParameters = (temp, path) => {
+        const parameters = {};
+        const tempParts = temp.split('/');
+        const pathParts = path.split('/');
+        for (let i = 0; i < tempParts.length; i++) {
+            const element = tempParts[i];
+            if (element.startsWith(':')) {
+                const key = element.substring(1, element.length);
+                parameters[key] = pathParts[i];
+            }
         }
-        $mdToast.show(
-            $mdToast.simple()
-                .content(msg)
-                .theme(type + "-toast")
-                .position('top right')
-                .hideDelay(3000))
-            .then(function () {
-                $log.log('Toast dismissed.');
-            }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
-            });
-    }
+        return parameters;
+    };
 
 }]);

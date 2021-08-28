@@ -2,6 +2,7 @@ angular.module('RoutesController', []).controller('RoutesController', ['$scope',
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des routes";
     $scope.resource = "savicspharmacy";
+    $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Route": "routes" };
 
@@ -13,10 +14,15 @@ angular.module('RoutesController', []).controller('RoutesController', ['$scope',
 
     $scope.getAllRoute = function () {
         $scope.routes = [];
+        $scope.loading = true;
         openmrsRest.getFull($scope.resource + "/route").then(function (response) {
+            $scope.loading = false;
             if (response.results.length >= 1) {
                 $scope.routes = response.results;
             }
+        }, function (e) {
+            $scope.loading = false;
+            showToast("An unexpected error has occured.", "error");
         })
     }
 

@@ -17,7 +17,10 @@
             </md-button>
         </a>
     </div>
-    <md-toolbar class="md-table-toolbar md-default">
+    <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-toolbar class="md-table-toolbar md-default" ng-show="!loading">
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
@@ -25,7 +28,7 @@
             </form>
         </div>
     </md-toolbar>
-    <md-card>
+    <md-card ng-show="!loading">
         <md-table-container class="container">
             <table md-table md-progress="promise">
                 <thead md-head>
@@ -43,10 +46,12 @@
                         <td>{{route.code}}</td>
                         <td>{{route.name}}</td>
                         <td>
-                            <button ng-click="openEdit(route)" class="md-fab md-mini md-primary md-button" type="button" aria-label="Add">
+                            <button ng-click="openEdit(route)" class="md-fab md-mini md-primary md-button" type="button"
+                                aria-label="Add">
                                 <md-icon class=" material-icons" role="img" aria-hidden="true">edit</md-icon>
                             </button>
-                            <button ng-click="showConfirm($event,route)" class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove">
+                            <button ng-click="showConfirm($event,route)" class="md-fab md-mini md-primary md-button"
+                                type="button" aria-label="Remove">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
                             </button>
                         </td>

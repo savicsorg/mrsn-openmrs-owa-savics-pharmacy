@@ -2,6 +2,7 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des drugs";
     $scope.resource = "savicspharmacy";
+    $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Drugs": "drugs" };
 
@@ -12,12 +13,17 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
     var msg = "";
 
     $scope.getAllDrug = function () {
+        $scope.loading = true;
         $scope.drugs = [];
         openmrsRest.getFull($scope.resource + "/item").then(function (response) {
+            $scope.loading = false;
             if (response.results.length >= 1) {
                 $scope.drugs = response.results;
             }
-        })
+        }, function (e) {
+            $scope.loading = false;
+            showToast("An unexpected error has occured.", "error");
+        });
     }
 
     $scope.getAllDrug();
@@ -125,6 +131,5 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
         localStorage.setItem("export_link", link);
         window.location = link;
     }
-
 
 }]);
