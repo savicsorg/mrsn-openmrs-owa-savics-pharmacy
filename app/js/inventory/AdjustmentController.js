@@ -10,8 +10,6 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
     $scope.transactionType = "padj";
     $scope.transactionTypes = [];
 
-    console.log($stateParams);
-
     if ($stateParams.batch_id) {
         $scope.batch_id = $stateParams.batch_id;
     }
@@ -32,8 +30,6 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
     var vm = this;
     vm.appTitle = "Adjustment";
 
-    var type = "";
-    var msg = "";
     $scope.batches = [];
 
     openmrsRest.get($scope.resource + "/itemsLine?item=" + $scope.item_id).then(function (response) {
