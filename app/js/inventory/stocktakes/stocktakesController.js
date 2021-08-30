@@ -7,7 +7,7 @@ angular.module('stocktakesController', ['ngMaterial', 'ngAnimate', 'toastr', 'md
 
     $scope.getData = function () {
         $scope.loading = true;
-        openmrsRest.getFull($scope.resource + "/item").then(function (response) {
+        openmrsRest.getFull($scope.resource + "/itemsLine").then(function (response) {
             $scope.stocktakes = response.results;
             $scope.loading = false;
         }, function (e) {
@@ -34,9 +34,5 @@ angular.module('stocktakesController', ['ngMaterial', 'ngAnimate', 'toastr', 'md
     $scope.logPagination = function (page, limit) {
 
     };
-
-
-
-
 
 }])

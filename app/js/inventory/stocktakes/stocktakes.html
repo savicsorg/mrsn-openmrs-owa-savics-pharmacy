@@ -7,7 +7,10 @@
             </md-button>
         </a>
     </div>
-    <md-toolbar class="md-table-toolbar md-default">
+    <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-toolbar class="md-table-toolbar md-default" ng-show="!loading">
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
@@ -16,7 +19,7 @@
             </form>
         </div>
     </md-toolbar>
-    <md-card>
+    <md-card ng-show="!loading">
         <md-table-container class="container" fixed-column-table>
             <table md-table md-progress="promise">
                 <thead md-head>
@@ -30,36 +33,40 @@
                         <th><span translate>Difference</span></th>
                         <th><span translate>Expiration date</span></th>
                         <th><span translate>Status</span></th>
-                        <th><span translate>Date</span></th>
                         <th><span translate>Action</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
                     <tr md-row
                         data-ng-repeat="drug in stocktakes|filter:onlyStockAtRisk | limitTo: query.limit : (query.page -1) * query.limit">
-                        <td>{{drug.code}}</td>
-                        <td>{{drug.name}}</td>
-                        <td>{{drug.stockMin}}</td>
-                        <td>{{drug.stockMax}}</td>
-                        <td>{{drug.soh}}</td>
-                        <td><input type="text" ng-model="drug.virtualstock"></td>
-                        <td>{{drug.soh}}</td>
-                        <td>{{drug.soh}}</td>
+                        <td>{{drug.item.name}}</td>
+                        <td>{{drug.itemBatch}}</td>
+                        <td>{{drug.pharmacyLocation.name}}</td>
+                        <td>{{drug.itemSoh}}</td>
+                        <td>{{drug.item.unit.name}}</td>
+                        <td>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label translate>Counted quantity</label>
+                                <input class="form-control" type="number" ng-model="drug.itemVirtualstock">
+                            </md-input-container>
+                        </td>
+                        <td>{{drug.difference}}</td>
+                        <td>{{drug.itemExpiryDate| date:'dd/MM/yyyy'}}</td>
                         <td style="text-align: center">
-                            <md-icon style="color:{{drug.soh > 0 ?'red':'green'}}">
+                            <md-icon style="color:{{drug.item.soh > 0 ?'red':'green'}}">
                                 <md-tooltip>
                                     {{drug.numberOfExpiredLots}} lot(s) expired
                                 </md-tooltip>
                                 fiber_manual_record
                             </md-icon>
                         </td>
-                        <td>{{drug.soh}}</td>
+
                         <td>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
-                                ng-click="openView(drug)">
-                                <md-icon class="material-icons" role="img" aria-hidden="true">format_list_bulleted
+                                ng-click="saveDifference(drug)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">save
                                 </md-icon>
-                                <md-tooltip md-direction="top"><span translate>Stock details</span></md-tooltip>
+                                <md-tooltip md-direction="top"><span translate>Save difference</span></md-tooltip>
                             </button>
                         </td>
                     </tr>
