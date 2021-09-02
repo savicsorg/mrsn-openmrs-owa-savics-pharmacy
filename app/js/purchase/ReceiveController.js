@@ -10,6 +10,20 @@ angular.module('ReceiveController', []).controller('ReceiveController', ['$scope
     var vm = this;
     vm.appTitle = "Gestion des Receives";
     vm.resource = "savicspharmcy/receives";
+    $scope.options = {
+        autoSelect: true,
+        boundaryLinks: false,
+        largeEditDialog: true,
+        pageSelector: true,
+        rowSelection: true,
+        limit: [5, 10, 50, 100]
+    };
+
+    $scope.query = {
+        limit: 5,
+        page: 1,
+        order: '-date'
+    };
 
     //TODO replace this by real data comming from openmrsRest
     $scope.receives = [

@@ -26,7 +26,7 @@
         <md-card-content>
             <md-table-container class="container" fixed-column-table>
                 <table md-table md-progress="promise">
-                    <thead md-head>
+                    <thead md-head md-order="query.order">
                         <tr md-row>
                             <th ><span translate>{{"pharmacy.order.orderNumber" | translate}}</span></th>
                             <th ><span translate>{{"pharmacy.order.supplierName" | translate}}</span></th>
@@ -70,9 +70,8 @@
                     </tbody>
                 </table>
             </md-table-container>
-            <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{orders.length}}"
-                md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
-                md-on-paginate="logPagination" md-label="{rowsPerPage: 'rows per page'}">
+            <md-table-pagination md-limit="query.limit" md-limit-options="options.limit" md-page="query.page" md-total="{{receptions.length}}"
+                md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination" md-label="{rowsPerPage: 'rows per page'}">
             </md-table-pagination>
         </md-card-content>
     </md-card>    

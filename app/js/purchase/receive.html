@@ -63,8 +63,8 @@
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-limit-options="[10, 15, 50, 100]" md-page="query.page"
-            md-total="{{drugs.count}}" md-page-select="true" md-label="$parent.label">
+        <md-table-pagination md-limit="query.limit" md-limit-options="options.limit" md-page="query.page" md-total="{{receptions.length}}"
+            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination" md-label="{rowsPerPage: 'rows per page'}">
         </md-table-pagination>
     </md-card>
 </div>

@@ -16,6 +16,21 @@ angular.module('SupplierController', []).controller('SupplierController', ['$sco
         vm.appTitle = "Edit type entry";
     }
 
+    $scope.options = {
+        autoSelect: true,
+        boundaryLinks: false,
+        largeEditDialog: true,
+        pageSelector: true,
+        rowSelection: true,
+        limit: [5, 10, 50, 100]
+    };
+
+    $scope.query = {
+        limit: 5,
+        page: 1,
+        order: '-date'
+    };
+
     $scope.supplier = function () {
 
         if (!vm.supplier || !vm.supplier.code || !vm.supplier.name || !vm.supplier.address || !vm.supplier.email || !vm.supplier.tel) {

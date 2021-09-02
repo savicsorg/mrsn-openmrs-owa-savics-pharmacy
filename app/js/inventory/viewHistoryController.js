@@ -11,6 +11,21 @@ angular.module('viewHistoryController', []).controller('viewHistoryController', 
     var type = "";
     var msg = "";
 
+    $scope.options = {
+        autoSelect: true,
+        boundaryLinks: false,
+        largeEditDialog: true,
+        pageSelector: true,
+        rowSelection: true,
+        limit: [5, 10, 50, 100]
+    };
+
+    $scope.query = {
+        limit: 5,
+        page: 1,
+        order: '-date'
+    };
+
     $scope.histories = [
         { "item": "aspirine", "bath": "89809809", "type": "negative", "qty": "100", "date": "2014-12-31" },
         { "item": "aspirine", "bath": "89809809", "type": "positive", "qty": "100", "date": "2014-12-31" }

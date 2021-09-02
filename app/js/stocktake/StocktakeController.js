@@ -11,5 +11,19 @@ angular.module('StocktakeController', []).controller('StocktakeController', ['$s
     var vm = this;
     vm.appTitle = "New stock entry";
     vm.resource = "savicspharmcy/stock";
+    $scope.options = {
+        autoSelect: true,
+        boundaryLinks: false,
+        largeEditDialog: true,
+        pageSelector: true,
+        rowSelection: true,
+        limit: [5, 10, 50, 100]
+    };
+
+    $scope.query = {
+        limit: 5,
+        page: 1,
+        order: '-date'
+    };
 
 }]);

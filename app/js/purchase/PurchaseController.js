@@ -5,6 +5,20 @@ angular.module('PurchaseController', []).controller('PurchaseController', ['$sco
     $scope.concept_ressource = "concept";
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "New": "purchase" };
+    $scope.options = {
+        autoSelect: true,
+        boundaryLinks: false,
+        largeEditDialog: true,
+        pageSelector: true,
+        rowSelection: true,
+        limit: [5, 10, 50, 100]
+    };
+
+    $scope.query = {
+        limit: 5,
+        page: 1,
+        order: '-date'
+    };
 
     var vm = this;
     vm.appTitle = "Order to Supplier";

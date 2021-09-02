@@ -18,12 +18,14 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
         boundaryLinks: false,
         largeEditDialog: true,
         pageSelector: true,
-        rowSelection: true
+        rowSelection: true,
+        limit: [5, 10, 50, 100]
     };
 
     $scope.query = {
         limit: 5,
-        page: 1
+        page: 1,
+        order: '-date'
     };
 
     $scope.logPagination = function (page, limit) {
@@ -101,6 +103,8 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
 
     $scope.saveReception = function () {
         $scope.loading = true;
+        //var query = JSON.parse(JSON.stringify($scope.reception));
+        //query.receptionDetailList = $scope.lines;
         if(!($scope.reception.pharmacyOrder && $scope.reception.pharmacyOrder.uuid))
             $scope.reception.pharmacyOrder = undefined; //delete it from payload
         else $scope.reception.pharmacyOrder = $scope.reception.pharmacyOrder.id;
@@ -133,7 +137,6 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
             openmrsRest.update($scope.resource + "/receptionDetail", line).then(function (response) {
                 response.itemExpiryDate = new Date(response.itemExpiryDate);
                 $scope.lines[index] = response;
-                //$scope.lines[index].location = $scope.lines[i].item.pharmacyLocation.uuid;
                 $scope.loading = false;
                 toastr.success('Data saved successfully.', 'Success');   
             },function(e){
@@ -144,7 +147,6 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
             openmrsRest.create($scope.resource + "/receptionDetail", line).then(function (response) {
                 response.itemExpiryDate = new Date(response.itemExpiryDate);
                 $scope.lines[index] = response;
-                //$scope.lines[index].location = $scope.lines[i].item.pharmacyLocation.uuid;
                 $scope.loading = false;
                 toastr.success('Data saved successfully.', 'Success');   
             },function(e){

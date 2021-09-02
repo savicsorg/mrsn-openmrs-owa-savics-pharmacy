@@ -12,6 +12,20 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
 
     var type = "";
     var msg = "";
+    $scope.options = {
+        autoSelect: true,
+        boundaryLinks: false,
+        largeEditDialog: true,
+        pageSelector: true,
+        rowSelection: true,
+        limit: [5, 10, 50, 100]
+    };
+
+    $scope.query = {
+        limit: 5,
+        page: 1,
+        order: '-date'
+    };
 
     $scope.getItemsLines = function () {
         $scope.batches = [];

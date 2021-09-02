@@ -4,6 +4,20 @@ angular.module('UnitController', []).controller('UnitController', ['$scope', '$s
     $scope.resource = "savicspharmacy";
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Unit": "units", "New": "unit" };
+    $scope.options = {
+        autoSelect: true,
+        boundaryLinks: false,
+        largeEditDialog: true,
+        pageSelector: true,
+        rowSelection: true,
+        limit: [5, 10, 50, 100]
+    };
+
+    $scope.query = {
+        limit: 5,
+        page: 1,
+        order: '-date'
+    };
 
     var vm = this;
     vm.appTitle = "New type entry";

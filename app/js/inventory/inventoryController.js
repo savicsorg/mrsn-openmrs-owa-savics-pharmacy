@@ -22,12 +22,14 @@ angular.module('InventoryController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
         boundaryLinks: false,
         largeEditDialog: true,
         pageSelector: true,
-        rowSelection: true
+        rowSelection: true,
+        limit: [5, 10, 50, 100]
     };
 
     $scope.query = {
         limit: 5,
-        page: 1
+        page: 1,
+        order: '-date'
     };
 
     $scope.logPagination = function (page, limit) {
