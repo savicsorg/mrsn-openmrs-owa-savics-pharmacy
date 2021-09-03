@@ -31,7 +31,7 @@ angular.module('stocktakesController', ['ngMaterial', 'ngAnimate', 'toastr', 'md
     };
 
     $scope.query = {
-        limit: 10,
+        limit: 5,
         page: 1
     };
 
