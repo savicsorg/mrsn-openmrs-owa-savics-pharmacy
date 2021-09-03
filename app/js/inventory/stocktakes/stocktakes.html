@@ -46,29 +46,23 @@
                         <td>{{drug.item.unit.name}}</td>
                         <td>
                             <md-input-container class="md-block" flex-gt-sm>
-                                <!-- <label translate>Counted quantity</label> -->
-                                <input class="form-control" type="number" ng-model="drug.itemVirtualstock">
+                                <input class="form-control" type="number" ng-model="drug.counted"
+                                    ng-change="saveDifference(drug)">
                             </md-input-container>
                         </td>
-                        <td>{{drug.difference}}</td>
+                        <td> <span style="color:{{drug.difference < 0 ?'red':'green'}}">
+                                <i ng-if="0 < drug.difference">+</i>{{drug.difference}}
+                            </span>
+                        </td>
                         <td>{{drug.itemExpiryDate| date:'dd/MM/yyyy'}}</td>
                         <td style="text-align: center">
-                            <md-icon style="color:{{drug.item.soh > 0 ?'red':'green'}}">
-                                <md-tooltip>
-                                    {{drug.numberOfExpiredLots}} lot(s) expired
-                                </md-tooltip>
-                                fiber_manual_record
-                            </md-icon>
+                            <small ng-class="(drug.itemVirtualstock == drug.itemSoh) ? 'status-3' : 'status-2'"
+                                class="chip-normal ">{{drug.itemVirtualstock == drug.itemSoh ? 'validated':
+                                'pending'}}</small>
                         </td>
-                        <td width="120px">
+                        <td>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
-                                ng-click="saveDifference(drug)">
-                                <md-icon class="material-icons" role="img" aria-hidden="true">save
-                                </md-icon>
-                                <md-tooltip md-direction="top"><span translate>Save</span></md-tooltip>
-                            </button>
-                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
-                                ng-click="saveDifference(drug)">
+                                ng-click="approve(drug)">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">check_circle
                                 </md-icon>
                                 <md-tooltip md-direction="top"><span translate>Approve</span></md-tooltip>
