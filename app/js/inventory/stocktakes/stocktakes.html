@@ -46,7 +46,7 @@
                         <td>{{drug.item.unit.name}}</td>
                         <td>
                             <md-input-container class="md-block" flex-gt-sm>
-                                <label translate>Counted quantity</label>
+                                <!-- <label translate>Counted quantity</label> -->
                                 <input class="form-control" type="number" ng-model="drug.itemVirtualstock">
                             </md-input-container>
                         </td>
@@ -60,13 +60,18 @@
                                 fiber_manual_record
                             </md-icon>
                         </td>
-
-                        <td>
+                        <td width="120px">
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
                                 ng-click="saveDifference(drug)">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">save
                                 </md-icon>
-                                <md-tooltip md-direction="top"><span translate>Save difference</span></md-tooltip>
+                                <md-tooltip md-direction="top"><span translate>Save</span></md-tooltip>
+                            </button>
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
+                                ng-click="saveDifference(drug)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">check_circle
+                                </md-icon>
+                                <md-tooltip md-direction="top"><span translate>Approve</span></md-tooltip>
                             </button>
                         </td>
                     </tr>
