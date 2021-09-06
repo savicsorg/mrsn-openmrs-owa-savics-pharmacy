@@ -105,7 +105,7 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
         $scope.loading = true;
         //var query = JSON.parse(JSON.stringify($scope.reception));
         //query.receptionDetailList = $scope.lines;
-        if(!($scope.reception.pharmacyOrder && $scope.reception.pharmacyOrder.uuid))
+        if(!($scope.reception.pharmacyOrder && $scope.reception.pharmacyOrder.id))
             $scope.reception.pharmacyOrder = undefined; //delete it from payload
         else $scope.reception.pharmacyOrder = $scope.reception.pharmacyOrder.id;
         if ($scope.reception && $scope.reception.uuid) {    //Edit
@@ -133,8 +133,9 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
         $scope.loading = true;
         line.item = line.item.id;
         if (line && line.uuid) {    //Edit
-            line.reception = line.reception.id;
-            openmrsRest.update($scope.resource + "/receptionDetail", line).then(function (response) {
+            var query = JSON.parse(JSON.stringify(line));
+            query.reception = query.reception.id;
+            openmrsRest.update($scope.resource + "/receptionDetail", query).then(function (response) {
                 response.itemExpiryDate = new Date(response.itemExpiryDate);
                 $scope.lines[index] = response;
                 $scope.loading = false;
@@ -144,7 +145,7 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
                 toastr.error('An unexpected error has occured.', 'Error');
             });
         } else {    //Creation
-            openmrsRest.create($scope.resource + "/receptionDetail", line).then(function (response) {
+            openmrsRest.create($scope.resource + "/receptionDetail", query).then(function (response) {
                 response.itemExpiryDate = new Date(response.itemExpiryDate);
                 $scope.lines[index] = response;
                 $scope.loading = false;
