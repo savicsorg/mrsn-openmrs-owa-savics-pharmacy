@@ -131,10 +131,10 @@ angular.module('ReceptionController', ['ngMaterial','ngAnimate', 'toastr', 'md.d
 
     $scope.saveReceptionDetail = function (line, index) {
         $scope.loading = true;
-        line.item = line.item.id;
-        if (line && line.uuid) {    //Edit
-            var query = JSON.parse(JSON.stringify(line));
-            query.reception = query.reception.id;
+        var query = JSON.parse(JSON.stringify(line));
+        query.reception = $scope.reception.id;
+        query.item = query.item.id;
+        if (line && line.uuid) {    //Edit            
             openmrsRest.update($scope.resource + "/receptionDetail", query).then(function (response) {
                 response.itemExpiryDate = new Date(response.itemExpiryDate);
                 $scope.lines[index] = response;
