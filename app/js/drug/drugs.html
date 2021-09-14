@@ -50,8 +50,8 @@
                         data-ng-repeat="drug in drugs|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{drug.code}}</td>
                         <td>{{drug.name}}</td>
-                        <td>{{drug.unit.code}}</td>
-                        <td>{{drug.route.code}}</td>
+                        <td>{{drug.unit.name}}</td>
+                        <td>{{drug.route.name}}</td>
                         <td>{{drug.sellPrice}}</td>
                         <td>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Add"

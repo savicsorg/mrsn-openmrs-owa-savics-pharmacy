@@ -50,8 +50,7 @@
             <table md-table md-progress="promise">
                 <thead md-head>
                     <tr md-row>
-                        <th><span translate>Drug code</span></th>
-                        <th><span translate>Designation</span></th>
+                        <th><span translate>Drug Name</span></th>
                         <th><span translate>Min Qty</span></th>
                         <th><span translate>Max Qty</span></th>
                         <th><span translate>Physical Qty</span></th>
@@ -63,7 +62,6 @@
                 <tbody md-body>
                     <tr md-row
                         data-ng-repeat="drug in viewOnStock|filter:onlyStockAtRisk | limitTo: query.limit : (query.page -1) * query.limit">
-                        <td>{{drug.code}}</td>
                         <td>{{drug.name}}</td>
                         <td>{{drug.stockMin}}</td>
                         <td>{{drug.stockMax}}</td>
