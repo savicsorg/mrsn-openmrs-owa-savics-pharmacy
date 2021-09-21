@@ -27,7 +27,7 @@ angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
         };
 
         $scope.query = {
-            limit: 5,
+            limit: 25,
             page: 1
         };
 

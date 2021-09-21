@@ -17,20 +17,20 @@
         <md-card-title translate>Dispense details</md-card-title>
         <md-card-content>
             <div layout="row"  layout-xs="column" class="flex flex-col">                
-                <md-input-container class="md-block" class="md-block" flex-gt-sm flex="20">
+                <md-input-container class="md-block"  flex-gt-sm flex="20">
                     <label translate>Type of Dispensation</label>
                     <md-select ng-model="dispenseMode">
                         <md-option ng-value="1">Internal</md-option>
                         <md-option ng-value="2">External</md-option>
                     </md-select>
                 </md-input-container>
-                <md-input-container class="md-block"  class="md-block" flex-gt-sm flex="20">
+                <md-input-container class="md-block"  flex-gt-sm flex="20">
                     <label translate>Date</label>
                     <input type="date" ng-model="sending.date">
                 </md-input-container>               
                 <md-autocomplete md-selected-item="selectedCustomer" md-search-text="customerSearchText" md-items="customer in searchCustomers(customerSearchText)" 
                     md-item-text="customer.name" class="md-block" flex-gt-sm md-floating-label="Customer" md-clear-button="true" 
-                    md-no-cache="true" md-selected-item-change="selectedCustomerChange(customer,$index)" flex-gt-sm flex="60"
+                    md-no-cache="true" md-selected-item-change="selectedCustomerChange(customer,$index)" flex="60" 
                     ng-if="dispenseMode == 2">
                     <md-item-template>
                     <span md-highlight-text="customerSearchText">{{customer.name}}</span>
@@ -41,7 +41,7 @@
                 </md-autocomplete>                           
                 <md-autocomplete md-selected-item="selectedPatient" md-search-text="patientSearchText" md-items="patient in searchPatients(patientSearchText)" 
                     md-item-text="patient.display" class="md-block" flex-gt-sm md-floating-label="Patient" md-clear-button="true" 
-                    md-no-cache="true" md-selected-item-change="selectedPatientChange(patient,$index)" flex-gt-sm flex="60"
+                    md-no-cache="true" md-selected-item-change="selectedPatientChange(patient,$index)" flex="60"
                     ng-if="dispenseMode == 1">
                     <md-item-template>
                     <span md-highlight-text="patientSearchText">{{patient.display}}</span>
@@ -59,8 +59,8 @@
             <div layout="row" layout-xs="column" data-ng-repeat="l in lines"  class="flex flex-col">
                 <md-autocomplete md-selected-item="selectedItem" md-search-text="itemSearchText" md-items="item in searchItems(itemSearchText)" 
                     md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug" md-clear-button="true" 
-                    md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="33"
-                    ng-if="l.uuid === null || l.uuid === undefined">
+                    md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex="33"
+                    ng-if="l.id === null || l.id === undefined">
                     <md-item-template>
                     <span md-highlight-text="itemSearchText">{{item.name}}</span>
                     </md-item-template>
@@ -68,14 +68,14 @@
                         No matches found.
                     </md-not-found>
                 </md-autocomplete>                 
-                <md-input-container class="md-block" flex-gt-sm flex="33" ng-if="l.uuid  !== null && l.uuid !== undefined">
+                <md-input-container class="md-block" flex-gt-sm flex="33" ng-if="l.id  !== null && l.id !== undefined">
                     <label translate>{{"pharmacy.order.drug" | translate}}</label>
                     <input class="form-control" disabled type="text" ng-model="l.item.name" >
                 </md-input-container> 
                 <md-autocomplete md-selected-item="selectedItemLine" md-search-text="batchSearchText" md-items="line in searchItemLines(batchSearchText, l.item)" 
-                    md-item-text="itemBatch" class="md-block" flex-gt-sm md-floating-label="Batch n°" md-clear-button="true" 
-                    md-no-cache="true" md-selected-item-change="selectedItemLineChange(line,$index)" flex-gt-sm flex="30"
-                    ng-if="l.uuid === null || l.uuid === undefined">
+                    md-item-text="line.itemBatch" class="md-block" flex-gt-sm md-floating-label="Batch n°" md-clear-button="true" 
+                    md-no-cache="true" md-selected-item-change="selectedItemLineChange(line,$index)" flex="30"
+                    ng-if="l.id === null || l.id === undefined">
                     <md-item-template>
                     <span md-highlight-text="batchSearchText">{{line.itemBatch}}</span>
                     </md-item-template>
@@ -83,7 +83,7 @@
                         No matches found.
                     </md-not-found>
                 </md-autocomplete> 
-                <md-input-container class="md-block" flex-gt-sm flex="30" ng-if="l.uuid  !== null && l.uuid !== undefined">
+                <md-input-container class="md-block" flex-gt-sm flex="30" ng-if="l.id  !== null && l.id !== undefined">
                     <label translate>Batch n°</label>
                     <input class="form-control" disabled type="text" ng-model="l.sendingItemBatch" >
                 </md-input-container> 

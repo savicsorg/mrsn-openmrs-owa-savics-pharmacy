@@ -361,7 +361,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
                 return deferred.promise;
             }]
         },
-        breadcrumbs: ["Home", "dispense", "New"]
+        breadcrumbs: ["Home", "dispense", "Edit"]
     }).state('home.dispenses', {
         url: 'dispenses',
         params: { sending: null },

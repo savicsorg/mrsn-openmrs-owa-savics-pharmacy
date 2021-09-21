@@ -7,6 +7,7 @@
             <table md-table md-progress="promise">
                 <thead md-head>
                     <tr md-row>
+                        <th><span translate>Transaction <br/>ID</span></th>
                         <th><span translate>Item name</span></th>
                         <th><span translate>Bath name</span></th>
                         <th><span translate>Adjustment type</span></th>
@@ -18,6 +19,7 @@
                 <tbody md-body>
                     <tr md-row  style="background: {{(history.status == 'VALID')?'#3dcc6785':(history.status == 'REJEC')?'#ea340aab':''}};"
                         data-ng-repeat="history in transactions| limitTo: query.limit : (query.page -1) * query.limit">
+                        <td><center>{{history.id}}</center></td>
                         <td>{{history.item.name}}</td>
                         <td>{{history.itemBatch}}</td>
                         <td>{{getTransactionType(history.transactionType)}}</td>
