@@ -10,7 +10,7 @@
                     <md-autocomplete class="md-block" flex-gt-sm md-floating-label="Search drug"
                                      md-selected-item="selectedItem" md-search-text="searchText"
                                      md-items="item in getMatches(searchText)" md-item-text="item.display" md-clear-button="true"
-                                     md-selected-item-change="selectedItemChange(item)">
+                                     md-selected-item-change="selectedItemChange(item)" required>
                         <md-item-template>
                             <span md-highlight-text="searchText">{{item.display}}</span>
                         </md-item-template>
@@ -22,13 +22,13 @@
                 <div layout="row" layout-xs="column">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label translate>Code</label>
-                        <input ng-model="vm.drug.code">
+                        <input ng-model="vm.drug.code" required>
                     </md-input-container>
                 </div>
                 <div layout="row" layout-xs="column">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label translate>Unit</label>
-                        <md-select ng-model="vm.drug.type.id">
+                        <md-select ng-model="vm.drug.type.id" required>
                             <md-option ng-repeat="d in vm.units" ng-value="d.id" ng-selected="d.id == drug_type_id">
                                 {{d.name}}
                             </md-option>
@@ -37,8 +37,8 @@
                 </div>
                 <div layout="row" layout-xs="column">
                     <md-input-container class="md-block" flex-gt-sm>
-                        <label translate>route</label>
-                        <md-select ng-model="vm.drug.route.id">
+                        <label translate>route</label >
+                        <md-select ng-model="vm.drug.route.id" required>
                             <md-option ng-repeat="r in vm.routes" ng-value="r.id" ng-selected="r.id == drug_route_id">
                                 {{r.name}}
                             </md-option>
