@@ -73,11 +73,20 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
             });
         };
 
+        $scope.searchItemsLines = function (item, index) {
+            if (item && item.uuid)
+                return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id).then(function (response) {
+                    $scope.lines[index].itemsLines = response.results;
+                }, function (e) {
+                    return [];
+                });
+            else
+                return [];
+        };
+
         $scope.searchItemLines = function (searchText, item) {
-            console.log(searchText, item)
             if (item && item.uuid)
                 return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id + "&itemBatch=" + searchText).then(function (response) {
-                    console.log(response)
                     return response.results;
                 }, function (e) {
                     return [];
@@ -88,21 +97,41 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
         $scope.selectedCustomerChange = function (item) {
             $scope.sending.customer = item;
+            $scope.sending.person = null;
         };
 
         $scope.selectedPatientChange = function (item) {
             $scope.sending.person = item;
+             $scope.sending.customer = null;
         };
 
         $scope.selectedItemChange = function (item, index) {
-            $scope.lines[index].item = item;
-            $scope.lines[index].itemId = item.id;
-            $scope.updateAmount();
+            if (item){
+                $scope.lines[index].item = item;
+                $scope.lines[index].itemId = item.id;
+                $scope.updateAmount();
+                $scope.lines[index].itemsLines = $scope.searchItemsLines(item, index);
+            }else{
+                $scope.lines[index].item = null;
+                $scope.lines[index].itemId = null;
+                $scope.updateAmount();
+                $scope.lines[index].itemsLines = []
+            }
+        };
+        
+
+        $scope.dispenseModeChange = function () {
+            console.log($scope.dispenseMode)
+            $scope.sending.person = null;
+            $scope.sending.customer = null;
+            $scope.selectedCustomer = null;
+            $scope.selectedPatient = null;
+            $scope.customerSearchText = null;
         };
 
         $scope.selectedItemLineChange = function (batch, index) {
-            $scope.lines[index].sendingItemBatch = batch.itemBatch;
-            $scope.lines[index].sendingItemExpiryDate = new Date(batch.itemExpiryDate);
+            batch = JSON.parse(batch);
+            $scope.lines[index].sendingItemBatch = batch;
             $scope.lines[index].sendingDetailsValue = $scope.lines[index].item.sellPrice * $scope.lines[index].sendingDetailsQuantity;
         };
 
@@ -119,7 +148,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                     openmrsRest.getFull($scope.resource + "/sendingDetail?sendingId=" + $scope.sending.id).then(function (response) {
                         $scope.lines = response.results;
                         for (var i = 0; i < $scope.lines.length; i++) {
-                            $scope.lines[i].sendingItemExpiryDate = new Date($scope.lines[i].sendingItemExpiryDate);
+                            $scope.selectedItemChange($scope.lines[i].item, i);
                             $scope.lines[i].itemId = $scope.lines[i].item.id;
                         }
                         $scope.loading = false;
@@ -143,16 +172,16 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 sending: $scope.sending.id,
                 sendingDetailsQuantity: 0,
                 item: {name: ""},
+                itemsLines: [],
                 sendingDetailsValue: 0,
                 sendingItemBatch: "",
-                sendingItemExpiryDate: null
             });
         }
 
         $scope.saveSending = function () {
             $scope.loading = true;
             var query = JSON.parse(JSON.stringify($scope.sending));
-            query.customer = $scope.sending.customer.id;
+            query.customer = ($scope.sending.customer) ? $scope.sending.customer.id : null;
             query.person = ($scope.sending.person) ? $scope.sending.person.uuid : null;
             query.date = new Date($scope.sending.date);
             query.sendingDetails = [];
@@ -165,7 +194,6 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                         "sendingDetailsQuantity": $scope.lines[l].sendingDetailsQuantity,
                         "sendingDetailsValue": $scope.lines[l].sendingDetailsValue,
                         "sendingItemBatch": $scope.lines[l].sendingItemBatch,
-                        "sendingItemExpiryDate": $scope.lines[l].sendingItemExpiryDate,
                     }
                     query.sendingDetails.push(myLine);
                 }
@@ -195,35 +223,6 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 }, function (e) {
                     console.log(e)
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
-                });
-            }
-        }
-
-        $scope.saveSendingDetail = function (line, index) {
-            pushLoading();
-            var query = JSON.parse(JSON.stringify(line));
-            query.item = line.item.id;
-            if (line && line.uuid) {    //Edit
-                query.sending = line.sending.id;
-                openmrsRest.update($scope.resource + "/sendingDetail", query).then(function (response) {
-                    response.sendingItemExpiryDate = new Date(response.sendingItemExpiryDate);
-                    $scope.lines[index] = response;
-                    popLoading();
-                    toastr.success('Data saved successfully.', 'Success');
-                }, function (e) {
-                    popLoading();
-                    toastr.error('An unexpected error has occured.', 'Error');
-                });
-            } else {    //Creation
-                openmrsRest.create($scope.resource + "/sendingDetail", query).then(function (response) {
-                    response.sendingItemExpiryDate = new Date(response.sendingItemExpiryDate);
-                    $scope.lines[index] = response;
-                    //$scope.lines[index].location = $scope.lines[i].item.pharmacyLocation.uuid;
-                    popLoading();
-                    toastr.success('Data saved successfully.', 'Success');
-                }, function (e) {
-                    popLoading();
                     toastr.error('An unexpected error has occured.', 'Error');
                 });
             }
