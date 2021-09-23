@@ -13,115 +13,117 @@
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div> 
-    <md-card ng-if="!loading">
-        <md-card-title translate>Dispense details</md-card-title>
-        <md-card-content>
-            <div layout="row"  layout-xs="column" class="flex flex-col">                
-                <md-input-container class="md-block"  flex-gt-sm flex="20">
-                    <label translate>Type of Dispensation</label>
-                    <md-select ng-model="dispenseMode" ng-change="dispenseModeChange()">
-                        <md-option ng-value="1">Internal</md-option>
-                        <md-option ng-value="2">External</md-option>
-                    </md-select>
-                </md-input-container>
-                <md-input-container class="md-block"  flex-gt-sm flex="20" required>
-                    <label translate>Date</label>
-                    <input type="date" ng-model="sending.date">
-                </md-input-container>               
-                <md-autocomplete md-selected-item="selectedCustomer" md-search-text="customerSearchText" md-items="customer in searchCustomers(customerSearchText)" 
-                                 md-item-text="customer.name" class="md-block" flex-gt-sm md-floating-label="Customer" md-clear-button="true" 
-                                 md-no-cache="true" md-selected-item-change="selectedCustomerChange(customer,$index)" flex="60" 
-                                 ng-if="dispenseMode == 2" required>
-                    <md-item-template>
-                        <span md-highlight-text="customerSearchText">{{customer.name}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        No matches found.
-                    </md-not-found>
-                </md-autocomplete>                           
-                <md-autocomplete md-selected-item="selectedPatient" md-search-text="patientSearchText" md-items="patient in searchPatients(patientSearchText)" 
-                                 md-item-text="patient.display" class="md-block" flex-gt-sm md-floating-label="Patient" md-clear-button="true" 
-                                 md-no-cache="true" md-selected-item-change="selectedPatientChange(patient,$index)" flex="60"
-                                 ng-if="dispenseMode == 1" required>
-                    <md-item-template>
-                        <span md-highlight-text="patientSearchText">{{patient.display}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        No matches found.
-                    </md-not-found>
-                </md-autocomplete>                    
-            </div>
-        </md-card-content>
-    </md-card>
-    <md-card ng-if="!loading">
-        <md-card-title translate>List of drugs</md-card-title>
-        <md-card-content>
-            <div layout="row" layout-xs="column" data-ng-repeat="l in lines"  class="flex flex-col">
-                <md-autocomplete md-selected-item="selectedItem" md-search-text="itemSearchText" md-items="item in searchItems(itemSearchText)" 
-                                 md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug" md-clear-button="true" 
-                                 md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex="33"
-                                 ng-if="l.id === null || l.id === undefined" required>
-                    <md-item-template>
-                        <span md-highlight-text="itemSearchText">{{item.name}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        No matches found.
-                    </md-not-found>
-                </md-autocomplete >                 
-                <md-input-container class="md-block" flex-gt-sm flex="33" ng-if="l.id !== null && l.id !== undefined">
-                    <label translate>{{"pharmacy.order.drug"| translate}}</label>
-                    <input class="form-control" disabled type="text" ng-model="l.item.name" ng- ng="selectedItemChange(l.item,$index)">
-                </md-input-container> 
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Batch n°</label>
-                    <md-select ng-model="l.sendingItemBatch" ng-change="selectedItemLineChange(l.sendingItemBatch, $index)" required>
-                        <md-option ng-repeat="iLine in l.itemsLines" value="{{iLine.itemBatch}}"> 
-                            {{ iLine.itemBatch}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
+    <form ng-submit="saveSending();">
+        <md-card ng-if="!loading">
+            <md-card-title translate>Dispense details</md-card-title>
+            <md-card-content>
+                <div layout="row"  layout-xs="column" class="flex flex-col">                
+                    <md-input-container class="md-block"  flex-gt-sm flex="20">
+                        <label translate>Type of Dispensation</label>
+                        <md-select ng-model="dispenseMode" ng-change="dispenseModeChange()">
+                            <md-option ng-value="1">Internal</md-option>
+                            <md-option ng-value="2">External</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block"  flex-gt-sm flex="20" >
+                        <label translate>Date</label>
+                        <input type="date" ng-model="sending.date" required>
+                    </md-input-container>               
+                    <md-autocomplete md-selected-item="selectedCustomer" md-search-text="customerSearchText" md-items="customer in searchCustomers(customerSearchText)" 
+                                     md-item-text="customer.name" class="md-block" flex-gt-sm md-floating-label="Customer" md-clear-button="true" 
+                                     md-no-cache="true" md-selected-item-change="selectedCustomerChange(customer,$index)" flex="60" 
+                                     ng-if="dispenseMode == 2" required>
+                        <md-item-template>
+                            <span md-highlight-text="customerSearchText">{{customer.name}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No matches found.
+                        </md-not-found>
+                    </md-autocomplete>                           
+                    <md-autocomplete md-selected-item="selectedPatient" md-search-text="patientSearchText" md-items="patient in searchPatients(patientSearchText)" 
+                                     md-item-text="patient.display" class="md-block" flex-gt-sm md-floating-label="Patient" md-clear-button="true" 
+                                     md-no-cache="true" md-selected-item-change="selectedPatientChange(patient,$index)" flex="60"
+                                     ng-if="dispenseMode == 1" required>
+                        <md-item-template>
+                            <span md-highlight-text="patientSearchText">{{patient.display}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No matches found.
+                        </md-not-found>
+                    </md-autocomplete>                    
+                </div>
+            </md-card-content>
+        </md-card>
+        <md-card ng-if="!loading">
+            <md-card-title translate>List of drugs</md-card-title>
+            <md-card-content>
+                <div layout="row" layout-xs="column" data-ng-repeat="l in lines"  class="flex flex-col">
+                    <md-autocomplete md-selected-item="selectedItem" md-search-text="itemSearchText" md-items="item in searchItems(itemSearchText)" 
+                                     md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug" md-clear-button="true" 
+                                     md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex="33"
+                                     ng-if="l.id === null || l.id === undefined" required>
+                        <md-item-template>
+                            <span md-highlight-text="itemSearchText">{{item.name}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No matches found.
+                        </md-not-found>
+                    </md-autocomplete >                 
+                    <md-input-container class="md-block" flex-gt-sm flex="33" ng-if="l.id !== null && l.id !== undefined">
+                        <label translate>{{"pharmacy.order.drug"| translate}}</label>
+                        <input class="form-control" disabled type="text" ng-model="l.item.name" ng- ng="selectedItemChange(l.item,$index)">
+                    </md-input-container> 
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Batch n°</label>
+                        <md-select ng-model="l.sendingItemBatch" ng-change="selectedItemLineChange(l.sendingItemBatch, $index)" required>
+                            <md-option ng-repeat="iLine in l.itemsLines" value="{{iLine.itemBatch}}"> 
+                                {{ iLine.itemBatch}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
 
-                <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Quantity</label>
-                    <input class="form-control" type="number" ng-model="l.sendingDetailsQuantity" ng-change="updateLineValue($index)" required>
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Price</label>
-                    <input class="form-control" ng-disabled="true" type="number" ng-model="l.sendingDetailsValue" >
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="7">
-                    <md-button class="md-fab md-mini md-danger md-button" aria-label="remove" ng-click="deleteSendingDetail(l, $index)">
-                        <md-icon>remove</md-icon>
-                    </md-button>
-                </md-input-container>
-            </div>
-            <md-button class="md-raised md-primary" ng-click="addSendingLine()">
-                <md-icon>add</md-icon> Add a line
+                    <md-input-container class="md-block" flex-gt-sm flex="15">
+                        <label translate>Quantity</label>
+                        <input class="form-control" type="number" ng-model="l.sendingDetailsQuantity" ng-change="updateLineValue($index)" required>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="15">
+                        <label translate>Price</label>
+                        <input class="form-control" ng-disabled="true" type="number" ng-model="l.sendingDetailsValue" >
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="7">
+                        <md-button class="md-fab md-mini md-danger md-button" aria-label="remove" ng-click="deleteSendingDetail(l, $index)">
+                            <md-icon>remove</md-icon>
+                        </md-button>
+                    </md-input-container>
+                </div>
+                <md-button class="md-raised md-primary" ng-click="addSendingLine()">
+                    <md-icon>add</md-icon> Add a line
+                </md-button>
+                <div layout="row" layout-xs="column">
+                    <table md-table md-progress="promise">
+                        <thead md-head md-order="query.order">
+                            <tr md-row>
+                                <th colspan="8"><span translate>Total: {{sending.sendingAmount}} </span></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </md-card-content>
+        </md-card>
+        <div layout="row" layout-xs="column"  ng-if="!loading">
+            <md-button class="md-raised md-primary" type="submit">
+                <md-icon>save</md-icon>
+                <md-tooltip md-direction="top">
+                    <span translate>Save</span>
+                </md-tooltip>
+                Save
             </md-button>
-            <div layout="row" layout-xs="column">
-                <table md-table md-progress="promise">
-                    <thead md-head md-order="query.order">
-                        <tr md-row>
-                            <th colspan="8"><span translate>Total: {{sending.sendingAmount}} </span></th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-        </md-card-content>
-    </md-card>
-    <div layout="row" layout-xs="column"  ng-if="!loading">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveSending()">
-            <md-icon>save</md-icon>
-            <md-tooltip md-direction="top">
-                <span translate>Save</span>
-            </md-tooltip>
-            Save
-        </md-button>
-        <a href="index.html#!/dispenses">
-            <md-button class="md-raised" aria-label="Add">
-                <md-icon>close</md-icon>
-                Cancel
-            </md-button>
-        </a>
-    </div>
+            <a href="index.html#!/dispenses">
+                <md-button class="md-raised" aria-label="Add">
+                    <md-icon>close</md-icon>
+                    Cancel
+                </md-button>
+            </a>
+        </div>
+    </form>
 </div>
