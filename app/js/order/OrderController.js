@@ -137,6 +137,7 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
             openmrsRest.update($scope.resource + "/order", $scope.order).then(function (response) {
                 $scope.order = response;
                 loadData();
+                $state.go('home.orders');
                 // toastr.success('Data saved successfully.', 'Success');
                 showToast("Data saved successfully.", "success");
             }, function (e) {
