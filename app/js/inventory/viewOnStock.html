@@ -75,7 +75,7 @@
                         <td>{{drug.soh}} <small ng-if="drug.soh > drug.stockMax || drug.soh < drug.stockMin" class="chip-normal status-4" > {{drug.soh > drug.stockMax ?'Over': (drug.soh < drug.stockMin ?'Under':'')}}</small></td>
                         <td style="text-align: center" >
 
-                <md-icon style="color:{{drug.soh > 0 ?'red':'green'}}">
+                <md-icon style="color:{{drug.numberOfExpiredLots > 0 ?'red':'green'}}">
                     <md-tooltip>
                         {{drug.numberOfExpiredLots}} lot(s) expired
                     </md-tooltip>
