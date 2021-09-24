@@ -1,13 +1,13 @@
 <div id="content" class="container-fluid" ng-controller="viewDetailController as vm">
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""> Stock details for: <b>{{item.name}}</b></h1>
+        <h1 md-truncate="" flex=""><span translate>Stock details for</span><span translate>:</span> <b>{{item.name}}</b></h1>
         <a href="index.html#!/inventory">
             <md-button class="md-raised">
-                <md-icon>arrow_back</md-icon>Back
+                <md-icon>arrow_back</md-icon><span translate>Back</span>
             </md-button>
         </a>
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="donwload()">
-            <md-icon>cloud_download</md-icon> Export
+            <md-icon>cloud_download</md-icon> <span translate>Export</span>
             <md-tooltip md-direction="top">
                 <span translate>Export</span>
             </md-tooltip>
@@ -21,7 +21,7 @@
                     placeholder="{{ 'Search...' | translate }}">
             </form>
             <md-switch flex ng-model="onlyExpired" aria-label="Switch 1">
-                Expired batches only
+                <span translate>Expired batches only</span>
             </md-switch>
         </div>
     </md-toolbar>
@@ -39,15 +39,15 @@
                             </th>
                             <th md-order-by=""><span translate>Location</span></th>
                             <th md-order-by="itemSoh" ng-click="sortBy('itemSoh')">
-                                <span translate>Physical qty</span>
+                                <span translate>Physical Qty</span>
                             </th>
                             <th md-order-by="itemSoh" ng-click="sortBy('itemVirtualstock')">
-                                <span translate>Virtual qty</span>
+                                <span translate>Virtual Qty</span>
                             </th>
                             <th md-order-by="itemExpiryDate" ng-click="sortBy('itemExpiryDate')">
-                                <span translate>Exp date</span>
+                                <span translate>Exp Date</span>
                             </th>
-                            <th><span translate>Action</span></th>
+                            <th><span translate>Actions</span></th>
                         </tr>
                     </thead>
                     <tbody md-body>
@@ -57,8 +57,7 @@
                             <td> {{batch.pharmacyLocation.name}} </td>
                             <td>{{batch.itemSoh}}</td>
                             <td>{{batch.itemVirtualstock}}</td>
-                            <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}} <small ng-if="batch.expired"
-                                    class="chip-normal status-4"> Expired</small> </td>
+                            <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}} <small ng-if="batch.expired" class="chip-normal status-4"> <span translate>Expired</span></small> </td>
                             <td>
                                 <!-- <button ng-click="showConfirm($event, batch)"
                                     class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove">
@@ -92,7 +91,7 @@
         <md-card-content>
             <div layout="row" layout-xs="column">
                 <md-button class="md-raised md-accent" ng-click="addBatch()">
-                    <md-icon>add</md-icon> Add batch
+                    <md-icon>add</md-icon> <span translate>Add Batch</span>
                 </md-button>
                 <br>
             </div>

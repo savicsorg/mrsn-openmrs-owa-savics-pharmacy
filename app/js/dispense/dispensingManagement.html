@@ -1,20 +1,19 @@
 <div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""> Drugs dispensing management </h1>
+        <h1 md-truncate="" flex=""><span translate>Drugs Dispensing Management</span></h1>
         <a href="index.html#!/">
             <md-button class="md-raised">
-                <md-icon>arrow_back</md-icon>Back
+                <md-icon>arrow_back</md-icon><span translate>Back</span>
             </md-button>
         </a>
         <a href="index.html#!/dispense">
             <md-button class="md-raised md-primary" aria-label="Add">
-                <md-icon>add</md-icon> New
+                <md-icon>add</md-icon> <span translate>New</span>
                 <md-tooltip md-direction="top">
                     <span translate>New</span>
                 </md-tooltip>
             </md-button>
         </a>
-        
     </div>
     <md-toolbar class="md-table-toolbar md-default">
         <div class="md-toolbar-tools">
@@ -31,7 +30,7 @@
                     <tr md-row>
                         <th><span translate>Type Dispensation</span></th>
                         <th><span translate>Customer</span></th>
-                        <th><span translate>Number of batches</span></th>
+                        <th><span translate>Number of Batches</span></th>
                         <th><span translate>Quantity</span></th>
                         <th><span translate>Date of Dispensation</span></th>
                         <th><span translate>Actions</span></th>
@@ -51,7 +50,7 @@
                                 ng-click="openView(drug)">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">format_list_bulleted
                                 </md-icon>
-                                <md-tooltip md-direction="top"><span translate>Stock details</span></md-tooltip>
+                                <md-tooltip md-direction="top"><span translate>Stock Details</span></md-tooltip>
                             </button>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="History"
                                 ng-click="openHistory(drug)">

@@ -14,7 +14,7 @@
                         <span md-highlight-text="searchText">{{item.display}}</span>
                     </md-item-template>
                     <md-not-found>
-                        No matches found.
+                        <span translate>No matches found.</span>
                     </md-not-found>
                 </md-autocomplete>
             </div>
@@ -36,7 +36,7 @@
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>route</label>
+                    <label translate>Route</label>
                     <md-select ng-model="vm.drug.route.id">
                         <md-option ng-repeat="r in vm.routes" ng-value="r.id" ng-selected="r.id == drug_route_id">
                             {{r.name}}
@@ -51,11 +51,11 @@
         <md-card-content>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block md-input-has-value" flex-gt-sm>
-                    <label translate>Buy price</label>
+                    <label translate>Buy Price</label>
                     <input type="number" min="0" ng-model="vm.drug.buyPrice">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Sell price</label>
+                    <label translate>Sell Price</label>
                     <input type="number" min="0" ng-model="vm.drug.sellPrice">
                 </md-input-container>
             </div>
@@ -78,7 +78,7 @@
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column">
-        <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
+        <span id="loading_submit" style="visibility: hidden;"><span translate>Please wait...</span></span>
     </div>
     <div layout="row" layout-xs="column">
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="drug()">
@@ -86,12 +86,12 @@
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
             </md-tooltip>
-            Save
+            <span translate>Save</span>
         </md-button>
         <a href="index.html#!/drugs">
             <md-button class="md-raised" aria-label="Add">
                 <md-icon>close</md-icon>
-                Cancel
+                <span translate>Cancel</span>
             </md-button>
         </a>
     </div>

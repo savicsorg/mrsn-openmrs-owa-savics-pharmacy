@@ -2,10 +2,10 @@
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
         <span class="chip-normal status-3" aria-label="Add">
-            Virtual qty: {{item.virtualstock}}
+            <span translate>Virtual Qty</span><span translate>:</span> {{item.virtualstock}}
         </span>
         <span class="chip-normal status-3" aria-label="Add">
-            Physical qty: {{item.soh}}
+            <span translate>Physical Qty</span><span translate>:</span> {{item.soh}}
         </span>
     </div>
     <form ng-submit="submit();">
@@ -13,13 +13,13 @@
             <md-card-content>
                 <div layout="row" layout-xs="column">
                     <md-radio-group ng-model="transactionType" layout="row" required>
-                        <md-radio-button value="padj" class="md-primary">+ adjustment</md-radio-button>
-                        <md-radio-button value="nadj" class="md-primary">- adjustment</md-radio-button>
+                        <md-radio-button value="padj" class="md-primary">+ <span translate>adjustment</span></md-radio-button>
+                        <md-radio-button value="nadj" class="md-primary">- <span translate>adjustment</span></md-radio-button>
                     </md-radio-group>
                 </div>
                 <div layout="row" layout-xs="column">
                     <md-input-container class="md-block" flex-gt-sm>
-                        <label translate>Batch number</label>
+                        <label translate>Batch Number</label>
                         <md-select ng-model="selectedBatch" required>
                             <md-option ng-repeat="b in batches" ng-value="b" ng-selected="b.id == batch_id">
                                 {{b.itemBatch}}
@@ -48,11 +48,11 @@
                 <md-tooltip md-direction="top">
                     <span translate>Save</span>
                 </md-tooltip>
-                Save
+                <span translate>Save</span>
             </md-button>
             <md-button class="md-raised" aria-label="Add" ng-click="returnToPrevious()">
                 <md-icon>close</md-icon>
-                Cancel
+                <span translate>Cancel</span>
             </md-button>
 
         </div>

@@ -32,31 +32,31 @@
         <md-card-content>
             <div layout="row" layout-xs="column">
                 <md-card-title>
-                    Name
+                    <span translate>Name</span>
                 </md-card-title>
                 <md-card-title>
-                    Batch
+                    <span translate>Batch</span>
                 </md-card-title>
                 <md-card-title>
-                    Unit
+                    <span translate>Unit</span>
                 </md-card-title>
                 <md-card-title>
-                    Avl Qty
+                    <span translate>Avl Qty</span>
                 </md-card-title>
                 <md-card-title>
-                    Qty to dispense
+                    <span translate>Qty to Dispense</span>
                 </md-card-title>
                 <md-card-title>
-                    Price
+                    <span translate>Price</span>
                 </md-card-title>
                 <md-card-title>
-                    Exp date
+                    <span translate>Exp Date</span>
                 </md-card-title>
                 <!-- <md-card-title>
                     Total
                 </md-card-title> -->
                 <md-card-title>
-                    Actions
+                    <span translate>Actions</span>
                 </md-card-title>
             </div>
             <div layout="row" layout-xs="column" data-ng-repeat="choice in choices">
@@ -81,7 +81,7 @@
                     </md-select>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Avl qty</label>
+                    <label translate>Avl Qty</label>
                     <input class="form-control" type="number" ng-model="choice.avl_qty">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
@@ -89,7 +89,7 @@
                     <input class="form-control" type="number" ng-model="choice.qty">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>price</label>
+                    <label translate>Price</label>
                     <input class="form-control" type="number" ng-model="choice.price">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
@@ -116,7 +116,7 @@
             </div>
             <br>
             <md-button class="md-raised md-primary" ng-click="addNewChoice()">
-                <md-icon>add</md-icon> Add fields
+                <md-icon>add</md-icon><span translate>Add Fields</span>
             </md-button>
             <br>
             <hr>
@@ -140,12 +140,12 @@
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
             </md-tooltip>
-            Save
+            <span translate>Save</span>
         </md-button>
         <a href="index.html#!/dispenses">
             <md-button class="md-raised" aria-label="Add">
                 <md-icon>close</md-icon>
-                Cancel
+                <span translate>Cancel</span>
             </md-button>
         </a>
     </div>

@@ -2,7 +2,7 @@
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
         <md-button class="md-raised" ng-click="returnToPrevious()">
-            <md-icon>arrow_back</md-icon>Back
+            <md-icon>arrow_back</md-icon><span translate>Back</span>
         </md-button>
     </div>
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
@@ -13,12 +13,12 @@
             <table md-table md-progress="promise">
                 <thead md-head>
                     <tr md-row>
-                        <th><span translate>Item name</span></th>
-                        <th><span translate>Bath name</span></th>
-                        <th><span translate>Transaction type</span></th>
-                        <th><span translate>Transaction qty</span></th>
-                        <th><span translate>Date modified</span></th>
-                        <th><span translate>Action</span></th>
+                        <th><span translate>Item Name</span></th>
+                        <th><span translate>Bath Name</span></th>
+                        <th><span translate>Transaction Type</span></th>
+                        <th><span translate>Transaction Qty</span></th>
+                        <th><span translate>Date Modified</span></th>
+                        <th><span translate>Actions</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
@@ -34,7 +34,7 @@
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Add"
                                 ng-click="openViewTransaction(history)">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">visibility</md-icon>
-                                <md-tooltip md-direction="top"><span translate>Transaction detail</span></md-tooltip>
+                                <md-tooltip md-direction="top"><span translate>Transaction Detail</span></md-tooltip>
                             </button>
                         </td>
                     </tr>
