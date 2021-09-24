@@ -8,6 +8,7 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
     $scope.suppliers = [];
     $scope.orders = [];
     $scope.loading = false;
+    $scope.loadingStack = 0;
     $scope.item = null;
     $scope.lines = [];
     $scope.approveBtn = {
@@ -52,8 +53,9 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
         $state.go('home.order', { order: data });
     }
 
-    $scope.receive = function (data) {
-        $state.go('home.reception', { order: data });
+    $scope.receive = function(order){
+        console.log({ order: order, uuid: "0" });
+        $state.go('home.reception', { order: order, uuid: "0" });
     }
 
     function loadData() {

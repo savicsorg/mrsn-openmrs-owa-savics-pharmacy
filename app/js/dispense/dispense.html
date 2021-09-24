@@ -1,152 +1,129 @@
-<div id="content" class="container-fluid" ng-controller="DispenseController as vm">
+<div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">
-            <md-icon>content_paste</md-icon> {{vm.appTitle}}
+            <md-icon>local_pharmacy</md-icon> Dispense drugs
         </h1>
-        <md-input-container class="md-block" flex-gt-sm>
-            <label translate>Type of Dispensation</label>
-            <md-select ng-model="vm.dispense_type" ng-change="selectDispensationType(vm.dispense_type)">
-                <md-option ng-repeat="t in vm.dispense_types" ng-value="t.id">
-                    {{t.name}}
-                </md-option>
-            </md-select>
-        </md-input-container>
-    </div>
-    <md-card>
-        <md-card-title translate>New dispense details</md-card-title>
-        <md-card-content>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Customer</label>
-                    <input ng-model="vm.customer_name">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Date</label>
-                    <input type="date" ng-model="vm.dispense.date">
-                </md-input-container>
-            </div>
-        </md-card-content>
-    </md-card>
-    <md-card>
-        <md-card-title translate>Drug prescribed list</md-card-title>
-        <md-card-content>
-            <div layout="row" layout-xs="column">
-                <md-card-title>
-                    <span translate>Name</span>
-                </md-card-title>
-                <md-card-title>
-                    <span translate>Batch</span>
-                </md-card-title>
-                <md-card-title>
-                    <span translate>Unit</span>
-                </md-card-title>
-                <md-card-title>
-                    <span translate>Avl Qty</span>
-                </md-card-title>
-                <md-card-title>
-                    <span translate>Qty to Dispense</span>
-                </md-card-title>
-                <md-card-title>
-                    <span translate>Price</span>
-                </md-card-title>
-                <md-card-title>
-                    <span translate>Exp Date</span>
-                </md-card-title>
-                <!-- <md-card-title>
-                    Total
-                </md-card-title> -->
-                <md-card-title>
-                    <span translate>Actions</span>
-                </md-card-title>
-            </div>
-            <div layout="row" layout-xs="column" data-ng-repeat="choice in choices">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Drug</label>
-                    <input class="form-control" type="text" ng-model="choice.drug_name">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Batch</label>
-                    <md-select ng-model="choice.drug_batch">
-                        <md-option ng-repeat="b in vm.batches" ng-value="b.id">
-                            {{b.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Unit</label>
-                    <md-select ng-model="choice.drug_unit">
-                        <md-option ng-repeat="u in vm.units" ng-value="u.id">
-                            {{u.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Avl Qty</label>
-                    <input class="form-control" type="number" ng-model="choice.avl_qty">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Qty</label>
-                    <input class="form-control" type="number" ng-model="choice.qty">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Price</label>
-                    <input class="form-control" type="number" ng-model="choice.price">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <!-- <label translate>Exp date</label> -->
-                    <input class="form-control" type="text" ng-model="choice.drug_exp_date">
-                    <!-- </md-datepicker> -->
-                </md-input-container>
-                <!-- <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Total</label>
-                    <input class="form-control" type="number" ng-model="choice.total">
-                </md-input-container> -->
-                <md-input-container class="md-block" flex-gt-sm>
-                    <!-- <a href="" ng-click="removeChoice(choice.id)"  ng-if="choice.id!=index">Remove</a>
-                    <a href="" ng-click="addNewChoice()"  ng-if="choice.id===index">Add</a> -->
-                    <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
-                        ng-click="removeChoice(choice.id)" ng-if="choice.id!=index">
-                        <md-icon>remove</md-icon>
-                    </md-button>
-                    <md-button class="md-fab md-mini md-primary md-button" aria-label="Add" ng-click="addNewChoice()"
-                        ng-if="choice.id===index">
-                        <md-icon>add</md-icon>
-                    </md-button>
-                </md-input-container>
-            </div>
-            <br>
-            <md-button class="md-raised md-primary" ng-click="addNewChoice()">
-                <md-icon>add</md-icon><span translate>Add Fields</span>
-            </md-button>
-            <br>
-            <hr>
-            <div layout="row" layout-xs="column">
-                <table md-table md-progress="promise">
-                    <thead md-head md-order="query.order">
-                        <tr md-row>
-                            <th colspan="8"><span translate>Total: </span></th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-            <div id="choicesDisplay">
-                <!-- {{ choices }} -->
-            </div>
-        </md-card-content>
-    </md-card>
-    <div layout="row" layout-xs="column">
-        <md-button class="md-raised md-primary" aria-label="Add">
-            <md-icon>save</md-icon>
-            <md-tooltip md-direction="top">
-                <span translate>Save</span>
-            </md-tooltip>
-            <span translate>Save</span>
-        </md-button>
-        <a href="index.html#!/dispenses">
-            <md-button class="md-raised" aria-label="Add">
-                <md-icon>close</md-icon>
-                <span translate>Cancel</span>
+        <a href="index.html#!/"  ng-if="!loading">
+            <md-button class="" aria-label="Add">
+                <md-icon>chevron_left</md-icon>
+                <span translate>Back</span>
             </md-button>
         </a>
     </div>
+    <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div> 
+    <form ng-submit="saveSending();">
+        <md-card ng-if="!loading">
+            <md-card-title translate>Dispense details</md-card-title>
+            <md-card-content>
+                <div layout="row"  layout-xs="column" class="flex flex-col">                
+                    <md-input-container class="md-block"  flex-gt-sm flex="20">
+                        <label translate>Type of Dispensation</label>
+                        <md-select ng-model="dispenseMode" ng-change="dispenseModeChange()">
+                            <md-option ng-value="1">Internal</md-option>
+                            <md-option ng-value="2">External</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block"  flex-gt-sm flex="20" >
+                        <label translate>Date</label>
+                        <input type="date" ng-model="sending.date" required>
+                    </md-input-container>               
+                    <md-autocomplete md-selected-item="selectedCustomer" md-search-text="customerSearchText" md-items="customer in searchCustomers(customerSearchText)" 
+                                     md-item-text="customer.name" class="md-block" flex-gt-sm md-floating-label="Customer" md-clear-button="true" 
+                                     md-no-cache="true" md-selected-item-change="selectedCustomerChange(customer,$index)" flex="60" 
+                                     ng-if="dispenseMode == 2" required>
+                        <md-item-template>
+                            <span md-highlight-text="customerSearchText">{{customer.name}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            <span translate>No matches found.</span>
+                        </md-not-found>
+                    </md-autocomplete>                           
+                    <md-autocomplete md-selected-item="selectedPatient" md-search-text="patientSearchText" md-items="patient in searchPatients(patientSearchText)" 
+                                     md-item-text="patient.display" class="md-block" flex-gt-sm md-floating-label="Patient" md-clear-button="true" 
+                                     md-no-cache="true" md-selected-item-change="selectedPatientChange(patient,$index)" flex="60"
+                                     ng-if="dispenseMode == 1" required>
+                        <md-item-template>
+                            <span md-highlight-text="patientSearchText">{{patient.display}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            <span translate>No matches found.</span>
+                        </md-not-found>
+                    </md-autocomplete>                    
+                </div>
+            </md-card-content>
+        </md-card>
+        <md-card ng-if="!loading">
+            <md-card-title translate>List of drugs</md-card-title>
+            <md-card-content>
+                <div layout="row" layout-xs="column" data-ng-repeat="l in lines"  class="flex flex-col">
+                    <md-autocomplete md-selected-item="selectedItem" md-search-text="itemSearchText" md-items="item in searchItems(itemSearchText)" 
+                                     md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug" md-clear-button="true" 
+                                     md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex="33"
+                                     ng-if="l.id === null || l.id === undefined" required>
+                        <md-item-template>
+                            <span md-highlight-text="itemSearchText">{{item.name}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            <span translate>No matches found.</span>
+                        </md-not-found>
+                    </md-autocomplete >                 
+                    <md-input-container class="md-block" flex-gt-sm flex="33" ng-if="l.id !== null && l.id !== undefined">
+                        <label translate>{{"pharmacy.order.drug"| translate}}</label>
+                        <input class="form-control" disabled type="text" ng-model="l.item.name" ng- ng="selectedItemChange(l.item,$index)">
+                    </md-input-container> 
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Batch n°</label>
+                        <md-select ng-model="l.sendingItemBatch" ng-change="selectedItemLineChange(l.sendingItemBatch, $index)" required>
+                            <md-option ng-repeat="iLine in l.itemsLines" value="{{iLine.itemBatch}}"> 
+                                {{ iLine.itemBatch}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="md-block" flex-gt-sm flex="15">
+                        <label translate>Quantity</label>
+                        <input class="form-control" type="number" ng-model="l.sendingDetailsQuantity" ng-change="updateLineValue($index)" required>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="15">
+                        <label translate>Price</label>
+                        <input class="form-control" ng-disabled="true" type="number" ng-model="l.sendingDetailsValue" >
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="7">
+                        <md-button class="md-fab md-mini md-danger md-button" aria-label="remove" ng-click="deleteSendingDetail(l, $index)">
+                            <md-icon>remove</md-icon>
+                        </md-button>
+                    </md-input-container>
+                </div>
+                <md-button class="md-raised md-primary" ng-click="addSendingLine()">
+                    <md-icon>add</md-icon> <span translate>Add a line</span>
+                </md-button>
+                <div layout="row" layout-xs="column">
+                    <table md-table md-progress="promise">
+                        <thead md-head md-order="query.order">
+                            <tr md-row>
+                                <th colspan="8"><span translate>Total</span><span translate>:</span> {{sending.sendingAmount}} </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </md-card-content>
+        </md-card>
+        <div layout="row" layout-xs="column"  ng-if="!loading">
+            <md-button class="md-raised md-primary" type="submit">
+                <md-icon>save</md-icon>
+                <md-tooltip md-direction="top">
+                    <span translate>Save</span>
+                </md-tooltip>
+                <span translate>Save</span>
+            </md-button>
+            <a href="index.html#!/dispenses">
+                <md-button class="md-raised" aria-label="Add">
+                    <md-icon>close</md-icon>
+                    <span translate>Cancel</span>
+                </md-button>
+            </a>
+        </div>
+    </form>
 </div>

@@ -26,10 +26,10 @@ angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
         rowSelection: true
     };
 
-    $scope.query = {
-        limit: 5,
-        page: 1
-    };
+        $scope.query = {
+            limit: 25,
+            page: 1
+        };
 
     $scope.logPagination = function (page, limit) {
 
