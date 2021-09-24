@@ -1,28 +1,22 @@
 <div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">
-            <md-icon>local_pharmacy</md-icon> Dispense drugs
+            <md-icon>local_pharmacy</md-icon> <span tranlate>Dispense Drugs</span>
         </h1>
-        <a href="index.html#!/"  ng-if="!loading">
-            <md-button class="" aria-label="Add">
-                <md-icon>chevron_left</md-icon>
-                <span translate>Back</span>
-            </md-button>
-        </a>
     </div>
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div> 
     <form ng-submit="saveSending();">
         <md-card ng-if="!loading">
-            <md-card-title translate>Dispense details</md-card-title>
+            <md-card-title translate>Dispense Details</md-card-title>
             <md-card-content>
                 <div layout="row"  layout-xs="column" class="flex flex-col">                
                     <md-input-container class="md-block"  flex-gt-sm flex="20">
                         <label translate>Type of Dispensation</label>
                         <md-select ng-model="dispenseMode" ng-change="dispenseModeChange()">
-                            <md-option ng-value="1">Internal</md-option>
-                            <md-option ng-value="2">External</md-option>
+                            <md-option ng-value="1"><span tranlate>Internal</span></md-option>
+                            <md-option ng-value="2"><span tranlate>External</span></md-option>
                         </md-select>
                     </md-input-container>
                     <md-input-container class="md-block"  flex-gt-sm flex="20" >
