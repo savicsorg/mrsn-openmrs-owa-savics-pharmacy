@@ -36,18 +36,17 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
         document.getElementById("loading_submit").style.visibility = "visible";
 
         var payload = $stateParams.uuid ? { virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), uuid: vm.drug.uuid, soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id } : { virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id };
-
         if ($stateParams.uuid) {
             openmrsRest.update($scope.resource + "/item", payload).then(function (response) {
                 handleResponse(response)
             }).catch(function (e) {
-                handleResponse(response, e)
+                handleResponse(null, e)
             });
         } else {
             openmrsRest.create($scope.resource + "/item", payload).then(function (response) {
                 handleResponse(response)
             }).catch(function (e) {
-                handleResponse(response, e)
+                handleResponse(null, e)
             });
         }
     }
@@ -60,7 +59,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
             showToast(msg, type);
             return;
         }
-        if (response.uuid) {
+        if (response && response.uuid) {
             type = "success";
             msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
             vm.drug.name = "";
@@ -112,7 +111,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
     }
 
     function addZeroes(num) {
-        return num + 0.01;
+        return num;
     }
 
     $scope.routes = function () {
