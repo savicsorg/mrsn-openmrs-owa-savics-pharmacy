@@ -94,7 +94,7 @@
                     <span translate>{{"pharmacy.order.addALine" | translate}}</span>
                 </md-tooltip> {{"pharmacy.order.addALine" | translate}}
             </md-button>
-            <strong>Total: {{order.amount}}</strong>
+            <strong><span translate>Total</span><span translate>:</span> {{order.amount}}</strong>
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column" ng-if="order.id !== undefined && !loading">
