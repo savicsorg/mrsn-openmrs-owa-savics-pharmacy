@@ -161,10 +161,4 @@ angular.module('CustomertypeController', []).controller('CustomertypeController'
                 $log.log('Toast failed or was forced to close early by another toast.');
             });
     }
-
-    $scope.search = function (row) {
-        return (angular.lowercase(row.name).indexOf($scope.searchAll || '') !== -1 || angular.lowercase(row.code).indexOf($scope.searchAll || '') !== -1);
-    };
-
-
 }]);

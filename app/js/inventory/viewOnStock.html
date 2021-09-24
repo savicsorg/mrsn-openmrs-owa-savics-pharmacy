@@ -37,7 +37,7 @@
             <md-icon>search</md-icon>
             <form flex="">
                 <input type="search" name="search" flex ng-model="searchAll"
-                    placeholder="{{ 'Search...' | translate }}">
+                    placeholder="{{ 'Search for Drugs name...' | translate }}">
             </form>
             <md-switch flex ng-model="stockAtRisOnly" aria-label="Switch 1">
                 <span translate>Stock at Risk only</span><span translate>:</span> {{ stockAtRisOnly}}
@@ -61,7 +61,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="drug in viewOnStock|filter:onlyStockAtRisk | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="drug in viewOnStock|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{drug.name}}</td>
                         <td>{{drug.stockMin}}</td>
                         <td>{{drug.stockMax}}</td>

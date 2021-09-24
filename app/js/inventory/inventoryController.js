@@ -4,6 +4,7 @@ angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
     $scope.loading = false;
     $scope.viewOnStock = [];
     $scope.stockAtRisOnly = false;
+    $scope.searchAll = "";
 
     $scope.getData = function () {
         $scope.loading = true;
@@ -56,11 +57,15 @@ angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
         });
     };
 
-    $scope.onlyStockAtRisk = function (item) {
-        if ($scope.stockAtRisOnly == true) {
-            return item.numberOfExpiredLots > 0;
+    $scope.search = function (item) {
+        if($scope.searchAll == "" || ($scope.searchAll.length > 0 && item.name.toLowerCase().indexOf($scope.searchAll.toLowerCase()) > -1)){
+            if ($scope.stockAtRisOnly == true) {
+                return item.numberOfExpiredLots > 0;
+            } else {
+                return true;
+            }
         } else {
-            return true;
+            return false;
         }
     };
 

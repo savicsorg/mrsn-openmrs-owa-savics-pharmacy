@@ -252,5 +252,4 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
                 $log.log('Toast failed or was forced to close early by another toast.');
             });
     }
-
 }]);

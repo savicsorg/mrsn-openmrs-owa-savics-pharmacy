@@ -25,7 +25,7 @@
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
-                <input type="search" name="search" ng-model="searchAll" placeholder="{{ 'Search...' | translate }}">
+                <input type="search" name="search" ng-model="searchAll.id" placeholder="{{ 'Search for Orders n°...' | translate }}">
             </form>
         </div>
     </md-toolbar>
@@ -45,7 +45,7 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row
-                            data-ng-repeat="data in orders|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                            data-ng-repeat="data in orders|filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                             <td>CMD#{{data.id}}</td>
                             <td>{{data.supplier.name}}</td>
                             <td>{{data.date | date: 'dd/MM/yyyy'}}</td>

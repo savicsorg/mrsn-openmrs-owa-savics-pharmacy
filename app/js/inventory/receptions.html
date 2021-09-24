@@ -16,7 +16,7 @@
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
-                <input type="search" name="search" ng-model="searchText" placeholder="{{'pharmacy.order.search' | translate}}">
+                <input type="search" name="search" ng-model="searchAll.pharmacyOrder.name" placeholder="{{ 'Search for Orders n°...' | translate }}">
             </form>
         </div>
     </md-toolbar>
@@ -33,7 +33,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="reception in receptions|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="reception in receptions|filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{reception.date | date: 'dd/MM/yyyy'}}</td>
                         <td>{{reception.person.display}}</td>
                         <td>{{reception.pharmacyOrder.name}}</td>

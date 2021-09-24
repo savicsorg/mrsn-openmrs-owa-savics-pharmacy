@@ -24,7 +24,7 @@
             <div class="md-toolbar-tools">
                 <md-icon>search</md-icon>
                 <form flex="">
-                    <input type="search" name="search" ng-model="searchAll" placeholder="{{ 'Search...' | translate }}">
+                    <input type="search" name="search" ng-model="searchAll.name" placeholder="{{ 'Search for Units name...' | translate }}">
                 </form>
             </div>
         </md-toolbar>
@@ -41,7 +41,7 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row
-                            ng-repeat="unit in units |filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                            ng-repeat="unit in units |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                             <td> {{unit.uuid}} </td>
                             <td> {{unit.code}} </td>
                             <td> {{unit.name}} </td>
