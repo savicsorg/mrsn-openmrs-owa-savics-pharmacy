@@ -9,6 +9,13 @@
                 Back
             </md-button>
         </a>
+        <md-button class="md-raised md-primary" aria-label="Add" ng-if="validateBtn.visible" ng-disabled="!validateBtn.enabled" ng-click="validate()">
+            <md-icon class=" material-icons" role="img" aria-hidden="true">check_circle</md-icon>
+            <md-tooltip md-direction="top">
+                <span translate>{{validateBtn.text}}</span>
+            </md-tooltip>
+            {{validateBtn.text}}
+        </md-button>
     </div>
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>

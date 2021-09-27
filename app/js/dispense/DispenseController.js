@@ -17,6 +17,11 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
             pageSelector: true,
             rowSelection: true
         };
+        $scope.validateBtn = {
+            text: "Validate",
+            enabled: false,
+            visible: false
+        };
 
         var popLoading = function () {
             $scope.loadingStack--;
@@ -140,6 +145,15 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
             if ($stateParams.uuid && $stateParams.uuid != "new"){
                 openmrsRest.getFull($scope.resource + "/sending/" + $stateParams.uuid).then(function (response) {
                     $scope.sending = response;
+                    if($scope.sending && $scope.sending.validationDate){
+                        $scope.validateBtn.text = "Validated on " + new Date($scope.sending.validationDate).toLocaleDateString();
+                        $scope.validateBtn.enabled = false;
+                        $scope.validateBtn.visible = true;
+                    } else {
+                        $scope.validateBtn.text = "Validate";
+                        $scope.validateBtn.enabled = true;
+                        $scope.validateBtn.visible = true;
+                    }
                     $scope.sending.date = new Date($scope.sending.date);
                     $scope.dispenseMode = ($scope.sending.customer != null)?2:1;
                     $scope.selectedCustomer = $scope.sending.customer;
@@ -161,6 +175,15 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                     toastr.error('An unexpected error has occured.', 'Error');
                 });
             }else{
+                if($scope.sending && $scope.sending.validationDate){
+                    $scope.validateBtn.text = "Validated on " + new Date($scope.sending.validationDate).toLocaleDateString();
+                    $scope.validateBtn.enabled = false;
+                    $scope.validateBtn.visible = true;
+                } else if($scope.sending && $scope.sending.id > 0){
+                    $scope.validateBtn.text = "Validate";
+                    $scope.validateBtn.enabled = true;
+                    $scope.validateBtn.visible = true;
+                }
                 $scope.loading = false;
             }
         }
@@ -280,5 +303,19 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 uuid: data.uuid
             });
         }
+
+        $scope.validate = function(){
+            $mdDialog.show($mdDialog.confirm()
+            .title('Confirmation')
+            .textContent('Do you really want to validate this dispense ?')
+            .ok('Yes')
+            .cancel('Cancel')).then(function () {
+                $scope.dispense.validationDate = new Date();
+                $scope.saveSending();
+            }, function () {
+                
+            });       
+        }
+    
 
     }]);
