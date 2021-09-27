@@ -91,5 +91,10 @@ angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'to
             });
         }
 
-
+        $scope.search = function(item) {
+            if (!$scope.searchAll || (item.id.toString().indexOf($scope.searchAll) != -1) || (item.customer && item.customer.name.toLowerCase().indexOf($scope.searchAll) != -1) || (item.person && item.person.display.toLowerCase().indexOf($scope.searchAll.toLowerCase()) != -1) ){
+                return true;
+            }
+            return false;
+        };
     }]);

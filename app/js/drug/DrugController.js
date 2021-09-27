@@ -1,4 +1,4 @@
-angular.module('DrugController', []).controller('DrugController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
+angular.module('DrugController', []).controller('DrugController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog',function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des drugs";
     $scope.resource = "savicspharmacy";
@@ -35,21 +35,32 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
         // }
         document.getElementById("loading_submit").style.visibility = "visible";
 
-        var payload = $stateParams.uuid ? { virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), uuid: vm.drug.uuid, soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id } : { virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id };
-        if ($stateParams.uuid) {
-            openmrsRest.update($scope.resource + "/item", payload).then(function (response) {
-                handleResponse(response)
-            }).catch(function (e) {
-                handleResponse(null, e)
-            });
-        } else {
-            openmrsRest.create($scope.resource + "/item", payload).then(function (response) {
-                handleResponse(response)
-            }).catch(function (e) {
-                handleResponse(null, e)
-            });
+            openmrsRest.getFull($scope.resource + "/item?code=" + vm.drug.code).then(function (response) {
+                if (response.results.length <= 0) {
+                    var payload = $stateParams.uuid ? {virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), uuid: vm.drug.uuid, soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id} : {virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id};
+                    if ($stateParams.uuid) {
+                        openmrsRest.update($scope.resource + "/item", payload).then(function (response) {
+                            handleResponse(response)
+                        }).catch(function (e) {
+                            handleResponse(null, e)
+                        });
+                    } else {
+                        openmrsRest.create($scope.resource + "/item", payload).then(function (response) {
+                            handleResponse(response)
+                        }).catch(function (e) {
+                            handleResponse(null, e)
+                        });
+                    }
+                } else {
+                    $mdDialog.show(
+                            $mdDialog.alert()
+                            .parent(angular.element(document.querySelector('body')))
+                            .clickOutsideToClose(true)
+                            .textContent('Attention, the drug code you entered is already used. Please use another one.')
+                            .ok('Ok'));
+                }
+            })
         }
-    }
 
     function handleResponse(response, e = null) {
         document.getElementById("loading_submit").style.visibility = "hidden";
