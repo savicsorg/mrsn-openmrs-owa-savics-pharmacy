@@ -127,11 +127,12 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         
     }
 
-    $scope.saveOrder = function () {
+    $scope.saveOrder = function (approve = false) {
         $scope.loading = true;
         $scope.order.supplier = $scope.order.supplier.id;
         var query = JSON.parse(JSON.stringify($scope.order));
-        query.orderDetails = $scope.lines;
+        if(!approve) // add details
+            query.orderDetails = $scope.lines;
         if ($scope.order && $scope.order.uuid) {    //Edit
             openmrsRest.update($scope.resource + "/order", query).then(function (response) {
                 $scope.order = response;

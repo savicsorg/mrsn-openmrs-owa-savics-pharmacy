@@ -38,7 +38,7 @@
             <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
                 <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in searchItems(searchText)" 
                     md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug" md-clear-button="true" 
-                    md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="45"
+                    md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="25"
                     ng-if="l.uuid === null || l.uuid === undefined">
                     <md-item-template>
                       <span md-highlight-text="searchText">{{item.name}}</span>
@@ -55,7 +55,7 @@
                     <label translate>{{"pharmacy.order.quantity" | translate}}</label>
                     <input class="form-control" type="number" ng-model="l.quantityReceived" >
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="15">
+                <md-input-container class="md-block" flex-gt-sm flex="21">
                     <label translate>{{"pharmacy.item.batchNumber" | translate}}</label>
                     <input class="form-control" type="text" ng-model="l.itemBatch">
                 </md-input-container>
@@ -71,14 +71,7 @@
                         </md-option>
                     </md-select>
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <md-button class="md-fab md-mini md-primary md-button" aria-label="add"
-                        ng-click="saveReceptionDetail(l, $index)">
-                        <md-icon>save</md-icon>
-                        <md-tooltip md-direction="top">
-                            <span translate>{{"pharmacy.order.save" | translate}}</span>
-                        </md-tooltip>
-                    </md-button>
+                <md-input-container class="md-block" flex-gt-sm flex="9">
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
                         ng-click="deteleReceptionDetail(l, $index)">
                         <md-icon>remove</md-icon>
