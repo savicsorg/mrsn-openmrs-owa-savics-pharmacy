@@ -1,22 +1,14 @@
 <div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""> Stock and inventory </h1>
+        <h1 md-truncate="" flex=""><span translate>Stock and Inventory</span></h1>
         <a href="index.html#!/">
             <md-button class="md-raised">
-                <md-icon>arrow_back</md-icon>Back
+                <md-icon>arrow_back</md-icon><span translate>Back</span>
             </md-button>
         </a>
-        <!--        <a href="index.html#!/stockatrisk">
-                    <md-button class="md-raised md-primary" aria-label="Add">
-                        <md-icon>report_problem</md-icon> Stock at risk
-                        <md-tooltip md-direction="top">
-                            <span translate>Stock at risk</span>
-                        </md-tooltip>
-                    </md-button>
-                </a>-->
-        <a href="index.html#!/inventory">
+        <a href="index.html#!/stocktakes">
             <md-button class="md-raised md-primary" aria-label="Add">
-                <md-icon>trending_up</md-icon>Stocktakes
+                <md-icon>trending_up</md-icon><span translate>Stocktakes</span>
                 <md-tooltip md-direction="top">
                     <span translate>Stocktakes</span>
                 </md-tooltip>
@@ -24,56 +16,61 @@
         </a>
         <a href="index.html#!/receptions">
             <md-button class="md-raised md-primary" aria-label="Add">
-                <md-icon>vertical_align_bottom</md-icon>Receptions
+                <md-icon>vertical_align_bottom</md-icon><span translate>Receptions</span>
                 <md-tooltip md-direction="top">
                     <span translate>Receptions</span>
                 </md-tooltip>
-            </md-button>       
+            </md-button>
         </a>
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="donwload()">
-            <md-icon>cloud_download</md-icon> Export
+            <md-icon>cloud_download</md-icon> <span translate>Export</span>
             <md-tooltip md-direction="top">
                 <span translate>Export</span>
             </md-tooltip>
         </md-button>
     </div>
-    <md-toolbar class="md-table-toolbar md-default">
+    <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-toolbar class="md-table-toolbar md-default" ng-show="!loading">
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
-                <input type="search" name="search" flex ng-model="searchAll" placeholder="{{ 'Search...' | translate }}">
+                <input type="search" name="search" flex ng-model="searchAll"
+                    placeholder="{{ 'Search for Drugs name...' | translate }}">
             </form>
             <md-switch flex ng-model="stockAtRisOnly" aria-label="Switch 1">
-                Stock at risk only: {{ stockAtRisOnly}}
+                <span translate>Stock at Risk only</span><span translate>:</span> {{ stockAtRisOnly}}
             </md-switch>
 
         </div>
     </md-toolbar>
-    <md-card>
+    <md-card ng-show="!loading">
         <md-table-container class="container" fixed-column-table>
             <table md-table md-progress="promise">
                 <thead md-head>
                     <tr md-row>
-                        <th><span translate>Drug code</span></th>
-                        <th><span translate>Designation</span></th>
-                        <th><span translate>Min</span></th>
-                        <th><span translate>Max</span></th>
-                        <th><span translate>Available Qty</span></th>
+                        <th><span translate>Drug Name</span></th>
+                        <th><span translate>Min Qty</span></th>
+                        <th><span translate>Max Qty</span></th>
                         <th><span translate>Physical Qty</span></th>
-                        <th><span translate>Lots status</span></th>
+                        <th><span translate>Virtual Qty</span></th>
+                        <th><span translate>Status</span></th>
                         <th><span translate>Actions</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="drug in viewOnStock|filter:onlyStockAtRisk | limitTo: query.limit : (query.page -1) * query.limit">
-                        <td>{{drug.code}}</td>
+                        data-ng-repeat="drug in viewOnStock|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{drug.name}}</td>
                         <td>{{drug.stockMin}}</td>
                         <td>{{drug.stockMax}}</td>
+                        <td>{{drug.soh}} <small ng-if="drug.soh > drug.stockMax || drug.soh < drug.stockMin"
+                                class="chip-normal status-4"> {{drug.soh > drug.stockMax ?'Over': (drug.soh <
+                                    drug.stockMin ?'Under':'')}}</small>
+                        </td>
                         <td>{{drug.virtualstock}}</td>
-                        <td>{{drug.soh}} <small ng-if="drug.soh > drug.stockMax || drug.soh < drug.stockMin" class="chip-normal status-4" > {{drug.soh > drug.stockMax ?'Over': (drug.soh < drug.stockMin ?'Under':'')}}</small></td>
-                        <td style="text-align: center" >
+                        <td style="text-align: center">
 
                 <md-icon style="color:{{drug.numberOfExpiredLots > 0 ?'red':'green'}}">
                     <md-tooltip>
@@ -104,8 +101,8 @@
             </table>
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{viewOnStock.length}}"
-                             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
-                             md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
+            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+            md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
         </md-table-pagination>
     </md-card>
 </div>

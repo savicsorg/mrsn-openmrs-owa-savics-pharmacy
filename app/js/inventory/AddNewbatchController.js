@@ -18,17 +18,17 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
             return;
         }
         vm.batch.item = parseInt($stateParams.item_id);
-        vm.batch.itemSoh = vm.batch.itemVirtualstock;
-
+        vm.batch.itemSoh = 0;
+        vm.batch.transactionType = 3;
+        vm.batch.transactionTypeId = 3;
+        vm.batch.transactionTypeCode = "bcreate";
         document.getElementById("loading_submit").style.visibility = "visible";
         var payload = vm.batch;
-        console.log(payload);
         openmrsRest.create($scope.resource + "/itemsLine", payload).then(function (response) {
             handleResponse(response)
         }).catch(function (e) {
             handleResponse(response, e)
         });
-
     }
 
     $scope.locations = function () {
@@ -38,7 +38,6 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
     }
 
     $scope.locations();
-
 
     function handleResponse(response, e = null) {
         document.getElementById("loading_submit").style.visibility = "hidden";

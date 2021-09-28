@@ -3,7 +3,8 @@
         <h1 md-truncate="" flex="">
             <md-icon>add_shopping_cart</md-icon> {{"pharmacy.order.placeAnOrder" | translate}}
         </h1>
-        <md-button class="md-raised md-primary" aria-label="Add" ng-if="approveBtn.visible" ng-disabled="!approveBtn.enabled" ng-click="approve()">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-if="approveBtn.visible"
+            ng-disabled="!approveBtn.enabled" ng-click="approve()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">check_circle</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>{{approveBtn.text}}</span>
@@ -13,14 +14,14 @@
     </div>
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-    </div> 
+    </div>
     <md-card ng-show="!loading">
         <md-card-title translate>{{"pharmacy.order.orderInformation" | translate}}</md-card-title>
         <md-card-content>
             <div layout="row" layout-xs="column" class="flex flex-col">
                 <md-input-container class="md-block" flex-gt-sm flex="50">
                     <label translate>{{"pharmacy.order.orderNumber" | translate}}</label>
-                    <input class="form-control" disabled type="text" ng-value="'CMD#' + order.id" >
+                    <input class="form-control" disabled type="text" ng-value="'CMD#' + order.id">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="50">
                     <label translate>{{"pharmacy.order.supplierName" | translate}}</label>
@@ -34,37 +35,40 @@
             <div layout="row" layout-xs="column" class="flex flex-col">
                 <md-input-container class="md-block" flex-gt-sm flex="100">
                     <label translate>{{"pharmacy.order.label" | translate}}</label>
-                    <input class="form-control" type="text" ng-model="order.name" >
+                    <input class="form-control" type="text" ng-model="order.name">
                 </md-input-container>
             </div>
         </md-card-content>
     </md-card>
     <md-card ng-if="order.id !== undefined" ng-show="!loading">
         <md-card-title translate> {{"pharmacy.order.listOfDrugs" | translate}}</md-card-title>
-        <md-card-content>           
+        <md-card-content>
             <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
-                <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in searchItems(searchText)" 
-                    md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug" md-clear-button="true" 
-                    md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="45"
+                <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText"
+                    md-items="item in searchItems(searchText)" md-item-text="item.name" class="md-block" flex-gt-sm
+                    md-floating-label="Drug" md-clear-button="true" md-no-cache="true"
+                    md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="45"
                     ng-if="l.uuid === null || l.uuid === undefined">
                     <md-item-template>
-                      <span md-highlight-text="searchText">{{item.name}}</span>
+                        <span md-highlight-text="searchText">{{item.name}}</span>
                     </md-item-template>
                     <md-not-found>
-                      No matches found.
+                        <span translate>No matches found.</span>
                     </md-not-found>
                 </md-autocomplete>
-                <md-input-container class="md-block" flex-gt-sm flex="45" ng-if="l.uuid  !== null && l.uuid !== undefined">
+                <md-input-container class="md-block" flex-gt-sm flex="45"
+                    ng-if="l.uuid  !== null && l.uuid !== undefined">
                     <label translate>{{"pharmacy.order.drug" | translate}}</label>
-                    <input class="form-control" disabled type="text" ng-model="l.item.name" >
+                    <input class="form-control" disabled type="text" ng-model="l.item.name">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="20">
                     <label translate>{{"pharmacy.order.quantity" | translate}}</label>
-                    <input class="form-control" type="number" ng-model="l.orderLineQuantity" >
+                    <input class="form-control" type="number" ng-model="l.orderLineQuantity">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="20">
                     <label translate>{{"pharmacy.order.price" | translate}}</label>
-                    <input class="form-control" type="number" ng-change="updateOrderAmount()" ng-model="l.orderLineAmount">
+                    <input class="form-control" type="number" ng-change="updateOrderAmount()"
+                        ng-model="l.orderLineAmount">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="add"
@@ -76,25 +80,26 @@
                     </md-button>
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
                         ng-click="deteleOrderDetail(l, $index)" ng-if="order.dateApprobation === null">
-                        <md-icon>remove</md-icon>
+                        <md-icon>delete</md-icon>
                         <md-tooltip md-direction="top">
                             <span translate>{{"pharmacy.order.remove" | translate}}</span>
                         </md-tooltip>
                     </md-button>
                 </md-input-container>
             </div>
-            <md-button class=" md-primary md-button" aria-label="Add" ng-click="addOrderLine()"  ng-if="order.dateApprobation === null">
+            <md-button class=" md-primary md-button" aria-label="Add" ng-click="addOrderLine()"
+                ng-if="order.dateApprobation === null">
                 <md-icon>add</md-icon>
-
                 <md-tooltip md-direction="top">
                     <span translate>{{"pharmacy.order.addALine" | translate}}</span>
                 </md-tooltip> {{"pharmacy.order.addALine" | translate}}
             </md-button>
-            <strong>Total: {{order.amount}}</strong>
+            <strong><span translate>Total</span><span translate>:</span> {{order.amount}}</strong>
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column" ng-if="order.id !== undefined && !loading">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveOrder()" ng-if="order.dateApprobation === null">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveOrder()"
+            ng-if="order.dateApprobation === null">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>{{"pharmacy.order.save" | translate}}</span>
@@ -118,5 +123,14 @@
                 <span translate>{{"pharmacy.order.saveAndEnterDetails" | translate}}</span>
             </md-tooltip> {{"pharmacy.order.saveAndEnterDetails" | translate}}
         </md-button>
+        <a href="index.html#!/orders">
+            <md-button class="md-raised" aria-label="Add">
+                <md-icon>close</md-icon>
+                <md-tooltip md-direction="top">
+                    <span translate>{{"pharmacy.order.cancel" | translate}}</span>
+                </md-tooltip>
+                {{"pharmacy.order.cancel" | translate}}
+            </md-button>
+        </a>
     </div>
 </div>

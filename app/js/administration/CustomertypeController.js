@@ -2,6 +2,7 @@ angular.module('CustomertypeController', []).controller('CustomertypeController'
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des type customers";
     $scope.resource = "savicspharmacy";
+    $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Customertype": "customer type", "New": "customer type" };
     var vm = this;
@@ -82,10 +83,15 @@ angular.module('CustomertypeController', []).controller('CustomertypeController'
 
     $scope.getAllCustomertype = function () {
         $scope.customertypes = [];
+        $scope.loading = true;
         openmrsRest.getFull($scope.resource + "/customerType").then(function (response) {
+            $scope.loading = false;
             if (response.results.length >= 1) {
                 $scope.customertypes = response.results;
             }
+        }, function (e) {
+            $scope.loading = false;
+            showToast("An unexpected error has occured.", "error");
         })
     }
 
@@ -155,10 +161,4 @@ angular.module('CustomertypeController', []).controller('CustomertypeController'
                 $log.log('Toast failed or was forced to close early by another toast.');
             });
     }
-
-    $scope.search = function (row) {
-        return (angular.lowercase(row.name).indexOf($scope.searchAll || '') !== -1 || angular.lowercase(row.code).indexOf($scope.searchAll || '') !== -1);
-    };
-
-
 }]);

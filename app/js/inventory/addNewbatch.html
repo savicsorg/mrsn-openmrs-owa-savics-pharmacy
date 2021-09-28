@@ -21,21 +21,18 @@
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Qty</label>
+                    <label translate>Virtual Quantity</label>
                     <input class="form-control" type="number" ng-model="vm.batch.itemVirtualstock">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Date</label>
-                    <md-datepicker ng-model="vm.batch.itemExpiryDate" md-placeholder="Enter date"
-                        input-aria-describedby="datepicker-description" input-aria-labelledby="datepicker-header"
-                        md-mode="day" md-hide-icons="calendar" md-current-view="month">
-                    </md-datepicker>
+                    <label translate>Expiration Date</label>
+                    <input type="date" ng-model="vm.batch.itemExpiryDate">
                 </md-input-container>
             </div>
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column">
-        <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
+        <span id="loading_submit" style="visibility: hidden;"><span translate>Please wait...</span></span>
     </div>
     <div layout="row" layout-xs="column">
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="batch()">
@@ -43,12 +40,12 @@
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
             </md-tooltip>
-            Save
+            <span translate>Save</span>
         </md-button>
         <a href="index.html#!/viewdetail/1">
             <md-button class="md-raised" aria-label="Add">
                 <md-icon>close</md-icon>
-                Cancel
+                <span translate>Cancel</span>
             </md-button>
         </a>
     </div>

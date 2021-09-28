@@ -2,6 +2,7 @@ angular.module('CustomersController', ['ngMaterial', 'md.data.table']).controlle
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des customers";
     $scope.resource = "savicspharmacy";
+    $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Customers": "customers" };
 
@@ -12,12 +13,17 @@ angular.module('CustomersController', ['ngMaterial', 'md.data.table']).controlle
     var msg = "";
 
     $scope.getAllCustomer = function () {
+        $scope.loading = true;
         $scope.customers = [];
         openmrsRest.getFull($scope.resource + "/customer").then(function (response) {
+            $scope.loading = false;
             if (response.results.length >= 1) {
                 $scope.customers = response.results;
             }
-        })
+        }, function (e) {
+            $scope.loading = false;
+            showToast("An unexpected error has occured.", "error");
+        });
     }
 
     $scope.getAllCustomer();
@@ -86,9 +92,4 @@ angular.module('CustomersController', ['ngMaterial', 'md.data.table']).controlle
                 $log.log('Toast failed or was forced to close early by another toast.');
             });
     }
-
-    $scope.search = function (row) {
-        return (angular.lowercase(row.name).indexOf($scope.searchAll || '') !== -1 || angular.lowercase(row.code).indexOf($scope.searchAll || '') !== -1);
-    };
-
 }])
