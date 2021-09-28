@@ -2,7 +2,9 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         $scope.resource = "savicspharmacy";
         $rootScope.links = {"Pharmacy management module": "", "Dispense": "dispense"};
         $scope.sending = {customer: {}, person: {}, sendingAmount: 0};
-        $scope.dispenseMode = 1;
+        $scope.dispenseModeuuid = "b54a1ddd-d25b-492e-98e9-5f1de0520e1a";
+        $scope.dispenseMode = undefined;
+        $scope.dispenseModes = [];
         $scope.lines = [];
         $scope.loading = false;
         $scope.loadingStack = 0;
@@ -40,7 +42,10 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
         $scope.searchCustomers = function (searchText) {
             return openmrsRest.getFull($scope.resource + "/customer?name=" + searchText).then(function (response) {
-                return response.results;
+                console.log("response.results");
+                console.log(response.results);
+                console.log($scope.dispenseMode);
+                return response.results.filter(function(item) { return item.customerType.id == $scope.dispenseMode; });
             }, function (e) {
                 return [];
             });
@@ -64,6 +69,17 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 return [];
             });
         };
+
+        $scope.getCustomerTypes = function () {
+            return openmrsRest.getFull($scope.resource + "/customerType").then(function (response) {
+                $scope.dispenseModes = response.results;
+                
+            }, function (e) {
+                $scope.dispenseModes = [];
+            });
+        };
+        
+        $scope.getCustomerTypes();
 
         $scope.searchItems = function (searchText) {
             return openmrsRest.getFull($scope.resource + "/item?name=" + searchText).then(function (response) {
@@ -102,49 +118,55 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
         $scope.selectedPatientChange = function (item) {
             $scope.sending.person = item;
-             $scope.sending.customer = null;
+            $scope.sending.customer = null;
         };
 
         $scope.selectedItemChange = function (item, index) {
-            if (item){
+            if (item) {
                 $scope.lines[index].item = item;
                 $scope.lines[index].itemId = item.id;
                 $scope.updateAmount();
                 $scope.lines[index].itemsLines = $scope.searchItemsLines(item, index);
-            }else{
+            } else {
                 $scope.lines[index].item = null;
                 $scope.lines[index].itemId = null;
                 $scope.updateAmount();
                 $scope.lines[index].itemsLines = []
             }
         };
-        
 
-        $scope.dispenseModeChange = function () {
-            console.log($scope.dispenseMode)
-            $scope.sending.person = null;
-            $scope.sending.customer = null;
-            $scope.selectedCustomer = null;
-            $scope.selectedPatient = null;
-            $scope.customerSearchText = null;
+
+        $scope.dispenseModeChange = function (dispenseMode) {
+            $scope.sending.person = undefined;
+            $scope.sending.customer = undefined;
+            $scope.selectedCustomer = undefined;
+            $scope.selectedPatient = undefined;
+            $scope.customerSearchText = undefined;
+            console.log($scope.dispenseModes)
+            var customerType = $scope.dispenseModes.filter(function(item) { return item.id == dispenseMode; })[0];
+            console.log(customerType)
+            $scope.dispenseMode = customerType.id;
+            $scope.dispenseModeuuid = customerType.uuid;
         };
 
         $scope.selectedItemLineChange = function (batch, index) {
-            batch = JSON.parse(batch);
+//            console.log(batch)
+//            batch = JSON.parse(batch);
             $scope.lines[index].sendingItemBatch = batch;
             $scope.lines[index].sendingDetailsValue = $scope.lines[index].item.sellPrice * $scope.lines[index].sendingDetailsQuantity;
         };
 
         $scope.getData = function () {
             $scope.loading = true;
-            if ($stateParams.uuid && $stateParams.uuid != "new"){
+            if ($stateParams.uuid && $stateParams.uuid != "new") {
                 openmrsRest.getFull($scope.resource + "/sending/" + $stateParams.uuid).then(function (response) {
                     $scope.sending = response;
                     $scope.sending.date = new Date($scope.sending.date);
-                    $scope.dispenseMode = ($scope.sending.customer != null)?2:1;
+                    $scope.dispenseMode = $scope.sending.customerType.id ;
+                    $scope.dispenseModeuuid = $scope.sending.customerType.uuid ;
                     $scope.selectedCustomer = $scope.sending.customer;
                     $scope.selectedPatient = $scope.sending.person;
-                    $scope.customerSearchText = ($scope.sending.customer != null)?$scope.sending.customer.name : $scope.sending.person.display;
+                    $scope.customerSearchText = ($scope.sending.customer != null) ? $scope.sending.customer.name : $scope.sending.person.display;
                     openmrsRest.getFull($scope.resource + "/sendingDetail?sendingId=" + $scope.sending.id).then(function (response) {
                         $scope.lines = response.results;
                         for (var i = 0; i < $scope.lines.length; i++) {
@@ -160,7 +182,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                     $scope.loading = false;
                     toastr.error('An unexpected error has occured.', 'Error');
                 });
-            }else{
+            } else {
                 $scope.loading = false;
             }
         }
@@ -185,6 +207,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
             query.person = ($scope.sending.person) ? $scope.sending.person.uuid : null;
             query.date = new Date($scope.sending.date);
             query.sendingDetails = [];
+            query.customerType = $scope.dispenseMode;
 
             if ($scope.lines && $scope.lines.length > 0) {
                 for (var l in $scope.lines) {
@@ -198,7 +221,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                     query.sendingDetails.push(myLine);
                 }
             }
-            
+            console.log(query);
             if ($scope.sending && $scope.sending.uuid) {    //Edit
                 openmrsRest.update($scope.resource + "/sending", query).then(function (response) {
                     response.date = new Date(response.date);
@@ -280,5 +303,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 uuid: data.uuid
             });
         }
+
+
 
     }]);
