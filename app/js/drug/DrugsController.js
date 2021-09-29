@@ -88,7 +88,16 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
         }).catch(function (e) {
             type = "error";
             msg = e.data.error.message;
-            showToast(msg, type);
+            
+            $mdDialog.show(
+                    $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('body')))
+                    .title('Database constraint violation')
+                    .clickOutsideToClose(true)
+                    .textContent('You cannot delete a drug that has existing lots.')
+                    .ok('Ok')
+            );
+            //showToast(msg, type);
         });
     }
 
