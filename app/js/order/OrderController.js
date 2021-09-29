@@ -52,6 +52,14 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
         $state.go('home.order', { order: data });
     }
 
+    $scope.openView = function (data) {
+        $state.go('home.orderview', {
+            id: data.id,
+            supplier: data.supplier,
+            name: data.name
+        });
+    }
+
     $scope.receive = function (data) {
         $state.go('home.reception', { order: data });
     }

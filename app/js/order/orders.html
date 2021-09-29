@@ -52,6 +52,11 @@
                             <td>{{data.dateApprobation | date: 'dd/MM/yyyy'}}</td>
                             <td>{{data.amount}}</td>
                             <td>
+                                <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
+                                ng-click="openView(data)">
+                                    <md-icon class="material-icons" role="img" aria-hidden="true">visibility</md-icon>
+                                    <md-tooltip md-direction="top"><span translate>View</span></md-tooltip>
+                                </button>
                                 <md-button class="md-fab md-mini md-primary md-button" aria-label="add"
                                     ng-click="view(data)" ng-if="!data.dateApprobation">
                                     <md-icon>edit</md-icon>
