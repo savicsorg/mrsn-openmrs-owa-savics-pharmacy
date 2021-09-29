@@ -1,0 +1,59 @@
+<div id="content" class="container-fluid" ng-controller="OrderViewController as vm">
+    <a href="index.html#!/orders">
+        <md-button class="md-raised">
+            <md-icon>arrow_back</md-icon> <span translate>Back</span>
+        </md-button>
+    </a>
+
+    <md-card>
+        <md-card-content>
+            <md-card-title style="background: #0746179c;color: #fff;font-size: 28px;border-radius: 5px;padding:4px">
+                <span translate>General Information</span>
+            </md-card-title>
+            <div layout="row" layout-xs="column">
+                <div flex-gt-sm class="opblock-summary">
+                    <md-card-title-text>
+                        <span class="md-headline">N°: CMD#{{vm.order.id}}</span>
+                    </md-card-title-text>
+                </div>
+                <div flex-gt-sm class="opblock-summary">
+                    <md-card-title-text>
+                        <span class="md-headline"><span translate>Name</span><span translate>:</span> {{vm.order.name}}</span>
+                    </md-card-title-text>
+                </div>
+                <div flex-gt-sm class="opblock-summary">
+                    <md-card-title-text>
+                        <span class="md-headline"><span translate>Supplier</span><span translate>:</span> {{vm.order.supplier.name}}</span>
+                    </md-card-title-text>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+    <md-card>
+        <md-card-content>
+            <md-card-title style="background: #0746179c;color: #fff;font-size: 28px;border-radius: 5px;padding:4px">
+                <span translate>List of Drugs</span>
+            </md-card-title>
+            <div layout="row" layout-xs="column" ng-repeat="line in vm.order.lines">
+                <div flex-gt-sm class="opblock-summary">
+                    <md-card-title-text>
+                        <span class="md-headline"><span translate>Name</span><span translate>:</span> {{line.item.name}}</span>
+                        <span class="md-subhead description"></span>
+                    </md-card-title-text>
+                </div>
+                <div flex-gt-sm class="opblock-summary">
+                    <md-card-title-text>
+                        <span class="md-headline"><span translate>Quantity</span><span translate>:</span> {{line.orderLineQuantity}}</span>
+                        <span class="md-subhead description"></span>
+                    </md-card-title-text>
+                </div>
+                <div flex-gt-sm class="opblock-summary">
+                    <md-card-title-text>
+                        <span class="md-headline"><span translate>Amount</span><span translate>:</span> {{line.orderLineAmount}}</span>
+                        <span class="md-subhead description"></span>
+                    </md-card-title-text>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+</div>

@@ -58,6 +58,14 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
         $state.go('home.reception', { order: order, uuid: "0" });
     }
 
+    $scope.openView = function (data) {
+        $state.go('home.orderview', {
+            id: data.id,
+            supplier: data.supplier,
+            name: data.name
+        });
+    }
+
     function loadData() {
         $scope.loading = true;
         openmrsRest.getFull($scope.resource + "/supplier").then(function (response) {

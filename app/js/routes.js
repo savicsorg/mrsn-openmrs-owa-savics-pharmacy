@@ -676,7 +676,31 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home"]
-        // breadcrumbs: ["Home", "inventory"]
+    
+
+    }).state('home.orderview', {
+        url: 'orderview',
+        template: require('./order/orderview.html'),
+        params: {
+            id: undefined,
+            supplier: undefined,
+            name: undefined
+        },
+        controller: 'OrderViewController',
+        resolve: {
+            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure([], function () {
+                    var mod = require('./order/OrderViewController.js');
+                    $ocLazyLoad.load({
+                        name: 'OrderViewController'
+                    });
+                    deferred.resolve(mod.controller);
+                });
+                return deferred.promise;
+            }]
+        },
+        breadcrumbs: ["Home", "Order", "View"]
     }).state('home.administration', {
         url: 'administration',
         template: require('./administration/main.html'),
