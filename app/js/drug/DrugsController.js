@@ -94,7 +94,7 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
                     .parent(angular.element(document.querySelector('body')))
                     .title('Database constraint violation')
                     .clickOutsideToClose(true)
-                    .textContent('You cannot delete a drug that has existing lots.')
+                    .textContent('You cannot delete a drug that has existing batches.')
                     .ok('Ok')
             );
             //showToast(msg, type);
