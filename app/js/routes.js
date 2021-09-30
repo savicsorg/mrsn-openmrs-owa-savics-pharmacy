@@ -717,7 +717,8 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
     $rootScope.changeLanguage = function (langKey) {
         return openmrsTranslate.changeLanguage(langKey);
     };
-
+    
+    $rootScope.changeLanguage('fr');
 
     //$state.go('home.dashboard.main');
     $transitions.onStart({}, function (trans) {

@@ -1,4 +1,4 @@
-angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('DrugsController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog) {
+angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('DrugsController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog, $translate) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des drugs";
     $scope.resource = "savicspharmacy";
@@ -92,9 +92,9 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
             $mdDialog.show(
                     $mdDialog.alert()
                     .parent(angular.element(document.querySelector('body')))
-                    .title('Database constraint violation')
+                    .title($translate.instant('Database constraint violation'))
                     .clickOutsideToClose(true)
-                    .textContent('You cannot delete a drug that has existing batches.')
+                    .textContent($scope.pageTitle = $translate.instant('You cannot delete a drug that has existing batches.'))
                     .ok('Ok')
             );
             //showToast(msg, type);
