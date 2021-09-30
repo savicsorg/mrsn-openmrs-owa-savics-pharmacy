@@ -1,7 +1,7 @@
 <div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">
-              <md-icon>add_shopping_cart</md-icon> {{"pharmacy.reception.editTitle" | translate}} 
+              <md-icon>add_shopping_cart</md-icon> <span translate>Reception of drugs</span>
         </h1>
         <a href="index.html#!/receptions">
             <md-button class="md-raised">
@@ -33,7 +33,7 @@
         </md-card-content>
     </md-card>
     <md-card ng-if="reception.id !== undefined" ng-show="!loading">
-        <md-card-title translate> {{"pharmacy.item.listOfItemsReceived" | translate}}</md-card-title>
+        <md-card-title translate> List of items received</md-card-title>
         <md-card-content>           
             <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
                 <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in searchItems(searchText)" 

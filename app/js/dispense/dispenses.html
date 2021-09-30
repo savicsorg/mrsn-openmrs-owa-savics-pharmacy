@@ -7,7 +7,7 @@
                 <md-tooltip md-direction="top">
                     <span translate>{{"pharmacy.order.placeAnOrder" | translate}}</span>
                 </md-tooltip>
-                {{"pharmacy.order.placeAnOrder" | translate}}
+                <span translate>Place an order</span>
             </md-button>
         </a>       
     </div>   
@@ -33,7 +33,7 @@
                             <th ><span translate>{{"pharmacy.reception.date" | translate}}</span></th>
                             <th ><span translate>{{"pharmacy.order.approvedOn" | translate}}</span></th>
                             <th ><span translate>{{"pharmacy.order.amount" | translate}}</span></th>
-                            <th><span translate>{{"pharmacy.actions" | translate}}</span></th>
+                            <th><span translate>Actions</span></th>
                         </tr>
                     </thead>
                     <tbody md-body>
@@ -55,7 +55,7 @@
                                     ng-click="receive(data)" >
                                     <md-icon>check_circle</md-icon>
                                     <md-tooltip md-direction="top">
-                                        <span translate>{{"pharmacy.order.receive" | translate}}</span>
+                                        <span translate>Receive</span>
                                     </md-tooltip>
                                 </md-button>
                                 <md-button class="md-fab md-mini md-primary md-button" aria-label="add" ng-if="data.dateApprobation === null"
