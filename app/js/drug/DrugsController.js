@@ -104,8 +104,8 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
 
     $scope.showConfirm = function (ev, obj) {
         var confirm = $mdDialog.confirm()
-            .title('Would you like to delete your data?')
-            .textContent('If you choose `Yes` this record will be deleted and you will not be able to recover it')
+            .title($translate.instant('Would you like to delete your data?'))
+            .textContent($translate.instant('If you choose `Yes` this record will be deleted and you will not be able to recover it'))
             .ariaLabel('Lucky day')
             .targetEvent(ev)
             .ok('Yes')

@@ -236,6 +236,9 @@
   "second": "second",
   "seconds": "secondes",
   "supplier code": "code fournisseur",
-  "unknown": "non-connue"
+  "unknown": "non-connue",
+  "You cannot delete a drug that has existing batches.": "Vous ne pouvez pas supprimer un médicament qui a des lots existants.",
+  "Would you like to delete your data?":"Voulez-vous supprimer vos données ?",
+  "If you choose `Yes` this record will be deleted and you will not be able to recover it": "Si vous choisissez 'Oui', cet enregistrement sera supprimé et vous ne pourrez pas le récupérer."
 }
 
