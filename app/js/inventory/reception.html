@@ -55,7 +55,7 @@
                     <label translate>{{"pharmacy.order.quantity" | translate}}</label>
                     <input class="form-control" type="number" ng-model="l.quantityReceived" >
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="21">
+                <md-input-container class="md-block" flex-gt-sm flex="15">
                     <label translate>{{"pharmacy.item.batchNumber" | translate}}</label>
                     <input class="form-control" type="text" ng-model="l.itemBatch">
                 </md-input-container>
@@ -71,7 +71,7 @@
                         </md-option>
                     </md-select>
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="9">
+                <md-input-container class="md-block" flex-gt-sm flex="15">
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
                         ng-click="deteleReceptionDetail(l, $index)">
                         <md-icon>remove</md-icon>
@@ -90,18 +90,18 @@
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveReception()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
-                <span translate>{{"pharmacy.order.save" | translate}}</span>
+                <span translate>Save</span>
             </md-tooltip>
-            {{"pharmacy.order.save" | translate}}
+            Save
         </md-button>
     </div>
     <div layout="row" layout-xs="column" ng-if="reception.id === undefined && !loading">
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveReception()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
-                <span translate>{{"pharmacy.order.saveAndEnterDetails" | translate}}</span>
+                <span translate>Save and enter details</span>
             </md-tooltip>
-            {{"pharmacy.order.saveAndEnterDetails" | translate}}
+            Save and enter details
         </md-button>
     </div>
 </div>

@@ -102,10 +102,25 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
         $scope.saveReception = function () {
             $scope.loading = true;
             var query = JSON.parse(JSON.stringify($scope.reception));
-            if (!(query.pharmacyOrder && query.pharmacyOrder.uuid))
+            if (!(query.pharmacyOrder && query.pharmacyOrder.id > 0))
                 query.pharmacyOrder = undefined; //delete it from payload
             else
                 query.pharmacyOrder = query.pharmacyOrder.id;
+            query.date = new Date(query.date);
+            query.receptionDetails = [];
+            if ($scope.lines && $scope.lines.length > 0) {
+                for (var l in $scope.lines) {
+                    var myLine = {
+                        "item": $scope.lines[l].item.id,
+                        "reception": $scope.reception.id,
+                        "quantityReceived": $scope.lines[l].quantityReceived,
+                        "itemBatch": $scope.lines[l].itemBatch,
+                        "itemExpiryDate": new Date($scope.lines[l].itemExpiryDate),
+                        "itemLineLocation": $scope.lines[l].itemLineLocation
+                    }
+                    query.receptionDetails.push(myLine);
+                }
+            }
             
             if (query.reception && query.uuid) {    //Edit
                 openmrsRest.update($scope.resource + "/reception", query).then(function (response) {

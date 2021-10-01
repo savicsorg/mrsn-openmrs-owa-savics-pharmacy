@@ -46,7 +46,12 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
 
     $scope.selectedItemChange = function (item,index) {
         $scope.lines[index].item = item;
-        console.log($scope.lines);
+        $scope.lines[index].orderLineAmount = item.sellPrice * $scope.lines[index].orderLineQuantity;
+    };
+
+    $scope.lineQuantityChange = function (index) {        
+        $scope.lines[index].orderLineAmount = $scope.lines[index].item.sellPrice * $scope.lines[index].orderLineQuantity;
+        $scope.updateOrderAmount();
     };
 
     $scope.view = function(data){
@@ -54,7 +59,6 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
     }
 
     $scope.receive = function(order){
-        console.log({ order: order, uuid: "0" });
         $state.go('home.reception', { order: order, uuid: "0" });
     }
 
@@ -120,7 +124,7 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         .ok('Yes')
         .cancel('Cancel')).then(function () {
             $scope.order.dateApprobation = new Date();
-            $scope.saveOrder();
+            $scope.saveOrder(true);
         }, function () {
             
         });
@@ -131,8 +135,20 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         $scope.loading = true;
         $scope.order.supplier = $scope.order.supplier.id;
         var query = JSON.parse(JSON.stringify($scope.order));
-        if(!approve) // add details
-            query.orderDetails = $scope.lines;
+        if(!approve){ // add details
+            query.orderDetails = [];
+            if ($scope.lines && $scope.lines.length > 0) {
+                for (var l in $scope.lines) {
+                    var myLine = {
+                        "item": $scope.lines[l].item.id,
+                        "pharmacyOrder": $scope.order.id,
+                        "orderLineQuantity": $scope.lines[l].orderLineQuantity,
+                        "orderLineAmount": $scope.lines[l].orderLineAmount
+                    }
+                    query.orderDetails.push(myLine);
+                }
+            }
+        }
         if ($scope.order && $scope.order.uuid) {    //Edit
             openmrsRest.update($scope.resource + "/order", query).then(function (response) {
                 $scope.order = response;
@@ -180,7 +196,7 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         
     }
 
-    $scope.deteleOrderDetail = function (orderDetail, index) {
+    $scope.deleteOrderDetail = function (index) {
         $scope.lines.splice(index,1);
         $scope.updateOrderAmount();  
     }

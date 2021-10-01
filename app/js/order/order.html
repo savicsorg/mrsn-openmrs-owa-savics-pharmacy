@@ -55,23 +55,23 @@
                     </md-not-found>
                 </md-autocomplete>
                 <md-input-container class="md-block" flex-gt-sm flex="45" ng-if="l.uuid  !== null && l.uuid !== undefined">
-                    <label translate>{{"pharmacy.order.drug" | translate}}</label>
+                    <label translate>Drug</label>
                     <input class="form-control" disabled type="text" ng-model="l.item.name" >
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="23">
-                    <label translate>{{"pharmacy.order.quantity" | translate}}</label>
-                    <input class="form-control" type="number" ng-model="l.orderLineQuantity" >
+                <md-input-container class="md-block" flex-gt-sm flex="20">
+                    <label translate>Quantity</label>
+                    <input class="form-control" type="number"  ng-change="lineQuantityChange($index)" ng-model="l.orderLineQuantity" >
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="23">
-                    <label translate>{{"pharmacy.order.price" | translate}}</label>
-                    <input class="form-control" type="number" ng-change="updateOrderAmount()" ng-model="l.orderLineAmount">
+                <md-input-container class="md-block" flex-gt-sm flex="20">
+                    <label translate>Price</label>
+                    <input class="form-control" type="number" disabled ng-change="updateOrderAmount()" ng-model="l.orderLineAmount">
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="9">
+                <md-input-container class="md-block" flex-gt-sm flex="15">
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
-                        ng-click="deteleOrderDetail(l, $index)" ng-if="order.dateApprobation === null">
+                        ng-click="deleteOrderDetail($index)" ng-if="order.dateApprobation === null">
                         <md-icon>remove</md-icon>
                         <md-tooltip md-direction="top">
-                            <span translate>{{"pharmacy.order.remove" | translate}}</span>
+                            <span translate>Remove</span>
                         </md-tooltip>
                     </md-button>
                 </md-input-container>
@@ -79,10 +79,18 @@
             <md-button class=" md-primary md-button" aria-label="Add" ng-click="addOrderLine()"  ng-if="order.dateApprobation === null">
                 <md-icon>add</md-icon>
                 <md-tooltip md-direction="top">
-                    <span translate>{{"pharmacy.order.addALine" | translate}}</span>
+                    <span translate>Add a line</span>
                 </md-tooltip> {{"pharmacy.order.addALine" | translate}}
             </md-button>
-            <strong>Total: {{order.amount}}</strong>
+            <div layout="row" layout-xs="column">
+                <table md-table md-progress="promise">
+                    <thead md-head >
+                        <tr md-row>
+                            <th colspan="8"><span translate>Total:</span> {{order.amount}} </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column" ng-if="order.id !== undefined && !loading">
@@ -97,9 +105,9 @@
             <md-button class="md-raised" aria-label="Add">
                 <md-icon>arrow_back</md-icon>
                 <md-tooltip md-direction="top">
-                    <span translate>{{"pharmacy.back" | translate}}</span>
+                    <span translate>Back</span>
                 </md-tooltip>
-                {{"pharmacy.back | translate}}
+                Back
             </md-button>
         </a>
     </div>
@@ -107,8 +115,8 @@
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveOrder()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
-                <span translate>{{"pharmacy.order.saveAndEnterDetails" | translate}}</span>
-            </md-tooltip> {{"pharmacy.order.saveAndEnterDetails" | translate}}
+                <span translate>Save and enter details</span>
+            </md-tooltip> Save and enter details
         </md-button>
     </div>
 </div>
