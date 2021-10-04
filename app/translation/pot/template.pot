@@ -144,6 +144,38 @@ msgstr ""
 msgid "Quarterly"
 msgstr ""
 
+#: app/js/administration/CustomerController.js:95
+msgid "Toast dismissed."
+msgstr ""
+
+#: app/js/administration/CustomerController.js:97
+msgid "Toast failed or was forced to close early by another toast."
+msgstr ""
+
+#: app/js/administration/CustomerController.js:3
+msgid "Customer management"
+msgstr ""
+
+#: app/js/administration/CustomerController.js:8
+msgid "New customer entry"
+msgstr ""
+
+#: app/js/administration/CustomerController.js:17
+msgid "Edit type entry"
+msgstr ""
+
+#: app/js/administration/CustomerController.js:23
+msgid "Please check if your input are valid ones."
+msgstr ""
+
+#: app/js/administration/CustomerController.js:30
+msgid "Please check if your email is a valid one."
+msgstr ""
+
+#: app/js/administration/CustomerController.js:36
+msgid "Please check if your phone number is a valid one."
+msgstr ""
+
 #: app/js/drug/DrugsController.js:95
 msgid "Database constraint violation"
 msgstr ""
@@ -192,11 +224,11 @@ msgstr ""
 msgid "Please wait..."
 msgstr ""
 
-#: app/js/administration/customer.html:58 app/js/administration/customer.html:60 app/js/administration/customertype.html:23 app/js/administration/customertype.html:25 app/js/administration/location.html:29 app/js/administration/location.html:31 app/js/administration/route.html:31 app/js/administration/route.html:33 app/js/administration/supplier.html:47 app/js/administration/supplier.html:49 app/js/administration/unit.html:35 app/js/administration/unit.html:37 app/js/dispense/dispense.html:116 app/js/dispense/dispense.html:118 app/js/drug/drug.html:92 app/js/drug/drug.html:94 app/js/inventory/addNewbatch.html:41 app/js/inventory/addNewbatch.html:43 app/js/inventory/adjustment.html:49 app/js/inventory/adjustment.html:51 app/js/inventory/reception.html:79 app/js/inventory/reception.html:100 app/js/inventory/reception.html:102 app/js/order/order.html:78 app/js/order/order.html:105 app/js/order/order.html:107 app/js/purchase/purchase.html:132 app/js/purchase/purchase.html:134 app/js/stocktake/stocktake.html:26 app/js/stocktake/stocktake.html:28
+#: app/js/administration/customer.html:58 app/js/administration/customer.html:60 app/js/administration/customertype.html:23 app/js/administration/customertype.html:25 app/js/administration/location.html:29 app/js/administration/location.html:31 app/js/administration/route.html:31 app/js/administration/route.html:33 app/js/administration/supplier.html:47 app/js/administration/supplier.html:49 app/js/administration/unit.html:35 app/js/administration/unit.html:37 app/js/dispense/dispense.html:116 app/js/dispense/dispense.html:118 app/js/drug/drug.html:92 app/js/drug/drug.html:94 app/js/inventory/addNewbatch.html:41 app/js/inventory/addNewbatch.html:43 app/js/inventory/adjustment.html:49 app/js/inventory/adjustment.html:51 app/js/inventory/reception.html:79 app/js/inventory/reception.html:100 app/js/inventory/reception.html:102 app/js/order/order.html:79 app/js/order/order.html:105 app/js/order/order.html:106 app/js/purchase/purchase.html:132 app/js/purchase/purchase.html:134 app/js/stocktake/stocktake.html:26 app/js/stocktake/stocktake.html:28
 msgid "Save"
 msgstr ""
 
-#: app/js/administration/customer.html:65 app/js/administration/customertype.html:30 app/js/administration/location.html:36 app/js/administration/route.html:38 app/js/administration/supplier.html:54 app/js/administration/unit.html:42 app/js/dispense/dispense.html:123 app/js/drug/drug.html:99 app/js/inventory/addNewbatch.html:48 app/js/inventory/adjustment.html:55 app/js/inventory/reception.html:86 app/js/inventory/Transactionview.html:22 app/js/inventory/Transactionview.html:24 app/js/order/order.html:113 app/js/order/order.html:115 app/js/order/order.html:130 app/js/order/order.html:132 app/js/purchase/purchase.html:139 app/js/stocktake/stocktake.html:33
+#: app/js/administration/customer.html:65 app/js/administration/customertype.html:30 app/js/administration/location.html:36 app/js/administration/route.html:38 app/js/administration/supplier.html:54 app/js/administration/unit.html:42 app/js/dispense/dispense.html:123 app/js/drug/drug.html:99 app/js/inventory/addNewbatch.html:48 app/js/inventory/adjustment.html:55 app/js/inventory/reception.html:86 app/js/inventory/Transactionview.html:22 app/js/inventory/Transactionview.html:24 app/js/order/order.html:112 app/js/order/order.html:114 app/js/purchase/purchase.html:139 app/js/stocktake/stocktake.html:33
 msgid "Cancel"
 msgstr ""
 
@@ -308,7 +340,7 @@ msgstr ""
 msgid "Drugs dispense"
 msgstr ""
 
-#: app/js/dispense/dispense.html:72 app/js/inventory/reception.html:51 app/js/order/order.html:61 app/js/purchase/purchase.html:60 app/js/inventory/stocktakes/stocktakes.html:27
+#: app/js/dispense/dispense.html:72 app/js/inventory/reception.html:51 app/js/order/order.html:62 app/js/purchase/purchase.html:60 app/js/inventory/stocktakes/stocktakes.html:27
 msgid "Drug"
 msgstr ""
 
@@ -324,11 +356,11 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: app/js/dispense/dispense.html:39 app/js/dispense/dispense.html:50 app/js/dispense/dispense.html:68 app/js/drug/drug.html:18 app/js/inventory/reception.html:47 app/js/order/order.html:56 app/js/purchase/purchase.html:70
+#: app/js/dispense/dispense.html:39 app/js/dispense/dispense.html:50 app/js/dispense/dispense.html:68 app/js/drug/drug.html:18 app/js/inventory/reception.html:47 app/js/order/order.html:57 app/js/purchase/purchase.html:70
 msgid "No matches found."
 msgstr ""
 
-#: app/js/dispense/dispense.html:57 app/js/order/order.html:44
+#: app/js/dispense/dispense.html:57 app/js/order/order.html:45
 msgid "List of drugs"
 msgstr ""
 
@@ -336,23 +368,23 @@ msgstr ""
 msgid "Batch n°"
 msgstr ""
 
-#: app/js/dispense/dispense.html:85 app/js/dispense/dispensingManagement.html:43 app/js/inventory/adjustment.html:30 app/js/inventory/reception.html:55 app/js/order/order.html:65 app/js/order/orderview.html:46
+#: app/js/dispense/dispense.html:85 app/js/dispense/dispensingManagement.html:43 app/js/inventory/adjustment.html:30 app/js/inventory/reception.html:55 app/js/order/order.html:66 app/js/order/orderview.html:46
 msgid "Quantity"
 msgstr ""
 
-#: app/js/dispense/dispense.html:89 app/js/order/order.html:69 app/js/purchase/purchase.html:52 app/js/purchase/purchase.html:91
+#: app/js/dispense/dispense.html:89 app/js/order/order.html:70 app/js/purchase/purchase.html:52 app/js/purchase/purchase.html:91
 msgid "Price"
 msgstr ""
 
-#: app/js/dispense/dispense.html:99 app/js/inventory/reception.html:92 app/js/order/order.html:94 app/js/order/order.html:95
+#: app/js/dispense/dispense.html:99 app/js/inventory/reception.html:92 app/js/order/order.html:87 app/js/order/order.html:88
 msgid "Add a line"
 msgstr ""
 
-#: app/js/dispense/dispense.html:105 app/js/purchase/purchase.html:115
+#: app/js/dispense/dispense.html:105 app/js/order/order.html:94 app/js/purchase/purchase.html:115
 msgid "Total"
 msgstr ""
 
-#: app/js/dispense/dispense.html:105 app/js/drug/drugview.html:16 app/js/drug/drugview.html:21 app/js/drug/drugview.html:26 app/js/drug/drugview.html:38 app/js/drug/drugview.html:44 app/js/drug/drugview.html:59 app/js/drug/drugview.html:65 app/js/drug/drugview.html:81 app/js/drug/drugview.html:87 app/js/drug/drugview.html:93 app/js/inventory/adjustment.html:5 app/js/inventory/adjustment.html:8 app/js/inventory/Transactionview.html:44 app/js/inventory/Transactionview.html:49 app/js/inventory/Transactionview.html:56 app/js/inventory/Transactionview.html:61 app/js/inventory/Transactionview.html:68 app/js/inventory/Transactionview.html:73 app/js/inventory/Transactionview.html:80 app/js/inventory/Transactionview.html:85 app/js/inventory/Transactionview.html:99 app/js/inventory/Transactionview.html:114 app/js/inventory/viewDetail.html:3 app/js/inventory/viewOnStock.html:43 app/js/order/order.html:97 app/js/order/orderview.html:21 app/js/order/orderview.html:26 app/js/order/orderview.html:40 app/js/order/orderview.html:46 app/js/order/orderview.html:52 app/js/purchase/purchase.html:115
+#: app/js/dispense/dispense.html:105 app/js/drug/drugview.html:16 app/js/drug/drugview.html:21 app/js/drug/drugview.html:26 app/js/drug/drugview.html:38 app/js/drug/drugview.html:44 app/js/drug/drugview.html:59 app/js/drug/drugview.html:65 app/js/drug/drugview.html:81 app/js/drug/drugview.html:87 app/js/drug/drugview.html:93 app/js/inventory/adjustment.html:5 app/js/inventory/adjustment.html:8 app/js/inventory/Transactionview.html:44 app/js/inventory/Transactionview.html:49 app/js/inventory/Transactionview.html:56 app/js/inventory/Transactionview.html:61 app/js/inventory/Transactionview.html:68 app/js/inventory/Transactionview.html:73 app/js/inventory/Transactionview.html:80 app/js/inventory/Transactionview.html:85 app/js/inventory/Transactionview.html:99 app/js/inventory/Transactionview.html:114 app/js/inventory/viewDetail.html:3 app/js/inventory/viewOnStock.html:43 app/js/order/order.html:94 app/js/order/orderview.html:21 app/js/order/orderview.html:26 app/js/order/orderview.html:40 app/js/order/orderview.html:46 app/js/order/orderview.html:52 app/js/purchase/purchase.html:115
 msgid ":"
 msgstr ""
 
@@ -364,11 +396,11 @@ msgstr ""
 msgid "Place an order"
 msgstr ""
 
-#: app/js/dispense/dispenses.html:31 app/js/inventory/reception.html:20 app/js/inventory/receptions.html:30 app/js/order/order.html:23 app/js/order/orders.html:38
+#: app/js/dispense/dispenses.html:31 app/js/inventory/reception.html:20 app/js/inventory/receptions.html:30 app/js/order/order.html:24 app/js/order/orders.html:38
 msgid "Order n°"
 msgstr ""
 
-#: app/js/dispense/dispenses.html:32 app/js/order/order.html:27 app/js/order/orders.html:39 app/js/order/orderview.html:26
+#: app/js/dispense/dispenses.html:32 app/js/order/order.html:28 app/js/order/orders.html:39 app/js/order/orderview.html:26
 msgid "Supplier"
 msgstr ""
 
@@ -388,7 +420,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: app/js/dispense/dispenses.html:65 app/js/inventory/viewDetail.html:66 app/js/order/order.html:85 app/js/order/orders.html:79
+#: app/js/dispense/dispenses.html:65 app/js/inventory/viewDetail.html:66 app/js/order/orders.html:79
 msgid "Remove"
 msgstr ""
 
@@ -536,7 +568,7 @@ msgstr ""
 msgid "Date of expiry"
 msgstr ""
 
-#: app/js/inventory/reception.html:109 app/js/inventory/reception.html:111 app/js/order/order.html:123 app/js/order/order.html:124
+#: app/js/inventory/reception.html:109 app/js/inventory/reception.html:111
 msgid "Save & enter details"
 msgstr ""
 
@@ -676,11 +708,11 @@ msgstr ""
 msgid "Stock details"
 msgstr ""
 
-#: app/js/order/order.html:19
+#: app/js/order/order.html:20
 msgid "Order information"
 msgstr ""
 
-#: app/js/order/order.html:37
+#: app/js/order/order.html:38
 msgid "Label"
 msgstr ""
 
