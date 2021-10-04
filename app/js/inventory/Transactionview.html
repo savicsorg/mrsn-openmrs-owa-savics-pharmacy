@@ -11,17 +11,17 @@
             ng-click="approve()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">check_circle</md-icon>
             <md-tooltip md-direction="top">
-                <span translate>{{approveBtn.text}}</span>
+                <span translate>Approve</span>
             </md-tooltip>
-            {{approveBtn.text}}
+            {{'Approve' | translate}}
         </md-button>
         <md-button class="md-raised md-accent" aria-label="Add" ng-if='transaction.status == "INIT"'
             ng-click="reject()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">cancel</md-icon>
             <md-tooltip md-direction="top">
-                <span translate>{{cancelBtn.text}}</span>
+                <span >{{'Cancel' | translate}}</span>
             </md-tooltip>
-            {{cancelBtn.text}}
+            {{'Cancel' | translate}}
         </md-button>
         <md-button class="md-raised " aria-label="Add" ng-if='transaction.status == "INIT"'
             ng-click="openEditTransaction()">
