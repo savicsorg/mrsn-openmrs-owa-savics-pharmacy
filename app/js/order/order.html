@@ -15,122 +15,105 @@
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
-    <md-card ng-show="!loading">
+    <form ng-submit="saveOrder();">
+        <md-card ng-show="!loading">
         <md-card-title >{{"Order information" | translate}}</md-card-title>
-        <md-card-content>
-            <div layout="row" layout-xs="column" class="flex flex-col">
-                <md-input-container class="md-block" flex-gt-sm flex="50">
+            <md-card-content>
+                <div layout="row" layout-xs="column" class="flex flex-col">
+                    <md-input-container class="md-block" flex-gt-sm flex="50">
                     <label >{{"Order n°" | translate}}</label>
-                    <input class="form-control" disabled type="text" ng-value="'CMD#' + order.id">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="50">
+                        <input class="form-control" disabled type="text" ng-value="'CMD#' + order.id">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="50">
                     <label >{{"Supplier" | translate}}</label>
-                    <md-select ng-model="order.supplier.id">
-                        <md-option ng-repeat="s in suppliers" ng-value="s.id">
-                            {{s.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-            </div>
-            <div layout="row" layout-xs="column" class="flex flex-col">
-                <md-input-container class="md-block" flex-gt-sm flex="100">
+                        <md-select ng-model="order.supplier.id">
+                            <md-option ng-repeat="s in suppliers" ng-value="s.id">
+                                {{s.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-xs="column" class="flex flex-col">
+                    <md-input-container class="md-block" flex-gt-sm flex="100">
                     <label >{{"Label" | translate}}</label>
-                    <input class="form-control" type="text" ng-model="order.name">
-                </md-input-container>
-            </div>
-        </md-card-content>
-    </md-card>
-    <md-card ng-if="order.id !== undefined" ng-show="!loading">
-        <md-card-title > {{"List of drugs" | translate}}</md-card-title>
-        <md-card-content>
-            <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
-                <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText"
-                    md-items="item in searchItems(searchText)" md-item-text="item.name" class="md-block" flex-gt-sm
-                    md-floating-label="Drug" md-clear-button="true" md-no-cache="true"
-                    md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="45"
-                    ng-if="l.uuid === null || l.uuid === undefined">
-                    <md-item-template>
-                        <span md-highlight-text="searchText">{{item.name}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        <span translate>No matches found.</span>
-                    </md-not-found>
-                </md-autocomplete>
-                <md-input-container class="md-block" flex-gt-sm flex="45"
-                    ng-if="l.uuid  !== null && l.uuid !== undefined">
+                        <input class="form-control" type="text" ng-model="order.name">
+                    </md-input-container>
+                </div>
+            </md-card-content>
+        </md-card>
+        <md-card ng-show="!loading">
+            <md-card-title > {{"List of drugs" | translate}}</md-card-title>
+            <md-card-content>
+                <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
+                    <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText"
+                        md-items="item in searchItems(searchText)" md-item-text="item.name" class="md-block" flex-gt-sm
+                        md-floating-label="Drug" md-clear-button="true" md-no-cache="true"
+                        md-selected-item-change="selectedItemChange(item,$index)" flex="50"
+                        ng-if="l.uuid === null || l.uuid === undefined">
+                        <md-item-template>
+                            <span md-highlight-text="searchText">{{item.name}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            <span translate>No matches found.</span>
+                        </md-not-found>
+                    </md-autocomplete>
+                    <md-input-container class="md-block" flex-gt-sm flex="50"
+                        ng-if="l.uuid  !== null && l.uuid !== undefined">
                     <label >{{"Drug" | translate}}</label>
-                    <input class="form-control" disabled type="text" ng-model="l.item.name">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="20">
+                        <input class="form-control" disabled type="text" ng-model="l.item.name">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="20">
                     <label >{{"Quantity" | translate}}</label>
-                    <input class="form-control" type="number" ng-model="l.orderLineQuantity">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="20">
+                        <input class="form-control" type="number" ng-model="l.orderLineQuantity">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="20">
                     <label >{{"Price" | translate}}</label>
-                    <input class="form-control" type="number" ng-change="updateOrderAmount()"
-                        ng-model="l.orderLineAmount">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <md-button class="md-fab md-mini md-primary md-button" aria-label="add"
-                        ng-click="saveOrderDetail(l, $index)" ng-if="order.dateApprobation === null">
-                        <md-icon>save</md-icon>
-                        <md-tooltip md-direction="top">
+                        <input class="form-control" type="number" ng-change="updateOrderAmount()"
+                            ng-model="l.orderLineAmount">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="10">
+                        <md-button class="md-fab md-mini md-danger md-button" aria-label="remove"
+                            ng-click="deteleOrderDetail(l, $index)">
+                            <md-icon>remove</md-icon>
+                            <md-tooltip md-direction="top">
                             <span >{{"Save" | translate}}</span>
-                        </md-tooltip>
-                    </md-button>
-                    <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
-                        ng-click="deteleOrderDetail(l, $index)" ng-if="order.dateApprobation === null">
-                        <md-icon>delete</md-icon>
-                        <md-tooltip md-direction="top">
-                            <span >{{"Remove" | translate}}</span>
-                        </md-tooltip>
-                    </md-button>
-                </md-input-container>
-            </div>
-            <md-button class=" md-primary md-button" aria-label="Add" ng-click="addOrderLine()"
-                ng-if="order.dateApprobation === null">
-                <md-icon>add</md-icon>
+                            </md-tooltip>
+                        </md-button>
+                    </md-input-container>
+                </div>
+                <md-button class="md-primary md-button" ng-click="addOrderLine()">
+                    <md-icon>add</md-icon>
+                    <md-tooltip md-direction="top">
+                        <span >{{"Add a line" | translate}}</span>
+                    </md-tooltip> {{"Add a line" | translate}}
+                </md-button>
+                <div layout="row" layout-xs="column">
+                    <table md-table md-progress="promise">
+                        <thead md-head md-order="query.order">
+                            <tr md-row>
+                                <th colspan="8"><span translate>Total</span><span translate>:</span> {{order.amount}} </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </md-card-content>
+        </md-card>
+        <div layout="row" layout-xs="column" ng-if="order.id === undefined && !loading">
+            <md-button class="md-raised md-primary" aria-label="Save" type="submit">
+                <md-icon>save</md-icon>
                 <md-tooltip md-direction="top">
-                    <span >{{"Add a line" | translate}}</span>
-                </md-tooltip> {{"Add a line" | translate}}
+                    <span translate>Save</span>
+                </md-tooltip> <span translate>Save</span>
             </md-button>
-            <strong><span >Total</span><span translate>:</span> {{order.amount}}</strong>
-        </md-card-content>
-    </md-card>
-    <div layout="row" layout-xs="column" ng-if="order.id !== undefined && !loading">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveOrder()"
-            ng-if="order.dateApprobation === null">
-            <md-icon>save</md-icon>
-            <md-tooltip md-direction="top">
-                <span >{{"Save" | translate}}</span>
-            </md-tooltip>
-            {{"Save" | translate}}
-        </md-button>
-        <a href="index.html#!/orders">
-            <md-button class="md-raised" aria-label="Add">
-                <md-icon>close</md-icon>
-                <md-tooltip md-direction="top">
+            <a href="index.html#!/orders">
+                <md-button class="md-raised" aria-label="Cancel">
+                    <md-icon>close</md-icon>
+                    <md-tooltip md-direction="top">
                     <span >{{"Cancel" | translate}}</span>
-                </md-tooltip>
+                    </md-tooltip>
                 {{"Cancel" | translate}}
-            </md-button>
-        </a>
-    </div>
-    <div layout="row" layout-xs="column" ng-if="order.id === undefined && !loading">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveOrder()">
-            <md-icon>save</md-icon>
-            <md-tooltip md-direction="top">
-                <span >{{"Save & enter details" | translate}}</span>
-            </md-tooltip> {{"Save & enter details" | translate}}
-        </md-button>
-        <a href="index.html#!/orders">
-            <md-button class="md-raised" aria-label="Add">
-                <md-icon>close</md-icon>
-                <md-tooltip md-direction="top">
-                    <span >{{"Cancel" | translate}}</span>
-                </md-tooltip>
-                {{"Cancel" | translate}}
-            </md-button>
-        </a>
-    </div>
+                </md-button>
+            </a>
+        </div>
+    </form>
 </div>

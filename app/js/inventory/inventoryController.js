@@ -60,7 +60,7 @@ angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
     $scope.search = function (item) {
         if($scope.searchAll == "" || ($scope.searchAll.length > 0 && item.name.toLowerCase().indexOf($scope.searchAll.toLowerCase()) > -1)){
             if ($scope.stockAtRisOnly == true) {
-                return item.numberOfExpiredLots > 0;
+                return item.numberOfExpiredLots > 0 || item.soh < item.stockMin;
             } else {
                 return true;
             }
