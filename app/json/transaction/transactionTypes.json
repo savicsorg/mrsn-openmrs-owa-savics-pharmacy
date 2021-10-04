@@ -33,5 +33,12 @@
         "en": "Drug dispense",
         "fr": "Drug dispense",
         "type": "Negative"
+    },
+    {
+        "id": 6,
+        "code": "rece",
+        "en": "Reception",
+        "fr": "Reception",
+        "type": "Positive"
     }
 ]

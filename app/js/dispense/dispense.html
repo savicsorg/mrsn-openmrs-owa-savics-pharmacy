@@ -27,9 +27,10 @@
                 <div layout="row"  layout-xs="column" class="flex flex-col">                
                     <md-input-container class="md-block"  flex-gt-sm flex="20">
                         <label translate>Type of Dispensation</label>
-                        <md-select ng-model="dispenseMode" ng-change="dispenseModeChange()">
-                            <md-option ng-value="1">Internal</md-option>
-                            <md-option ng-value="2">External</md-option>
+                        <md-select ng-model="dispenseMode" ng-change="dispenseModeChange(dispenseMode)" required>
+                            <md-option ng-repeat="type in dispenseModes" value="{{type.id}}"> 
+                                {{ type.name}}
+                            </md-option>
                         </md-select>
                     </md-input-container>
                     <md-input-container class="md-block"  flex-gt-sm flex="20" >
@@ -39,7 +40,7 @@
                     <md-autocomplete md-selected-item="selectedCustomer" md-search-text="customerSearchText" md-items="customer in searchCustomers(customerSearchText)" 
                                      md-item-text="customer.name" class="md-block" flex-gt-sm md-floating-label="Customer" md-clear-button="true" 
                                      md-no-cache="true" md-selected-item-change="selectedCustomerChange(customer,$index)" flex="60" 
-                                     ng-if="dispenseMode == 2" required>
+                                     ng-if="dispenseMode == 2 || dispenseMode == 3" required>
                         <md-item-template>
                             <span md-highlight-text="customerSearchText">{{customer.name}}</span>
                         </md-item-template>
@@ -103,7 +104,7 @@
                         </md-button>
                     </md-input-container>
                 </div>
-                <md-button class="md-raised md-primary" ng-click="addSendingLine()">
+                <md-button class="md-raised md-primary" ng-click="addSendingLine()" ng-if="!sending.validationdate">
                     <md-icon>add</md-icon> Add a line
                 </md-button>
                 <div layout="row" layout-xs="column">
@@ -117,7 +118,7 @@
                 </div>
             </md-card-content>
         </md-card>
-        <div layout="row" layout-xs="column"  ng-if="!loading">
+        <div layout="row" layout-xs="column"  ng-if="!loading && !sending.validationdate">
             <md-button class="md-raised md-primary" type="submit">
                 <md-icon>save</md-icon>
                 <md-tooltip md-direction="top">
