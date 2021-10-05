@@ -18,7 +18,7 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
             return;
         }
         vm.batch.item = parseInt($stateParams.item_id);
-        vm.batch.itemSoh = 0;
+        vm.batch.itemSoh = vm.batch.itemVirtualstock;
         vm.batch.transactionType = 3;
         vm.batch.transactionTypeId = 3;
         vm.batch.transactionTypeCode = "bcreate";
