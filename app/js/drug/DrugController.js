@@ -1,4 +1,4 @@
-angular.module('DrugController', []).controller('DrugController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog',function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog) {
+angular.module('DrugController', []).controller('DrugController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog, $translate) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des drugs";
     $scope.resource = "savicspharmacy";
@@ -6,7 +6,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
     $rootScope.links = { "Pharmacy management module": "", "Drugs": "drugs", "New": "drug" };
 
     var vm = this;
-    vm.appTitle = "New Drug entry";
+    vm.appTitle = $translate.instant("New Drug entry");
 
     var type = "";
     var msg = "";
@@ -20,7 +20,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
         $scope.drug_route_id = vm.drug.route.id;
         $scope.item = { display: vm.drug.name, uuid: vm.drug.uuid };
         $scope.selectedItem = vm.drug.name;
-        vm.appTitle = "Edit type entry";
+        vm.appTitle = $translate.instant("Edit type entry");
     }
 
     $scope.drug = function () {
@@ -56,7 +56,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
                             $mdDialog.alert()
                             .parent(angular.element(document.querySelector('body')))
                             .clickOutsideToClose(true)
-                            .textContent('Attention, the drug code you entered is already used. Please use another one.')
+                            .textContent($translate.instant('Attention, the drug code you entered is already used. Please use another one.'))
                             .ok('Ok'));
                 }
             })
@@ -72,7 +72,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
         }
         if (response && response.uuid) {
             type = "success";
-            msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
+            msg = $stateParams.uuid ? response.name + $translate.instant(" is Well edited.") : response.name + $translate.instant(" is Well saved.");
             vm.drug.name = "";
             vm.drug.code = "";
             vm.drug.address = "";
@@ -86,7 +86,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
             vm.drug.stockMax = "";
         } else {
             type = "error";
-            msg = "we can't save your data.";
+            msg = $translate.instant("we can't save your data.");
         }
         showToast(msg, type);
     }
@@ -102,9 +102,9 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
 

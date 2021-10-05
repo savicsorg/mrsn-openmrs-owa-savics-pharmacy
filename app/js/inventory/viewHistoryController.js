@@ -1,6 +1,6 @@
-angular.module('viewHistoryController', []).controller('viewHistoryController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$location', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $location) {
+angular.module('viewHistoryController', []).controller('viewHistoryController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$location', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $location, $translate) {
     $scope.rootscope = $rootScope;
-    $scope.appTitle = "View history";
+    $scope.appTitle = $translate.instant("View history");
     $scope.resource = "savicspharmacy";
     $scope.item_uuid = $stateParams.uuid;
     var dictionary = require("../utils/dictionary");
@@ -8,7 +8,7 @@ angular.module('viewHistoryController', []).controller('viewHistoryController', 
     $rootScope.links = { "Pharmacy management module": "", "Viewhistory": "View history" };
 
     var vm = this;
-    vm.appTitle = "View history";
+    vm.appTitle = $translate.instant("View history");
 
     $scope.transactions = [];
     openmrsRest.get($scope.resource + "/item/" + $scope.item_uuid).then(function (response) {

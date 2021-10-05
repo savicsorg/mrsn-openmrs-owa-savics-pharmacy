@@ -1,4 +1,4 @@
-angular.module('CustomertypeController', []).controller('CustomertypeController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog) {
+angular.module('CustomertypeController', []).controller('CustomertypeController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog, $translate) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des type customers";
     $scope.resource = "savicspharmacy";
@@ -6,7 +6,7 @@ angular.module('CustomertypeController', []).controller('CustomertypeController'
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Customertype": "customer type", "New": "customer type" };
     var vm = this;
-    vm.appTitle = "New type entry";
+    vm.appTitle = $translate.instant("New type entry");
 
     var type = "";
     var msg = "";
@@ -14,14 +14,14 @@ angular.module('CustomertypeController', []).controller('CustomertypeController'
     if ($stateParams.uuid) {
         //we are in edit mode
         vm.customertype = $stateParams;
-        vm.appTitle = "Edit type entry";
+        vm.appTitle = $translate.instant("Edit type entry");
     }
 
     $scope.customertype = function () {
 
         if (!vm.customertype || !vm.customertype.name) {
             type = "error";
-            msg = "Please check if your input are valid ones."
+            msg = $translate.instant("Please check if your input are valid ones.")
             showToast(msg, type);
             return;
         }
@@ -54,12 +54,12 @@ angular.module('CustomertypeController', []).controller('CustomertypeController'
         }
         if (response.uuid) {
             type = "success";
-            msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
+            msg = $stateParams.uuid ? response.name + $translate.instant(" is Well edited.") : response.name + $translate.instant(" is Well saved.");
             vm.customertype.name = "";
             $scope.getAllCustomertype();
         } else {
             type = "error";
-            msg = "we can't save your data.";
+            msg = $translate.instant("we can't save your data.");
         }
         showToast(msg, type);
     }
@@ -75,9 +75,9 @@ angular.module('CustomertypeController', []).controller('CustomertypeController'
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
 
@@ -91,7 +91,7 @@ angular.module('CustomertypeController', []).controller('CustomertypeController'
             }
         }, function (e) {
             $scope.loading = false;
-            showToast("An unexpected error has occured.", "error");
+            showToast($translate.instant("An unexpected error has occured."), "error");
         })
     }
 
@@ -135,12 +135,12 @@ angular.module('CustomertypeController', []).controller('CustomertypeController'
 
     $scope.showConfirm = function (ev, obj) {
         var confirm = $mdDialog.confirm()
-            .title('Would you like to delete your data?')
-            .textContent('If you choose `Yes` this record will be deleted and you will not be able to recover it')
-            .ariaLabel('Lucky day')
+            .title($translate.instant('Would you like to delete your data?'))
+            .textContent($translate.instant('If you choose `Yes` this record will be deleted and you will not be able to recover it'))
+            .ariaLabel($translate.instant('Lucky day'))
             .targetEvent(ev)
-            .ok('Yes')
-            .cancel('Cancel');
+            .ok($translate.instant('Yes'))
+            .cancel($translate.instant('Cancel'));
         $mdDialog.show(confirm).then(function () {
             $scope.delete(obj);
         }, function () {
@@ -156,9 +156,9 @@ angular.module('CustomertypeController', []).controller('CustomertypeController'
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
 }]);

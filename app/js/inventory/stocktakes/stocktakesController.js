@@ -1,4 +1,4 @@
-angular.module('stocktakesController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('stocktakesController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'toastr', '$mdDialog', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, toastr, $mdDialog) {
+angular.module('stocktakesController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('stocktakesController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'toastr', '$mdDialog', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, toastr, $mdDialog, $translate) {
     $scope.resource = "savicspharmacy";
     $rootScope.links = { "Pharmacy management module": "", "Inventory": "index.html#!/inventory" };
     $scope.loading = false;
@@ -16,7 +16,7 @@ angular.module('stocktakesController', ['ngMaterial', 'ngAnimate', 'toastr', 'md
             $scope.loading = false;
         }, function (e) {
             $scope.loading = false;
-            toastr.error('An unexpected error has occured.', 'Error');
+            toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
         });
     };
 
@@ -42,9 +42,9 @@ angular.module('stocktakesController', ['ngMaterial', 'ngAnimate', 'toastr', 'md
     $scope.approve = function (drug) {
         $mdDialog.show($mdDialog.confirm()
             .title('Confirmation')
-            .textContent('Do you really want to approve this stock ?')
-            .ok('Yes')
-            .cancel('Cancel')).then(function () {
+            .textContent($translate.instant('Do you really want to approve this stock ?'))
+            .ok($translate.instant('Yes'))
+            .cancel($translate.instant('Cancel'))).then(function () {
                 $scope.loading = true;
                 $scope.itemsLine = {
                     item: drug.item.id,
@@ -59,12 +59,12 @@ angular.module('stocktakesController', ['ngMaterial', 'ngAnimate', 'toastr', 'md
                     $scope.getData();
                     scope.saveTransaction(drug);
                     console.log(response)
-                    toastr.success('Data saved successfully.', 'Success');
+                    toastr.success($translate.instant('Data saved successfully.'), 'Success');
                     $scope.loading = false;
                 }, function (e) {
                     console.error(e);
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
 
             }, function () {
@@ -80,7 +80,7 @@ angular.module('stocktakesController', ['ngMaterial', 'ngAnimate', 'toastr', 'md
             console.log(response);
         }, function (e) {
             console.error(e);
-            toastr.error('An unexpected error has occured.', 'Error');
+            toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
         });
     }
 

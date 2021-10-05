@@ -1,4 +1,4 @@
-angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('InventoryController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'toastr', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, toastr) {
+angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('InventoryController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'toastr', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, toastr, $translate) {
     $scope.resource = "savicspharmacy";
     $rootScope.links = { "Pharmacy management module": "", "Inventory": "index.html#!/inventory" };
     $scope.loading = false;
@@ -13,7 +13,7 @@ angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
             $scope.loading = false;
         }, function (e) {
             $scope.loading = false;
-            toastr.error('An unexpected error has occured.', 'Error');
+            toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
         });
     };
 

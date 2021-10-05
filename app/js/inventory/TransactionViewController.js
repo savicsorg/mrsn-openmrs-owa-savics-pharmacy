@@ -1,6 +1,6 @@
-angular.module('TransactionViewController', []).controller('TransactionViewController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', '$mdDialog', 'openmrsRest', 'toastr', function ($scope, $state, $stateParams, $rootScope, $mdToast, $mdDialog, openmrsRest, toastr) {
+angular.module('TransactionViewController', []).controller('TransactionViewController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', '$mdDialog', 'openmrsRest', 'toastr', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, $mdDialog, openmrsRest, toastr, $translate) {
         $scope.rootscope = $rootScope;
-        $scope.appTitle = "Transaction details";
+        $scope.appTitle = $translate.instant("Transaction details");
         $scope.resource = "savicspharmacy";
         $scope.concept_ressource = "concept";
         $scope.transactionuuid = $stateParams.uuid;
@@ -10,7 +10,7 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
         $rootScope.links = {"Pharmacy management module": "", "Stock and inventory": "inventory", "History": "viewhistory", "Details": "Transactionview"};
 
         var vm = this;
-        vm.appTitle = "View transaction details";
+        vm.appTitle = $translate.instant("View transaction details");
 
         $scope.approveBtn = {
             text: "Approve",

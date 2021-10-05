@@ -1,6 +1,6 @@
-angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('DispensingManagementController', ['$scope', '$rootScope', 'openmrsRest', '$mdDialog', '$mdToast', '$log', '$state', '$stateParams', function ($scope, $rootScope, openmrsRest, $mdDialog, $mdToast, $log, $state , $stateParams) {
+angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('DispensingManagementController', ['$scope', '$rootScope', 'openmrsRest', '$mdDialog', '$mdToast', '$log', '$state', '$stateParams', '$translate', function ($scope, $rootScope, openmrsRest, $mdDialog, $mdToast, $log, $state , $stateParams, $translate) {
         $scope.rootscope = $rootScope;
-        $scope.appTitle = "Drugs dispensing management";
+        $scope.appTitle = $translate.instant("Drugs dispensing management");
         $scope.resource = "savicspharmacy";
         //Breadcrumbs properties
         $rootScope.links = {"Pharmacy management module": "", "Dispense": "dispense"};
@@ -62,12 +62,12 @@ angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'to
 
         $scope.showConfirm = function (ev, obj) {
             var confirm = $mdDialog.confirm()
-                    .title('Would you like to delete this dispensiation?')
-                    .textContent('If you choose `Yes` this record will be deleted and you will not be able to recover it')
-                    .ariaLabel('Lucky day')
+                    .title($translate.instant('Would you like to delete this dispensiation?'))
+                    .textContent($translate.instant('If you choose `Yes` this record will be deleted and you will not be able to recover it'))
+                    .ariaLabel($translate.instant('Lucky day'))
                     .targetEvent(ev)
-                    .ok('Yes')
-                    .cancel('Cancel');
+                    .ok($translate.instant('Yes'))
+                    .cancel($translate.instant('Cancel'));
             $mdDialog.show(confirm).then(function () {
                 $scope.delete(obj);
             }, function () {
@@ -85,9 +85,9 @@ angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'to
                     .position('top right')
                     .hideDelay(3000))
                     .then(function () {
-                        $log.log('Toast dismissed.');
+                        $log.log($translate.instant('Toast dismissed.'));
                     }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
         }
 

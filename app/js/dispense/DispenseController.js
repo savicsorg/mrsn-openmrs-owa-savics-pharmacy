@@ -1,4 +1,4 @@
-angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('DispenseController', ['$scope', '$rootScope', 'openmrsRest', 'toastr', '$state', '$stateParams', '$mdDialog', function ($scope, $rootScope, openmrsRest, toastr, $state, $stateParams, $mdDialog) {
+angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('DispenseController', ['$scope', '$rootScope', 'openmrsRest', 'toastr', '$state', '$stateParams', '$mdDialog', '$translate', function ($scope, $rootScope, openmrsRest, toastr, $state, $stateParams, $mdDialog, $translate) {
         $scope.resource = "savicspharmacy";
         $rootScope.links = {"Pharmacy management module": "", "Dispense": "dispense"};
         $scope.sending = {customer: {}, person: {}, sendingAmount: 0};
@@ -176,11 +176,11 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                         $scope.loading = false;
                     }, function (e) {
                         $scope.loading = false;
-                        toastr.error('An unexpected error has occured.', 'Error');
+                        toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                     });
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
             } else {
                 $scope.loading = false;
@@ -227,44 +227,44 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                     response.date = new Date(response.date);
                     $scope.sending = response;
                     $scope.getData();
-                    toastr.success('Data saved successfully.', 'Success');
+                    toastr.success($translate.instant('Data saved successfully.'), 'Success');
                     $state.go('home.dispensemain');
                     $scope.loading = false;
                 }, function (e) {
                     console.log(e)
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
             } else {    //Creation
                 openmrsRest.create($scope.resource + "/sending", query).then(function (response) {
                     response.date = new Date(response.date);
                     $scope.sending = response;
                     $scope.getData();
-                    toastr.success('Data saved successfully.', 'Success');
+                    toastr.success($translate.instant('Data saved successfully.'), 'Success');
                     $state.go('home.dispensemain');
                     $scope.loading = false;
                 }, function (e) {
                     console.log(e)
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
             }
         }
 
         $scope.deleteSending = function (sending) {
             var confirm = $mdDialog.confirm()
-                    .title('Confirmation')
-                    .textContent('Do you really want to delete this dispense ?')
-                    .ok('Yes')
-                    .cancel('Cancel');
+                    .title($translate.instant('Confirmation'))
+                    .textContent($translate.instant('Do you really want to delete this dispense ?'))
+                    .ok($translate.instant('Yes'))
+                    .cancel($translate.instant('Cancel'));
             $mdDialog.show(confirm).then(function () {
                 $scope.loading = true;
                 openmrsRest.remove($scope.resource + "/sending", sending, "Generic Reason").then(function (response) {
                     loadData();
-                    toastr.success('Data removed successfully.', 'Success');
+                    toastr.success($translate.instant('Data removed successfully.'), 'Success');
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
             }, function () {
 
@@ -273,8 +273,8 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
         $scope.deleteSendingDetail = function (sendingDetail, index) {
             var confirm = $mdDialog.confirm()
-                    .title('Confirmation')
-                    .textContent('Do you really want to delete this line ?')
+                    .title($translate.instant('Confirmation'))
+                    .textContent($translate.instant('Do you really want to delete this line ?'))
                     .ok('Yes')
                     .cancel('Cancel');
             $mdDialog.show(confirm).then(function () {
@@ -284,10 +284,10 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                         $scope.lines.splice(index, 1);
                         $scope.updateAmount();
                         $scope.loading = false;
-                        toastr.success('Data removed successfully.', 'Success');
+                        toastr.success($translate.instant('Data removed successfully.'), 'Success');
                     }, function (e) {
                         $scope.loading = false;
-                        toastr.error('An unexpected error has occured.', 'Error');
+                        toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                     });
                 } else {
                     $scope.lines.splice(index, 1);

@@ -1,4 +1,4 @@
-angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).controller('OrderController', ['$scope', '$rootScope', '$mdToast', '$state', '$stateParams', '$mdDialog', 'openmrsRest', 'toastr', function ($scope, $rootScope, $mdToast, $state, $stateParams, $mdDialog, openmrsRest, toastr) {
+angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).controller('OrderController', ['$scope', '$rootScope', '$mdToast', '$state', '$stateParams', '$mdDialog', 'openmrsRest', 'toastr', '$translate', function ($scope, $rootScope, $mdToast, $state, $stateParams, $mdDialog, openmrsRest, toastr, $translate) {
     $scope.rootscope = $rootScope;
     $scope.resource = "savicspharmacy";
     $rootScope.links = {};
@@ -12,7 +12,7 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
     $scope.item = null;
     $scope.lines = [];
     $scope.approveBtn = {
-        text: "Approve",
+        text: $translate.instant("Approve"),
         enabled: false,
         visible: false
     };
@@ -93,13 +93,13 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
                             }
                         }, function (e) {
                             $scope.loading = false;
-                            showToast("An unexpected error has occured.", "error");
+                            showToast($translate.instant("An unexpected error has occured."), "error");
 
                         });
                     }
                 }, function (e) {
                     $scope.loading = false;
-                    showToast("An unexpected error has occured.", "error");
+                    showToast($translate.instant("An unexpected error has occured."), "error");
                 });
             } else {
                 openmrsRest.getFull($scope.resource + "/order").then(function (response) {
@@ -107,12 +107,12 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
                     $scope.loading = false;
                 }, function (e) {
                     $scope.loading = false;
-                    showToast("An unexpected error has occured.", "error");
+                    showToast($translate.instant("An unexpected error has occured."), "error");
                 });
             }
         }, function (e) {
             $scope.loading = false;
-            showToast("An unexpected error has occured.", "error");
+            showToast($translate.instant("An unexpected error has occured."), "error");
         });
     }
 
@@ -124,10 +124,10 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
 
     $scope.approve = function () {
         $mdDialog.show($mdDialog.confirm()
-            .title('Confirmation')
-            .textContent('Do you really want to approve this order ?')
-            .ok('Yes')
-            .cancel('Cancel')).then(function () {
+            .title($translate.instant('Confirmation'))
+            .textContent($translate.instant('Do you really want to approve this order ?'))
+            .ok($translate.instant('Yes'))
+            .cancel($translate.instant('Cancel'))).then(function () {
                 $scope.order.dateApprobation = new Date();
                 $scope.saveOrder();
             }, function () {
@@ -158,20 +158,20 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
             openmrsRest.update($scope.resource + "/order", query).then(function (response) {
                 $scope.order = response;
                 loadData();
-                showToast("Data saved successfully.", "success");
+                showToast($translate.instant("Data saved successfully."), "success");
             }, function (e) {
                 console.error(e);
                 $scope.loading = false;
-                showToast("An unexpected error has occured.", "error");
+                showToast($translate.instant("An unexpected error has occured."), "error");
             });
         } else {    //Creation
             openmrsRest.create($scope.resource + "/order", query).then(function (response) {
                 $scope.order = response;
                 loadData();
-                showToast("Data saved successfully.", "success");
+                showToast($translate.instant("Data saved successfully."), "success");
             }, function (e) {
                 $scope.loading = false;
-                showToast("An unexpected error has occured.", "error");
+                showToast($translate.instant("An unexpected error has occured."), "error");
             });
         }
     }
@@ -182,18 +182,18 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
 
     $scope.deleteOrder = function (order) {
         var confirm = $mdDialog.confirm()
-            .title('Confirmation')
-            .textContent('Do you really want to delete this order ?')
-            .ok('Yes')
-            .cancel('Cancel');
+            .title($translate.instant('Confirmation'))
+            .textContent($translate.instant('Do you really want to delete this order ?'))
+            .ok($translate.instant('Yes'))
+            .cancel($translate.instant('Cancel'));
         $mdDialog.show(confirm).then(function () {
             $scope.loading = true;
             openmrsRest.remove($scope.resource + "/order", order, "Generic Reason").then(function (response) {
                 loadData();
-                showToast("Data removed successfully.", "success");
+                showToast($translate.instant("Data removed successfully."), "success");
             }, function (e) {
                 $scope.loading = false;
-                showToast("An unexpected error has occured.", "error");
+                showToast($translate.instant("An unexpected error has occured."), "error");
             });
         }, function () {
 
@@ -209,11 +209,11 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
                 $scope.lines.splice(index, 1);
                 $scope.updateOrderAmount();
                 $scope.loading = false;
-                showToast("Data removed successfully.", "success");
+                showToast($translate.instant("Data removed successfully."), "success");
 
             }, function (e) {
                 $scope.loading = false;
-                showToast("An unexpected error has occured.", "error");
+                showToast($translate.instant("An unexpected error has occured."), "error");
             });
         } else {
             $scope.lines.splice(index, 1);
@@ -229,9 +229,9 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
 }]);

@@ -22,7 +22,7 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
             }
         }, function (e) {
             $scope.loading = false;
-            showToast("An unexpected error has occured.", "error");
+            showToast($translate.instant("An unexpected error has occured."), "error");
         });
     }
 
@@ -125,9 +125,9 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
 
