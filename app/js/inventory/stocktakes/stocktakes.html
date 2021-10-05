@@ -24,10 +24,10 @@
             <table md-table md-progress="promise">
                 <thead md-head>
                     <tr md-row>
-                        <th><span translate>Drug</span></th>
-                        <th><span translate>Batch</span></th>
-                        <th><span translate>Location</span></th>
-                        <th><span translate>Physical Qty</span></th>
+                        <th><span translate>Drug name</span></th>
+                        <th><span translate>Batch ID</span></th>
+                        <th><span translate>Location name</span></th>
+                        <th><span translate>OnHand Qty</span></th>
                         <th><span translate>Unit</span></th>
                         <th><span translate>Counted Qty</span></th>
                         <th><span translate>Diff Virtual-Physical Qty</span></th>
@@ -56,14 +56,26 @@
                         </td>
                         <td>{{drug.itemExpiryDate| date:'dd/MM/yyyy'}}</td>
                         <td style="text-align: center">
-                            <small ng-class="(drug.itemVirtualstock == drug.itemSoh) ? 'status-3' : 'status-2'"
+                            <!-- <small ng-class="(drug.itemVirtualstock == drug.itemSoh) ? 'status-3' : 'status-2'"
                                 class="chip-normal ">{{drug.itemVirtualstock == drug.itemSoh ? 'validated':
-                                'pending'}}</small>
+                                'pending'}}</small> -->
+                            <md-icon style="color:{{drug.itemVirtualstock == drug.itemSoh ?'green':'red'}}">
+                                <md-tooltip> {{drug.itemVirtualstock == drug.itemSoh ? 'validated':'pending'}}
+                                </md-tooltip>
+                                fiber_manual_record
+                            </md-icon>
                         </td>
                         <td>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
-                                ng-click="approve(drug)">
+                                ng-click="saveDiff(drug)">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">check_circle
+                                </md-icon>
+                                <md-tooltip md-direction="top"><span translate>Save difference</span></md-tooltip>
+                            </button>
+
+                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
+                                ng-click="approve(drug)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">save
                                 </md-icon>
                                 <md-tooltip md-direction="top"><span translate>Approve</span></md-tooltip>
                             </button>

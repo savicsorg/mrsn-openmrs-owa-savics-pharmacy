@@ -39,10 +39,10 @@ angular.module('stocktakesController', ['ngMaterial', 'ngAnimate', 'toastr', 'md
         drug.difference = drug.itemVirtualstock - drug.itemSoh;
     }
 
-    $scope.approve = function (drug) {
+    $scope.saveDiff = function (drug) {
         $mdDialog.show($mdDialog.confirm()
             .title('Confirmation')
-            .textContent('Do you really want to approve this stock ?')
+            .textContent('Do you really want to save the difference on this stock ?')
             .ok('Yes')
             .cancel('Cancel')).then(function () {
                 $scope.loading = true;
@@ -57,7 +57,7 @@ angular.module('stocktakesController', ['ngMaterial', 'ngAnimate', 'toastr', 'md
                 }
                 openmrsRest.update($scope.resource + "/itemsLine", $scope.itemsLine).then(function (response) {
                     $scope.getData();
-                    scope.saveTransaction(drug);
+                    $scope.saveTransaction(drug);
                     console.log(response)
                     toastr.success('Data saved successfully.', 'Success');
                     $scope.loading = false;
