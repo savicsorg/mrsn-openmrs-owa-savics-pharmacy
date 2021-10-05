@@ -30,7 +30,8 @@ angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'to
             openmrsRest.get($scope.resource + "/sending").then(function (response) {
                 if (response.results.length >= 1) {
                     $scope.dispenses = response.results;
-                    console.log($scope.dispenses);
+                }else{
+                    $scope.dispenses = [];
                 }
             })
         }
@@ -41,8 +42,8 @@ angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'to
             openmrsRest.remove($scope.resource + "/sending", item, "Reason for deletion").then(function (response) {
                 var type = "success";
                 var msg = "Deleted";
-                showToast(msg, type);
                 $scope.getAllSendings();
+                showToast(msg, type);
             }).catch(function (e) {
                 var type = "error";
                 var msg = e.data.error.message;
