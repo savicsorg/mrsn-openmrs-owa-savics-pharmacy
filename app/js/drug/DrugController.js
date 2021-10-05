@@ -26,17 +26,12 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
     $scope.drug = function () {
         vm.drug.virtualstock = 0;
         vm.drug.soh = 0;
-        console.log(vm.drug);
-        // if (!vm.drug.name || !vm.drug.code || !vm.drug.description || !vm.drug.buy_price || !vm.drug.sell_price || !vm.drug.stock_min || !vm.drug.stock_max || !vm.drug.type.id || !vm.drug.route.id) {
-        //     type = "error";
-        //     msg = "Please check if your input are valid ones."
-        //     showToast(msg, type);
-        //     return;
-        // }
         document.getElementById("loading_submit").style.visibility = "visible";
 
             openmrsRest.getFull($scope.resource + "/item?code=" + vm.drug.code).then(function (response) {
-                if (response.results.length <= 0) {
+                console.log(response.results[0].uuid)
+                console.log($stateParams.uuid)
+                if (response.results.length <= 0 || (response.results[0].uuid == $stateParams.uuid)) {
                     var payload = $stateParams.uuid ? {virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), uuid: vm.drug.uuid, soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id} : {virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id};
                     if ($stateParams.uuid) {
                         openmrsRest.update($scope.resource + "/item", payload).then(function (response) {
