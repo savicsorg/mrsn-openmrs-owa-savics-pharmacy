@@ -318,19 +318,19 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         });
     }
 
-        $scope.validate = function(){
-            var confirm = $mdDialog.confirm()
-                .title('Confirmation')
-                .textContent('Do you really want to validate this dispense ?')
-                .ok('Yes')
-                .cancel('Cancel');
-            $mdDialog.show(confirm).then(function () {
-                $scope.sending.validationDate = new Date();
-                $scope.saveSending();
-            }, function () {
+    $scope.validate = function(){
+        var confirm = $mdDialog.confirm()
+            .title('Confirmation')
+            .textContent('Do you really want to validate this dispense ?')
+            .ok('Yes')
+            .cancel('Cancel');
+        $mdDialog.show(confirm).then(function () {
+            $scope.sending.validationDate = new Date();
+            $scope.saveSending();
+        }, function () {
 
-            });      
-        }
-    
+        });      
+    }
 
-    }]);
+
+}]);

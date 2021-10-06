@@ -153,7 +153,8 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
             openmrsRest.update($scope.resource + "/order", query).then(function (response) {
                 $scope.order = response;
                 loadData();
-                toastr.success('Data saved successfully.', 'Success');   
+                $state.go('home.orders', { });
+                //toastr.success('Data saved successfully.', 'Success');   
             },function(e){
                 console.error(e);
                 $scope.loading = false;
@@ -163,7 +164,8 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
             openmrsRest.create($scope.resource + "/order", query).then(function (response) {
                 $scope.order = response;
                 loadData();
-                toastr.success('Data saved successfully.', 'Success');   
+                $state.go('home.orders', { });
+                //toastr.success('Data saved successfully.', 'Success');   
             },function(e){
                 $scope.loading = false;
                 toastr.error('An unexpected error has occured.', 'Error');
