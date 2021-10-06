@@ -1,4 +1,4 @@
-angular.module('RouteController', []).controller('RouteController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
+angular.module('RouteController', []).controller('RouteController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $translate) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des routes";
     $scope.resource = "savicspharmacy";
@@ -6,7 +6,7 @@ angular.module('RouteController', []).controller('RouteController', ['$scope', '
     $rootScope.links = { "Pharmacy management module": "", "Route": "routes", "New": "route" };
 
     var vm = this;
-    vm.appTitle = "New route entry";
+    vm.appTitle = $translate.instant("New route entry");
 
     var type = "";
     var msg = "";
@@ -14,14 +14,14 @@ angular.module('RouteController', []).controller('RouteController', ['$scope', '
     if ($stateParams.uuid) {
         //we are in edit mode
         vm.route = $stateParams;
-        vm.appTitle = "Edit type entry";
+        vm.appTitle = $translate.instant("Edit type entry");
     }
 
     $scope.route = function () {
 
         if (!vm.route || !vm.route.code || !vm.route.name) {
             type = "error";
-            msg = "Please check if your input are valid ones."
+            msg = $translate.instant("Please check if your input are valid ones.")
             showToast(msg, type);
             return;
         }
@@ -54,12 +54,12 @@ angular.module('RouteController', []).controller('RouteController', ['$scope', '
         }
         if (response.uuid) {
             type = "success";
-            msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
+            msg = $stateParams.uuid ? response.name + $translate.instant(" is Well edited.") : response.name + $translate.instant(" is Well saved.");
             vm.route.name = "";
             vm.route.code = "";
         } else {
             type = "error";
-            msg = "we can't save your data.";
+            msg = $translate.instant("we can't save your data.");
         }
         showToast(msg, type);
     }
@@ -75,9 +75,9 @@ angular.module('RouteController', []).controller('RouteController', ['$scope', '
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
 

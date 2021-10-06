@@ -1,6 +1,6 @@
-angular.module('AdjustmentController', []).controller('AdjustmentController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'toastr', '$location', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, toastr, $location) {
+angular.module('AdjustmentController', []).controller('AdjustmentController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'toastr', '$location', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, toastr, $location, $translate) {
     $scope.rootscope = $rootScope;
-    $scope.appTitle = "Adjustment";
+    $scope.appTitle = $translate.instant("Adjustment");
     $scope.resource = "savicspharmacy";
     $scope.item_id = $stateParams.id;
     $scope.adjustmentuuid = $stateParams.adjustmentuuid;
@@ -28,7 +28,7 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
     $rootScope.links = { "Pharmacy management module": "", "adjustment": "Adjustment" };
 
     var vm = this;
-    vm.appTitle = "Adjustment";
+    vm.appTitle = $translate.instant("Adjustment");
 
     $scope.batches = [];
 
@@ -82,14 +82,14 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                     openmrsRest.create($scope.resource + "/transaction", $scope.adjustment).then(function (response) {
                         $scope.adjustmentRes = response;
                         $state.go('home.inventory')
-                        toastr.success('Data saved successfully.', 'Success');
+                        toastr.success($translate.instant('Data saved successfully.'), 'Success');
                     }, function (e) {
                         console.error(e);
                         $scope.loading = false;
-                        toastr.error('An unexpected error has occured.', 'Error');
+                        toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                     });
                 } else {
-                    toastr.error('Transaction type are missing.', 'Error');
+                    toastr.error($translate.instant('Transaction type are missing.'), 'Error');
                 }
 
             }

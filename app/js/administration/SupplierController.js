@@ -1,11 +1,11 @@
-angular.module('SupplierController', []).controller('SupplierController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
+angular.module('SupplierController', []).controller('SupplierController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $translate) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des Suppliers";
     $scope.resource = "savicspharmacy"
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Suppliers": "suppliers", "New": "supplier" };
     var vm = this;
-    vm.appTitle = "New Supplier entry";
+    vm.appTitle = $translate.instant("New Supplier entry");
 
     var type = "";
     var msg = "";
@@ -13,27 +13,27 @@ angular.module('SupplierController', []).controller('SupplierController', ['$sco
     if ($stateParams.uuid) {
         //we are in edit mode
         vm.supplier = $stateParams;
-        vm.appTitle = "Edit type entry";
+        vm.appTitle = $translate.instant("Edit type entry");
     }
 
     $scope.supplier = function () {
 
         if (!vm.supplier || !vm.supplier.code || !vm.supplier.name || !vm.supplier.address || !vm.supplier.email || !vm.supplier.tel) {
             type = "error";
-            msg = "Please check if your input are valid ones."
+            msg = $translate.instant("Please check if your input are valid ones.")
             showToast(msg, type);
             return;
         }
 
         if (!Regvalidate("email", vm.supplier.email)) {
             type = "error";
-            msg = "Please check if your email is a valid one.";
+            msg = $translate.instant("Please check if your email is a valid one.");
             showToast(msg, type);
             return;
         }
         if (!Regvalidate("phone", vm.supplier.tel)) {
             type = "error";
-            msg = "Please check if your phone number is a valid one.";
+            msg = $translate.instant("Please check if your phone number is a valid one.");
             showToast(msg, type);
             return;
         }

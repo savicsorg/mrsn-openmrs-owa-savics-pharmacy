@@ -1,4 +1,4 @@
-angular.module('OrderViewController', []).controller('OrderViewController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
+angular.module('OrderViewController', []).controller('OrderViewController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $translate) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des commandes";
     $scope.resource = "savicspharmacy";
@@ -7,13 +7,13 @@ angular.module('OrderViewController', []).controller('OrderViewController', ['$s
     $rootScope.links = { "Pharmacy Management Module": "", "Orders": "orders", "View": "order" };
 
     var vm = this;
-    vm.appTitle = "View Order";
+    vm.appTitle = $translate.instant("View Order");
 
     vm.order = $stateParams;
     openmrsRest.getFull($scope.resource + "/orderDetail?orderId=" + vm.order.id).then(function (response) {
         vm.order.lines = response.results;
     }, function (e) {
         $scope.loading = false;
-        showToast("An unexpected error has occured.", "error");
+        showToast($translate.instant("An unexpected error has occured."), "error");
     });
 }]);

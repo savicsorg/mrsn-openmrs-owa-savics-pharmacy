@@ -1,4 +1,4 @@
-angular.module('DrugController', []).controller('DrugController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog',function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog) {
+angular.module('DrugController', []).controller('DrugController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog, $translate) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des drugs";
     $scope.resource = "savicspharmacy";
@@ -6,7 +6,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
     $rootScope.links = { "Pharmacy management module": "", "Drugs": "drugs", "New": "drug" };
 
     var vm = this;
-    vm.appTitle = "New Drug entry";
+    vm.appTitle = $translate.instant("New Drug entry");
 
     var type = "";
     var msg = "";
@@ -20,23 +20,18 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
         $scope.drug_route_id = vm.drug.route.id;
         $scope.item = { display: vm.drug.name, uuid: vm.drug.uuid };
         $scope.selectedItem = vm.drug.name;
-        vm.appTitle = "Edit type entry";
+        vm.appTitle = $translate.instant("Edit type entry");
     }
 
     $scope.drug = function () {
         vm.drug.virtualstock = 0;
         vm.drug.soh = 0;
-        console.log(vm.drug);
-        // if (!vm.drug.name || !vm.drug.code || !vm.drug.description || !vm.drug.buy_price || !vm.drug.sell_price || !vm.drug.stock_min || !vm.drug.stock_max || !vm.drug.type.id || !vm.drug.route.id) {
-        //     type = "error";
-        //     msg = "Please check if your input are valid ones."
-        //     showToast(msg, type);
-        //     return;
-        // }
         document.getElementById("loading_submit").style.visibility = "visible";
 
             openmrsRest.getFull($scope.resource + "/item?code=" + vm.drug.code).then(function (response) {
-                if (response.results.length <= 0) {
+                console.log(response.results[0].uuid)
+                console.log($stateParams.uuid)
+                if (response.results.length <= 0 || (response.results[0].uuid == $stateParams.uuid)) {
                     var payload = $stateParams.uuid ? {virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), uuid: vm.drug.uuid, soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id} : {virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id};
                     if ($stateParams.uuid) {
                         openmrsRest.update($scope.resource + "/item", payload).then(function (response) {
@@ -56,7 +51,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
                             $mdDialog.alert()
                             .parent(angular.element(document.querySelector('body')))
                             .clickOutsideToClose(true)
-                            .textContent('Attention, the drug code you entered is already used. Please use another one.')
+                            .textContent($translate.instant('Attention, the drug code you entered is already used. Please use another one.'))
                             .ok('Ok'));
                 }
             })
@@ -72,7 +67,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
         }
         if (response && response.uuid) {
             type = "success";
-            msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
+            msg = $stateParams.uuid ? response.name + $translate.instant(" is Well edited.") : response.name + $translate.instant(" is Well saved.");
             vm.drug.name = "";
             vm.drug.code = "";
             vm.drug.address = "";
@@ -86,7 +81,7 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
             vm.drug.stockMax = "";
         } else {
             type = "error";
-            msg = "we can't save your data.";
+            msg = $translate.instant("we can't save your data.");
         }
         showToast(msg, type);
     }
@@ -102,9 +97,9 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
 

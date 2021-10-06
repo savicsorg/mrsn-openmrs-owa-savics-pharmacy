@@ -1,4 +1,4 @@
-angular.module('LocationController', []).controller('LocationController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
+angular.module('LocationController', []).controller('LocationController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $translate) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des locations";
     $scope.resource = "savicspharmacy";
@@ -15,14 +15,14 @@ angular.module('LocationController', []).controller('LocationController', ['$sco
     if ($stateParams.uuid) {
         //we are in edit mode
         vm.location = $stateParams;
-        vm.appTitle = "Edit type entry";
+        vm.appTitle = $translate.instant("Edit type entry");
     }
 
     $scope.location = function () {
   
         if (!vm.location || !vm.location.code || !vm.location.name) {
             type = "error";
-            msg = "Please check if your input are valid ones."
+            msg = $translate.instant("Please check if your input are valid ones.")
             showToast(msg, type);
             return;
         }
@@ -55,12 +55,12 @@ angular.module('LocationController', []).controller('LocationController', ['$sco
         }
         if (response.uuid) {
             type = "success";
-            msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
+            msg = $stateParams.uuid ? response.name + $translate.instant(" is Well edited.") : response.name + $translate.instant(" is Well saved.");
             vm.location.name = "";
             vm.location.code = "";
         } else {
             type = "error";
-            msg = "we can't save your data.";
+            msg = $translate.instant("we can't save your data.");
         }
         showToast(msg, type);
     }
@@ -76,9 +76,9 @@ angular.module('LocationController', []).controller('LocationController', ['$sco
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
 

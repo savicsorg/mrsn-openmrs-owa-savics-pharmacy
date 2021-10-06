@@ -144,11 +144,11 @@ msgstr ""
 msgid "Quarterly"
 msgstr ""
 
-#: app/js/administration/CustomerController.js:95
+#: app/js/administration/CustomerController.js:95 app/js/administration/CustomersController.js:90 app/js/administration/CustomertypeController.js:78 app/js/administration/CustomertypeController.js:159 app/js/administration/locationController.js:79 app/js/administration/locationsController.js:89 app/js/administration/routeController.js:78 app/js/administration/routesController.js:90 app/js/administration/SuppliersController.js:90 app/js/administration/unitController.js:78 app/js/administration/unitsController.js:105 app/js/dispense/DispensingManagementController.js:88 app/js/drug/DrugController.js:105 app/js/drug/DrugsController.js:128 app/js/inventory/AddNewbatchController.js:74 app/js/inventory/viewDetailController.js:122 app/js/order/OrderController.js:232 app/js/purchase/PurchaseController.js:132
 msgid "Toast dismissed."
 msgstr ""
 
-#: app/js/administration/CustomerController.js:97
+#: app/js/administration/CustomerController.js:97 app/js/administration/CustomersController.js:92 app/js/administration/CustomertypeController.js:80 app/js/administration/CustomertypeController.js:161 app/js/administration/locationController.js:81 app/js/administration/locationsController.js:91 app/js/administration/routeController.js:80 app/js/administration/routesController.js:92 app/js/administration/SuppliersController.js:92 app/js/administration/unitController.js:80 app/js/administration/unitsController.js:107 app/js/dispense/DispensingManagementController.js:90 app/js/drug/DrugController.js:107 app/js/drug/DrugsController.js:130 app/js/inventory/AddNewbatchController.js:76 app/js/inventory/viewDetailController.js:124 app/js/order/OrderController.js:234 app/js/purchase/PurchaseController.js:134
 msgid "Toast failed or was forced to close early by another toast."
 msgstr ""
 
@@ -160,20 +160,104 @@ msgstr ""
 msgid "New customer entry"
 msgstr ""
 
-#: app/js/administration/CustomerController.js:17
+#: app/js/administration/CustomerController.js:17 app/js/administration/CustomertypeController.js:17 app/js/administration/locationController.js:18 app/js/administration/routeController.js:17 app/js/administration/SupplierController.js:16 app/js/administration/unitController.js:17 app/js/drug/DrugController.js:23
 msgid "Edit type entry"
 msgstr ""
 
-#: app/js/administration/CustomerController.js:23
+#: app/js/administration/CustomerController.js:23 app/js/administration/CustomertypeController.js:24 app/js/administration/locationController.js:25 app/js/administration/routeController.js:24 app/js/administration/SupplierController.js:23 app/js/administration/unitController.js:24 app/js/inventory/AddNewbatchController.js:16
 msgid "Please check if your input are valid ones."
 msgstr ""
 
-#: app/js/administration/CustomerController.js:30
+#: app/js/administration/CustomerController.js:30 app/js/administration/SupplierController.js:30
 msgid "Please check if your email is a valid one."
 msgstr ""
 
-#: app/js/administration/CustomerController.js:36
+#: app/js/administration/CustomerController.js:36 app/js/administration/SupplierController.js:36
 msgid "Please check if your phone number is a valid one."
+msgstr ""
+
+#: app/js/administration/CustomersController.js:69 app/js/administration/CustomertypeController.js:138 app/js/administration/locationsController.js:68 app/js/administration/routesController.js:69 app/js/administration/SuppliersController.js:69 app/js/administration/unitsController.js:84 app/js/drug/DrugsController.js:107
+msgid "Would you like to delete your data?"
+msgstr ""
+
+#: app/js/administration/CustomersController.js:70 app/js/administration/CustomertypeController.js:139 app/js/administration/locationsController.js:69 app/js/administration/routesController.js:70 app/js/administration/SuppliersController.js:70 app/js/administration/unitsController.js:85 app/js/dispense/DispensingManagementController.js:66 app/js/drug/DrugsController.js:108
+msgid "If you choose `Yes` this record will be deleted and you will not be able to recover it"
+msgstr ""
+
+#: app/js/administration/CustomersController.js:71 app/js/administration/CustomertypeController.js:140 app/js/administration/locationsController.js:70 app/js/administration/routesController.js:71 app/js/administration/SuppliersController.js:71 app/js/administration/unitsController.js:86 app/js/dispense/DispensingManagementController.js:67 app/js/inventory/viewDetailController.js:45
+msgid "Lucky day"
+msgstr ""
+
+#: app/js/administration/CustomersController.js:73 app/js/administration/CustomertypeController.js:142 app/js/administration/locationsController.js:72 app/js/administration/routesController.js:73 app/js/administration/SuppliersController.js:73 app/js/administration/unitsController.js:88 app/js/dispense/DispenseController.js:258 app/js/dispense/DispensingManagementController.js:69 app/js/inventory/ReceptionController.js:166 app/js/inventory/viewDetailController.js:47 app/js/order/OrderController.js:129 app/js/order/OrderController.js:187 app/js/inventory/stocktakes/stocktakesController.js:46
+msgid "Yes"
+msgstr ""
+
+#: app/js/administration/CustomersController.js:74 app/js/administration/CustomertypeController.js:143 app/js/administration/locationsController.js:73 app/js/administration/routesController.js:74 app/js/administration/SuppliersController.js:74 app/js/administration/unitsController.js:89 app/js/dispense/DispenseController.js:259 app/js/dispense/DispensingManagementController.js:70 app/js/inventory/ReceptionController.js:167 app/js/inventory/viewDetailController.js:48 app/js/order/OrderController.js:130 app/js/order/OrderController.js:188 app/js/administration/customer.html:65 app/js/administration/customertype.html:30 app/js/administration/location.html:36 app/js/administration/route.html:38 app/js/administration/supplier.html:54 app/js/administration/unit.html:42 app/js/dispense/dispense.html:123 app/js/drug/drug.html:99 app/js/inventory/addNewbatch.html:48 app/js/inventory/adjustment.html:55 app/js/inventory/reception.html:86 app/js/inventory/Transactionview.html:22 app/js/inventory/Transactionview.html:24 app/js/order/order.html:112 app/js/order/order.html:114 app/js/purchase/purchase.html:139 app/js/stocktake/stocktake.html:33 app/js/inventory/stocktakes/stocktakesController.js:47
+msgid "Cancel"
+msgstr ""
+
+#: app/js/administration/CustomersController.js:25 app/js/administration/CustomertypeController.js:94 app/js/administration/locationsController.js:25 app/js/administration/routesController.js:25 app/js/administration/SuppliersController.js:25 app/js/administration/unitsController.js:25 app/js/dispense/DispenseController.js:179 app/js/dispense/DispenseController.js:183 app/js/dispense/DispenseController.js:236 app/js/dispense/DispenseController.js:249 app/js/dispense/DispenseController.js:267 app/js/dispense/DispenseController.js:290 app/js/drug/DrugsController.js:25 app/js/inventory/AdjustmentController.js:89 app/js/inventory/inventoryController.js:16 app/js/inventory/ReceptionController.js:66 app/js/inventory/ReceptionController.js:70 app/js/inventory/ReceptionController.js:80 app/js/inventory/ReceptionController.js:84 app/js/inventory/ReceptionController.js:92 app/js/inventory/ReceptionController.js:117 app/js/inventory/ReceptionController.js:126 app/js/inventory/ReceptionController.js:146 app/js/inventory/ReceptionController.js:157 app/js/inventory/ReceptionController.js:175 app/js/inventory/ReceptionController.js:191 app/js/order/OrderController.js:96 app/js/order/OrderController.js:102 app/js/order/OrderController.js:110 app/js/order/OrderController.js:115 app/js/order/OrderController.js:165 app/js/order/OrderController.js:174 app/js/order/OrderController.js:196 app/js/order/OrderController.js:216 app/js/order/OrderViewController.js:17 app/js/inventory/stockatrisk/StockAtRiskController.js:14 app/js/inventory/stocktakes/stocktakesController.js:19 app/js/inventory/stocktakes/stocktakesController.js:67 app/js/inventory/stocktakes/stocktakesController.js:83
+msgid "An unexpected error has occured."
+msgstr ""
+
+#: app/js/administration/CustomertypeController.js:9 app/js/administration/unitController.js:9
+msgid "New type entry"
+msgstr ""
+
+#: app/js/administration/CustomertypeController.js:57 app/js/administration/locationController.js:58 app/js/administration/routeController.js:57 app/js/administration/unitController.js:57 app/js/drug/DrugController.js:75 app/js/purchase/PurchaseController.js:102
+msgid "is Well edited."
+msgstr ""
+
+#: app/js/administration/CustomertypeController.js:57 app/js/administration/locationController.js:58 app/js/administration/routeController.js:57 app/js/administration/unitController.js:57 app/js/drug/DrugController.js:75 app/js/inventory/AddNewbatchController.js:52 app/js/purchase/PurchaseController.js:102
+msgid "is Well saved."
+msgstr ""
+
+#: app/js/administration/CustomertypeController.js:62 app/js/administration/locationController.js:63 app/js/administration/routeController.js:62 app/js/administration/unitController.js:62 app/js/drug/DrugController.js:89 app/js/inventory/AddNewbatchController.js:55 app/js/purchase/PurchaseController.js:116
+msgid "we can't save your data."
+msgstr ""
+
+#: app/js/administration/routeController.js:9
+msgid "New route entry"
+msgstr ""
+
+#: app/js/administration/SupplierController.js:8
+msgid "New Supplier entry"
+msgstr ""
+
+#: app/js/dispense/DispenseController.js:230 app/js/dispense/DispenseController.js:243 app/js/inventory/AdjustmentController.js:85 app/js/inventory/ReceptionController.js:114 app/js/inventory/ReceptionController.js:123 app/js/inventory/ReceptionController.js:143 app/js/inventory/ReceptionController.js:154 app/js/order/OrderController.js:161 app/js/order/OrderController.js:171 app/js/inventory/stocktakes/stocktakesController.js:62
+msgid "Data saved successfully."
+msgstr ""
+
+#: app/js/dispense/DispenseController.js:256 app/js/dispense/DispenseController.js:276 app/js/order/OrderController.js:127 app/js/order/OrderController.js:185
+msgid "Confirmation"
+msgstr ""
+
+#: app/js/dispense/DispenseController.js:257
+msgid "Do you really want to delete this dispense ?"
+msgstr ""
+
+#: app/js/dispense/DispenseController.js:264 app/js/dispense/DispenseController.js:287 app/js/inventory/ReceptionController.js:172 app/js/inventory/ReceptionController.js:188 app/js/order/OrderController.js:193 app/js/order/OrderController.js:212
+msgid "Data removed successfully."
+msgstr ""
+
+#: app/js/dispense/DispenseController.js:277
+msgid "Do you really want to delete this line ?"
+msgstr ""
+
+#: app/js/dispense/DispensingManagementController.js:65
+msgid "Would you like to delete this dispensiation?"
+msgstr ""
+
+#: app/js/dispense/DispensingManagementController.js:3
+msgid "Drugs dispensing management"
+msgstr ""
+
+#: app/js/drug/DrugController.js:59
+msgid "Attention, the drug code you entered is already used. Please use another one."
+msgstr ""
+
+#: app/js/drug/DrugController.js:9
+msgid "New Drug entry"
 msgstr ""
 
 #: app/js/drug/DrugsController.js:95
@@ -184,12 +268,72 @@ msgstr ""
 msgid "You cannot delete a drug that has existing batches."
 msgstr ""
 
-#: app/js/drug/DrugsController.js:107
-msgid "Would you like to delete your data?"
+#: app/js/inventory/AddNewbatchController.js:3 app/js/inventory/AddNewbatchController.js:8
+msgid "Add New batch"
 msgstr ""
 
-#: app/js/drug/DrugsController.js:108
-msgid "If you choose `Yes` this record will be deleted and you will not be able to recover it"
+#: app/js/inventory/AdjustmentController.js:92
+msgid "Transaction type are missing."
+msgstr ""
+
+#: app/js/inventory/AdjustmentController.js:3 app/js/inventory/AdjustmentController.js:31 app/js/inventory/viewDetail.html:71 app/js/inventory/viewOnStock.html:91
+msgid "Adjustment"
+msgstr ""
+
+#: app/js/inventory/ReceptionController.js:165
+msgid "Do you really want to delete this reception ?"
+msgstr ""
+
+#: app/js/inventory/TransactionViewController.js:3
+msgid "Transaction details"
+msgstr ""
+
+#: app/js/inventory/TransactionViewController.js:13
+msgid "View transaction details"
+msgstr ""
+
+#: app/js/inventory/viewDetailController.js:43
+msgid "Would you like to hide this data?"
+msgstr ""
+
+#: app/js/inventory/viewDetailController.js:44
+msgid "If you choose `Yes` this record will be hidden"
+msgstr ""
+
+#: app/js/inventory/viewDetailController.js:3 app/js/inventory/viewDetailController.js:12
+msgid "View detail"
+msgstr ""
+
+#: app/js/inventory/viewHistoryController.js:3 app/js/inventory/viewHistoryController.js:11
+msgid "View history"
+msgstr ""
+
+#: app/js/order/OrderController.js:128
+msgid "Do you really want to approve this order ?"
+msgstr ""
+
+#: app/js/order/OrderController.js:186
+msgid "Do you really want to delete this order ?"
+msgstr ""
+
+#: app/js/order/OrderController.js:15 app/js/inventory/Transactionview.html:16 app/js/inventory/Transactionview.html:14 app/js/order/order.html:10 app/js/order/order.html:12 app/js/inventory/stocktakes/stocktakes.html:68
+msgid "Approve"
+msgstr ""
+
+#: app/js/order/OrderViewController.js:10
+msgid "View Order"
+msgstr ""
+
+#: app/js/purchase/PurchaseController.js:10
+msgid "Order to Supplier"
+msgstr ""
+
+#: app/js/purchase/PurchaseController.js:29
+msgid "input cannot be less than 1"
+msgstr ""
+
+#: app/js/purchase/PurchaseController.js:41
+msgid "Something gone wrong"
 msgstr ""
 
 #: app/js/administration/customer.html:6 app/js/administration/customertype.html:6 app/js/administration/location.html:6 app/js/administration/route.html:6 app/js/administration/supplier.html:6 app/js/administration/unit.html:6 app/js/drug/drug.html:7
@@ -226,10 +370,6 @@ msgstr ""
 
 #: app/js/administration/customer.html:58 app/js/administration/customer.html:60 app/js/administration/customertype.html:23 app/js/administration/customertype.html:25 app/js/administration/location.html:29 app/js/administration/location.html:31 app/js/administration/route.html:31 app/js/administration/route.html:33 app/js/administration/supplier.html:47 app/js/administration/supplier.html:49 app/js/administration/unit.html:35 app/js/administration/unit.html:37 app/js/dispense/dispense.html:116 app/js/dispense/dispense.html:118 app/js/drug/drug.html:92 app/js/drug/drug.html:94 app/js/inventory/addNewbatch.html:41 app/js/inventory/addNewbatch.html:43 app/js/inventory/adjustment.html:49 app/js/inventory/adjustment.html:51 app/js/inventory/reception.html:79 app/js/inventory/reception.html:100 app/js/inventory/reception.html:102 app/js/order/order.html:79 app/js/order/order.html:105 app/js/order/order.html:106 app/js/purchase/purchase.html:132 app/js/purchase/purchase.html:134 app/js/stocktake/stocktake.html:26 app/js/stocktake/stocktake.html:28
 msgid "Save"
-msgstr ""
-
-#: app/js/administration/customer.html:65 app/js/administration/customertype.html:30 app/js/administration/location.html:36 app/js/administration/route.html:38 app/js/administration/supplier.html:54 app/js/administration/unit.html:42 app/js/dispense/dispense.html:123 app/js/drug/drug.html:99 app/js/inventory/addNewbatch.html:48 app/js/inventory/adjustment.html:55 app/js/inventory/reception.html:86 app/js/inventory/Transactionview.html:22 app/js/inventory/Transactionview.html:24 app/js/order/order.html:112 app/js/order/order.html:114 app/js/purchase/purchase.html:139 app/js/stocktake/stocktake.html:33
-msgid "Cancel"
 msgstr ""
 
 #: app/js/administration/customers.html:27
@@ -592,10 +732,6 @@ msgstr ""
 msgid "Received by"
 msgstr ""
 
-#: app/js/inventory/Transactionview.html:16 app/js/inventory/Transactionview.html:14 app/js/order/order.html:10 app/js/order/order.html:12 app/js/inventory/stocktakes/stocktakes.html:68
-msgid "Approve"
-msgstr ""
-
 #: app/js/inventory/Transactionview.html:39
 msgid "Transaction Informations"
 msgstr ""
@@ -646,10 +782,6 @@ msgstr ""
 
 #: app/js/inventory/viewDetail.html:60
 msgid "Expired"
-msgstr ""
-
-#: app/js/inventory/viewDetail.html:71 app/js/inventory/viewOnStock.html:91
-msgid "Adjustment"
 msgstr ""
 
 #: app/js/inventory/viewDetail.html:76 app/js/inventory/viewOnStock.html:96
@@ -790,6 +922,10 @@ msgstr ""
 
 #: app/js/stocktake/stocktake.html:16
 msgid "Done by"
+msgstr ""
+
+#: app/js/inventory/stocktakes/stocktakesController.js:45
+msgid "Do you really want to approve this stock ?"
 msgstr ""
 
 #: app/js/inventory/stockatrisk/stockatrisk.html:30

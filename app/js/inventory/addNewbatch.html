@@ -7,12 +7,12 @@
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Batch</label>
-                    <input class="form-control" type="text" ng-model="vm.batch.itemBatch">
+                    <input class="form-control" type="text" ng-model="vm.batch.itemBatch" required>
                 </md-input-container>
 
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Location</label>
-                    <md-select ng-model="vm.batch.pharmacyLocation" ng-selected="l.id == pharmacy_location_id">
+                    <md-select ng-model="vm.batch.pharmacyLocation" ng-selected="l.id == pharmacy_location_id" required>
                         <md-option ng-repeat="l in vm.locations" ng-value="l.id">
                             {{l.name}}
                         </md-option>
@@ -21,12 +21,12 @@
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Virtual Quantity</label>
-                    <input class="form-control" type="number" ng-model="vm.batch.itemVirtualstock">
+                    <label translate>Quantity</label>
+                    <input class="form-control" type="number" ng-model="vm.batch.itemVirtualstock" required>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Expiration Date</label>
-                    <input type="date" ng-model="vm.batch.itemExpiryDate">
+                    <input type="date" ng-model="vm.batch.itemExpiryDate" required>
                 </md-input-container>
             </div>
         </md-card-content>

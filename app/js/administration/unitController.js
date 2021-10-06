@@ -1,4 +1,4 @@
-angular.module('UnitController', []).controller('UnitController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
+angular.module('UnitController', []).controller('UnitController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $translate) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des types";
     $scope.resource = "savicspharmacy";
@@ -6,7 +6,7 @@ angular.module('UnitController', []).controller('UnitController', ['$scope', '$s
     $rootScope.links = { "Pharmacy management module": "", "Unit": "units", "New": "unit" };
 
     var vm = this;
-    vm.appTitle = "New type entry";
+    vm.appTitle = $translate.instant("New type entry");
 
     var type = "";
     var msg = "";
@@ -14,14 +14,14 @@ angular.module('UnitController', []).controller('UnitController', ['$scope', '$s
     if ($stateParams.uuid) {
         //we are in edit mode
         vm.unit = $stateParams;
-        vm.appTitle = "Edit type entry";
+        vm.appTitle = $translate.instant("Edit type entry");
     }
 
     $scope.unit = function () {
 
         if (!vm.unit || !vm.unit.code || !vm.unit.name) {
             type = "error";
-            msg = "Please check if your input are valid ones."
+            msg = $translate.instant("Please check if your input are valid ones.")
             showToast(msg, type);
             return;
         }
@@ -54,12 +54,12 @@ angular.module('UnitController', []).controller('UnitController', ['$scope', '$s
         }
         if (response.uuid) {
             type = "success";
-            msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
+            msg = $stateParams.uuid ? response.name + $translate.instant(" is Well edited.") : response.name + $translate.instant(" is Well saved.");
             vm.unit.name = "";
             vm.unit.code = "";
         } else {
             type = "error";
-            msg = "we can't save your data.";
+            msg = $translate.instant("we can't save your data.");
         }
         showToast(msg, type);
     }
@@ -75,9 +75,9 @@ angular.module('UnitController', []).controller('UnitController', ['$scope', '$s
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
 

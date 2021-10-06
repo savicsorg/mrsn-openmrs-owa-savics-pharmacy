@@ -1,6 +1,6 @@
-angular.module('viewDetailController', []).controller('viewDetailController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'orderByFilter', '$q', '$mdDialog', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, orderBy, $q, $mdDialog) {
+angular.module('viewDetailController', []).controller('viewDetailController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'orderByFilter', '$q', '$mdDialog', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, orderBy, $q, $mdDialog, $translate) {
     $scope.rootscope = $rootScope;
-    $scope.appTitle = "View detail";
+    $scope.appTitle = $translate.instant("View detail");
     $scope.resource = "savicspharmacy";
     $scope.item = $stateParams.item;
     $scope.item_id = $stateParams.id;
@@ -9,7 +9,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     $rootScope.links = { "Pharmacy management module": "", "Viewdetail": "View detail" };
 
     var vm = this;
-    vm.appTitle = "View detail";
+    vm.appTitle = $translate.instant("View detail");
 
     var type = "";
     var msg = "";
@@ -40,12 +40,12 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
 
     $scope.showConfirm = function (ev, obj) {
         var confirm = $mdDialog.confirm()
-            .title('Would you like to hide this data?')
-            .textContent('If you choose `Yes` this record will be hidden')
-            .ariaLabel('Lucky day')
+            .title($translate.instant('Would you like to hide this data?'))
+            .textContent($translate.instant('If you choose `Yes` this record will be hidden'))
+            .ariaLabel($translate.instant('Lucky day'))
             .targetEvent(ev)
-            .ok('Yes')
-            .cancel('Cancel');
+            .ok($translate.instant('Yes'))
+            .cancel($translate.instant('Cancel'));
         $mdDialog.show(confirm).then(function () {
             $scope.hide(obj);
         }, function () {
@@ -119,9 +119,9 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
     $scope.donwload = function () {
