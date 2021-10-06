@@ -218,7 +218,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         $scope.loading = true;
         var query = JSON.parse(JSON.stringify($scope.sending));
         query.customer = ($scope.sending.customer) ? $scope.sending.customer.id : null;
-        query.person = ($scope.sending.person) ? $scope.sending.person.uuid : null;
+        query.person = ($scope.sending.person) ? $scope.sending.person.uuid :  null;
         query.date = new Date($scope.sending.date);
         query.sendingDetails = [];
         query.customerType = $scope.dispenseMode;
