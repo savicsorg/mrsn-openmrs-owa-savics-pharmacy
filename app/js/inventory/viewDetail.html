@@ -1,6 +1,7 @@
 <div id="content" class="container-fluid" ng-controller="viewDetailController as vm">
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""><span translate>Stock details for</span><span translate>:</span> <b>{{item.name}}</b></h1>
+        <h1 md-truncate="" flex=""><span translate>Stock details for</span><span translate>:</span> <b>{{item.name}}</b>
+        </h1>
         <a href="index.html#!/inventory">
             <md-button class="md-raised">
                 <md-icon>arrow_back</md-icon><span translate>Back</span>
@@ -57,14 +58,9 @@
                             <td> {{batch.pharmacyLocation.name}} </td>
                             <td>{{batch.itemSoh}}</td>
                             <td>{{batch.itemVirtualstock}}</td>
-                            <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}} <small ng-if="batch.expired" class="chip-normal status-4"> <span translate>Expired</span></small> </td>
+                            <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}} <small ng-if="batch.expired"
+                                    class="chip-normal status-4"> <span translate>Expired</span></small> </td>
                             <td>
-                                <!-- <button ng-click="showConfirm($event, batch)"
-                                    class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove">
-                                    <md-icon class="material-icons" role="img" aria-hidden="true">visibility_off
-                                    </md-icon>
-                                    <md-tooltip md-direction="top"><span translate>Remove</span></md-tooltip>
-                                </button> -->
                                 <button class="md-fab md-mini md-primary md-button" type="button"
                                     aria-label="Adjustment" ng-click="openAdjustement(batch)">
                                     <md-icon class="material-icons" role="img" aria-hidden="true">adjust</md-icon>
@@ -74,6 +70,12 @@
                                     ng-click="openHistory(batch)">
                                     <md-icon class="material-icons" role="img" aria-hidden="true">history</md-icon>
                                     <md-tooltip md-direction="top"><span translate>History</span></md-tooltip>
+                                </button>
+                                <button ng-click="openAdjustementStockTake(batch)"
+                                    class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove">
+                                    <md-icon class="material-icons" role="img" aria-hidden="true">trending_up
+                                    </md-icon>
+                                    <md-tooltip md-direction="top"><span translate>Stocktake</span></md-tooltip>
                                 </button>
                             </td>
                         </tr>

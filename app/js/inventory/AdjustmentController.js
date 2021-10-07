@@ -2,23 +2,24 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
     $scope.rootscope = $rootScope;
     $scope.appTitle = $translate.instant("Adjustment");
     $scope.resource = "savicspharmacy";
-    $scope.item_id = $stateParams.id;
+    $scope.item_id = $stateParams.id ? $stateParams.id : $stateParams.item_id;
     $scope.adjustmentuuid = $stateParams.adjustmentuuid;
-    $scope.selectedBatch_itemBatch = $stateParams.itemBatch;
     $scope.adjustment = {};
     $scope.selectedBatch = {};
+    $scope.selectedItemList = null;
     $scope.transactionType = "padj";
     $scope.transactionTypes = [];
+    $scope.stocktake = false;
 
     if ($stateParams.batch_id) {
         $scope.batch_id = $stateParams.batch_id;
     }
-    if ($stateParams.batch_counted_qty) {
-        $scope.adjustment.quantity = $stateParams.batch_counted_qty;
+    if ($stateParams.adjustment_for) {
+        $scope.appTitle = $stateParams.adjustment_for;
+        $scope.stocktake = true;
     }
-    if ($stateParams.batch_reason) {
-        $scope.adjustment.reason = $stateParams.batch_reason;
-    }
+
+    console.log($stateParams);
 
     var dictionary = require("../utils/dictionary");
     $scope.batches = [];
@@ -28,7 +29,7 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
     $rootScope.links = { "Pharmacy management module": "", "adjustment": "Adjustment" };
 
     var vm = this;
-    vm.appTitle = $translate.instant("Adjustment");
+    vm.appTitle = $stateParams.adjustment_for ? $stateParams.adjustment_for : $translate.instant("Adjustment");
 
     $scope.batches = [];
 
@@ -36,11 +37,12 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
         if (response.results.length >= 1) {
             $scope.batches = response.results;
             $scope.item = response.results[0].item;
-
+            if ($stateParams.batch_id) {
+                $scope.selectedItemList = $scope.batches.find(element => element.id == $stateParams.batch_id);
+            }
             //for edition
             if ($stateParams.itembatch && $stateParams.adjustmentuuid) {
                 $scope.selectedBatch = $scope.batches.find(element => element.itemBatch == $stateParams.itembatch);
-
                 openmrsRest.get($scope.resource + "/transaction/" + $scope.adjustmentuuid).then(function (response) {
                     if (response && response.uuid) {
                         $scope.adjustment = response;
@@ -58,14 +60,27 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
             // Add a new contact
             $scope.submit = function () {
                 if ($scope.transactionTypes && $scope.transactionTypes.length > 0) {
-                    if ($scope.transactionType == "nadj") {
-                        $scope.adjustment.transactionType = 1;
-                        $scope.adjustment.transactionTypeId = 1;
-                        $scope.adjustment.transactionTypeCode = "nadj";
+                    if ($scope.stocktake && $scope.adjustment.quantity) {
+                        console.log([$scope.selectedItemList, $scope.adjustment.quantity]);
+                        if ($scope.selectedItemList.itemSoh > $scope.adjustment.quantity) {//if the physical quantity is greater than the counted quantity then we will do the negative adjusment
+                            $scope.adjustment.transactionType = 6;
+                            $scope.adjustment.transactionTypeId = 6;
+                            $scope.adjustment.transactionTypeCode = "nadj";
+                        } else {
+                            $scope.adjustment.transactionType = 7;
+                            $scope.adjustment.transactionTypeId = 7;
+                            $scope.adjustment.transactionTypeCode = "padj";
+                        }
                     } else {
-                        $scope.adjustment.transactionType = 2;
-                        $scope.adjustment.transactionTypeId = 2;
-                        $scope.adjustment.transactionTypeCode = "padj";
+                        if ($scope.transactionType == "nadj") {
+                            $scope.adjustment.transactionType = 1;
+                            $scope.adjustment.transactionTypeId = 1;
+                            $scope.adjustment.transactionTypeCode = "nadj";
+                        } else {
+                            $scope.adjustment.transactionType = 2;
+                            $scope.adjustment.transactionTypeId = 2;
+                            $scope.adjustment.transactionTypeCode = "padj";
+                        }
                     }
 
                     $scope.adjustment.adjustmentDate = new Date();
@@ -92,6 +107,11 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                     toastr.error($translate.instant('Transaction type are missing.'), 'Error');
                 }
 
+            }
+
+            $scope.getSpecificItemList = function (batch_id) {
+                $scope.selectedItemList = $scope.batches.find(element => element.id == batch_id);
+                console.log($scope.selectedItemList);
             }
         }
     })

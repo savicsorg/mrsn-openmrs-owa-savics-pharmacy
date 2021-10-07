@@ -82,13 +82,9 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
 
     $scope.openAdjustement = function (batch) {
         $state.go('home.adjustmentbatch', {
-            item: batch.item,
             id: batch.item.id,
             item_id: batch.item.id,
-            batch_id: batch.id,
-            batch_physical_qty: batch.itemSoh,
-            batch_counted_qty: batch.itemVirtualstock,
-            batch_reason: batch.reason,
+            batch_id: batch.id
         });
     };
 
@@ -99,6 +95,16 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
             item_Batch: batch.itemBatch
         });
     };
+
+    $scope.openAdjustementStockTake = function (batch) {
+        console.log(batch);
+        $state.go('home.adjustmentbatch', {
+            id: batch.item.id,
+            item_id: batch.item.id,
+            batch_id: batch.id,
+            adjustment_for: 'stock detail for: ' + batch.item.name
+        });
+    }
 
     $scope.onlyExpiredLots = function (item) {
         if ($scope.onlyExpired == true) {

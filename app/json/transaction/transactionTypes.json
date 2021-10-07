@@ -1,12 +1,12 @@
 [
-    
     {
         "id": 1,
         "code": "nadj",
         "en": "Negative adjustement",
         "fr": "Negative adjustement",
         "type": "Negative"
-    },{
+    },
+    {
         "id": 2,
         "code": "padj",
         "fr": "Positive adjustement",
@@ -33,5 +33,19 @@
         "en": "Drug dispense",
         "fr": "Drug dispense",
         "type": "Negative"
+    },
+    {
+        "id": 6,
+        "code": "nstocktake",
+        "en": "Negative stocktake",
+        "fr": "Inventaire negative",
+        "type": "Stocktake"
+    },
+    {
+        "id": 7,
+        "code": "pstocktake",
+        "en": "Positive stocktake",
+        "fr": "Inventaire positive",
+        "type": "Stocktake"
     }
 ]
