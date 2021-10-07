@@ -596,24 +596,6 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "inventory", "stockatrisk"]
-    }).state('home.stocktakes', {
-        url: 'stocktakes',
-        template: require('./inventory/stocktakes/stocktakes.html'),
-        controller: 'stocktakesController',
-        resolve: {
-            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
-                var deferred = $q.defer();
-                require.ensure([], function () {
-                    var mod = require('./inventory/stocktakes/stocktakesController.js');
-                    $ocLazyLoad.load({
-                        name: 'stocktakesController'
-                    });
-                    deferred.resolve(mod.controller);
-                });
-                return deferred.promise;
-            }]
-        },
-        breadcrumbs: ["Home", "inventory", "stocktakes"]
     }).state('home.viewtransaction', {
         url: 'viewtransaction/:uuid',
         template: require('./inventory/Transactionview.html'),
