@@ -742,7 +742,7 @@ msgstr "Configuration du module pharmacie"
 
 #: app/js/dashboard/main.html:19
 msgid "Drugs dispense"
-msgstr "Distributeur de médicaments"
+msgstr "Dispense de médicaments"
 
 #: app/js/dispense/dispense.html:72 app/js/inventory/reception.html:51
 #: app/js/order/order.html:62 app/js/purchase/purchase.html:60
@@ -957,7 +957,7 @@ msgstr "Rechercher le nom des médicaments..."
 #: app/js/inventory/stockatrisk/stockatrisk.html:19
 #: app/js/inventory/stockatrisk/stockatrisk.html:21
 msgid "Export"
-msgstr "Expoter"
+msgstr "Exporter"
 
 #: app/js/drug/drugs.html:41 app/js/inventory/stockatrisk/stockatrisk.html:40
 msgid "Designation"

@@ -144,11 +144,11 @@ msgstr ""
 msgid "Quarterly"
 msgstr ""
 
-#: app/js/administration/CustomerController.js:95 app/js/administration/CustomersController.js:90 app/js/administration/CustomertypeController.js:78 app/js/administration/CustomertypeController.js:159 app/js/administration/locationController.js:79 app/js/administration/locationsController.js:89 app/js/administration/routeController.js:78 app/js/administration/routesController.js:90 app/js/administration/SuppliersController.js:90 app/js/administration/unitController.js:78 app/js/administration/unitsController.js:105 app/js/dispense/DispensingManagementController.js:88 app/js/drug/DrugController.js:105 app/js/drug/DrugsController.js:128 app/js/inventory/AddNewbatchController.js:74 app/js/inventory/viewDetailController.js:122 app/js/order/OrderController.js:232 app/js/purchase/PurchaseController.js:132
+#: app/js/administration/CustomerController.js:95 app/js/administration/CustomersController.js:90 app/js/administration/CustomertypeController.js:78 app/js/administration/CustomertypeController.js:159 app/js/administration/locationController.js:79 app/js/administration/locationsController.js:89 app/js/administration/routeController.js:78 app/js/administration/routesController.js:90 app/js/administration/SuppliersController.js:90 app/js/administration/unitController.js:78 app/js/administration/unitsController.js:105 app/js/dispense/DispensingManagementController.js:89 app/js/drug/DrugController.js:100 app/js/drug/DrugsController.js:128 app/js/inventory/AddNewbatchController.js:74 app/js/inventory/viewDetailController.js:122 app/js/order/OrderController.js:232 app/js/purchase/PurchaseController.js:132
 msgid "Toast dismissed."
 msgstr ""
 
-#: app/js/administration/CustomerController.js:97 app/js/administration/CustomersController.js:92 app/js/administration/CustomertypeController.js:80 app/js/administration/CustomertypeController.js:161 app/js/administration/locationController.js:81 app/js/administration/locationsController.js:91 app/js/administration/routeController.js:80 app/js/administration/routesController.js:92 app/js/administration/SuppliersController.js:92 app/js/administration/unitController.js:80 app/js/administration/unitsController.js:107 app/js/dispense/DispensingManagementController.js:90 app/js/drug/DrugController.js:107 app/js/drug/DrugsController.js:130 app/js/inventory/AddNewbatchController.js:76 app/js/inventory/viewDetailController.js:124 app/js/order/OrderController.js:234 app/js/purchase/PurchaseController.js:134
+#: app/js/administration/CustomerController.js:97 app/js/administration/CustomersController.js:92 app/js/administration/CustomertypeController.js:80 app/js/administration/CustomertypeController.js:161 app/js/administration/locationController.js:81 app/js/administration/locationsController.js:91 app/js/administration/routeController.js:80 app/js/administration/routesController.js:92 app/js/administration/SuppliersController.js:92 app/js/administration/unitController.js:80 app/js/administration/unitsController.js:107 app/js/dispense/DispensingManagementController.js:91 app/js/drug/DrugController.js:102 app/js/drug/DrugsController.js:130 app/js/inventory/AddNewbatchController.js:76 app/js/inventory/viewDetailController.js:124 app/js/order/OrderController.js:234 app/js/purchase/PurchaseController.js:134
 msgid "Toast failed or was forced to close early by another toast."
 msgstr ""
 
@@ -180,19 +180,19 @@ msgstr ""
 msgid "Would you like to delete your data?"
 msgstr ""
 
-#: app/js/administration/CustomersController.js:70 app/js/administration/CustomertypeController.js:139 app/js/administration/locationsController.js:69 app/js/administration/routesController.js:70 app/js/administration/SuppliersController.js:70 app/js/administration/unitsController.js:85 app/js/dispense/DispensingManagementController.js:66 app/js/drug/DrugsController.js:108
+#: app/js/administration/CustomersController.js:70 app/js/administration/CustomertypeController.js:139 app/js/administration/locationsController.js:69 app/js/administration/routesController.js:70 app/js/administration/SuppliersController.js:70 app/js/administration/unitsController.js:85 app/js/dispense/DispensingManagementController.js:67 app/js/drug/DrugsController.js:108
 msgid "If you choose `Yes` this record will be deleted and you will not be able to recover it"
 msgstr ""
 
-#: app/js/administration/CustomersController.js:71 app/js/administration/CustomertypeController.js:140 app/js/administration/locationsController.js:70 app/js/administration/routesController.js:71 app/js/administration/SuppliersController.js:71 app/js/administration/unitsController.js:86 app/js/dispense/DispensingManagementController.js:67 app/js/inventory/viewDetailController.js:45
+#: app/js/administration/CustomersController.js:71 app/js/administration/CustomertypeController.js:140 app/js/administration/locationsController.js:70 app/js/administration/routesController.js:71 app/js/administration/SuppliersController.js:71 app/js/administration/unitsController.js:86 app/js/dispense/DispensingManagementController.js:68 app/js/inventory/viewDetailController.js:45
 msgid "Lucky day"
 msgstr ""
 
-#: app/js/administration/CustomersController.js:73 app/js/administration/CustomertypeController.js:142 app/js/administration/locationsController.js:72 app/js/administration/routesController.js:73 app/js/administration/SuppliersController.js:73 app/js/administration/unitsController.js:88 app/js/dispense/DispenseController.js:258 app/js/dispense/DispensingManagementController.js:69 app/js/inventory/ReceptionController.js:166 app/js/inventory/viewDetailController.js:47 app/js/order/OrderController.js:129 app/js/order/OrderController.js:187 app/js/inventory/stocktakes/stocktakesController.js:46
+#: app/js/administration/CustomersController.js:73 app/js/administration/CustomertypeController.js:142 app/js/administration/locationsController.js:72 app/js/administration/routesController.js:73 app/js/administration/SuppliersController.js:73 app/js/administration/unitsController.js:88 app/js/dispense/DispenseController.js:258 app/js/dispense/DispensingManagementController.js:70 app/js/inventory/ReceptionController.js:166 app/js/inventory/viewDetailController.js:47 app/js/order/OrderController.js:129 app/js/order/OrderController.js:187 app/js/inventory/stocktakes/stocktakesController.js:46
 msgid "Yes"
 msgstr ""
 
-#: app/js/administration/CustomersController.js:74 app/js/administration/CustomertypeController.js:143 app/js/administration/locationsController.js:73 app/js/administration/routesController.js:74 app/js/administration/SuppliersController.js:74 app/js/administration/unitsController.js:89 app/js/dispense/DispenseController.js:259 app/js/dispense/DispensingManagementController.js:70 app/js/inventory/ReceptionController.js:167 app/js/inventory/viewDetailController.js:48 app/js/order/OrderController.js:130 app/js/order/OrderController.js:188 app/js/administration/customer.html:65 app/js/administration/customertype.html:30 app/js/administration/location.html:36 app/js/administration/route.html:38 app/js/administration/supplier.html:54 app/js/administration/unit.html:42 app/js/dispense/dispense.html:123 app/js/drug/drug.html:99 app/js/inventory/addNewbatch.html:48 app/js/inventory/adjustment.html:55 app/js/inventory/reception.html:86 app/js/inventory/Transactionview.html:22 app/js/inventory/Transactionview.html:24 app/js/order/order.html:112 app/js/order/order.html:114 app/js/purchase/purchase.html:139 app/js/stocktake/stocktake.html:33 app/js/inventory/stocktakes/stocktakesController.js:47
+#: app/js/administration/CustomersController.js:74 app/js/administration/CustomertypeController.js:143 app/js/administration/locationsController.js:73 app/js/administration/routesController.js:74 app/js/administration/SuppliersController.js:74 app/js/administration/unitsController.js:89 app/js/dispense/DispenseController.js:259 app/js/dispense/DispensingManagementController.js:71 app/js/inventory/ReceptionController.js:167 app/js/inventory/viewDetailController.js:48 app/js/order/OrderController.js:130 app/js/order/OrderController.js:188 app/js/administration/customer.html:65 app/js/administration/customertype.html:30 app/js/administration/location.html:36 app/js/administration/route.html:38 app/js/administration/supplier.html:54 app/js/administration/unit.html:42 app/js/dispense/dispense.html:123 app/js/drug/drug.html:99 app/js/inventory/addNewbatch.html:48 app/js/inventory/adjustment.html:55 app/js/inventory/reception.html:86 app/js/inventory/Transactionview.html:22 app/js/inventory/Transactionview.html:24 app/js/order/order.html:112 app/js/order/order.html:114 app/js/purchase/purchase.html:139 app/js/stocktake/stocktake.html:33 app/js/inventory/stocktakes/stocktakesController.js:47
 msgid "Cancel"
 msgstr ""
 
@@ -204,15 +204,15 @@ msgstr ""
 msgid "New type entry"
 msgstr ""
 
-#: app/js/administration/CustomertypeController.js:57 app/js/administration/locationController.js:58 app/js/administration/routeController.js:57 app/js/administration/unitController.js:57 app/js/drug/DrugController.js:75 app/js/purchase/PurchaseController.js:102
+#: app/js/administration/CustomertypeController.js:57 app/js/administration/locationController.js:58 app/js/administration/routeController.js:57 app/js/administration/unitController.js:57 app/js/drug/DrugController.js:70 app/js/purchase/PurchaseController.js:102
 msgid "is Well edited."
 msgstr ""
 
-#: app/js/administration/CustomertypeController.js:57 app/js/administration/locationController.js:58 app/js/administration/routeController.js:57 app/js/administration/unitController.js:57 app/js/drug/DrugController.js:75 app/js/inventory/AddNewbatchController.js:52 app/js/purchase/PurchaseController.js:102
+#: app/js/administration/CustomertypeController.js:57 app/js/administration/locationController.js:58 app/js/administration/routeController.js:57 app/js/administration/unitController.js:57 app/js/drug/DrugController.js:70 app/js/inventory/AddNewbatchController.js:52 app/js/purchase/PurchaseController.js:102
 msgid "is Well saved."
 msgstr ""
 
-#: app/js/administration/CustomertypeController.js:62 app/js/administration/locationController.js:63 app/js/administration/routeController.js:62 app/js/administration/unitController.js:62 app/js/drug/DrugController.js:89 app/js/inventory/AddNewbatchController.js:55 app/js/purchase/PurchaseController.js:116
+#: app/js/administration/CustomertypeController.js:62 app/js/administration/locationController.js:63 app/js/administration/routeController.js:62 app/js/administration/unitController.js:62 app/js/drug/DrugController.js:84 app/js/inventory/AddNewbatchController.js:55 app/js/purchase/PurchaseController.js:116
 msgid "we can't save your data."
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr ""
 msgid "Do you really want to delete this line ?"
 msgstr ""
 
-#: app/js/dispense/DispensingManagementController.js:65
+#: app/js/dispense/DispensingManagementController.js:66
 msgid "Would you like to delete this dispensiation?"
 msgstr ""
 
@@ -252,7 +252,7 @@ msgstr ""
 msgid "Drugs dispensing management"
 msgstr ""
 
-#: app/js/drug/DrugController.js:59
+#: app/js/drug/DrugController.js:54
 msgid "Attention, the drug code you entered is already used. Please use another one."
 msgstr ""
 
@@ -508,7 +508,7 @@ msgstr ""
 msgid "Batch n°"
 msgstr ""
 
-#: app/js/dispense/dispense.html:85 app/js/dispense/dispensingManagement.html:43 app/js/inventory/adjustment.html:30 app/js/inventory/reception.html:55 app/js/order/order.html:66 app/js/order/orderview.html:46
+#: app/js/dispense/dispense.html:85 app/js/dispense/dispensingManagement.html:43 app/js/inventory/addNewbatch.html:24 app/js/inventory/adjustment.html:30 app/js/inventory/reception.html:55 app/js/order/order.html:66 app/js/order/orderview.html:46
 msgid "Quantity"
 msgstr ""
 
@@ -670,10 +670,6 @@ msgstr ""
 
 #: app/js/inventory/addNewbatch.html:14 app/js/inventory/reception.html:67 app/js/inventory/Transactionview.html:73 app/js/inventory/viewDetail.html:40 app/js/inventory/stockatrisk/stockatrisk.html:43 app/js/inventory/stocktakes/stocktakes.html:29
 msgid "Location"
-msgstr ""
-
-#: app/js/inventory/addNewbatch.html:24
-msgid "Virtual Quantity"
 msgstr ""
 
 #: app/js/inventory/addNewbatch.html:28 app/js/inventory/stocktakes/stocktakes.html:34
