@@ -1,13 +1,13 @@
 <div id="content" class="container-fluid">           
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""><md-icon>shopping_cart</md-icon> {{"pharmacy.order.title" | translate}}</h1>
+        <h1 md-truncate="" flex=""><md-icon>shopping_cart</md-icon> {{"Orders Management" | translate}}</h1>
         <a href = "index.html#!/order">
             <md-button class="md-raised md-primary" aria-label="Add" >
                 <md-icon class=" material-icons" role="img" aria-hidden="true">add</md-icon>
                 <md-tooltip md-direction="top">
-                    <span translate>{{"pharmacy.order.placeAnOrder" | translate}}</span>
+                    <span >{{"Place an order" | translate}}</span>
                 </md-tooltip>
-                {{"pharmacy.order.placeAnOrder" | translate}}
+                <span translate>Place an order</span>
             </md-button>
         </a>       
     </div>   
@@ -18,7 +18,7 @@
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
-                <input type="search" name="search" ng-model="searchText" placeholder="{{'pharmacy.order.search' | translate}}">
+                <input type="search" name="search" ng-model="searchText" placeholder="{{'Search' | translate}}">
             </form>
         </div>
     </md-toolbar>
@@ -48,21 +48,21 @@
                                     ng-click="view(data)" >
                                     <md-icon>edit</md-icon>
                                     <md-tooltip md-direction="top">
-                                        <span translate>{{"pharmacy.order.edit" | translate}}</span>
+                                        <span >{{"Edit" | translate}}</span>
                                     </md-tooltip>
                                 </md-button>
                                 <md-button class="md-fab md-mini md-primary md-button" aria-label="add" ng-if="data.dateReception === null && data.dateApprobation !== null"
                                     ng-click="receive(data)" >
                                     <md-icon>check_circle</md-icon>
                                     <md-tooltip md-direction="top">
-                                        <span translate>{{"pharmacy.order.receive" | translate}}</span>
+                                        <span translate>Receive</span>
                                     </md-tooltip>
                                 </md-button>
                                 <md-button class="md-fab md-mini md-primary md-button" aria-label="add" ng-if="data.dateApprobation === null"
                                     ng-click="deleteOrder(data)" >
                                     <md-icon>remove</md-icon>
                                     <md-tooltip md-direction="top">
-                                        <span translate>{{"pharmacy.order.remove" | translate}}</span>
+                                        <span >{{"Remove" | translate}}</span>
                                     </md-tooltip>
                                 </md-button>
                             </td>

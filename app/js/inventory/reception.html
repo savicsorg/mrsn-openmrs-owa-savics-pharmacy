@@ -1,11 +1,11 @@
 <div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">
-              <md-icon>add_shopping_cart</md-icon> {{"pharmacy.reception.editTitle" | translate}} 
+              <md-icon>add_shopping_cart</md-icon> <span translate>Reception of drugs</span>
         </h1>
         <a href="index.html#!/receptions">
             <md-button class="md-raised">
-                <md-icon>arrow_back</md-icon>{{"pharmacy.back" | translate}}
+                <md-icon>arrow_back</md-icon>{{"Back" | translate}}
             </md-button>
         </a>       
     </div>
@@ -13,11 +13,11 @@
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div> 
     <md-card ng-show="!loading">
-        <md-card-title translate>{{"pharmacy.reception.receptionInformation" | translate}}</md-card-title>
+        <md-card-title >{{"Reception Information" | translate}}</md-card-title>
         <md-card-content>
             <div layout="row" layout-xs="column" class="flex flex-col">
                 <md-input-container class="md-block" flex-gt-sm flex="66">
-                    <label translate>{{"pharmacy.reception.order" | translate}}</label>
+                    <label >{{"Order n°" | translate}}</label>
                     <md-select ng-model="reception.pharmacyOrder.id">
                         <md-option ng-repeat="o in orders" ng-value="o.id">
                             [CMD#{{o.id}}] {{o.name}}
@@ -25,7 +25,7 @@
                     </md-select>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="33">
-                    <label translate>{{"pharmacy.reception.date" | translate}}</label>
+                    <label >{{"Date of Reception" | translate}}</label>
                     <input type="date" ng-model="reception.date" >
                 </md-input-container>
                
@@ -33,7 +33,7 @@
         </md-card-content>
     </md-card>
     <md-card ng-if="reception.id !== undefined" ng-show="!loading">
-        <md-card-title translate> {{"pharmacy.item.listOfItemsReceived" | translate}}</md-card-title>
+        <md-card-title translate> List of items received</md-card-title>
         <md-card-content>           
             <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
                 <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in searchItems(searchText)" 
@@ -44,27 +44,27 @@
                       <span md-highlight-text="searchText">{{item.name}}</span>
                     </md-item-template>
                     <md-not-found>
-                      No matches found.
+                        <span translate>No matches found.</span>
                     </md-not-found>
                 </md-autocomplete>
                 <md-input-container class="md-block" flex-gt-sm flex="25" ng-if="l.uuid  !== null && l.uuid !== undefined">
-                    <label translate>{{"pharmacy.order.drug" | translate}}</label>
+                    <label >{{"Drug" | translate}}</label>
                     <input class="form-control" disabled type="text" ng-model="l.item.name" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>{{"pharmacy.order.quantity" | translate}}</label>
+                    <label >{{"Quantity" | translate}}</label>
                     <input class="form-control" type="number" ng-model="l.quantityReceived" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>{{"pharmacy.item.batchNumber" | translate}}</label>
+                    <label >{{"Batch n°" | translate}}</label>
                     <input class="form-control" type="text" ng-model="l.itemBatch">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>{{"pharmacy.item.expiryDate" | translate}}</label>
+                    <label >{{"Date of expiry" | translate}}</label>
                     <input class="form-control" type="date" ng-model="l.itemExpiryDate">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>{{"pharmacy.item.location" | translate}}</label>
+                    <label >{{"Location" | translate}}</label>
                     <md-select ng-model="l.itemLineLocation">
                         <md-option ng-repeat="lo in locations" ng-value="lo.uuid">
                             {{lo.name}}
@@ -76,13 +76,13 @@
                         ng-click="deteleReceptionDetail(l, $index)">
                         <md-icon>remove</md-icon>
                         <md-tooltip md-direction="top">
-                            <span translate>{{"pharmacy.order.cancel" | translate}}</span>
+                            <span >{{"Cancel" | translate}}</span>
                         </md-tooltip>
                     </md-button>
                 </md-input-container>
             </div>
             <md-button class=" md-primary md-button" aria-label="Add" ng-click="addReceptionLine()">
-                <md-icon>add</md-icon> {{"pharmacy.order.addALine" | translate}}
+                <md-icon>add</md-icon> {{"Add a line" | translate}}
             </md-button>
         </md-card-content>
     </md-card>

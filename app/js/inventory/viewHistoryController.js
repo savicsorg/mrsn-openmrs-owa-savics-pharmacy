@@ -1,81 +1,70 @@
-angular.module('viewHistoryController', []).controller('viewHistoryController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
-        $scope.rootscope = $rootScope;
-        $scope.appTitle = "View history";
-        $scope.resource = "savicspharmacy";
-        $scope.item_uuid = $stateParams.uuid;
-        var dictionary = require("../utils/dictionary");
-        
-        //Breadcrumbs properties
-        $rootScope.links = {"Pharmacy management module": "", "Viewhistory": "View history"};
-        
+angular.module('viewHistoryController', []).controller('viewHistoryController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$location', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $location, $translate) {
+    $scope.rootscope = $rootScope;
+    $scope.appTitle = $translate.instant("View history");
+    $scope.resource = "savicspharmacy";
+    $scope.item_uuid = $stateParams.uuid;
+    var dictionary = require("../utils/dictionary");
+    //Breadcrumbs properties
+    $rootScope.links = { "Pharmacy management module": "", "Viewhistory": "View history" };
 
-        var vm = this;
-        vm.appTitle = "View history";
+    var vm = this;
+    vm.appTitle = $translate.instant("View history");
 
-        var type = "";
-        var msg = "";
-
-        $scope.histories = [
-            {"item": "aspirine", "bath": "89809809", "type": "negative", "qty": "100", "date": "2014-12-31"},
-            {"item": "aspirine", "bath": "89809809", "type": "positive", "qty": "100", "date": "2014-12-31"}
-        ]
-
-        $scope.transactions = [];
-        openmrsRest.get($scope.resource + "/item/" + $scope.item_uuid).then(function (response) {
-            if (response && response.uuid) {
-                $scope.item = response;
-
-                openmrsRest.get($scope.resource + "/transaction?item=" + $scope.item.id).then(function (response) {
-                    if (response.results.length >= 1) {
+    $scope.transactions = [];
+    openmrsRest.get($scope.resource + "/item/" + $scope.item_uuid).then(function (response) {
+        if (response && response.uuid) {
+            $scope.item = response;
+            openmrsRest.get($scope.resource + "/transaction?item=" + $scope.item.id).then(function (response) {
+                if (response.results.length >= 1) {
+                    if ($stateParams.item_Batch) {
+                        $scope.transactions = response.results.filter((result) => {
+                            return result.itemBatch === $stateParams.item_Batch;
+                        });
+                    } else {
                         $scope.transactions = response.results;
                     }
-                })
-            }
-        })
-
-        $scope.openViewTransaction = function (data) {
-            $state.go('home.viewtransaction', {
-                uuid: data.uuid
-            });
-        };
-
-        $scope.getTransactionType = function (id) {
-            return  dictionary.getTransactionTypeById(id, "en");
-        };
-
-        function handleResponse(response, e = null) {
-            document.getElementById("loading_submit").style.visibility = "hidden";
-            if (e) {
-                type = "error";
-                msg = e.data.error.message;
-                showToast(msg, type);
-                return;
-            }
-            if (response.uuid) {
-                type = "success";
-                msg = $stateParams.uuid ? response.name + " is Well edited." : response.name + " is Well saved.";
-            } else {
-                type = "error";
-                msg = "we can't save your data.";
-            }
-            showToast(msg, type);
+                }
+            })
         }
+    })
 
-        function showToast(msg, type) {
-            if (type != "error") {
-                $state.go('home.drugs')
-            }
-            $mdToast.show(
-                    $mdToast.simple()
-                    .content(msg)
-                    .theme(type + "-toast")
-                    .position('top right')
-                    .hideDelay(3000))
-                    .then(function () {
-                        $log.log('Toast dismissed.');
-                    }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
-            });
+    $scope.openViewTransaction = function (data) {
+        $state.go('home.viewtransaction', {
+            uuid: data.uuid
+        });
+    };
+
+    $scope.getTransactionType = function (id) {
+        return dictionary.getTransactionTypeById(id, "en");
+    };
+
+    $scope.query = {
+        limit: 5,
+        page: 1
+    };
+
+    $scope.returnToPrevious = function () {
+        const params = getParameters('/viewhistorybatch/:item_id/:uuid/:item_Batch', $location.path());
+        if (params.uuid && params.item_Batch && params.item_id) { //for parameters with three ids
+            $state.go('home.viewdetail', { id: params.item_id });
+        } else {
+            $state.go('home.inventory', {});
         }
+    }
 
-    }]);
+    const getParameters = (temp, path) => {
+        const parameters = {};
+        const tempParts = temp.split('/');
+        const pathParts = path.split('/');
+        for (let i = 0; i < tempParts.length; i++) {
+            const element = tempParts[i];
+            if (element.startsWith(':')) {
+                const key = element.substring(1, element.length);
+                parameters[key] = pathParts[i];
+            }
+        }
+        return parameters;
+    };
+
+
+}]);

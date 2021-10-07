@@ -1,7 +1,8 @@
-angular.module('LocationsController', ['ngMaterial', 'md.data.table']).controller('LocationsController', ['$scope', '$state', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', function ($scope, $state, $rootScope, $mdToast, openmrsRest, $mdDialog) {
+angular.module('LocationsController', ['ngMaterial', 'md.data.table']).controller('LocationsController', ['$scope', '$state', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', '$translate',function ($scope, $state, $rootScope, $mdToast, openmrsRest, $mdDialog, $translate) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des locations";
     $scope.resource = "savicspharmacy";
+    $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Location": "locations" };
 
@@ -13,10 +14,15 @@ angular.module('LocationsController', ['ngMaterial', 'md.data.table']).controlle
 
     $scope.getAllLocation = function () {
         $scope.locations = [];
+        $scope.loading = true;
         openmrsRest.getFull($scope.resource + "/location").then(function (response) {
+            $scope.loading = false;
             if (response.results.length >= 1) {
                 $scope.locations = response.results;
             }
+        }, function (e) {
+            $scope.loading = false;
+            showToast($translate.instant("An unexpected error has occured."), "error");
         })
     }
 
@@ -59,12 +65,12 @@ angular.module('LocationsController', ['ngMaterial', 'md.data.table']).controlle
 
     $scope.showConfirm = function (ev, obj) {
         var confirm = $mdDialog.confirm()
-            .title('Would you like to delete your data?')
-            .textContent('If you choose `Yes` this record will be deleted and you will not be able to recover it')
-            .ariaLabel('Lucky day')
+            .title($translate.instant('Would you like to delete your data?'))
+            .textContent($translate.instant('If you choose `Yes` this record will be deleted and you will not be able to recover it'))
+            .ariaLabel($translate.instant('Lucky day'))
             .targetEvent(ev)
-            .ok('Yes')
-            .cancel('Cancel');
+            .ok($translate.instant('Yes'))
+            .cancel($translate.instant('Cancel'));
         $mdDialog.show(confirm).then(function () {
             $scope.delete(obj);
         }, function () {
@@ -80,14 +86,9 @@ angular.module('LocationsController', ['ngMaterial', 'md.data.table']).controlle
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
-
-    $scope.search = function (row) {
-        return (angular.lowercase(row.name).indexOf($scope.searchAll || '') !== -1 || angular.lowercase(row.code).indexOf($scope.searchAll || '') !== -1);
-    };
-
 }])

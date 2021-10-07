@@ -1,16 +1,16 @@
-angular.module('datetimeFilters', []).filter('dMMMM', ['gettextCatalog', '$window', function(gettextCatalog, $window) {
-    var months = new Array(gettextCatalog.getString("January"),
-        gettextCatalog.getString("February"),
-        gettextCatalog.getString("March"),
-        gettextCatalog.getString("April"),
-        gettextCatalog.getString("May"),
-        gettextCatalog.getString("June"),
-        gettextCatalog.getString("July"),
-        gettextCatalog.getString("August"),
-        gettextCatalog.getString("September"),
-        gettextCatalog.getString("October"),
-        gettextCatalog.getString("November"),
-        gettextCatalog.getString("December"));
+angular.module('datetimeFilters', []).filter('dMMMM', ['$translate', '$window', function($translate, $window) {
+    var months = new Array($translate.instant("January"),
+        $translate.instant("February"),
+        $translate.instant("March"),
+        $translate.instant("April"),
+        $translate.instant("May"),
+        $translate.instant("June"),
+        $translate.instant("July"),
+        $translate.instant("August"),
+        $translate.instant("September"),
+        $translate.instant("October"),
+        $translate.instant("November"),
+        $translate.instant("December"));
     return function (str) {
         var toReturn = '';
         if($window.localStorage.language == 'FR'){
@@ -20,9 +20,9 @@ angular.module('datetimeFilters', []).filter('dMMMM', ['gettextCatalog', '$windo
         }
         return toReturn;
     }
-}]).filter('ddMMyyyy', ['gettextCatalog', '$filter', function(gettextCatalog, $filter) {
+}]).filter('ddMMyyyy', ['$translate', '$filter', function($translate, $filter) {
     return function (str) {
-        var toReturn = gettextCatalog.getString("unknown");
+        var toReturn = $translate.instant("unknown");
         if(str && str != ""){
             toReturn = $filter('date')(str, "dd/MM/yyyy");
         }
@@ -32,7 +32,7 @@ angular.module('datetimeFilters', []).filter('dMMMM', ['gettextCatalog', '$windo
     return function (received) {
         return HHmm(received);
     }
-}).filter('dayago', function (gettextCatalog, $window) {
+}).filter('dayago', function ($translate, $window) {
     return function (time, local, raw) {
         if (time && time != "") {
             var now = new Date;
@@ -69,13 +69,13 @@ angular.module('datetimeFilters', []).filter('dMMMM', ['gettextCatalog', '$windo
                     DECADE = 315569260;
 
             if (offset <= MINUTE)
-                span = [Math.round(Math.abs(offset / SECOND)), gettextCatalog.getString("second"), gettextCatalog.getString("seconds")];
+                span = [Math.round(Math.abs(offset / SECOND)), $translate.instant("second"), $translate.instant("seconds")];
             else if (offset < (MINUTE * 60))
-                span = [Math.round(Math.abs(offset / MINUTE)), gettextCatalog.getString("minute"), gettextCatalog.getString("minutes")];
+                span = [Math.round(Math.abs(offset / MINUTE)), $translate.instant("minute"), $translate.instant("minutes")];
             else if (offset < (HOUR * 24))
-                span = [Math.round(Math.abs(offset / HOUR)), gettextCatalog.getString("hour"), gettextCatalog.getString("hours")];
+                span = [Math.round(Math.abs(offset / HOUR)), $translate.instant("hour"), $translate.instant("hours")];
             else
-                span = [Math.round(Math.abs(offset / DAY)), gettextCatalog.getString("day"), gettextCatalog.getString("days")];
+                span = [Math.round(Math.abs(offset / DAY)), $translate.instant("day"), $translate.instant("days")];
 
             span[1] = (span[0] === 0 || span[0] > 1) ? span[2] : span[1];
             span.pop();
@@ -84,13 +84,13 @@ angular.module('datetimeFilters', []).filter('dMMMM', ['gettextCatalog', '$windo
             if ($window.localStorage.language == 'FR') {
                 return "Il y a" + " " + span;
             } else {
-                return span + ' ' + gettextCatalog.getString('ago');
+                return span + ' ' + $translate.instant('ago');
             }
         } else {
             return "";
         }
     }
-}).filter('ago', function(gettextCatalog, $window){
+}).filter('ago', function($translate, $window){
     return function (time, local, raw) {
         if(time && time != ""){
             var now = new Date;
@@ -129,13 +129,13 @@ angular.module('datetimeFilters', []).filter('dMMMM', ['gettextCatalog', '$windo
                     DECADE = 315569260;
 
                 if (offset <= MINUTE)
-                    span = [ Math.round(Math.abs(offset / SECOND)), gettextCatalog.getString("second"), gettextCatalog.getString("seconds")];
+                    span = [ Math.round(Math.abs(offset / SECOND)), $translate.instant("second"), $translate.instant("seconds")];
                 else if (offset < (MINUTE * 60))
-                    span = [ Math.round(Math.abs(offset / MINUTE)), gettextCatalog.getString("minute"), gettextCatalog.getString("minutes") ];
+                    span = [ Math.round(Math.abs(offset / MINUTE)), $translate.instant("minute"), $translate.instant("minutes") ];
                 else if (offset < (HOUR * 24))
-                    span = [ Math.round(Math.abs(offset / HOUR)), gettextCatalog.getString("hour"), gettextCatalog.getString("hours") ];
+                    span = [ Math.round(Math.abs(offset / HOUR)), $translate.instant("hour"), $translate.instant("hours") ];
                 else if (offset < (DAY * 7))
-                    span = [ Math.round(Math.abs(offset / DAY)), gettextCatalog.getString("day"), gettextCatalog.getString("days") ];
+                    span = [ Math.round(Math.abs(offset / DAY)), $translate.instant("day"), $translate.instant("days") ];
 
                 span[1] = (span[0] === 0 || span[0] > 1) ? span[2] : span[1];
                 span.pop();
@@ -144,32 +144,32 @@ angular.module('datetimeFilters', []).filter('dMMMM', ['gettextCatalog', '$windo
                 if($window.localStorage.language == 'FR'){
                     return "Il y a" + " " + span;
                 } else {
-                    return span + ' ' + gettextCatalog.getString('ago');
+                    return span + ' ' + $translate.instant('ago');
                 }
             } else if((datetime.getDate()+1 == now.getDate()) && (datetime.getMonth() == now.getMonth()) && (datetime.getFullYear() == now.getFullYear())) {
-                return gettextCatalog.getString("Yesterday") + ", " + HHmm(datetime);
+                return $translate.instant("Yesterday") + ", " + HHmm(datetime);
             } else if((now.getDate()-7 < datetime.getDate()) && (datetime.getMonth() == now.getMonth()) && (datetime.getFullYear() == now.getFullYear())) {
-                var weekDays = new Array(gettextCatalog.getString("Sunday"),
-                                         gettextCatalog.getString("Monday"),
-                                         gettextCatalog.getString("Tuesday"),
-                                         gettextCatalog.getString("Wednesday"),
-                                         gettextCatalog.getString("Thursday"),
-                                         gettextCatalog.getString("Friday"),
-                                         gettextCatalog.getString("Saturday"));
+                var weekDays = new Array($translate.instant("Sunday"),
+                                         $translate.instant("Monday"),
+                                         $translate.instant("Tuesday"),
+                                         $translate.instant("Wednesday"),
+                                         $translate.instant("Thursday"),
+                                         $translate.instant("Friday"),
+                                         $translate.instant("Saturday"));
                 return weekDays[datetime.getDay()] + ", " + HHmm(datetime);
             } else {
-                var months = new Array(gettextCatalog.getString("January"),
-                                       gettextCatalog.getString("February"),
-                                       gettextCatalog.getString("March"),
-                                       gettextCatalog.getString("April"),
-                                       gettextCatalog.getString("May"),
-                                       gettextCatalog.getString("June"),
-                                       gettextCatalog.getString("July"),
-                                       gettextCatalog.getString("August"),
-                                       gettextCatalog.getString("September"),
-                                       gettextCatalog.getString("October"),
-                                       gettextCatalog.getString("November"),
-                                       gettextCatalog.getString("December"));
+                var months = new Array($translate.instant("January"),
+                                       $translate.instant("February"),
+                                       $translate.instant("March"),
+                                       $translate.instant("April"),
+                                       $translate.instant("May"),
+                                       $translate.instant("June"),
+                                       $translate.instant("July"),
+                                       $translate.instant("August"),
+                                       $translate.instant("September"),
+                                       $translate.instant("October"),
+                                       $translate.instant("November"),
+                                       $translate.instant("December"));
 
                 var toReturn = '';
                 toReturn = datetime.getDate() + ' ' + months[datetime.getMonth()] + ' ' + datetime.getFullYear() + ", " + HHmm(datetime);
@@ -179,7 +179,7 @@ angular.module('datetimeFilters', []).filter('dMMMM', ['gettextCatalog', '$windo
             return "";
         }
     }
-}).filter('smartDatetime', ['gettextCatalog', '$window', function(gettextCatalog, $window){
+}).filter('smartDatetime', ['$translate', '$window', function($translate, $window){
     return function (datetime) {
         if(datetime && datetime != ""){
             var now = new Date;
@@ -188,29 +188,29 @@ angular.module('datetimeFilters', []).filter('dMMMM', ['gettextCatalog', '$windo
             if((datetime.getDate() == now.getDate()) && (datetime.getMonth() == now.getMonth()) && (datetime.getFullYear() == now.getFullYear())) {
                 return HHmm(datetime);
             } else if((datetime.getDate()+1 == now.getDate()) && (datetime.getMonth() == now.getMonth()) && (datetime.getFullYear() == now.getFullYear())) {
-                return gettextCatalog.getString("Yesterday");
+                return $translate.instant("Yesterday");
             } else if((now.getDate()-7 < datetime.getDate()) && (datetime.getMonth() == now.getMonth()) && (datetime.getFullYear() == now.getFullYear())) {
-                var weekDays = new Array(gettextCatalog.getString("Sunday"),
-                    gettextCatalog.getString("Monday"),
-                    gettextCatalog.getString("Tuesday"),
-                    gettextCatalog.getString("Wednesday"),
-                    gettextCatalog.getString("Thursday"),
-                    gettextCatalog.getString("Friday"),
-                    gettextCatalog.getString("Saturday"));
+                var weekDays = new Array($translate.instant("Sunday"),
+                    $translate.instant("Monday"),
+                    $translate.instant("Tuesday"),
+                    $translate.instant("Wednesday"),
+                    $translate.instant("Thursday"),
+                    $translate.instant("Friday"),
+                    $translate.instant("Saturday"));
                 return weekDays[datetime.getDay()];
             } else {
-                var months = new Array(gettextCatalog.getString("January"),
-                    gettextCatalog.getString("February"),
-                    gettextCatalog.getString("March"),
-                    gettextCatalog.getString("April"),
-                    gettextCatalog.getString("May"),
-                    gettextCatalog.getString("June"),
-                    gettextCatalog.getString("July"),
-                    gettextCatalog.getString("August"),
-                    gettextCatalog.getString("September"),
-                    gettextCatalog.getString("October"),
-                    gettextCatalog.getString("November"),
-                    gettextCatalog.getString("December"));
+                var months = new Array($translate.instant("January"),
+                    $translate.instant("February"),
+                    $translate.instant("March"),
+                    $translate.instant("April"),
+                    $translate.instant("May"),
+                    $translate.instant("June"),
+                    $translate.instant("July"),
+                    $translate.instant("August"),
+                    $translate.instant("September"),
+                    $translate.instant("October"),
+                    $translate.instant("November"),
+                    $translate.instant("December"));
 
                 var toReturn = '';
                 toReturn = datetime.getDate() + ' ' + months[datetime.getMonth()] + ' ' + datetime.getFullYear();
@@ -250,7 +250,7 @@ angular.module('limitFilters', []).filter('limitMessage', function() {
 })
 
 
-angular.module('mappingFilters', []).filter('address', ['gettextCatalog', function(gettextCatalog) {
+angular.module('mappingFilters', []).filter('address', ['$translate', function($translate) {
     return function (address) {
         var toReturn = "";
         if(address){
@@ -278,11 +278,11 @@ angular.module('mappingFilters', []).filter('address', ['gettextCatalog', functi
         }
 
         if(toReturn == ""){
-            toReturn = gettextCatalog.getString("unknown");
+            toReturn = $translate.instant("unknown");
         }
         return toReturn;
     }
-}]).filter('ageOrBirthDate', ['gettextCatalog', '$rootScope', function(gettextCatalog, $rootScope) {
+}]).filter('ageOrBirthDate', ['$translate', '$rootScope', function($translate, $rootScope) {
     return function (patient) {
         var toReturn;
         if(patient && patient.age){
@@ -290,18 +290,18 @@ angular.module('mappingFilters', []).filter('address', ['gettextCatalog', functi
         } else if(patient && patient.birthDate){
             toReturn = Number(calculateAge(patient.birthDate));
         } else {
-            toReturn = gettextCatalog.getString("unknown");
+            toReturn = $translate.instant("unknown");
             return toReturn;
         }
         var agep = toReturn;
         if(agep<=1.4166666){
-            toReturn =  (Math.round(agep * 12) ).toFixed(0)+" "+gettextCatalog.getString("Month(s)");
+            toReturn =  (Math.round(agep * 12) ).toFixed(0)+" "+$translate.instant("Month(s)");
         }else{
             toReturn =Math.trunc( agep );
         }
         return toReturn;
     }
-}]).filter('name', ['gettextCatalog', '$rootScope', function(gettextCatalog, $rootScope) {
+}]).filter('name', ['$translate', '$rootScope', function($translate, $rootScope) {
     return function (name) {
         var toReturn = "";
         var given = "";
@@ -339,20 +339,20 @@ angular.module('mappingFilters', []).filter('address', ['gettextCatalog', functi
                     toReturn = ($rootScope.kernel.namingOrder === "lf" ? family + " " + given + " " + post : given + " " + family + " " + post);
                 }
             } else {
-                toReturn = gettextCatalog.getString("CONFIDENTIAL");
+                toReturn = $translate.instant("CONFIDENTIAL");
             }
         }
 
         if(toReturn == ""){
-            toReturn = gettextCatalog.getString("unknown");
+            toReturn = $translate.instant("unknown");
         }
         return toReturn;
     }
-}]).filter('unknown', ['gettextCatalog', function(gettextCatalog) {
+}]).filter('unknown', ['$translate', function($translate) {
     return function (str) {
         var toReturn = str;
         if(toReturn === undefined || toReturn == " " || toReturn == ""){
-            toReturn = gettextCatalog.getString("unknown");
+            toReturn = $translate.instant("unknown");
         }
         return toReturn;
     }
@@ -370,25 +370,25 @@ angular.module('mappingFilters', []).filter('address', ['gettextCatalog', functi
         }
         return toReturn;
     }
-}).filter('frequency', ['gettextCatalog', function(gettextCatalog) {
+}).filter('frequency', ['$translate', function($translate) {
     return function (role) {
-        var toReturn = gettextCatalog.getString("unknown");
+        var toReturn = $translate.instant("unknown");
         switch(role){
             case 'weekly':
-                toReturn = gettextCatalog.getString("Weekly");
+                toReturn = $translate.instant("Weekly");
                 break;
             case 'monthly':
-                toReturn = gettextCatalog.getString("Monthly");
+                toReturn = $translate.instant("Monthly");
                 break;
             case 'quarterly':
-                toReturn = gettextCatalog.getString("Quarterly");
+                toReturn = $translate.instant("Quarterly");
                 break;
         }
         return toReturn;
     }
-}]).filter('phone', ['gettextCatalog', function(gettextCatalog) {
+}]).filter('phone', ['$translate', function($translate) {
     return function (telecom) {
-        var toReturn = gettextCatalog.getString("unknown");
+        var toReturn = $translate.instant("unknown");
         for(i=0;i<telecom.length;i++){
             if(telecom[i].system == "phone" && telecom[i].value && telecom[i].value != ""){
                 toReturn = telecom[i].value;
@@ -396,7 +396,7 @@ angular.module('mappingFilters', []).filter('address', ['gettextCatalog', functi
         }
         return toReturn;
     }
-}]).filter('email', ['gettextCatalog', function(gettextCatalog) {
+}]).filter('email', ['$translate', function($translate) {
     return function (telecom) {
         var toReturn = "unknown";
         for(i=0;i<telecom.length;i++){

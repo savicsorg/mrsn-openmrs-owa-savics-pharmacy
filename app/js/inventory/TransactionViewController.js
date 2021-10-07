@@ -1,6 +1,6 @@
-angular.module('TransactionViewController', []).controller('TransactionViewController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', '$mdDialog', 'openmrsRest', 'toastr', function ($scope, $state, $stateParams, $rootScope, $mdToast, $mdDialog, openmrsRest, toastr) {
+angular.module('TransactionViewController', []).controller('TransactionViewController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', '$mdDialog', 'openmrsRest', 'toastr', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, $mdDialog, openmrsRest, toastr, $translate) {
         $scope.rootscope = $rootScope;
-        $scope.appTitle = "Transaction details";
+        $scope.appTitle = $translate.instant("Transaction details");
         $scope.resource = "savicspharmacy";
         $scope.concept_ressource = "concept";
         $scope.transactionuuid = $stateParams.uuid;
@@ -10,7 +10,7 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
         $rootScope.links = {"Pharmacy management module": "", "Stock and inventory": "inventory", "History": "viewhistory", "Details": "Transactionview"};
 
         var vm = this;
-        vm.appTitle = "View transaction details";
+        vm.appTitle = $translate.instant("View transaction details");
 
         $scope.approveBtn = {
             text: "Approve",
@@ -66,7 +66,7 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
         $scope.reject = function () {
             $mdDialog.show($mdDialog.confirm()
                     .title('Confirmation')
-                    .textContent('Do you really want to reject this adjustment ?')
+                    .textContent($translate.instant('Do you really want to reject this adjustment ?'))
                     .ok('Yes')
                     .cancel('Cancel')).then(function () {
                 $scope.loading = true;
@@ -79,14 +79,14 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
                 $scope.transaction.item = $scope.transaction.item.id;
                 openmrsRest.update($scope.resource + "/transaction", $scope.transaction).then(function (response) {
                     $scope.adjustmentRes = response;
-                    toastr.success('Operation done successfully.', 'Success');
+                    toastr.success($translate.instant('Operation done successfully.'), 'Success');
                     $scope.loading = false;
                     $scope.approveBtn.status = "Rejected"
                     $scope.approveBtn.background = "#F99";
                 }, function (e) {
                     console.error(e);
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
 
             }, function () {
@@ -98,7 +98,7 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
         $scope.approve = function () {
             $mdDialog.show($mdDialog.confirm()
                     .title('Confirmation')
-                    .textContent('Do you really want to approve this adjustment ?')
+                    .textContent($translate.instant('Do you really want to approve this adjustment ?'))
                     .ok('Yes')
                     .cancel('Cancel')).then(function () {
                 $scope.loading = true;
@@ -108,16 +108,15 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
                 var itemuuid = $scope.transaction.item.uuid;
                 $scope.transaction.item = $scope.transaction.item.id;
                 openmrsRest.update($scope.resource + "/transaction", $scope.transaction).then(function (response) {
-                    console.log(response)
                     $scope.adjustmentRes = response;
-                    toastr.success('Data saved successfully.', 'Success');
+                    toastr.success($translate.instant('Data saved successfully.'), 'Success');
                     $scope.approveBtn.status = "Approved";
                     $scope.approveBtn.background = "#28c900";
                     $scope.loading = false;
                 }, function (e) {
                     console.error(e);
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
 
             }, function () {

@@ -1,11 +1,11 @@
-angular.module('AddNewbatchController', []).controller('AddNewbatchController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
+angular.module('AddNewbatchController', []).controller('AddNewbatchController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $translate) {
     $scope.rootscope = $rootScope;
-    $scope.appTitle = "Add New batch";
+    $scope.appTitle = $translate.instant("Add New batch");
     $scope.resource = "savicspharmacy";
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "AddNewbatch": "AddNewbatch" };
     var vm = this;
-    vm.appTitle = "Add New batch";
+    vm.appTitle = $translate.instant("Add New batch");
 
     var type = "";
     var msg = "";
@@ -13,22 +13,22 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
     $scope.batch = function () {
         if (!vm.batch || !vm.batch.itemBatch || !vm.batch.pharmacyLocation || !vm.batch.itemVirtualstock || !vm.batch.itemExpiryDate) {
             type = "error";
-            msg = "Please check if your input are valid ones."
+            msg = $translate.instant("Please check if your input are valid ones.")
             showToast(msg, type);
             return;
         }
         vm.batch.item = parseInt($stateParams.item_id);
         vm.batch.itemSoh = vm.batch.itemVirtualstock;
-
+        vm.batch.transactionType = 3;
+        vm.batch.transactionTypeId = 3;
+        vm.batch.transactionTypeCode = "bcreate";
         document.getElementById("loading_submit").style.visibility = "visible";
         var payload = vm.batch;
-        console.log(payload);
         openmrsRest.create($scope.resource + "/itemsLine", payload).then(function (response) {
             handleResponse(response)
         }).catch(function (e) {
             handleResponse(response, e)
         });
-
     }
 
     $scope.locations = function () {
@@ -38,7 +38,6 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
     }
 
     $scope.locations();
-
 
     function handleResponse(response, e = null) {
         document.getElementById("loading_submit").style.visibility = "hidden";
@@ -50,10 +49,10 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
         }
         if (response.uuid) {
             type = "success";
-            msg = response.itemBatch + " is Well saved.";
+            msg = response.itemBatch + $translate.instant(" is Well saved.");
         } else {
             type = "error";
-            msg = "we can't save your data.";
+            msg = $translate.instant("we can't save your data.");
         }
         showToast(msg, type);
     }
@@ -72,9 +71,9 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
 

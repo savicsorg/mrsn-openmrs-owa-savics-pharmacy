@@ -1,39 +1,46 @@
-<div id="content" class="container-fluid">           
+<div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""><md-icon>shopping_cart</md-icon> {{"pharmacy.order.title" | translate}}</h1>
-        <a href = "index.html#!/order">
-            <md-button class="md-raised md-primary" aria-label="Add" >
+        <h1 md-truncate="" flex="">
+            <md-icon>shopping_cart</md-icon> {{"Orders management" | translate}}
+        </h1>
+        <a href="index.html#!/">
+            <md-button class="md-raised">
+                <md-icon>arrow_back</md-icon><span translate>Back</span>
+            </md-button>
+        </a>
+        <a href="index.html#!/order">
+            <md-button class="md-raised md-primary" aria-label="Add">
                 <md-icon class=" material-icons" role="img" aria-hidden="true">add</md-icon>
                 <md-tooltip md-direction="top">
-                    <span translate>{{"pharmacy.order.placeAnOrder" | translate}}</span>
+                    <span >{{"Place an order" | translate}}</span>
                 </md-tooltip>
-                {{"pharmacy.order.placeAnOrder" | translate}}
+                {{"Place an order" | translate}}
             </md-button>
-        </a>       
-    </div>   
+        </a>
+    </div>
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-    </div> 
+    </div>
     <md-toolbar class="md-table-toolbar md-default" ng-show="!loading">
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
-                <input type="search" name="search" ng-model="searchText" placeholder="{{'pharmacy.order.search' | translate}}">
+                <input type="search" name="search" ng-model="searchAll.id" placeholder="{{ 'Search for Orders n°...' | translate }}">
             </form>
         </div>
     </md-toolbar>
-    <md-card   ng-show="!loading">
+    <md-card ng-show="!loading">
         <md-card-content>
             <md-table-container class="container" fixed-column-table>
                 <table md-table md-progress="promise">
                     <thead md-head>
                         <tr md-row>
-                            <th ><span translate>{{"pharmacy.order.orderNumber" | translate}}</span></th>
-                            <th ><span translate>{{"pharmacy.order.supplierName" | translate}}</span></th>
-                            <th ><span translate>{{"pharmacy.reception.date" | translate}}</span></th>
-                            <th ><span translate>{{"pharmacy.order.approvedOn" | translate}}</span></th>
-                            <th ><span translate>{{"pharmacy.order.amount" | translate}}</span></th>
-                            <th><span translate>{{"pharmacy.actions" | translate}}</span></th>
+                            <th><span >{{"Order n°" | translate}}</span></th>
+                            <th><span >{{"Supplier" | translate}}</span></th>
+                            <th><span >{{"Date of Reception" | translate}}</span></th>
+                            <th><span >{{"Approved on" | translate}}</span></th>
+                            <th><span >{{"Amount" | translate}}</span></th>
+                            <th><span >{{"Actions" | translate}}</span></th>
                         </tr>
                     </thead>
                     <tbody md-body>
@@ -44,25 +51,31 @@
                             <td md-cell >{{data.dateApprobation | date: 'dd/MM/yyyy'}}</td>
                             <td md-cell >{{data.amount}}</td>
                             <td md-cell >
+                                <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
+                                ng-click="openView(data)" ng-if="data.dateApprobation">
+                                    <md-icon class="material-icons" role="img" aria-hidden="true">visibility</md-icon>
+                                    <md-tooltip md-direction="top"><span translate>View</span></md-tooltip>
+                                </button>
                                 <md-button class="md-fab md-mini md-primary md-button" aria-label="add"
-                                    ng-click="view(data)" >
+                                    ng-click="view(data)" ng-if="!data.dateApprobation">
                                     <md-icon>edit</md-icon>
                                     <md-tooltip md-direction="top">
-                                        <span translate>{{"pharmacy.order.edit" | translate}}</span>
+                                        <span >{{"Edit" | translate}}</span>
                                     </md-tooltip>
                                 </md-button>
-                                <md-button class="md-fab md-mini md-primary md-button" aria-label="add" ng-if="data.dateReception === null && data.dateApprobation !== null"
-                                    ng-click="receive(data)" >
+                                <md-button class="md-fab md-mini md-primary md-button" aria-label="add"
+                                    ng-if="data.dateReception === null && data.dateApprobation !== null"
+                                    ng-click="receive(data)">
                                     <md-icon>check_circle</md-icon>
                                     <md-tooltip md-direction="top">
-                                        <span translate>{{"pharmacy.order.receive" | translate}}</span>
+                                        <span >{{"Receive" | translate}}</span>
                                     </md-tooltip>
                                 </md-button>
-                                <md-button class="md-fab md-mini md-primary md-button" aria-label="add" ng-if="data.dateApprobation === null"
-                                    ng-click="deleteOrder(data)" >
-                                    <md-icon>remove</md-icon>
+                                <md-button class="md-fab md-mini md-primary md-button" aria-label="add"
+                                    ng-if="data.dateApprobation === null" ng-click="deleteOrder(data)">
+                                    <md-icon>delete</md-icon>
                                     <md-tooltip md-direction="top">
-                                        <span translate>{{"pharmacy.order.remove" | translate}}</span>
+                                        <span >{{"Remove" | translate}}</span>
                                     </md-tooltip>
                                 </md-button>
                             </td>
@@ -75,5 +88,5 @@
                 md-on-paginate="logPagination" md-label="{rowsPerPage: 'rows per page'}">
             </md-table-pagination>
         </md-card-content>
-    </md-card>    
+    </md-card>
 </div>

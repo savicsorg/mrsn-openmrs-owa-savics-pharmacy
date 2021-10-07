@@ -26,7 +26,7 @@
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Order N<sub>o</sub></label>
+                    <label translate>Order N°</label>
                     <input ng-model="vm.order_number">
                 </md-input-container>
             </div>
@@ -37,22 +37,22 @@
         <md-card-content>
             <div layout="row" layout-xs="column">
                 <md-card-title>
-                    Name
+                    <span translate>Name</span>
                 </md-card-title>
                 <md-card-title>
-                    Type
+                    <span translate>Type</span>
                 </md-card-title>
                 <md-card-title>
-                    Avl Qty
+                    <span translate>Avl Qty</span>
                 </md-card-title>
                 <md-card-title>
-                    Qty
+                    <span translate>Qty</span>
                 </md-card-title>
                 <md-card-title>
-                    Price
+                    <span translate>Price</span>
                 </md-card-title>
                 <md-card-title>
-                    Actions
+                    <span translate>Actions</span>
                 </md-card-title>
             </div>
             <div layout="row" layout-xs="column" data-ng-repeat="choice in choices">
@@ -67,7 +67,7 @@
                             <span md-highlight-text="searchText">{{item.display}}</span>
                         </md-item-template>
                         <md-not-found>
-                            No matches found.
+                            <span translate>No matches found.</span>
                         </md-not-found>
                     </md-autocomplete>
                 </md-input-container>
@@ -80,15 +80,15 @@
                     </md-select>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Avl qty</label>
+                    <label translate>Avl Qty</label>
                     <input class="form-control" type="number" ng-model="choice.avl_qty">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Qty to order</label>
+                    <label translate>Qty to Order</label>
                     <input class="form-control" type="number" ng-model="choice.qty">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>price</label>
+                    <label translate>Price</label>
                     <input class="form-control" type="number" ng-model="choice.price">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
@@ -104,7 +104,7 @@
             </div>
             <br>
             <md-button class="md-raised md-primary" ng-click="addNewChoice()">
-                <md-icon>add</md-icon> Add fields
+                <md-icon>add</md-icon> <span translate>Add Fields</span>
             </md-button>
             <br>
             <hr>
@@ -112,7 +112,7 @@
                 <table md-table md-progress="promise">
                     <thead md-head md-order="query.order">
                         <tr md-row>
-                            <th colspan="8"><span translate>Total: </span></th>
+                            <th colspan="8"><span translate>Total</span><span translate>:</span></th>
                         </tr>
                     </thead>
                 </table>
@@ -123,7 +123,7 @@
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column">
-        <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
+        <span id="loading_submit" style="visibility: hidden;" translate>Please wait...</span>
     </div>
     <div layout="row" layout-xs="column">
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="purchase()">
@@ -131,12 +131,12 @@
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
             </md-tooltip>
-            Save
+            <span translate>Save</span>
         </md-button>
         <a href="index.html#!/receive">
             <md-button class="md-raised" aria-label="Add">
                 <md-icon>close</md-icon>
-                Cancel
+                <span translate>Cancel</span>
             </md-button>
         </a>
     </div>

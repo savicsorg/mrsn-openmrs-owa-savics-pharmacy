@@ -1,14 +1,14 @@
 <div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""><md-icon>shopping_cart</md-icon> {{"pharmacy.reception.title" | translate}} </h1>
+        <h1 md-truncate="" flex=""><md-icon>shopping_cart</md-icon> <span translate>Receptions</span></h1>
         <a href="index.html#!/inventory">
             <md-button class="md-raised">
-                <md-icon>arrow_back</md-icon>{{"pharmacy.back" | translate}}
+                <md-icon>arrow_back</md-icon>{{"Back" | translate}}
             </md-button>
         </a>
         <a href="index.html#!/reception/0">
             <md-button class="md-raised  md-primary">
-                <md-icon>add</md-icon> {{"pharmacy.reception.newReception" | translate}}
+                <md-icon>add</md-icon> {{"New" | translate}}
             </md-button>
         </a>
     </div>
@@ -16,7 +16,7 @@
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
-                <input type="search" name="search" ng-model="searchText" placeholder="{{'pharmacy.order.search' | translate}}">
+                <input type="search" name="search" ng-model="searchAll.pharmacyOrder.name" placeholder="{{ 'Search for Orders n°...' | translate }}">
             </form>
         </div>
     </md-toolbar>
@@ -25,15 +25,15 @@
             <table md-table md-progress="promise">
                 <thead md-head>
                     <tr md-row>
-                        <th><span >{{"pharmacy.reception.date" | translate}}</span></th>
-                        <th><span >{{"pharmacy.reception.receivedBy" | translate}}</span></th>
-                        <th><span >{{"pharmacy.reception.order" | translate}}</span></th>
-                        <th><span >{{"pharmacy.actions" | translate}}</span></th>
+                        <th><span >{{"Date of Reception" | translate}}</span></th>
+                        <th><span translate>Received by</span></th>
+                        <th><span >{{"Order n°" | translate}}</span></th>
+                        <th><span >{{"Actions" | translate}}</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="reception in receptions|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="reception in receptions|filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{reception.date | date: 'dd/MM/yyyy'}}</td>
                         <td>{{reception.person.display}}</td>
                         <td>{{reception.pharmacyOrder.name}}</td>

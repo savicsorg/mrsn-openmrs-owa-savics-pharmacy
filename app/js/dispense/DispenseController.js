@@ -181,7 +181,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                     $scope.loading = false;
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
             }, function (e) {
                 $scope.loading = false;
@@ -301,7 +301,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                     toastr.success('Data removed successfully.', 'Success');
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
             } else {
                 $scope.lines.splice(index, 1);

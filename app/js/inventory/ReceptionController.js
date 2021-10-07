@@ -1,4 +1,4 @@
-angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('ReceptionController', ['$scope', '$state', '$stateParams', '$rootScope', 'openmrsRest', 'toastr', 'gettextCatalog', function ($scope, $state, $stateParams, $rootScope, openmrsRest, toastr, gettextCatalog) {
+angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('ReceptionController', ['$scope', '$state', '$stateParams', '$rootScope', 'openmrsRest', 'toastr', 'gettextCatalog', '$translate', function ($scope, $state, $stateParams, $rootScope, openmrsRest, toastr, gettextCatalog, $translate) {
         $scope.resource = "savicspharmacy";
         $rootScope.links = {
             "Pharmacy management module": "",
@@ -62,11 +62,11 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                                     $scope.loading = false;
                                 }, function (e) {
                                     $scope.loading = false;
-                                    toastr.error('An unexpected error has occured.', 'Error');
+                                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                                 });
                             }, function (e) {
                                 $scope.loading = false;
-                                toastr.error('An unexpected error has occured.', 'Error');
+                                toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                             });
                         else if ($stateParams.order) {
                             $scope.reception.pharmacyOrder = $stateParams.order;
@@ -76,11 +76,11 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                             $scope.loading = false;
                     }, function (e) {
                         $scope.loading = false;
-                        toastr.error('An unexpected error has occured.', 'Error');
+                        toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                     })
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
             } else {
                 openmrsRest.getFull($scope.resource + "/reception").then(function (response) {
@@ -88,7 +88,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                     $scope.loading = false;
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
             }
         }
@@ -126,19 +126,19 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                 openmrsRest.update($scope.resource + "/reception", query).then(function (response) {
                     $scope.reception = response;
                     $scope.getData();
-                    toastr.success('Data saved successfully.', 'Success');
+                    toastr.success($translate.instant('Data saved successfully.'), 'Success');
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
             } else {    //Creation
                 openmrsRest.create($scope.resource + "/reception", query).then(function (response) {
                     $scope.reception = response;
                     $scope.getData();
-                    toastr.success('Data saved successfully.', 'Success');
+                    toastr.success($translate.instant('Data saved successfully.'), 'Success');
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
             }
         }
@@ -146,17 +146,17 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
         $scope.deleteReception = function (reception) {
             var confirm = $mdDialog.confirm()
                     .title('Confirmation')
-                    .textContent('Do you really want to delete this reception ?')
-                    .ok('Yes')
-                    .cancel('Cancel');
+                    .textContent($translate.instant('Do you really want to delete this reception ?'))
+                    .ok($translate.instant('Yes'))
+                    .cancel($translate.instant('Cancel'));
             $mdDialog.show(confirm).then(function () {
                 $scope.loading = true;
                 openmrsRest.remove($scope.resource + "/reception", reception, "Generic Reason").then(function (response) {
                     loadData();
-                    toastr.success('Data removed successfully.', 'Success');
+                    toastr.success($translate.instant('Data removed successfully.'), 'Success');
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                 });
             }, function () {
 

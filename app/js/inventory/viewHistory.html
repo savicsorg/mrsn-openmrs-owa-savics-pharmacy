@@ -1,23 +1,30 @@
 <div id="content" class="container-fluid" ng-controller="viewHistoryController as vm">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
+        <md-button class="md-raised" ng-click="returnToPrevious()">
+            <md-icon>arrow_back</md-icon><span translate>Back</span>
+        </md-button>
     </div>
-    <md-card>
+    <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-card ng-show="!loading">
         <md-table-container class="container" fixed-column-table>
             <table md-table md-progress="promise">
                 <thead md-head>
                     <tr md-row>
-                        <th><span translate>Transaction <br/>ID</span></th>
-                        <th><span translate>Item name</span></th>
-                        <th><span translate>Bath name</span></th>
-                        <th><span translate>Adjustment type</span></th>
-                        <th><span translate>Adjustment qty</span></th>
-                        <th><span translate>Date modified</span></th>
+                        <th><span translate>Transaction</span> <br/>ID</th>
+                        <th><span translate>Item Name</span></th>
+                        <th><span translate>Bath Name</span></th>
+                        <th><span translate>Transaction Type</span></th>
+                        <th><span translate>Transaction Qty</span></th>
+                        <th><span translate>Date Modified</span></th>
                         <th><span translate>Actions</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row  style="background: {{(history.status == 'VALID')?'#3dcc6785':(history.status == 'REJEC')?'#ea340aab':''}};"
+                    <tr md-row
+                        style="background: {{(history.status == 'VALID')?'#3dcc6785':(history.status == 'REJEC')?'#ea340aab':''}};"
                         data-ng-repeat="history in transactions| limitTo: query.limit : (query.page -1) * query.limit">
                         <td><center>{{history.id}}</center></td>
                         <td>{{history.item.name}}</td>
@@ -27,27 +34,18 @@
                         <td>{{history.date| date:'dd/MM/yyyy'}}</td>
                         <td>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Add"
-                                    ng-click="openViewTransaction(history)">
+                                ng-click="openViewTransaction(history)">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">visibility</md-icon>
-                                <md-tooltip md-direction="top"><span translate>Transaction detail</span></md-tooltip>
+                                <md-tooltip md-direction="top"><span translate>Transaction Detail</span></md-tooltip>
                             </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{histories.transactions}}"
-                             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
-                             md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{transactions.length}}"
+            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+            md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
         </md-table-pagination>
     </md-card>
-
-    <div layout="row" layout-xs="column">
-        <a href="index.html#!/inventory">
-            <md-button class="md-raised" aria-label="Add">
-                <md-icon>close</md-icon>
-                Cancel
-            </md-button>
-        </a>
-    </div>
 </div>

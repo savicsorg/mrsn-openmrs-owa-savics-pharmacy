@@ -1,11 +1,11 @@
-angular.module('CustomerController', []).controller('CustomerController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest) {
+angular.module('CustomerController', []).controller('CustomerController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $translate) {
     $scope.rootscope = $rootScope;
-    $scope.appTitle = "Gestion des customers";
+    $scope.appTitle = $translate.instant("Customer management");
     $scope.resource = "savicspharmacy";
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Customers": "customers", "New": "customer" };
     var vm = this;
-    vm.appTitle = "New customer entry";
+    vm.appTitle = $translate.instant("New customer entry");
 
     var type = "";
     var msg = "";
@@ -14,26 +14,26 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
         //we are in edit mode
         vm.customer = $stateParams;
         $scope.customer_type_id = vm.customer.customer_type_id.id;
-        vm.appTitle = "Edit type entry";
+        vm.appTitle = $translate.instant("Edit type entry");
     }
 
     $scope.customer = function () {
         if (!vm.customer || !vm.customer.code || !vm.customer.name || !vm.customer.address || !vm.customer.email || !vm.customer.tel || !vm.customer.type.id) {
             type = "error";
-            msg = "Please check if your input are valid ones."
+            msg = $translate.instant("Please check if your input are valid ones.")
             showToast(msg, type);
             return;
         }
 
         if (!Regvalidate("email", vm.customer.email)) {
             type = "error";
-            msg = "Please check if your email is a valid one.";
+            msg = $translate.instant("Please check if your email is a valid one.");
             showToast(msg, type);
             return;
         }
         if (!Regvalidate("phone", vm.customer.tel)) {
             type = "error";
-            msg = "Please check if your phone number is a valid one.";
+            msg = $translate.instant("Please check if your phone number is a valid one.");
             showToast(msg, type);
             return;
         }
@@ -92,9 +92,9 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
 

@@ -1,7 +1,8 @@
-angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('DrugsController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog) {
+angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('DrugsController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', '$mdDialog', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, $mdDialog, $translate) {
     $scope.rootscope = $rootScope;
     $scope.appTitle = "Gestion des drugs";
     $scope.resource = "savicspharmacy";
+    $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Drugs": "drugs" };
 
@@ -12,12 +13,17 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
     var msg = "";
 
     $scope.getAllDrug = function () {
+        $scope.loading = true;
         $scope.drugs = [];
         openmrsRest.getFull($scope.resource + "/item").then(function (response) {
+            $scope.loading = false;
             if (response.results.length >= 1) {
                 $scope.drugs = response.results;
             }
-        })
+        }, function (e) {
+            $scope.loading = false;
+            showToast($translate.instant("An unexpected error has occured."), "error");
+        });
     }
 
     $scope.getAllDrug();
@@ -82,15 +88,24 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
         }).catch(function (e) {
             type = "error";
             msg = e.data.error.message;
-            showToast(msg, type);
+            
+            $mdDialog.show(
+                    $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('body')))
+                    .title($translate.instant('Database constraint violation'))
+                    .clickOutsideToClose(true)
+                    .textContent($scope.pageTitle = $translate.instant('You cannot delete a drug that has existing batches.'))
+                    .ok('Ok')
+            );
+            //showToast(msg, type);
         });
     }
 
 
     $scope.showConfirm = function (ev, obj) {
         var confirm = $mdDialog.confirm()
-            .title('Would you like to delete your data?')
-            .textContent('If you choose `Yes` this record will be deleted and you will not be able to recover it')
+            .title($translate.instant('Would you like to delete your data?'))
+            .textContent($translate.instant('If you choose `Yes` this record will be deleted and you will not be able to recover it'))
             .ariaLabel('Lucky day')
             .targetEvent(ev)
             .ok('Yes')
@@ -110,21 +125,16 @@ angular.module('DrugsController', ['ngMaterial', 'md.data.table']).controller('D
                 .position('top right')
                 .hideDelay(3000))
             .then(function () {
-                $log.log('Toast dismissed.');
+                $log.log($translate.instant('Toast dismissed.'));
             }).catch(function () {
-                $log.log('Toast failed or was forced to close early by another toast.');
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
             });
     }
-
-    $scope.search = function (row) {
-        return (angular.lowercase(row.name).indexOf($scope.searchAll || '') !== -1 || angular.lowercase(row.code).indexOf($scope.searchAll || '') !== -1);
-    };
 
     $scope.donwload = function () {
         let link = window.location.protocol + "//" + window.location.host + "/openmrs/ws/rest/v1/savicspharmacy/items/export";
         localStorage.setItem("export_link", link);
         window.location = link;
     }
-
 
 }]);

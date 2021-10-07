@@ -1,14 +1,15 @@
 <div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">
-            <md-icon>add_shopping_cart</md-icon> {{"pharmacy.order.placeAnOrder" | translate}}
+            <md-icon>add_shopping_cart</md-icon> {{"Place an order" | translate}}
         </h1>
-        <md-button class="md-raised md-primary" aria-label="Add" ng-if="approveBtn.visible" ng-disabled="!approveBtn.enabled" ng-click="approve()">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-if="approveBtn.visible"
+            ng-disabled="!approveBtn.enabled" ng-click="approve()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">check_circle</md-icon>
             <md-tooltip md-direction="top">
-                <span translate>{{approveBtn.text}}</span>
+                <span >{{'Approve' | translate}}</span>
             </md-tooltip>
-            {{approveBtn.text}}
+            {{'Approve' | translate}}
         </md-button>
     </div>
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">

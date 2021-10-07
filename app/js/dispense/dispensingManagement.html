@@ -1,9 +1,9 @@
 <div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""> Drugs dispensing management </h1>
+        <h1 md-truncate="" flex=""><span translate>Drugs Dispensing Management</span></h1>
         <a href="index.html#!/">
             <md-button class="md-raised">
-                <md-icon>arrow_back</md-icon>Back
+                <md-icon>arrow_back</md-icon><span translate>Back</span>
             </md-button>
         </a>
                 <!--        <a href="index.html#!/stockatrisk">
@@ -16,13 +16,12 @@
                 </a>-->
         <a href="index.html#!/dispense/new">
             <md-button class="md-raised md-primary" aria-label="Add">
-                <md-icon>add</md-icon> New
+                <md-icon>add</md-icon> <span translate>New</span>
                 <md-tooltip md-direction="top">
                     <span translate>New</span>
                 </md-tooltip>
             </md-button>
         </a>
-        
     </div>
     <md-toolbar class="md-table-toolbar md-default">
         <div class="md-toolbar-tools">
@@ -40,7 +39,7 @@
                         <th><span translate>Ref.</span></th>
                         <th><span translate>Type Dispensation</span></th>
                         <th><span translate>Customer</span></th>
-                        <th><span translate>Number of batches</span></th>
+                        <th><span translate>Number of Batches</span></th>
                         <th><span translate>Quantity</span></th>
                         <th><span translate>Amount</span></th>
                         <th><span translate>Date </span></th>
@@ -51,7 +50,7 @@
                     <tr md-row
                         data-ng-repeat="dispense in dispenses|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                         <td><center>{{dispense.id}}</center></td>
-                        <td>{{(dispense.customer != null)?"External":"Internal"}}</td>
+                        <td>{{dispense.customerType.name}}</td>
                         <td>{{(dispense.customer != null)? dispense.customer.name : dispense.person.display}}</td>
                         <td>{{dispense.numberOfBatches}}</td>
                         <td>{{dispense.quantity}}</td>

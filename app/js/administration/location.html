@@ -8,13 +8,13 @@
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Code</label>
-                    <input ng-model="vm.location.code">
+                    <input ng-model="vm.location.code" required>
                 </md-input-container>
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Name</label>
-                    <input ng-model="vm.location.name" flex-gt-sm>
+                    <input ng-model="vm.location.name" required flex-gt-sm>
                 </md-input-container>
             </div>
         </md-card-content>
@@ -28,12 +28,12 @@
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
             </md-tooltip>
-            Save
+            <span translate>Save</span>
         </md-button>
         <a href="index.html#!/locations">
             <md-button class="md-raised" aria-label="Add">
                 <md-icon>close</md-icon>
-                Cancel
+                <span translate>Cancel</span>
             </md-button>
         </a>
     </div>

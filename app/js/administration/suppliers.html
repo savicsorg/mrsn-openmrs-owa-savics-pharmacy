@@ -1,10 +1,10 @@
 <div id="content" class="container-fluid">
 
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""> Supplier management </h1>
+        <h1 md-truncate="" flex=""><span translate>Suppliers Management</span></h1>
         <a href="index.html#!/administration">
             <md-button class="md-raised">
-                <md-icon>arrow_back</md-icon>Back
+                <md-icon>arrow_back</md-icon><span translate>Back</span>
             </md-button>
         </a>
         <a href="index.html#!/supplier">
@@ -13,19 +13,22 @@
                 <md-tooltip md-direction="top">
                     <span translate>New</span>
                 </md-tooltip>
-                Add new
+                <span translate>Add New</span>
             </md-button>
         </a>
     </div>
-    <md-toolbar class="md-table-toolbar md-default">
+    <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-toolbar class="md-table-toolbar md-default" ng-show="!loading">
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
-                <input type="search" name="search" ng-model="searchAll" placeholder="{{ 'Search...' | translate }}">
+                <input type="search" name="search" ng-model="searchAll.name" placeholder="{{ 'Search for Suppliers name...' | translate }}">
             </form>
         </div>
     </md-toolbar>
-    <md-card>
+    <md-card ng-show="!loading">
         <md-table-container class="container">
             <table md-table md-progress="promise">
                 <thead md-head>
@@ -40,7 +43,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="supplier in suppliers |filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="supplier in suppliers |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{supplier.code}}</td>
                         <td>{{supplier.name}}</td>
                         <td>{{supplier.address}}</td>

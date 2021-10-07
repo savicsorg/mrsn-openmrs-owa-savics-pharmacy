@@ -1,4 +1,4 @@
-angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controller('OrderController', ['$scope', '$rootScope', '$state', '$stateParams', '$mdDialog', 'openmrsRest', 'toastr', function ($scope, $rootScope, $state, $stateParams, $mdDialog,  openmrsRest, toastr) {
+angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).controller('OrderController', ['$scope', '$rootScope', '$mdToast', '$state', '$stateParams', '$mdDialog', 'openmrsRest', 'toastr', '$translate', function ($scope, $rootScope, $mdToast, $state, $stateParams, $mdDialog, openmrsRest, toastr, $translate) {
     $scope.rootscope = $rootScope;
     $scope.resource = "savicspharmacy";
     $rootScope.links = {};
@@ -12,7 +12,7 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
     $scope.item = null;
     $scope.lines = [];
     $scope.approveBtn = {
-        text: "Approve",
+        text: $translate.instant("Approve"),
         enabled: false,
         visible: false
     };
@@ -31,7 +31,7 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
     };
 
     $scope.logPagination = function (page, limit) {
-        
+
     }
 
     var _ = require("underscore");
@@ -39,12 +39,12 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
     $scope.searchItems = function (searchText) {
         return openmrsRest.getFull($scope.resource + "/item?name=" + searchText).then(function (response) {
             return response.results;
-        }, function(e){
+        }, function (e) {
             return [];
         });
     };
 
-    $scope.selectedItemChange = function (item,index) {
+    $scope.selectedItemChange = function (item, index) {
         $scope.lines[index].item = item;
         $scope.lines[index].orderLineAmount = item.sellPrice * $scope.lines[index].orderLineQuantity;
     };
@@ -54,7 +54,7 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         $scope.updateOrderAmount();
     };
 
-    $scope.view = function(data){
+    $scope.view = function (data) {
         $state.go('home.order', { order: data });
     }
 
@@ -62,62 +62,71 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         $state.go('home.reception', { order: order, uuid: "0" });
     }
 
+    $scope.openView = function (data) {
+        $state.go('home.orderview', {
+            id: data.id,
+            supplier: data.supplier,
+            name: data.name
+        });
+    }
+
     function loadData() {
         $scope.loading = true;
         openmrsRest.getFull($scope.resource + "/supplier").then(function (response) {
-            $scope.suppliers = response.results;  
-            if($stateParams.order){
+            $scope.suppliers = response.results;
+            if ($stateParams.order) {
                 $scope.order = $stateParams.order;
                 openmrsRest.getFull($scope.resource + "/orderDetail?orderId=" + $scope.order.id).then(function (response) {
-                    $scope.lines = response.results;     
+                    $scope.lines = response.results;
                     $scope.updateOrderAmount();
-                    if($scope.order.dateApprobation !== null){
+                    if ($scope.order.dateApprobation !== null) {
                         $scope.approveBtn.text = "Approved on " + new Date($scope.order.dateApprobation).toLocaleDateString();
                         $scope.approveBtn.enabled = false;
                         $scope.approveBtn.visible = true;
-                        $scope.loading = false; 
+                        $scope.loading = false;
                     } else {
                         openmrsRest.getFull("session").then(function (response) {
-                            if(_.some(response.user.roles, function(item){ return item.display === "Approve Orders" || item.name === "Approve Orders"; })){
+                            if (_.some(response.user.roles, function (item) { return item.display === "Approve Orders" || item.name === "Approve Orders"; })) {
                                 $scope.approveBtn.text = "Approve";
-                                $scope.approveBtn.enabled = true;     
-                                $scope.approveBtn.visible = true;  
-                                $scope.loading = false; 
+                                $scope.approveBtn.enabled = true;
+                                $scope.approveBtn.visible = true;
+                                $scope.loading = false;
                             } else {
-                                $scope.approveBtn.visible = false;  
+                                $scope.approveBtn.visible = false;
                                 $scope.loading = false;
                             }
-                        },function(e){
+                        }, function (e) {
                             $scope.loading = false;
-                            toastr.error('An unexpected error has occured.', 'Error');
+                            showToast($translate.instant("An unexpected error has occured."), "error");
+
                         });
                     }
-                },function(e){
+                }, function (e) {
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                    showToast($translate.instant("An unexpected error has occured."), "error");
                 });
             } else {
                 openmrsRest.getFull($scope.resource + "/order").then(function (response) {
-                    $scope.orders = response.results;     
-                    $scope.loading = false; 
-                },function(e){
+                    $scope.orders = response.results;
                     $scope.loading = false;
-                    toastr.error('An unexpected error has occured.', 'Error');
+                }, function (e) {
+                    $scope.loading = false;
+                    showToast($translate.instant("An unexpected error has occured."), "error");
                 });
             }
-        },function(e){
+        }, function (e) {
             $scope.loading = false;
-            toastr.error('An unexpected error has occured.', 'Error');
+            showToast($translate.instant("An unexpected error has occured."), "error");
         });
     }
 
     loadData();
 
-    $scope.addOrderLine = function(){
-        $scope.lines.push({ pharmacyOrder: $scope.order.id, item : { name: "" }, itemSoh: 0, itemAmc: 0 });
+    $scope.addOrderLine = function () {
+        $scope.lines.push({ pharmacyOrder: $scope.order.id, item: { name: "" }, itemSoh: 0, itemAmc: 0 });
     }
 
-    $scope.approve = function(){
+    $scope.approve = function () {
         $mdDialog.show($mdDialog.confirm()
         .title('Confirmation')
         .textContent('Do you really want to approve this order ?')
@@ -158,7 +167,7 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
             },function(e){
                 console.error(e);
                 $scope.loading = false;
-                toastr.error('An unexpected error has occured.', 'Error');
+                showToast($translate.instant("An unexpected error has occured."), "error");
             });
         } else {    //Creation
             openmrsRest.create($scope.resource + "/order", query).then(function (response) {
@@ -168,8 +177,8 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
                 //toastr.success('Data saved successfully.', 'Success');   
             },function(e){
                 $scope.loading = false;
-                toastr.error('An unexpected error has occured.', 'Error');
-            });         
+                showToast($translate.instant("An unexpected error has occured."), "error");
+            });
         }
     }
 
@@ -179,23 +188,23 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
 
     $scope.deleteOrder = function (order) {
         var confirm = $mdDialog.confirm()
-          .title('Confirmation')
-          .textContent('Do you really want to delete this order ?')
-          .ok('Yes')
-          .cancel('Cancel');
+            .title($translate.instant('Confirmation'))
+            .textContent($translate.instant('Do you really want to delete this order ?'))
+            .ok($translate.instant('Yes'))
+            .cancel($translate.instant('Cancel'));
         $mdDialog.show(confirm).then(function () {
             $scope.loading = true;
             openmrsRest.remove($scope.resource + "/order", order, "Generic Reason").then(function (response) {
                 loadData();
-                toastr.success('Data removed successfully.', 'Success');
-            },function(e){
+                showToast($translate.instant("Data removed successfully."), "success");
+            }, function (e) {
                 $scope.loading = false;
-                toastr.error('An unexpected error has occured.', 'Error');
+                showToast($translate.instant("An unexpected error has occured."), "error");
             });
         }, function () {
-            
+
         });
-        
+
     }
 
     $scope.deleteOrderDetail = function (index) {
@@ -203,4 +212,17 @@ angular.module('OrderController', ['ngMaterial','ngAnimate', 'toastr']).controll
         $scope.updateOrderAmount();  
     }
 
+    function showToast(msg, type) {
+        $mdToast.show(
+            $mdToast.simple()
+                .content(msg)
+                .theme(type + "-toast")
+                .position('top right')
+                .hideDelay(3000))
+            .then(function () {
+                $log.log($translate.instant('Toast dismissed.'));
+            }).catch(function () {
+                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
+            });
+    }
 }]);

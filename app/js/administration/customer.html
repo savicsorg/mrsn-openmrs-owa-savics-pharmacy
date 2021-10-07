@@ -8,20 +8,20 @@
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Code</label>
-                    <input ng-model="vm.customer.code">
+                    <input ng-model="vm.customer.code" required>
                 </md-input-container>
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Name</label>
-                    <input ng-model="vm.customer.name" flex-gt-sm>
+                    <input ng-model="vm.customer.name" flex-gt-sm required>
                 </md-input-container>
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Type</label>
-                    <md-select ng-model="vm.customer.type.id">
-                        <md-option ng-repeat="t in vm.customertypes" ng-value="t.id"
+                    <md-select ng-model="vm.customer.type.id" required>
+                        <md-option ng-repeat="t in vm.customertypes" ng-if="t.uuid !== 'b54a1ddd-d25b-492e-98e9-5f1de0520e1a'" ng-value="t.id"
                             ng-selected="t.id == customer_type_id">
                             {{t.name}}
                         </md-option>
@@ -31,25 +31,25 @@
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Address</label>
-                    <input ng-model="vm.customer.address" flex-gt-sm>
+                    <input ng-model="vm.customer.address" required flex-gt-sm>
                 </md-input-container>
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Email</label>
-                    <input ng-model="vm.customer.email" flex-gt-sm>
+                    <input ng-model="vm.customer.email" required flex-gt-sm>
                 </md-input-container>
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Tel</label>
-                    <input ng-model="vm.customer.tel" flex-gt-sm>
+                    <input ng-model="vm.customer.tel" required flex-gt-sm>
                 </md-input-container>
             </div>
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column">
-        <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
+        <span id="loading_submit" style="visibility: hidden;" translate>Please wait...</span>
     </div>
     <div layout="row" layout-xs="column">
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="customer()">
@@ -57,12 +57,12 @@
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
             </md-tooltip>
-            Save
+            <span translate>Save</span>
         </md-button>
         <a href="index.html#!/customers">
             <md-button class="md-raised" aria-label="Add">
                 <md-icon>close</md-icon>
-                Cancel
+                <span translate>Cancel</span>
             </md-button>
         </a>
     </div>

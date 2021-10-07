@@ -1,10 +1,10 @@
 <div id="content" class="container-fluid">
     <md-content>
         <div class="md-toolbar-tools">
-            <h1 md-truncate="" flex=""> Unit management </h1>
+            <h1 md-truncate="" flex=""><span translate>Units Management</span></h1>
             <a href="index.html#!/administration">
                 <md-button class="md-raised">
-                    <md-icon>arrow_back</md-icon>Back
+                    <md-icon>arrow_back</md-icon><span translate>Back</span>
                 </md-button>
             </a>
             <a href="index.html#!/unit">
@@ -13,32 +13,35 @@
                     <md-tooltip md-direction="top">
                         <span translate>New</span>
                     </md-tooltip>
-                    Add new
+                    <span translate>Add New</span>
                 </md-button>
             </a>
         </div>
-        <md-toolbar class="md-table-toolbar md-default">
+        <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <md-toolbar class="md-table-toolbar md-default" ng-show="!loading">
             <div class="md-toolbar-tools">
                 <md-icon>search</md-icon>
                 <form flex="">
-                    <input type="search" name="search" ng-model="searchAll" placeholder="{{ 'Search...' | translate }}">
+                    <input type="search" name="search" ng-model="searchAll.name" placeholder="{{ 'Search for Units name...' | translate }}">
                 </form>
             </div>
         </md-toolbar>
-        <md-card>
+        <md-card ng-show="!loading">
             <md-table-container class="container">
                 <table md-table md-progress="promise">
                     <thead md-head>
                         <tr md-row>
-                            <th> <span translate> Uuid </span> </th>
-                            <th> <span translate> Unit code </span> </th>
-                            <th> <span translate> Name </span> </th>
-                            <th> <span translate> Action </span> </th>
+                            <th> <span translate>UUID</span> </th>
+                            <th> <span translate>Code</span> </th>
+                            <th> <span translate>Name</span> </th>
+                            <th> <span translate>Actions</span> </th>
                         </tr>
                     </thead>
                     <tbody md-body>
                         <tr md-row
-                            ng-repeat="unit in units |filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                            ng-repeat="unit in units |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                             <td> {{unit.uuid}} </td>
                             <td> {{unit.code}} </td>
                             <td> {{unit.name}} </td>
