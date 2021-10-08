@@ -21,7 +21,7 @@
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Type</label>
                     <md-select ng-model="vm.customer.type.id" required>
-                        <md-option ng-repeat="t in vm.customertypes" ng-value="t.id"
+                        <md-option ng-repeat="t in vm.customertypes" ng-if="t.uuid !== 'b54a1ddd-d25b-492e-98e9-5f1de0520e1a'" ng-value="t.id"
                             ng-selected="t.id == customer_type_id">
                             {{t.name}}
                         </md-option>

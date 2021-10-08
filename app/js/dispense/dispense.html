@@ -14,12 +14,8 @@
                 <div layout="row"  layout-xs="column" class="flex flex-col">                
                     <md-input-container class="md-block"  flex-gt-sm flex="20">
                         <label translate>Type of Dispensation</label>
-<!--                        <md-select ng-model="dispenseMode" ng-change="dispenseModeChange()">
-                            <md-option ng-value="1"><span tranlate>Internal</span></md-option>
-                            <md-option ng-value="2"><span tranlate>External</span></md-option>
-                        </md-select>-->
                         <md-select ng-model="dispenseMode" ng-change="dispenseModeChange(dispenseMode)" required>
-                            <md-option ng-repeat="type in dispenseModes" value="{{type.id}}"> 
+                            <md-option ng-repeat="type in dispenseModes" value="{{type.id}}" > 
                                 {{ type.name}}
                             </md-option>
                         </md-select>
