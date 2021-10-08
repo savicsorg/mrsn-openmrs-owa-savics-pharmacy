@@ -13,10 +13,10 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
         vm.appTitle = $translate.instant("View transaction details");
 
         $scope.approveBtn = {
-            text: "Approve",
+            text: "",
             status: "Initiated",
             approved: false,
-            background: "#28c900"
+            background: ""
         };
 
         $scope.cancelBtn = {
@@ -37,11 +37,9 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
                 $scope.itemid = response.item.id;
                 $scope.itembatch = response.itemBatch;
                 if ($scope.transaction.status == "VALID") {
-//                    $scope.approveBtn.text = "Approved on " + new Date($scope.transaction.adjustmentDate).toLocaleDateString();
                     $scope.approveBtn.status = "Approved";
                     $scope.approveBtn.background = "#28c900";
                 } else if ($scope.transaction.status == "REJEC") {
-//                    $scope.approveBtn.text = "Rejected on " + new Date($scope.transaction.adjustmentDate).toLocaleDateString();
                     $scope.approveBtn.status = "Rejected"
                     $scope.approveBtn.background = "#F99";
                 } else {
