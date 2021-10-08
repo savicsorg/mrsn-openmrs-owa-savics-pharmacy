@@ -25,7 +25,7 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
             canceled: false,
             background: "#ccc"
         };
-        
+
         $scope.getTransactionType = function (id) {
             return  dictionary.getTransactionTypeById(id, "en");
         };
@@ -46,8 +46,8 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
                     $scope.approveBtn.background = "";
                     $scope.approveBtn.status = "Initiated";
                 }
-                
-                
+
+
                 $scope.openEditTransaction = function () {
                     $state.go('home.editAdjustment', {
                         id: $scope.itemid,
@@ -79,7 +79,7 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
                     $scope.adjustmentRes = response;
                     toastr.success($translate.instant('Operation done successfully.'), 'Success');
                     $scope.loading = false;
-                    $scope.approveBtn.status = "Rejected"
+                    $scope.approveBtn.status = $translate.instant("Rejected")
                     $scope.approveBtn.background = "#F99";
                 }, function (e) {
                     console.error(e);
@@ -91,14 +91,14 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
 
             });
         }
-
+        
 
         $scope.approve = function () {
             $mdDialog.show($mdDialog.confirm()
                     .title('Confirmation')
                     .textContent($translate.instant('Do you really want to approve this adjustment ?'))
-                    .ok('Yes')
-                    .cancel('Cancel')).then(function () {
+                    .ok($translate.instant('Yes'))
+                    .cancel($translate.instant('Cancel'))).then(function () {
                 $scope.loading = true;
                 $scope.transaction.adjustmentDate = new Date();
                 $scope.transaction.status = "VALID";
@@ -108,7 +108,7 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
                 openmrsRest.update($scope.resource + "/transaction", $scope.transaction).then(function (response) {
                     $scope.adjustmentRes = response;
                     toastr.success($translate.instant('Data saved successfully.'), 'Success');
-                    $scope.approveBtn.status = "Approved";
+                    $scope.approveBtn.status = $translate.instant("Approved");
                     $scope.approveBtn.background = "#28c900";
                     $scope.loading = false;
                 }, function (e) {

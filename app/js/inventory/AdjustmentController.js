@@ -19,8 +19,6 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
         $scope.stocktake = true;
     }
 
-    console.log($stateParams);
-
     var dictionary = require("../utils/dictionary");
     $scope.batches = [];
     $scope.transactionTypes = dictionary.getTransactionTypes("en");
@@ -61,16 +59,17 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
             $scope.submit = function () {
                 if ($scope.transactionTypes && $scope.transactionTypes.length > 0) {
                     if ($scope.stocktake && $scope.adjustment.quantity) {
-                        console.log([$scope.selectedItemList, $scope.adjustment.quantity]);
-                        if ($scope.selectedItemList.itemSoh > $scope.adjustment.quantity) {//if the physical quantity is greater than the counted quantity then we will do the negative adjusment
-                            $scope.adjustment.transactionType = 6;
-                            $scope.adjustment.transactionTypeId = 6;
-                            $scope.adjustment.transactionTypeCode = "nadj";
-                        } else {
+                        if ($scope.adjustment.quantity > $scope.selectedItemList.itemSoh ) {//if the counted quantity is greater than the physical quantity then we will do the positive adjusment
                             $scope.adjustment.transactionType = 7;
                             $scope.adjustment.transactionTypeId = 7;
                             $scope.adjustment.transactionTypeCode = "padj";
+                        } else {
+                            $scope.adjustment.transactionType = 6;
+                            $scope.adjustment.transactionTypeId = 6;
+                            $scope.adjustment.transactionTypeCode = "nadj";
+                            
                         }
+                        $scope.adjustment.quantity = Math.abs($scope.adjustment.stocktakedifference);
                     } else {
                         if ($scope.transactionType == "nadj") {
                             $scope.adjustment.transactionType = 1;
@@ -111,10 +110,23 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
 
             $scope.getSpecificItemList = function (batch_id) {
                 $scope.selectedItemList = $scope.batches.find(element => element.id == batch_id);
-                console.log($scope.selectedItemList);
             }
         }
     })
+    
+    
+        var watch = {};
+        watch.countedQuantity = $scope.$watch('adjustment.quantity', function (newval, oldval) {
+            if (newval && Number.isInteger(newval) && $scope.selectedItemList) {
+                $scope.adjustment.stocktakedifference = $scope.adjustment.quantity - $scope.selectedItemList.itemSoh;
+            } else {
+                $scope.adjustment.stocktakedifference = 0;
+            }
+        });
+        $scope.$on('$destroy', function () {// in case of destroy, we destroy the watch
+            watch.countedQuantity();
+        });
+
 
     $scope.returnToPrevious = function () {
         const params = getParameters('/adjustment/:item_id/:batch_id', $location.path());
