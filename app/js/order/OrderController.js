@@ -97,13 +97,13 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
                             }
                         }, function (e) {
                             $scope.loading = false;
-                            showToast($translate.instant("An unexpected error has occured."), "error");
+                            showToast($translate.instant("An unexpected error has occured."), $translate.instant('Error'));
 
                         });
                     }
                 }, function (e) {
                     $scope.loading = false;
-                    showToast($translate.instant("An unexpected error has occured."), "error");
+                    showToast($translate.instant("An unexpected error has occured."), $translate.instant('Error'));
                 });
             } else {
                 openmrsRest.getFull($scope.resource + "/order").then(function (response) {
@@ -111,7 +111,7 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
                     $scope.loading = false;
                 }, function (e) {
                     $scope.loading = false;
-                    showToast($translate.instant("An unexpected error has occured."), "error");
+                    showToast($translate.instant("An unexpected error has occured."), $translate.instant('Error'));
                 });
             }
         }, function (e) {
@@ -165,7 +165,7 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
             },function(e){
                 console.error(e);
                 $scope.loading = false;
-                showToast($translate.instant("An unexpected error has occured."), "error");
+                showToast($translate.instant("An unexpected error has occured."), $translate.instant('Error'));
             });
         } else {    //Creation
             openmrsRest.create($scope.resource + "/order", query).then(function (response) {
@@ -175,7 +175,7 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
                 //toastr.success('Data saved successfully.', 'Success');   
             },function(e){
                 $scope.loading = false;
-                showToast($translate.instant("An unexpected error has occured."), "error");
+                showToast($translate.instant("An unexpected error has occured."), $translate.instant('Error'));
             });
         }
     }
@@ -194,10 +194,10 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
             $scope.loading = true;
             openmrsRest.remove($scope.resource + "/order", order, "Generic Reason").then(function (response) {
                 loadData();
-                showToast($translate.instant("Data removed successfully."), "success");
+                showToast($translate.instant("Data removed successfully."), $translate.instant('Success'));
             }, function (e) {
                 $scope.loading = false;
-                showToast($translate.instant("An unexpected error has occured."), "error");
+                showToast($translate.instant("An unexpected error has occured."), $translate.instant('Error'));
             });
         }, function () {
 

@@ -62,11 +62,11 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                                     $scope.loading = false;
                                 }, function (e) {
                                     $scope.loading = false;
-                                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                                 });
                             }, function (e) {
                                 $scope.loading = false;
-                                toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                                toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                             });
                         else if ($stateParams.order) {
                             $scope.reception.pharmacyOrder = $stateParams.order;
@@ -76,11 +76,11 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                             $scope.loading = false;
                     }, function (e) {
                         $scope.loading = false;
-                        toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                        toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                     })
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                 });
             } else {
                 openmrsRest.getFull($scope.resource + "/reception").then(function (response) {
@@ -88,7 +88,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                     $scope.loading = false;
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                 });
             }
         }
@@ -126,19 +126,19 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                 openmrsRest.update($scope.resource + "/reception", query).then(function (response) {
                     $scope.reception = response;
                     $scope.getData();
-                    toastr.success($translate.instant('Data saved successfully.'), 'Success');
+                    toastr.success($translate.instant('Data saved successfully.'), $translate.instant('Success'));
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                 });
             } else {    //Creation
                 openmrsRest.create($scope.resource + "/reception", query).then(function (response) {
                     $scope.reception = response;
                     $scope.getData();
-                    toastr.success($translate.instant('Data saved successfully.'), 'Success');
+                    toastr.success($translate.instant('Data saved successfully.'), $translate.instant('Success'));
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                 });
             }
         }
@@ -153,10 +153,10 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                 $scope.loading = true;
                 openmrsRest.remove($scope.resource + "/reception", reception, "Generic Reason").then(function (response) {
                     loadData();
-                    toastr.success($translate.instant('Data removed successfully.'), 'Success');
+                    toastr.success($translate.instant('Data removed successfully.'), $translate.instant('Success'));
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                 });
             }, function () {
 
