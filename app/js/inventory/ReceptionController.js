@@ -48,7 +48,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
             if ($stateParams.uuid) {
                 openmrsRest.getFull($scope.resource + "/location").then(function (response) {
                     $scope.locations = response.results;
-                    openmrsRest.getFull($scope.resource + "/order").then(function (response) {
+                    openmrsRest.getFull($scope.resource + "/order?notReceived=1").then(function (response) {
                         $scope.orders = response.results;
                         if ($stateParams.uuid && $stateParams.uuid != "0")
                             openmrsRest.getFull($scope.resource + "/reception/" + $stateParams.uuid).then(function (response) {

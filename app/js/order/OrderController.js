@@ -144,18 +144,16 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
         $scope.loading = true;
         $scope.order.supplier = $scope.order.supplier.id;
         var query = JSON.parse(JSON.stringify($scope.order));
-        if(!approve){ // add details
-            query.orderDetails = [];
-            if ($scope.lines && $scope.lines.length > 0) {
-                for (var l in $scope.lines) {
-                    var myLine = {
-                        "item": $scope.lines[l].item.id,
-                        "pharmacyOrder": $scope.order.id,
-                        "orderLineQuantity": $scope.lines[l].orderLineQuantity,
-                        "orderLineAmount": $scope.lines[l].orderLineAmount
-                    }
-                    query.orderDetails.push(myLine);
+        query.orderDetails = [];
+        if ($scope.lines && $scope.lines.length > 0) {
+            for (var l in $scope.lines) {
+                var myLine = {
+                    "item": $scope.lines[l].item.id,
+                    "pharmacyOrder": $scope.order.id,
+                    "orderLineQuantity": $scope.lines[l].orderLineQuantity,
+                    "orderLineAmount": $scope.lines[l].orderLineAmount
                 }
+                query.orderDetails.push(myLine);
             }
         }
         if ($scope.order && $scope.order.uuid) {    //Edit
