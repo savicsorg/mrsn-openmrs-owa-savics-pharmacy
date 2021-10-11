@@ -33,7 +33,6 @@
             <table md-table md-progress="promise">
                 <thead md-head>
                     <tr md-row>
-                        <th><span translate>UUID</span></th>
                         <th><span translate>Code</span></th>
                         <th><span translate>Name</span></th>
                         <th><span translate>Actions</span></th>
@@ -42,7 +41,7 @@
                 <tbody md-body>
                     <tr md-row
                         data-ng-repeat="location in locations |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
-                        <td>{{location.uuid}}</td>
+
                         <td>{{location.code}}</td>
                         <td>{{location.name}}</td>
                         <td>

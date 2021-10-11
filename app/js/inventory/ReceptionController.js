@@ -30,6 +30,12 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
 
         }
 
+        $scope.getDedails = function(id){
+            if(id){
+                
+            }
+        }
+
         $scope.searchItems = function (searchText) {
             return openmrsRest.getFull($scope.resource + "/item?name=" + searchText).then(function (response) {
                 return response.results;
@@ -120,8 +126,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                     }
                     query.receptionDetails.push(myLine);
                 }
-            }
-            
+            }            
             if (query.reception && query.uuid) {    //Edit
                 openmrsRest.update($scope.resource + "/reception", query).then(function (response) {
                     $scope.reception = response;

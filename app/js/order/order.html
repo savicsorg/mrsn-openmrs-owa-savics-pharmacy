@@ -3,6 +3,15 @@
         <h1 md-truncate="" flex="">
             <md-icon>add_shopping_cart</md-icon> {{"Place an order" | translate}}
         </h1>
+        <a href="index.html#!/orders">
+            <md-button class="md-raised" aria-label="Add">
+                <md-icon>arrow_back</md-icon>
+                <md-tooltip md-direction="top">
+                    <span translate>Back</span>
+                </md-tooltip>
+                Back
+            </md-button>
+        </a>
         <md-button class="md-raised md-primary" aria-label="Add" ng-if="approveBtn.visible"
             ng-disabled="!approveBtn.enabled" ng-click="approve()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">check_circle</md-icon>
@@ -102,15 +111,6 @@
             </md-tooltip>
             {{"pharmacy.order.save" | translate}}
         </md-button>
-        <a href="index.html#!/orders">
-            <md-button class="md-raised" aria-label="Add">
-                <md-icon>arrow_back</md-icon>
-                <md-tooltip md-direction="top">
-                    <span translate>Back</span>
-                </md-tooltip>
-                Back
-            </md-button>
-        </a>
     </div>
     <div layout="row" layout-xs="column" ng-if="order.id === undefined && !loading">
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveOrder()">

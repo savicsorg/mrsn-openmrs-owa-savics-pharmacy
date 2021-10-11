@@ -35,8 +35,6 @@
                     <tr md-row>
                         <th><span translate>supplier code</span></th>
                         <th><span translate>Name</span></th>
-                        <th><span translate>Address</span></th>
-                        <th><span translate>Email</span></th>
                         <th><span translate>Tel</span></th>
                         <th><span translate>Action</span></th>
                     </tr>
@@ -46,8 +44,6 @@
                         data-ng-repeat="supplier in suppliers |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{supplier.code}}</td>
                         <td>{{supplier.name}}</td>
-                        <td>{{supplier.address}}</td>
-                        <td>{{supplier.email}}</td>
                         <td>{{supplier.tel}}</td>
                         <td>
                             <button ng-click="openEdit(supplier)" class="md-fab md-mini md-primary md-button "
