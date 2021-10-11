@@ -59,15 +59,15 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
             $scope.submit = function () {
                 if ($scope.transactionTypes && $scope.transactionTypes.length > 0) {
                     if ($scope.stocktake && $scope.adjustment.quantity) {
-                        if ($scope.adjustment.quantity > $scope.selectedItemList.itemSoh ) {//if the counted quantity is greater than the physical quantity then we will do the positive adjusment
-                            $scope.adjustment.transactionType = 7;
-                            $scope.adjustment.transactionTypeId = 7;
+                        if ($scope.adjustment.quantity > $scope.selectedItemList.itemSoh) {//if the counted quantity is greater than the physical quantity then we will do the positive adjusment
+                            $scope.adjustment.transactionType = 8;
+                            $scope.adjustment.transactionTypeId = 8;
                             $scope.adjustment.transactionTypeCode = "padj";
                         } else {
-                            $scope.adjustment.transactionType = 6;
-                            $scope.adjustment.transactionTypeId = 6;
+                            $scope.adjustment.transactionType = 7;
+                            $scope.adjustment.transactionTypeId = 7;
                             $scope.adjustment.transactionTypeCode = "nadj";
-                            
+
                         }
                         $scope.adjustment.quantity = Math.abs($scope.adjustment.stocktakedifference);
                     } else {
@@ -113,19 +113,19 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
             }
         }
     })
-    
-    
-        var watch = {};
-        watch.countedQuantity = $scope.$watch('adjustment.quantity', function (newval, oldval) {
-            if (newval && Number.isInteger(newval) && $scope.selectedItemList) {
-                $scope.adjustment.stocktakedifference = $scope.adjustment.quantity - $scope.selectedItemList.itemSoh;
-            } else {
-                $scope.adjustment.stocktakedifference = 0;
-            }
-        });
-        $scope.$on('$destroy', function () {// in case of destroy, we destroy the watch
-            watch.countedQuantity();
-        });
+
+
+    var watch = {};
+    watch.countedQuantity = $scope.$watch('adjustment.quantity', function (newval, oldval) {
+        if (newval && Number.isInteger(newval) && $scope.selectedItemList) {
+            $scope.adjustment.stocktakedifference = $scope.adjustment.quantity - $scope.selectedItemList.itemSoh;
+        } else {
+            $scope.adjustment.stocktakedifference = 0;
+        }
+    });
+    $scope.$on('$destroy', function () {// in case of destroy, we destroy the watch
+        watch.countedQuantity();
+    });
 
 
     $scope.returnToPrevious = function () {

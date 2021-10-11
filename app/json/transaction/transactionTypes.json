@@ -36,23 +36,23 @@
     },
     {
         "id": 6,
+        "code": "rece",
+        "en": "Reception",
+        "fr": "Reception",
+        "type": "Positive"
+    },
+    {
+        "id": 7,
         "code": "nstocktake",
         "en": "Negative stocktake",
         "fr": "Inventaire negative",
         "type": "Stocktake"
     },
     {
-        "id": 7,
+        "id": 8,
         "code": "pstocktake",
         "en": "Positive stocktake",
         "fr": "Inventaire positive",
         "type": "Stocktake"
-    },
-    {
-        "id": 8,
-        "code": "rece",
-        "en": "Reception",
-        "fr": "Reception",
-        "type": "Positive"
     }
 ]
