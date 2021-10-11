@@ -341,6 +341,7 @@ table {
 }
 
 body {
+  position: initial! important;
   font-family: "OpenSans", Arial, sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
   max-width: 1000px;

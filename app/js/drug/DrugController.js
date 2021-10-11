@@ -29,8 +29,6 @@ angular.module('DrugController', []).controller('DrugController', ['$scope', '$s
         document.getElementById("loading_submit").style.visibility = "visible";
 
             openmrsRest.getFull($scope.resource + "/item?code=" + vm.drug.code).then(function (response) {
-                console.log(response.results[0].uuid)
-                console.log($stateParams.uuid)
                 if (response.results.length <= 0 || (response.results[0].uuid == $stateParams.uuid)) {
                     var payload = $stateParams.uuid ? {virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), uuid: vm.drug.uuid, soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id} : {virtualstock: vm.drug.virtualstock, name: vm.drug.name, code: vm.drug.code, description: vm.drug.description, buyPrice: addZeroes(vm.drug.buyPrice), sellPrice: addZeroes(vm.drug.sellPrice), soh: vm.drug.soh, stockMin: vm.drug.stockMin, stockMax: vm.drug.stockMax, unit: vm.drug.type.id, route: vm.drug.route.id};
                     if ($stateParams.uuid) {
