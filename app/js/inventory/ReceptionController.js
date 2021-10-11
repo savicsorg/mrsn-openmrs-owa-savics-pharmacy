@@ -30,6 +30,12 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
 
         }
 
+        $scope.getDedails = function(id){
+            if(id){
+                
+            }
+        }
+
         $scope.searchItems = function (searchText) {
             return openmrsRest.getFull($scope.resource + "/item?name=" + searchText).then(function (response) {
                 return response.results;
@@ -48,7 +54,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
             if ($stateParams.uuid) {
                 openmrsRest.getFull($scope.resource + "/location").then(function (response) {
                     $scope.locations = response.results;
-                    openmrsRest.getFull($scope.resource + "/order").then(function (response) {
+                    openmrsRest.getFull($scope.resource + "/order?notReceived=1").then(function (response) {
                         $scope.orders = response.results;
                         if ($stateParams.uuid && $stateParams.uuid != "0")
                             openmrsRest.getFull($scope.resource + "/reception/" + $stateParams.uuid).then(function (response) {
@@ -58,16 +64,15 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                                     $scope.lines = response.results;
                                     for (var i = 0; i < $scope.lines.length; i++) {
                                         $scope.lines[i].itemExpiryDate = new Date($scope.lines[i].itemExpiryDate);
-                                        //$scope.lines[i].location = $scope.lines[i].item.pharmacyLocation.uuid;
                                     }
                                     $scope.loading = false;
                                 }, function (e) {
                                     $scope.loading = false;
-                                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                                 });
                             }, function (e) {
                                 $scope.loading = false;
-                                toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                                toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                             });
                         else if ($stateParams.order) {
                             $scope.reception.pharmacyOrder = $stateParams.order;
@@ -77,11 +82,11 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                             $scope.loading = false;
                     }, function (e) {
                         $scope.loading = false;
-                        toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                        toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                     })
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                 });
             } else {
                 openmrsRest.getFull($scope.resource + "/reception").then(function (response) {
@@ -89,7 +94,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                     $scope.loading = false;
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                 });
             }
         }
@@ -102,59 +107,43 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
 
         $scope.saveReception = function () {
             $scope.loading = true;
-            if (!($scope.reception.pharmacyOrder && $scope.reception.pharmacyOrder.uuid))
-                $scope.reception.pharmacyOrder = undefined; //delete it from payload
+            var query = JSON.parse(JSON.stringify($scope.reception));
+            if (!(query.pharmacyOrder && query.pharmacyOrder.id > 0))
+                query.pharmacyOrder = undefined; //delete it from payload
             else
-                $scope.reception.pharmacyOrder = $scope.reception.pharmacyOrder.id;
-            
-            if ($scope.reception && $scope.reception.uuid) {    //Edit
-                openmrsRest.update($scope.resource + "/reception", $scope.reception).then(function (response) {
+                query.pharmacyOrder = query.pharmacyOrder.id;
+            query.date = new Date(query.date);
+            query.receptionDetails = [];
+            if ($scope.lines && $scope.lines.length > 0) {
+                for (var l in $scope.lines) {
+                    var myLine = {
+                        "item": $scope.lines[l].item.id,
+                        "reception": $scope.reception.id,
+                        "quantityReceived": $scope.lines[l].quantityReceived,
+                        "itemBatch": $scope.lines[l].itemBatch,
+                        "itemExpiryDate": new Date($scope.lines[l].itemExpiryDate),
+                        "itemLineLocation": $scope.lines[l].itemLineLocation
+                    }
+                    query.receptionDetails.push(myLine);
+                }
+            }            
+            if (query.reception && query.uuid) {    //Edit
+                openmrsRest.update($scope.resource + "/reception", query).then(function (response) {
                     $scope.reception = response;
                     $scope.getData();
-                    toastr.success($translate.instant('Data saved successfully.'), 'Success');
+                    toastr.success($translate.instant('Data saved successfully.'), $translate.instant('Success'));
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                 });
             } else {    //Creation
-                openmrsRest.create($scope.resource + "/reception", $scope.reception).then(function (response) {
+                openmrsRest.create($scope.resource + "/reception", query).then(function (response) {
                     $scope.reception = response;
                     $scope.getData();
-                    toastr.success($translate.instant('Data saved successfully.'), 'Success');
+                    toastr.success($translate.instant('Data saved successfully.'), $translate.instant('Success'));
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
-                });
-            }
-        }
-
-        $scope.saveReceptionDetail = function (line, index) {
-            console.log("line, index = ", line, index)
-            $scope.loading = true;
-            line.item = line.item.id;
-            if (line && line.uuid) {    //Edit
-                line.reception = line.reception.id;
-                console.log(line)
-                openmrsRest.update($scope.resource + "/receptionDetail", line).then(function (response) {
-                    response.itemExpiryDate = new Date(response.itemExpiryDate);
-                    $scope.lines[index] = response;
-                    //$scope.lines[index].location = $scope.lines[i].item.pharmacyLocation.uuid;
-                    $scope.loading = false;
-                    toastr.success($translate.instant('Data saved successfully.'), 'Success');
-                }, function (e) {
-                    $scope.loading = false;
-                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
-                });
-            } else {    //Creation
-                openmrsRest.create($scope.resource + "/receptionDetail", line).then(function (response) {
-                    response.itemExpiryDate = new Date(response.itemExpiryDate);
-                    $scope.lines[index] = response;
-                    //$scope.lines[index].location = $scope.lines[i].item.pharmacyLocation.uuid;
-                    $scope.loading = false;
-                    toastr.success($translate.instant('Data saved successfully.'), 'Success');
-                }, function (e) {
-                    $scope.loading = false;
-                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                 });
             }
         }
@@ -169,30 +158,14 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                 $scope.loading = true;
                 openmrsRest.remove($scope.resource + "/reception", reception, "Generic Reason").then(function (response) {
                     loadData();
-                    toastr.success($translate.instant('Data removed successfully.'), 'Success');
+                    toastr.success($translate.instant('Data removed successfully.'), $translate.instant('Success'));
                 }, function (e) {
                     $scope.loading = false;
-                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                 });
             }, function () {
 
             });
-        }
-
-        $scope.deteleReceptionDetail = function (receptionDetail, index) {
-            if (receptionDetail.uuid) {
-                $scope.loading = true;
-                openmrsRest.remove($scope.resource + "/receptionDetail", receptionDetail, "Generic Reason").then(function (response) {
-                    $scope.lines.splice(index, 1);
-                    $scope.loading = false;
-                    toastr.success($translate.instant('Data removed successfully.'), 'Success');
-                }, function (e) {
-                    $scope.loading = false;
-                    toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
-                });
-            } else {
-                $scope.lines.splice(index, 1);
-            }
         }
 
         $scope.viewReception = function (data) {

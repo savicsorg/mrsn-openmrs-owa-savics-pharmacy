@@ -47,5 +47,12 @@
         "en": "Positive stocktake",
         "fr": "Inventaire positive",
         "type": "Stocktake"
+    },
+    {
+        "id": 8,
+        "code": "rece",
+        "en": "Reception",
+        "fr": "Reception",
+        "type": "Positive"
     }
 ]

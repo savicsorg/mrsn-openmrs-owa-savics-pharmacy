@@ -4,7 +4,7 @@
               <md-icon>add_shopping_cart</md-icon> <span translate>Reception of drugs</span>
         </h1>
         <a href="index.html#!/receptions">
-            <md-button class="md-raised">
+            <md-button >
                 <md-icon>arrow_back</md-icon>{{"Back" | translate}}
             </md-button>
         </a>       
@@ -38,7 +38,7 @@
             <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
                 <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in searchItems(searchText)" 
                     md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug" md-clear-button="true" 
-                    md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="45"
+                    md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="25"
                     ng-if="l.uuid === null || l.uuid === undefined">
                     <md-item-template>
                       <span md-highlight-text="searchText">{{item.name}}</span>
@@ -72,13 +72,6 @@
                     </md-select>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <md-button class="md-fab md-mini md-primary md-button" aria-label="add"
-                        ng-click="saveReceptionDetail(l, $index)">
-                        <md-icon>save</md-icon>
-                        <md-tooltip md-direction="top">
-                            <span >{{"Save" | translate}}</span>
-                        </md-tooltip>
-                    </md-button>
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
                         ng-click="deteleReceptionDetail(l, $index)">
                         <md-icon>remove</md-icon>
@@ -97,18 +90,18 @@
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveReception()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
-                <span >{{"Save" | translate}}</span>
+                <span translate>Save</span>
             </md-tooltip>
-            {{"Save" | translate}}
+            Save
         </md-button>
     </div>
     <div layout="row" layout-xs="column" ng-if="reception.id === undefined && !loading">
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveReception()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
-                <span >{{"Save & enter details" | translate}}</span>
+                <span translate>Save and enter details</span>
             </md-tooltip>
-            {{"Save & enter details" | translate}}
+            Save and enter details
         </md-button>
     </div>
 </div>

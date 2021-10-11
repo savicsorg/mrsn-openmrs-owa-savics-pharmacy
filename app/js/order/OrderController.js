@@ -46,7 +46,12 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
 
     $scope.selectedItemChange = function (item, index) {
         $scope.lines[index].item = item;
-        console.log($scope.lines);
+        $scope.lines[index].orderLineAmount = item.sellPrice * $scope.lines[index].orderLineQuantity;
+    };
+
+    $scope.lineQuantityChange = function (index) {        
+        $scope.lines[index].orderLineAmount = $scope.lines[index].item.sellPrice * $scope.lines[index].orderLineQuantity;
+        $scope.updateOrderAmount();
     };
 
     $scope.view = function (data) {
@@ -54,7 +59,6 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
     }
 
     $scope.receive = function(order){
-        console.log({ order: order, uuid: "0" });
         $state.go('home.reception', { order: order, uuid: "0" });
     }
 
@@ -93,13 +97,12 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
                             }
                         }, function (e) {
                             $scope.loading = false;
-                            showToast($translate.instant("An unexpected error has occured."), "error");
-
+                            toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                         });
                     }
                 }, function (e) {
                     $scope.loading = false;
-                    showToast($translate.instant("An unexpected error has occured."), "error");
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                 });
             } else {
                 openmrsRest.getFull($scope.resource + "/order").then(function (response) {
@@ -107,12 +110,12 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
                     $scope.loading = false;
                 }, function (e) {
                     $scope.loading = false;
-                    showToast($translate.instant("An unexpected error has occured."), "error");
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                 });
             }
         }, function (e) {
             $scope.loading = false;
-            showToast($translate.instant("An unexpected error has occured."), "error");
+            toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
         });
     }
 
@@ -124,60 +127,60 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
 
     $scope.approve = function () {
         $mdDialog.show($mdDialog.confirm()
-            .title($translate.instant('Confirmation'))
-            .textContent($translate.instant('Do you really want to approve this order ?'))
-            .ok($translate.instant('Yes'))
-            .cancel($translate.instant('Cancel'))).then(function () {
-                $scope.order.dateApprobation = new Date();
-                $scope.saveOrder();
-            }, function () {
-
-            });
-
+        .title('Confirmation')
+        .textContent('Do you really want to approve this order ?')
+        .ok('Yes')
+        .cancel('Cancel')).then(function () {
+            $scope.order.dateApprobation = new Date();
+            $scope.saveOrder(true);
+        }, function () {
+            
+        });
+        
     }
 
-    $scope.saveOrder = function () {
+    $scope.saveOrder = function (approve = false) {
         $scope.loading = true;
+        $scope.order.supplier = $scope.order.supplier.id;
         var query = JSON.parse(JSON.stringify($scope.order));
-        query.supplier = ($scope.order.supplier) ? $scope.order.supplier.id : null;
         query.orderDetails = [];
-
         if ($scope.lines && $scope.lines.length > 0) {
             for (var l in $scope.lines) {
                 var myLine = {
-                    "pharmacyOrder": $scope.lines[l].pharmacyOrder.id,
                     "item": $scope.lines[l].item.id,
+                    "pharmacyOrder": $scope.order.id,
                     "orderLineQuantity": $scope.lines[l].orderLineQuantity,
                     "orderLineAmount": $scope.lines[l].orderLineAmount
                 }
                 query.orderDetails.push(myLine);
             }
         }
-
         if ($scope.order && $scope.order.uuid) {    //Edit
             openmrsRest.update($scope.resource + "/order", query).then(function (response) {
                 $scope.order = response;
                 loadData();
-                showToast($translate.instant("Data saved successfully."), "success");
-            }, function (e) {
+                $state.go('home.orders', { });
+                //toastr.success('Data saved successfully.', 'Success');   
+            },function(e){
                 console.error(e);
                 $scope.loading = false;
-                showToast($translate.instant("An unexpected error has occured."), "error");
+                toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
             });
         } else {    //Creation
             openmrsRest.create($scope.resource + "/order", query).then(function (response) {
                 $scope.order = response;
                 loadData();
-                showToast($translate.instant("Data saved successfully."), "success");
-            }, function (e) {
+                $state.go('home.orders', { });
+                //toastr.success('Data saved successfully.', 'Success');   
+            },function(e){
                 $scope.loading = false;
-                showToast($translate.instant("An unexpected error has occured."), "error");
+                toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
             });
         }
     }
 
-    $scope.updateOrderAmount = function () {
-        $scope.order.amount = _.reduce($scope.lines, function (result, line) { return result + line.orderLineAmount; }, 0);
+    $scope.updateOrderAmount = function() {
+        $scope.order.amount = _.reduce($scope.lines, function(result, line){ return result + line.orderLineAmount; }, 0);
     }
 
     $scope.deleteOrder = function (order) {
@@ -190,10 +193,10 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
             $scope.loading = true;
             openmrsRest.remove($scope.resource + "/order", order, "Generic Reason").then(function (response) {
                 loadData();
-                showToast($translate.instant("Data removed successfully."), "success");
+                toastr.success($translate.instant("Data removed successfully."), $translate.instant('Success'));
             }, function (e) {
                 $scope.loading = false;
-                showToast($translate.instant("An unexpected error has occured."), "error");
+                toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
             });
         }, function () {
 
@@ -201,37 +204,8 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
 
     }
 
-    $scope.deteleOrderDetail = function (orderDetail, index) {
-        console.log("deleted detail index: " + index);
-        if (orderDetail.uuid) {
-            $scope.loading = true;
-            openmrsRest.remove($scope.resource + "/orderDetail", orderDetail, "Generic Reason").then(function (response) {
-                $scope.lines.splice(index, 1);
-                $scope.updateOrderAmount();
-                $scope.loading = false;
-                showToast($translate.instant("Data removed successfully."), "success");
-
-            }, function (e) {
-                $scope.loading = false;
-                showToast($translate.instant("An unexpected error has occured."), "error");
-            });
-        } else {
-            $scope.lines.splice(index, 1);
-            $scope.updateOrderAmount();
-        }
-    }
-
-    function showToast(msg, type) {
-        $mdToast.show(
-            $mdToast.simple()
-                .content(msg)
-                .theme(type + "-toast")
-                .position('top right')
-                .hideDelay(3000))
-            .then(function () {
-                $log.log($translate.instant('Toast dismissed.'));
-            }).catch(function () {
-                $log.log($translate.instant('Toast failed or was forced to close early by another toast.'));
-            });
+    $scope.deleteOrderDetail = function (index) {
+        $scope.lines.splice(index,1);
+        $scope.updateOrderAmount();  
     }
 }]);
