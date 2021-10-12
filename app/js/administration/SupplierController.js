@@ -8,6 +8,7 @@ angular.module('SupplierController', []).controller('SupplierController', ['$sco
     vm.appTitle = $translate.instant("New Supplier entry");
 
     var type = "";
+    $scope.loading = false;
     var msg = "";
 
     if ($stateParams.uuid) {
@@ -18,10 +19,12 @@ angular.module('SupplierController', []).controller('SupplierController', ['$sco
 
     $scope.supplier = function () {
 
+        $scope.loading = true;
         if (!vm.supplier || !vm.supplier.code || !vm.supplier.name || !vm.supplier.address || !vm.supplier.email || !vm.supplier.tel) {
             type = "error";
             msg = $translate.instant("Please check if your input are valid ones.")
             showToast(msg, type);
+            $scope.loading = false;
             return;
         }
 
@@ -29,36 +32,40 @@ angular.module('SupplierController', []).controller('SupplierController', ['$sco
             type = "error";
             msg = $translate.instant("Please check if your email is a valid one.");
             showToast(msg, type);
+            $scope.loading = false;
             return;
         }
+        
         if (!Regvalidate("phone", vm.supplier.tel)) {
             type = "error";
             msg = $translate.instant("Please check if your phone number is a valid one.");
             showToast(msg, type);
+            $scope.loading = false;
             return;
         }
-
-        document.getElementById("loading_submit").style.visibility = "visible";
 
         var payload = $stateParams.uuid ? { name: vm.supplier.name, code: vm.supplier.code, address: vm.supplier.address, email: vm.supplier.email, tel: vm.supplier.tel, uuid: vm.supplier.uuid } : { name: vm.supplier.name, code: vm.supplier.code, address: vm.supplier.address, email: vm.supplier.email, tel: vm.supplier.tel };
 
         if ($stateParams.uuid) {
             openmrsRest.update($scope.resource + "/supplier", payload).then(function (response) {
+                $scope.loading = false;
                 handleResponse(response)
             }).catch(function (e) {
+                $scope.loading = false;
                 handleResponse(response, e)
             });
         } else {
             openmrsRest.create($scope.resource + "/supplier", payload).then(function (response) {
+                $scope.loading = false;
                 handleResponse(response)
             }).catch(function (e) {
+                $scope.loading = false;
                 handleResponse(response, e)
             });
         }
     }
 
     function handleResponse(response, e = null) {
-        document.getElementById("loading_submit").style.visibility = "hidden";
         if (e) {
             type = "error";
             msg = e.data.error.message;

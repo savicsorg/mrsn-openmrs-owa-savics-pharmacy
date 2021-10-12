@@ -1,8 +1,16 @@
 <div id="content" class="container-fluid" ng-controller="SupplierController as vm">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
+        <a href="index.html#!/suppliers" ng-if="!loading">
+            <md-button >
+                <md-icon>arrow_back</md-icon><span translate>Back</span>
+            </md-button>
+        </a>
     </div>
-    <md-card>
+    <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <md-card ng-if="!loading">
         <md-card-title translate>General Informations</md-card-title>
         <md-card-content>
             <div layout="row" layout-xs="column">
@@ -37,10 +45,7 @@
             </div>
         </md-card-content>
     </md-card>
-    <div layout="row" layout-xs="column">
-        <span id="loading_submit" style="visibility: hidden;"><span translate>Please wait...</span></span>
-    </div>
-    <div layout="row" layout-xs="column">
+    <div layout="row" layout-xs="column" ng-if="!loading">
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="supplier()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
@@ -48,11 +53,5 @@
             </md-tooltip>
             <span translate>Save</span>
         </md-button>
-        <a href="index.html#!/suppliers">
-            <md-button class="md-raised" aria-label="Add">
-                <md-icon>close</md-icon>
-                <span translate>Cancel</span>
-            </md-button>
-        </a>
     </div>
 </div>
