@@ -33,8 +33,9 @@
                         </md-select>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
-                        <label translate>Counted Quantity</label>
-                        <input type="number" min="0"  ng-model="adjustment.quantity" required>
+                        <label translate ng-if="stocktake">Counted Quantity</label>
+                        <label translate ng-if="!stocktake">Quantity</label>
+                        <input type="number" min="0" ng-model="adjustment.quantity" required>
                     </md-input-container>
                 </div>
                 <div layout="row" layout-xs="column" ng-show="stocktake">

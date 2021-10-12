@@ -30,9 +30,22 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
 
         }
 
-        $scope.getDedails = function(id){
+        $scope.getDetails = function(id){
             if(id){
-                
+                openmrsRest.getFull($scope.resource + "/orderDetail?orderId=" + id).then(function (response) {
+                    $scope.lines = [];
+                    for(var i=0; i<response.results.length; i++){
+                        $scope.lines.push({
+                            reception: $scope.reception.id, 
+                            quantityReceived: response.results[i].orderLineQuantity, 
+                            item: response.results[i].item, 
+                            itemLineLocation: "",
+                            itemExpiryDate: new Date()
+                        });
+                    }
+                }, function (e) {
+                    $scope.lines = [];
+                });
             }
         }
 
@@ -114,7 +127,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                 query.pharmacyOrder = query.pharmacyOrder.id;
             query.date = new Date(query.date);
             query.receptionDetails = [];
-            if ($scope.lines && $scope.lines.length > 0) {
+            if ($scope.reception.id > 0 && $scope.lines && $scope.lines.length > 0) {
                 for (var l in $scope.lines) {
                     var myLine = {
                         "item": $scope.lines[l].item.id,
@@ -130,8 +143,8 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
             if (query.reception && query.uuid) {    //Edit
                 openmrsRest.update($scope.resource + "/reception", query).then(function (response) {
                     $scope.reception = response;
-                    $scope.getData();
-                    toastr.success($translate.instant('Data saved successfully.'), $translate.instant('Success'));
+                    toastr.success($translate.instant('Data saved successfully.'), $translate.instant('Success'));                    
+                    $state.go("home.receptions", {});
                 }, function (e) {
                     $scope.loading = false;
                     toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
@@ -139,8 +152,9 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
             } else {    //Creation
                 openmrsRest.create($scope.resource + "/reception", query).then(function (response) {
                     $scope.reception = response;
-                    $scope.getData();
-                    toastr.success($translate.instant('Data saved successfully.'), $translate.instant('Success'));
+                    //$scope.getDetails($scope.reception.pharmacyOrder.id);
+                    toastr.success($translate.instant('Data saved successfully.'), $translate.instant('Success'));                   
+                    $state.go("home.receptions", {});
                 }, function (e) {
                     $scope.loading = false;
                     toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
