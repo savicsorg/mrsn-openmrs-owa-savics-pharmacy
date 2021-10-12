@@ -1,12 +1,12 @@
 [
-    
     {
         "id": 1,
         "code": "nadj",
         "en": "Negative adjustement",
         "fr": "Negative adjustement",
         "type": "Negative"
-    },{
+    },
+    {
         "id": 2,
         "code": "padj",
         "fr": "Positive adjustement",
@@ -40,5 +40,19 @@
         "en": "Reception",
         "fr": "Reception",
         "type": "Positive"
+    },
+    {
+        "id": 7,
+        "code": "nstocktake",
+        "en": "Negative stocktake",
+        "fr": "Inventaire negative",
+        "type": "Stocktake"
+    },
+    {
+        "id": 8,
+        "code": "pstocktake",
+        "en": "Positive stocktake",
+        "fr": "Inventaire positive",
+        "type": "Stocktake"
     }
 ]

@@ -1,34 +1,47 @@
 <div id="content" class="container-fluid" ng-controller="AdjustmentController as vm">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
-        <span class="chip-normal status-3" aria-label="Add">
-            <span translate>Virtual Qty</span><span translate>:</span> {{item.virtualstock}}
+        <span class="chip-normal status-3" aria-label="Add" ng-if="stocktake && selectedItemList">
+            <span translate>Diff virtual-physical Qty</span><span translate>:</span>
+            {{selectedItemList.itemVirtualstock-selectedItemList.itemSoh}}
         </span>
-        <span class="chip-normal status-3" aria-label="Add">
-            <span translate>Physical Qty</span><span translate>:</span> {{item.soh}}
+        <span class="chip-normal status-3" aria-label="Add" ng-if="selectedItemList">
+            <span translate>Virtual Qty</span><span translate>:</span> {{selectedItemList.itemVirtualstock}}
+        </span>
+        <span class="chip-normal status-3" aria-label="Add" ng-if="selectedItemList">
+            <span translate>Physical Qty</span><span translate>:</span> {{selectedItemList.itemSoh}}
         </span>
     </div>
     <form ng-submit="submit();">
         <md-card>
             <md-card-content>
-                <div layout="row" layout-xs="column">
+                <div layout="row" layout-xs="column" ng-show="!stocktake">
                     <md-radio-group ng-model="transactionType" layout="row" required>
-                        <md-radio-button value="padj" class="md-primary">+ <span translate>adjustment</span></md-radio-button>
-                        <md-radio-button value="nadj" class="md-primary">- <span translate>adjustment</span></md-radio-button>
+                        <md-radio-button value="padj" class="md-primary">+ <span translate>adjustment</span>
+                        </md-radio-button>
+                        <md-radio-button value="nadj" class="md-primary">- <span translate>adjustment</span>
+                        </md-radio-button>
                     </md-radio-group>
                 </div>
                 <div layout="row" layout-xs="column">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label translate>Batch Number</label>
-                        <md-select ng-model="selectedBatch" required>
+                        <md-select ng-model="selectedBatch" required ng-change="getSpecificItemList(batch_id)">
                             <md-option ng-repeat="b in batches" ng-value="b" ng-selected="b.id == batch_id">
                                 {{b.itemBatch}}
                             </md-option>
                         </md-select>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
-                        <label translate>Quantity</label>
+                        <label translate ng-if="stocktake">Counted Quantity</label>
+                        <label translate ng-if="!stocktake">Quantity</label>
                         <input type="number" min="0" ng-model="adjustment.quantity" required>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-xs="column" ng-show="stocktake">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>The adjustment that will will be operated:</label>
+                        <input type="number" min="-99999" ng-model="adjustment.stocktakedifference" disabled>
                     </md-input-container>
                 </div>
                 <div layout="row" layout-xs="column">

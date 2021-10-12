@@ -401,7 +401,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         breadcrumbs: ["Home", "purchase", "New"]
     }).state('home.reception', {
         url: 'reception/:uuid',
-        params: { reception: null , order: null},
+        params: { reception: null, order: null },
         template: require('./inventory/reception.html'),
         controller: 'ReceptionController',
         resolve: {
@@ -481,13 +481,10 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
     }).state('home.adjustmentbatch', {
         url: 'adjustment/:item_id/:batch_id',
         params: {
-            adjustment: null,
             id: null,
             item_id: null,
             batch_id: null,
-            batch_physical_qty: null,
-            batch_counted_qty: null,
-            batch_reason: null,
+            adjustment_for: null
         },
         template: require('./inventory/adjustment.html'),
         controller: 'AdjustmentController',
@@ -599,24 +596,6 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home", "inventory", "stockatrisk"]
-    }).state('home.stocktakes', {
-        url: 'stocktakes',
-        template: require('./inventory/stocktakes/stocktakes.html'),
-        controller: 'stocktakesController',
-        resolve: {
-            loadMyCtrl: ['$q', '$ocLazyLoad', function ($q, $ocLazyLoad) {
-                var deferred = $q.defer();
-                require.ensure([], function () {
-                    var mod = require('./inventory/stocktakes/stocktakesController.js');
-                    $ocLazyLoad.load({
-                        name: 'stocktakesController'
-                    });
-                    deferred.resolve(mod.controller);
-                });
-                return deferred.promise;
-            }]
-        },
-        breadcrumbs: ["Home", "inventory", "stocktakes"]
     }).state('home.viewtransaction', {
         url: 'viewtransaction/:uuid',
         template: require('./inventory/Transactionview.html'),
@@ -676,7 +655,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             }]
         },
         breadcrumbs: ["Home"]
-    
+
 
     }).state('home.orderview', {
         url: 'orderview',
@@ -717,7 +696,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
     $rootScope.changeLanguage = function (langKey) {
         return openmrsTranslate.changeLanguage(langKey);
     };
-    
+
     $rootScope.changeLanguage('fr');
 
     //$state.go('home.dashboard.main');
