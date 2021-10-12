@@ -164,8 +164,8 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
 
         $scope.deleteReception = function (reception) {
             var confirm = $mdDialog.confirm()
-                    .title('Confirmation')
-                    .textContent($translate.instant('Do you really want to delete this reception ?'))
+                    .title($translate.instant('Confirmation'))
+                    .textContent($translate.instant($translate.instant('Do you really want to delete this reception ?')))
                     .ok($translate.instant('Yes'))
                     .cancel($translate.instant('Cancel'));
             $mdDialog.show(confirm).then(function () {

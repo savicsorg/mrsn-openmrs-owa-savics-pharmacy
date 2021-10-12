@@ -80,14 +80,14 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
                     $scope.lines = response.results;
                     $scope.updateOrderAmount();
                     if ($scope.order.dateApprobation !== null) {
-                        $scope.approveBtn.text = "Approved on " + new Date($scope.order.dateApprobation).toLocaleDateString();
+                        $scope.approveBtn.text = $translate.instant("Approved on ") + new Date($scope.order.dateApprobation).toLocaleDateString();
                         $scope.approveBtn.enabled = false;
                         $scope.approveBtn.visible = true;
                         $scope.loading = false;
                     } else {
                         openmrsRest.getFull("session").then(function (response) {
                             if ($rootScope.account.role === 1 || $rootScope.account.role === 3) {//admin or approuver
-                                $scope.approveBtn.text = "Approve";
+                                $scope.approveBtn.text = $translate.instant("Approve");
                                 $scope.approveBtn.enabled = true;
                                 $scope.approveBtn.visible = true;
                                 $scope.loading = false;
@@ -127,10 +127,10 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
 
     $scope.approve = function () {
         $mdDialog.show($mdDialog.confirm()
-        .title('Confirmation')
-        .textContent('Do you really want to approve this order ?')
-        .ok('Yes')
-        .cancel('Cancel')).then(function () {
+        .title($translate.instant('Confirmation'))
+        .textContent($translate.instant('Do you really want to approve this order ?'))
+        .ok($translate.instant('Yes'))
+        .cancel($translate.instant('Cancel'))).then(function () {
             $scope.order.dateApprobation = new Date();
             $scope.saveOrder(true);
         }, function () {

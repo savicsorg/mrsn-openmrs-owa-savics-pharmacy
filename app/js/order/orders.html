@@ -1,7 +1,7 @@
 <div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">
-            <md-icon>shopping_cart</md-icon> {{"Orders management" | translate}}
+            <md-icon>shopping_cart</md-icon> <span translate>Orders management</span>
         </h1>
         <a href="index.html#!/">
             <md-button >
@@ -12,9 +12,9 @@
             <md-button class="md-raised md-primary" aria-label="Add">
                 <md-icon class=" material-icons" role="img" aria-hidden="true">add</md-icon>
                 <md-tooltip md-direction="top">
-                    <span >{{"Place an order" | translate}}</span>
+                    <span translate>Place an order</span>
                 </md-tooltip>
-                {{"Place an order" | translate}}
+                <span translate>Place an order</span>
             </md-button>
         </a>
     </div>
@@ -35,12 +35,12 @@
                 <table md-table md-progress="promise">
                     <thead md-head>
                         <tr md-row>
-                            <th><span >{{"Order n°" | translate}}</span></th>
-                            <th><span >{{"Supplier" | translate}}</span></th>
-                            <th><span >{{"Date of Reception" | translate}}</span></th>
-                            <th><span >{{"Approved on" | translate}}</span></th>
-                            <th><span >{{"Amount" | translate}}</span></th>
-                            <th><span >{{"Actions" | translate}}</span></th>
+                            <th><span translate>Order n°</span></th>
+                            <th><span translate>Supplier</span></th>
+                            <th><span translate>Date of reception</span></th>
+                            <th><span translate>Approved on</span></span></th>
+                            <th><span translate>Amount</span></th>
+                            <th><span translate>Actions</span></th>
                         </tr>
                     </thead>
                     <tbody md-body>
@@ -60,7 +60,7 @@
                                     ng-click="view(data)" ng-if="!data.dateApprobation">
                                     <md-icon>edit</md-icon>
                                     <md-tooltip md-direction="top">
-                                        <span >{{"Edit" | translate}}</span>
+                                        <span translate>Edit</span>
                                     </md-tooltip>
                                 </md-button>
                                 <md-button class="md-fab md-mini md-primary md-button" aria-label="add"
@@ -68,14 +68,14 @@
                                     ng-click="receive(data)">
                                     <md-icon>check_circle</md-icon>
                                     <md-tooltip md-direction="top">
-                                        <span >{{"Receive" | translate}}</span>
+                                        <span translate>Receive</span>
                                     </md-tooltip>
                                 </md-button>
                                 <md-button class="md-fab md-mini md-primary md-button" aria-label="add"
                                     ng-if="data.dateApprobation === null" ng-click="deleteOrder(data)">
                                     <md-icon>delete</md-icon>
                                     <md-tooltip md-direction="top">
-                                        <span >{{"Remove" | translate}}</span>
+                                        <span translate>Remove</span>
                                     </md-tooltip>
                                 </md-button>
                             </td>
