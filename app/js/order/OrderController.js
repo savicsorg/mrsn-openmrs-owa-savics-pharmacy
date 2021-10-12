@@ -86,7 +86,7 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
                         $scope.loading = false;
                     } else {
                         openmrsRest.getFull("session").then(function (response) {
-                            if (_.some(response.user.roles, function (item) { return item.display === "Approve Orders" || item.name === "Approve Orders"; })) {
+                            if ($rootScope.account.role === 1 || $rootScope.account.role === 3) {//admin or approuver
                                 $scope.approveBtn.text = "Approve";
                                 $scope.approveBtn.enabled = true;
                                 $scope.approveBtn.visible = true;
