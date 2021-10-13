@@ -33,7 +33,7 @@
         </md-card-content>
     </md-card>
     <md-card ng-show="!loading">
-        <md-card-title translate> List of items received</md-card-title>
+        <md-card-title translate>List of items received</md-card-title>
         <md-card-content>           
             <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
                 <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in searchItems(searchText)" 
