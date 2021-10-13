@@ -1,8 +1,10 @@
 <div id="content" class="container-fluid">
     <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex=""><md-icon>shopping_cart</md-icon> <span translate>Receptions</span></h1>
+        <h1 md-truncate="" flex="">
+            <md-icon>shopping_cart</md-icon> <span translate>Receptions</span>
+        </h1>
         <a href="index.html#!/inventory">
-            <md-button >
+            <md-button>
                 <md-icon>arrow_back</md-icon><span translate>Back</span>
             </md-button>
         </a>
@@ -16,7 +18,8 @@
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
-                <input type="search" name="search" ng-model="searchAll.pharmacyOrder.name" placeholder="{{ 'Search for Orders n°...' | translate }}">
+                <input type="search" name="search" ng-model="searchAll.pharmacyOrder.name"
+                    placeholder="{{ 'Search for Orders n°...' | translate }}">
             </form>
         </div>
     </md-toolbar>
@@ -34,7 +37,7 @@
                 <tbody md-body>
                     <tr md-row
                         data-ng-repeat="reception in receptions|filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
-                        <td>{{reception.date | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{reception.date | date: 'dd/MM/yyyy' : 'UTC'}}</td>
                         <td>{{reception.person.display}}</td>
                         <td>{{reception.pharmacyOrder.name}}</td>
                         <td width="200px">
@@ -49,8 +52,8 @@
             </table>
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{receptions.length}}"
-            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-limit-options="[10, 50, 100]"
-            md-on-paginate="logPagination" md-label="{rowsPerPage: 'rows per page'}">
+            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+            md-limit-options="[10, 50, 100]" md-on-paginate="logPagination" md-label="{rowsPerPage: 'rows per page'}">
         </md-table-pagination>
     </md-card>
 </div>

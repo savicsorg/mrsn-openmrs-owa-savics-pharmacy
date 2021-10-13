@@ -4,7 +4,7 @@
             <md-icon>shopping_cart</md-icon> <span translate>Orders management</span>
         </h1>
         <a href="index.html#!/">
-            <md-button >
+            <md-button>
                 <md-icon>arrow_back</md-icon><span translate>Back</span>
             </md-button>
         </a>
@@ -25,7 +25,8 @@
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
-                <input type="search" name="search" ng-model="searchAll.id" placeholder="{{ 'Search for Orders n°...' | translate }}">
+                <input type="search" name="search" ng-model="searchAll.id"
+                    placeholder="{{ 'Search for Orders n°...' | translate }}">
             </form>
         </div>
     </md-toolbar>
@@ -44,15 +45,16 @@
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row data-ng-repeat="data in orders|filter:search | limitTo: query.limit : (query.page -1) * query.limit" >
-                            <td md-cell >CMD#{{data.id}}</td>
-                            <td md-cell >{{data.supplier.name}}</td>
-                            <td md-cell >{{data.dateReception | date: 'dd/MM/yyyy'}}</td>
-                            <td md-cell >{{data.dateApprobation | date: 'dd/MM/yyyy'}}</td>
-                            <td md-cell >{{data.amount}}</td>
-                            <td md-cell >
+                        <tr md-row
+                            data-ng-repeat="data in orders|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                            <td md-cell>CMD#{{data.id}}</td>
+                            <td md-cell>{{data.supplier.name}}</td>
+                            <td md-cell>{{data.dateReception | date: 'dd/MM/yyyy' : 'UTC'}}</td>
+                            <td md-cell>{{data.dateApprobation | date: 'dd/MM/yyyy' : 'UTC'}}</td>
+                            <td md-cell>{{data.amount}}</td>
+                            <td md-cell>
                                 <button class="md-fab md-mini md-primary md-button" type="button" aria-label="View"
-                                ng-click="openView(data)" ng-if="data.dateApprobation">
+                                    ng-click="openView(data)" ng-if="data.dateApprobation">
                                     <md-icon class="material-icons" role="img" aria-hidden="true">visibility</md-icon>
                                     <md-tooltip md-direction="top"><span translate>View</span></md-tooltip>
                                 </button>
@@ -84,8 +86,9 @@
                 </table>
             </md-table-container>
             <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{orders.length}}"
-                md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-limit-options="[10, 50, 100]"
-                md-on-paginate="logPagination" md-label="{rowsPerPage: 'rows per page'}">
+                md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+                md-limit-options="[10, 50, 100]" md-on-paginate="logPagination"
+                md-label="{rowsPerPage: 'rows per page'}">
             </md-table-pagination>
         </md-card-content>
     </md-card>

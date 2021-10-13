@@ -13,7 +13,7 @@
             <table md-table md-progress="promise">
                 <thead md-head>
                     <tr md-row>
-                        <th><span translate>Transaction</span> <br/>ID</th>
+                        <th><span translate>Transaction</span> <br />ID</th>
                         <th><span translate>Item Name</span></th>
                         <th><span translate>Bath Name</span></th>
                         <th><span translate>Transaction Type</span></th>
@@ -26,12 +26,14 @@
                     <tr md-row
                         style="background: {{(history.status == 'VALID')?'#3dcc6785':(history.status == 'REJEC')?'#ea340aab':''}};"
                         data-ng-repeat="history in transactions| limitTo: query.limit : (query.page -1) * query.limit">
-                        <td><center>{{history.id}}</center></td>
+                        <td>
+                            <center>{{history.id}}</center>
+                        </td>
                         <td>{{history.item.name}}</td>
                         <td>{{history.itemBatch}}</td>
                         <td>{{getTransactionType(history.transactionType)}}</td>
                         <td>{{history.quantity}}</td>
-                        <td>{{history.date| date:'dd/MM/yyyy'}}</td>
+                        <td>{{history.date| date:'dd/MM/yyyy' : 'UTC'}}</td>
                         <td>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Add"
                                 ng-click="openViewTransaction(history)">
@@ -44,8 +46,8 @@
             </table>
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{transactions.length}}"
-            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-limit-options="[10, 50, 100]"
-            md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
+            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+            md-limit-options="[10, 50, 100]" md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
         </md-table-pagination>
     </md-card>
 </div>

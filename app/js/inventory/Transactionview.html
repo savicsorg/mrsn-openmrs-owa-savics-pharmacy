@@ -7,19 +7,19 @@
 
     <div class="md-toolbar-tools">
         <div flex></div>
-        <md-button class="md-raised md-primary" aria-label="Add" ng-if='account.role === 1 && transaction.status == "INIT"'
-            ng-click="approve()">
+        <md-button class="md-raised md-primary" aria-label="Add"
+            ng-if='account.role === 1 && transaction.status == "INIT"' ng-click="approve()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">check_circle</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Approve</span>
             </md-tooltip>
             {{'Approve' | translate}}
         </md-button>
-        <md-button class="md-raised md-accent" aria-label="Add" ng-if='account.role === 1 && transaction.status == "INIT"'
-            ng-click="reject()">
+        <md-button class="md-raised md-accent" aria-label="Add"
+            ng-if='account.role === 1 && transaction.status == "INIT"' ng-click="reject()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">cancel</md-icon>
             <md-tooltip md-direction="top">
-                <span >{{'Cancel' | translate}}</span>
+                <span>{{'Cancel' | translate}}</span>
             </md-tooltip>
             {{'Cancel' | translate}}
         </md-button>
@@ -41,48 +41,56 @@
             <div layout="row" layout-xs="column" style="margin-bottom: 8px">
                 <div flex-gt-sm class="opblock-summary">
                     <md-card-title-text>
-                        <span class="md-headline"><span translate>Item Name</span><span translate>:</span> {{transaction.item.name}}</span>
+                        <span class="md-headline"><span translate>Item Name</span><span translate>:</span>
+                            {{transaction.item.name}}</span>
                     </md-card-title-text>
                 </div>
                 <div flex-gt-sm class="opblock-summary">
                     <md-card-title-text>
-                        <span class="md-headline"><span translate>Item ID</span><span translate>:</span> {{transaction.id}}</span>
-                    </md-card-title-text>
-                </div>
-            </div>
-            <div layout="row" layout-xs="column" style="margin-bottom: 8px">
-                <div flex-gt-sm class="opblock-summary">
-                    <md-card-title-text>
-                        <span class="md-headline"><span translate>Batch Number</span><span translate>:</span> {{transaction.itemBatch}}</span>
-                    </md-card-title-text>
-                </div>
-                <div flex-gt-sm class="opblock-summary">
-                    <md-card-title-text>
-                        <span class="md-headline"><span translate>Operation Type</span><span translate>:</span> {{getTransactionType(transaction.transactionType)}}</span>
+                        <span class="md-headline"><span translate>Item ID</span><span translate>:</span>
+                            {{transaction.id}}</span>
                     </md-card-title-text>
                 </div>
             </div>
             <div layout="row" layout-xs="column" style="margin-bottom: 8px">
                 <div flex-gt-sm class="opblock-summary">
                     <md-card-title-text>
-                        <span class="md-headline"><span translate>Quantitiy</span><span translate>:</span> {{transaction.quantity}}</span>
+                        <span class="md-headline"><span translate>Batch Number</span><span translate>:</span>
+                            {{transaction.itemBatch}}</span>
                     </md-card-title-text>
                 </div>
                 <div flex-gt-sm class="opblock-summary">
                     <md-card-title-text>
-                        <span class="md-headline"><span translate>Location</span><span translate>:</span> {{transaction.pharmacyLocation.name}}</span>
+                        <span class="md-headline"><span translate>Operation Type</span><span translate>:</span>
+                            {{getTransactionType(transaction.transactionType)}}</span>
+                    </md-card-title-text>
+                </div>
+            </div>
+            <div layout="row" layout-xs="column" style="margin-bottom: 8px">
+                <div flex-gt-sm class="opblock-summary">
+                    <md-card-title-text>
+                        <span class="md-headline"><span translate>Quantitiy</span><span translate>:</span>
+                            {{transaction.quantity}}</span>
+                    </md-card-title-text>
+                </div>
+                <div flex-gt-sm class="opblock-summary">
+                    <md-card-title-text>
+                        <span class="md-headline"><span translate>Location</span><span translate>:</span>
+                            {{transaction.pharmacyLocation.name}}</span>
                     </md-card-title-text>
                 </div>
             </div>
             <div layout="row" layout-xs="column" style="margin-top: 10px; background-color:  {{approveBtn.background}}">
                 <div flex-gt-sm class="opblock-summary">
                     <md-card-title-text>
-                        <span class="md-headline"><span translate>Status</span><span translate>:</span> {{approveBtn.status}}</span>
+                        <span class="md-headline"><span translate>Status</span><span translate>:</span>
+                            {{approveBtn.status}}</span>
                     </md-card-title-text>
                 </div>
                 <div flex-gt-sm class="opblock-summary">
                     <md-card-title-text>
-                        <span class="md-headline"><span translate>Operation Date</span><span translate>:</span> {{transaction.date| date:'dd/MM/yyyy'}}</span>
+                        <span class="md-headline"><span translate>Operation Date</span><span translate>:</span>
+                            {{transaction.date| date:'dd/MM/yyyy': 'UTC'}}</span>
                     </md-card-title-text>
                 </div>
             </div>
@@ -96,7 +104,8 @@
             <div layout="row" layout-xs="column" style="margin-bottom: 8px">
                 <div flex-gt-sm class="opblock-summary">
                     <md-card-title-text>
-                        <span class="md-headline"><span translate>Name</span><span translate>:</span> {{transaction.personId}}</span>
+                        <span class="md-headline"><span translate>Name</span><span translate>:</span>
+                            {{transaction.personId}}</span>
                         <span class="md-subhead description"></span>
                     </md-card-title-text>
                 </div>
@@ -111,7 +120,8 @@
             <div layout="row" layout-xs="column" style="margin-bottom: 8px">
                 <div flex-gt-sm class="opblock-summary">
                     <md-card-title-text>
-                        <span class="md-headline"><span translate>Reason</span><span translate>:</span> {{transaction.reason}}</span>
+                        <span class="md-headline"><span translate>Reason</span><span translate>:</span>
+                            {{transaction.reason}}</span>
                         <span class="md-subhead description"></span>
                     </md-card-title-text>
                 </div>
