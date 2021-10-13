@@ -6,7 +6,7 @@
                 <md-icon>arrow_back</md-icon><span translate>Back</span>
             </md-button>
         </a>
-                <!--        <a href="index.html#!/stockatrisk">
+        <!--        <a href="index.html#!/stockatrisk">
                     <md-button class="md-raised md-primary" aria-label="Add">
                         <md-icon>report_problem</md-icon> Stock at risk
                         <md-tooltip md-direction="top">
@@ -27,7 +27,8 @@
         <div class="md-toolbar-tools">
             <md-icon>search</md-icon>
             <form flex="">
-                <input type="search" name="search" ng-model="searchAll" placeholder="{{ 'Search for Refs. / Customers...' | translate }}">
+                <input type="search" name="search" ng-model="searchAll"
+                    placeholder="{{ 'Search for Refs. / Customers...' | translate }}">
             </form>
         </div>
     </md-toolbar>
@@ -49,13 +50,15 @@
                 <tbody md-body>
                     <tr md-row
                         data-ng-repeat="dispense in dispenses|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
-                        <td><center>{{dispense.id}}</center></td>
+                        <td>
+                            <center>{{dispense.id}}</center>
+                        </td>
                         <td>{{dispense.customerType.name}}</td>
                         <td>{{(dispense.customer != null)? dispense.customer.name : dispense.person.display}}</td>
                         <td>{{dispense.numberOfBatches}}</td>
                         <td>{{dispense.quantity}}</td>
                         <td>{{dispense.sendingAmount}}</td>
-                        <td>{{dispense.date | date:'dd/MM/yyyy'}}</td>
+                        <td>{{dispense.date | date:'dd/MM/yyyy' : 'UTC'}}</td>
                         <td width="200px">
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Edit"
                                 ng-click="openEdit(dispense)">
@@ -73,7 +76,7 @@
             </table>
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{dispenses.length}}"
-                             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
+            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
             md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
         </md-table-pagination>
     </md-card>
