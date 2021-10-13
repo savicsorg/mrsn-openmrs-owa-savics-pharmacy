@@ -38,7 +38,13 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
 
     $scope.searchItems = function (searchText) {
         return openmrsRest.getFull($scope.resource + "/item?name=" + searchText).then(function (response) {
-            return response.results;
+            return response.results.filter(function(item){
+                for(var i=0; i<$scope.lines.length; i++){
+                    if($scope.lines[i].item.id == item.id)
+                        return false;
+                }
+                return true;
+            });
         }, function (e) {
             return [];
         });
@@ -75,6 +81,7 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
         openmrsRest.getFull($scope.resource + "/supplier").then(function (response) {
             $scope.suppliers = response.results;
             if ($stateParams.order) {
+                $stateParams.order.date = new Date($stateParams.order.date);
                 $scope.order = $stateParams.order;
                 openmrsRest.getFull($scope.resource + "/orderDetail?orderId=" + $scope.order.id).then(function (response) {
                     $scope.lines = response.results;
@@ -148,7 +155,7 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
             for (var l in $scope.lines) {
                 var myLine = {
                     "item": $scope.lines[l].item.id,
-                    "pharmacyOrder": $scope.order.id,
+                    //"pharmacyOrder": $scope.order.id,
                     "orderLineQuantity": $scope.lines[l].orderLineQuantity,
                     "orderLineAmount": $scope.lines[l].orderLineAmount
                 }

@@ -25,19 +25,19 @@
                     </md-select>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="33">
-                    <label translate>Date of Reception</label>
-                    <input type="date" ng-model="reception.date" >
+                    <label translate>Date of Reception*</label>
+                    <input type="date"  required ng-model="reception.date" >
                 </md-input-container>
                
             </div>
         </md-card-content>
     </md-card>
-    <md-card ng-if="reception.id !== undefined" ng-show="!loading">
+    <md-card ng-show="!loading">
         <md-card-title translate> List of items received</md-card-title>
         <md-card-content>           
             <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
                 <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in searchItems(searchText)" 
-                    md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug" md-clear-button="true" 
+                    md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug*" md-clear-button="true" 
                     md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="25"
                     ng-if="l.uuid === null || l.uuid === undefined">
                     <md-item-template>
@@ -48,24 +48,24 @@
                     </md-not-found>
                 </md-autocomplete>
                 <md-input-container class="md-block" flex-gt-sm flex="25" ng-if="l.uuid  !== null && l.uuid !== undefined">
-                    <label translate>Drug</label>
+                    <label translate>Drug*</label>
                     <input class="form-control" disabled type="text" ng-model="l.item.name" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Quantity</label>
-                    <input class="form-control" type="number" ng-model="l.quantityReceived" >
+                    <label translate>Quantity*</label>
+                    <input class="form-control"  required type="number" ng-model="l.quantityReceived" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Batch n°</label>
-                    <input class="form-control" type="text" ng-model="l.itemBatch">
+                    <label translate>Batch n°*</label>
+                    <input class="form-control"  required  type="text" ng-model="l.itemBatch">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Date of expiry</label>
-                    <input class="form-control" type="date" ng-model="l.itemExpiryDate">
+                    <label translate>Date of expiry*</label>
+                    <input class="form-control"  required type="date" ng-model="l.itemExpiryDate">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Location</label>
-                    <md-select ng-model="l.itemLineLocation">
+                    <label translate>Location*</label>
+                    <md-select  required ng-model="l.itemLineLocation">
                         <md-option ng-repeat="lo in locations" ng-value="lo.uuid">
                             {{lo.name}}
                         </md-option>
@@ -86,22 +86,13 @@
             </md-button>
         </md-card-content>
     </md-card>
-    <div layout="row" layout-xs="column" ng-if="reception.id !== undefined && !loading">
+    <div layout="row" layout-xs="column" ng-if="!loading">
         <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveReception()">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
             </md-tooltip>
             <span translate>Save</span>
-        </md-button>
-    </div>
-    <div layout="row" layout-xs="column" ng-if="reception.id === undefined && !loading">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveReception()">
-            <md-icon>save</md-icon>
-            <md-tooltip md-direction="top">
-                <span translate>Save and enter details</span>
-            </md-tooltip>
-            <span translate>Save and enter details</span>
         </md-button>
     </div>
 </div>

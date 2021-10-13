@@ -51,7 +51,13 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
 
         $scope.searchItems = function (searchText) {
             return openmrsRest.getFull($scope.resource + "/item?name=" + searchText).then(function (response) {
-                return response.results;
+                return response.results.filter(function(item){
+                    for(var i=0; i<$scope.lines.length; i++){
+                        if($scope.lines[i].item.id == item.id)
+                            return false;
+                    }
+                    return true;
+                });
             }, function (e) {
                 return [];
             });
@@ -63,7 +69,6 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
 
         $scope.getData = function () {
             $scope.loading = true;
-            console.log($stateParams);
             if ($stateParams.uuid) {
                 openmrsRest.getFull($scope.resource + "/location").then(function (response) {
                     $scope.locations = response.results;
@@ -71,8 +76,8 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                         $scope.orders = response.results;
                         if ($stateParams.uuid && $stateParams.uuid != "0")
                             openmrsRest.getFull($scope.resource + "/reception/" + $stateParams.uuid).then(function (response) {
+                                response.date = new Date(response.date);
                                 $scope.reception = response;
-                                $scope.reception.date = new Date($scope.reception.date);
                                 openmrsRest.getFull($scope.resource + "/receptionDetail?receptionId=" + $scope.reception.id).then(function (response) {
                                     $scope.lines = response.results;
                                     for (var i = 0; i < $scope.lines.length; i++) {
@@ -131,7 +136,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                 for (var l in $scope.lines) {
                     var myLine = {
                         "item": $scope.lines[l].item.id,
-                        "reception": $scope.reception.id,
+                        //"reception": $scope.reception.id,
                         "quantityReceived": $scope.lines[l].quantityReceived,
                         "itemBatch": $scope.lines[l].itemBatch,
                         "itemExpiryDate": new Date($scope.lines[l].itemExpiryDate),

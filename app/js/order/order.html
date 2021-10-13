@@ -4,7 +4,7 @@
             <md-icon>add_shopping_cart</md-icon> <span translate>Place an order</span>
         </h1>
         <a href="index.html#!/orders">
-            <md-button class="md-raised" aria-label="Add">
+            <md-button aria-label="Add">
                 <md-icon>arrow_back</md-icon>
                 <md-tooltip md-direction="top">
                     <span translate>Back</span>
@@ -33,8 +33,8 @@
                     <input class="form-control" disabled type="text" ng-value="'CMD#' + order.id" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="50">
-                    <label translate>Supplier</label>
-                    <md-select ng-model="order.supplier.id">
+                    <label translate>Supplier*</label>
+                    <md-select  ng-model="order.supplier.id" required >
                         <md-option ng-repeat="s in suppliers" ng-value="s.id">
                             {{s.name}}
                         </md-option>
@@ -43,18 +43,18 @@
             </div>
             <div layout="row" layout-xs="column" class="flex flex-col">
                 <md-input-container class="md-block" flex-gt-sm flex="100">
-                    <label translate>Label</label>
-                    <input class="form-control" type="text" ng-model="order.name" >
+                    <label translate>Label*</label>
+                    <input class="form-control" required type="text" ng-model="order.name" >
                 </md-input-container>
             </div>
         </md-card-content>
     </md-card>
-    <md-card ng-if="order.id !== undefined" ng-show="!loading">
+    <md-card ng-show="!loading">
         <md-card-title translate>List of drugs</md-card-title>
         <md-card-content>           
             <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
                 <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in searchItems(searchText)" 
-                    md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug" md-clear-button="true" 
+                    md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug*" md-clear-button="true" 
                     md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="45"
                     ng-if="l.uuid === null || l.uuid === undefined">
                     <md-item-template>
@@ -63,20 +63,20 @@
                     <md-not-found translate>No matches found. </md-not-found>
                 </md-autocomplete>
                 <md-input-container class="md-block" flex-gt-sm flex="45" ng-if="l.uuid  !== null && l.uuid !== undefined">
-                    <label translate>Drug</label>
+                    <label translate>Drug*/label>
                     <input class="form-control" disabled type="text" ng-model="l.item.name" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="20">
-                    <label translate>Quantity</label>
-                    <input class="form-control" type="number"  ng-change="lineQuantityChange($index)" ng-model="l.orderLineQuantity" >
+                    <label translate>Quantity*</label>
+                    <input class="form-control" type="number"   required ng-change="lineQuantityChange($index)" ng-model="l.orderLineQuantity" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="20">
-                    <label translate>Price</label>
+                    <label translate>Price*</label>
                     <input class="form-control" type="number" disabled ng-change="updateOrderAmount()" ng-model="l.orderLineAmount">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
-                        ng-click="deleteOrderDetail($index)" ng-if="order.dateApprobation === null">
+                        ng-click="deleteOrderDetail($index)">
                         <md-icon>remove</md-icon>
                         <md-tooltip md-direction="top">
                             <span translate>Remove</span>
@@ -84,7 +84,7 @@
                     </md-button>
                 </md-input-container>
             </div>
-            <md-button class=" md-primary md-button" aria-label="Add" ng-click="addOrderLine()"  ng-if="order.dateApprobation === null">
+            <md-button class=" md-primary md-button" aria-label="Add" ng-click="addOrderLine()" >
                 <md-icon>add</md-icon>
                 <md-tooltip md-direction="top">
                     <span translate>Add a line</span>
@@ -101,22 +101,13 @@
             </div>
         </md-card-content>
     </md-card>
-    <div layout="row" layout-xs="column" ng-if="order.id !== undefined && !loading">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveOrder()" ng-if="order.dateApprobation === null">
+    <div layout="row" layout-xs="column" ng-if="!loading">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveOrder()" >
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
             </md-tooltip>
             <span translate>Save</span>
-        </md-button>
-    </div>
-    <div layout="row" layout-xs="column" ng-if="order.id === undefined && !loading">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveOrder()">
-            <md-icon>save</md-icon>
-            <md-tooltip md-direction="top">
-                <span translate>Save and enter details</span>
-            </md-tooltip>
-            <span translate>Save and enter details</span> 
         </md-button>
     </div>
 </div>
