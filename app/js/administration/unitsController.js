@@ -33,7 +33,8 @@ angular.module('UnitsController', ['ngMaterial', 'md.data.table']).controller('U
         boundaryLinks: false,
         largeEditDialog: true,
         pageSelector: true,
-        rowSelection: true
+        rowSelection: true,
+        rowPerPageLabel: $translate.instant('Rows per page')
     };
 
     $scope.query = {

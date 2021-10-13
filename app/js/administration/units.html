@@ -41,7 +41,6 @@
                     <tbody md-body>
                         <tr md-row
                             ng-repeat="unit in units |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
-                            <td> {{unit.uuid}} </td>
                             <td> {{unit.code}} </td>
                             <td> {{unit.name}} </td>
                             <td>
@@ -59,8 +58,8 @@
                 </table>
             </md-table-container>
             <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{units.length}}"
-                md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-limit-options="[10, 50, 100]"
-                md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
+                md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-limit-options="[5, 25, 50]"
+                md-on-paginate="logPagination" md-label="{rowsPerPage: options.rowsPerPageLabel}">
             </md-table-pagination>
         </md-card>
     </md-content>
