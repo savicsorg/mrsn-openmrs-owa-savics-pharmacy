@@ -58,7 +58,7 @@
                             <td> {{batch.pharmacyLocation.name}} </td>
                             <td>{{batch.itemSoh}}</td>
                             <td>{{batch.itemVirtualstock}}</td>
-                            <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy'}} <small ng-if="batch.expired"
+                            <td>{{batch.itemExpiryDate| date:'dd/MM/yyyy' : 'UTC'}} <small ng-if="batch.expired"
                                     class="chip-normal status-4"> <span translate>Expired</span></small> </td>
                             <td>
                                 <button class="md-fab md-mini md-primary md-button" type="button"
