@@ -152,7 +152,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
             } else {    //Creation
                 openmrsRest.create($scope.resource + "/reception", query).then(function (response) {
                     $scope.reception = response;
-                    //$scope.getDetails($scope.reception.pharmacyOrder.id);
+                    $scope.getDetails($scope.reception.pharmacyOrder.id);
                     toastr.success($translate.instant('Data saved successfully.'), $translate.instant('Success'));                   
                     $state.go("home.receptions", {});
                 }, function (e) {
