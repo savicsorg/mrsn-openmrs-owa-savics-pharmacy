@@ -16,13 +16,17 @@
         <md-card-title translate>Reception Information</md-card-title>
         <md-card-content>
             <div layout="row" layout-xs="column" class="flex flex-col">
-                <md-input-container class="md-block" flex-gt-sm flex="66">
+                <md-input-container class="md-block" flex-gt-sm flex="66" ng-if="!(reception.pharmacyOrder && reception.pharmacyOrder.uuid)">
                     <label translate>Order n°</label>
                     <md-select ng-model="reception.pharmacyOrder.id" ng-change="getDetails(reception.pharmacyOrder.id)">
                         <md-option ng-repeat="o in orders" ng-value="o.id">
                             [CMD#{{o.id}}] {{o.name}}
                         </md-option>
                     </md-select>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm flex="66" ng-if="reception.pharmacyOrder && reception.pharmacyOrder.uuid">
+                    <label translate>Order n°</label>
+                    <input class="form-control" disabled type="text" ng-model="reception.pharmacyOrder.name" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="33">
                     <label translate>Date of Reception</label>

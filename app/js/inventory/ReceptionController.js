@@ -55,13 +55,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
 
         $scope.searchItems = function (searchText) {
             return openmrsRest.getFull($scope.resource + "/item?name=" + searchText).then(function (response) {
-                return response.results.filter(function(item){
-                    for(var i=0; i<$scope.lines.length; i++){
-                        if($scope.lines[i].item.id == item.id)
-                            return false;
-                    }
-                    return true;
-                });
+                return response.results;
             }, function (e) {
                 return [];
             });
