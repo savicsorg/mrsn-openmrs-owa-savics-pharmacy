@@ -31,20 +31,24 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
         }
 
         $scope.getDetails = function(id){
+            $scope.loading = true;
             if(id){
                 openmrsRest.getFull($scope.resource + "/orderDetail?orderId=" + id).then(function (response) {
-                    $scope.lines = [];
+                    $scope.loading = false;$scope.lines = [];
                     for(var i=0; i<response.results.length; i++){
                         $scope.lines.push({
+                            item: response.results[i].item,
                             reception: $scope.reception.id, 
                             quantityReceived: response.results[i].orderLineQuantity, 
                             item: response.results[i].item, 
                             itemLineLocation: "",
-                            itemExpiryDate: new Date()
+                            itemExpiryDate: null
                         });
                     }
+                    
                 }, function (e) {
-                    $scope.lines = [];
+                    $scope.loading = false;$scope.lines = [];
+                    
                 });
             }
         }
@@ -94,8 +98,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                             });
                         else if ($stateParams.order) {
                             $scope.reception.pharmacyOrder = $stateParams.order;
-                            console.log($scope.reception.pharmacyOrder);
-                            $scope.loading = false;
+                            $scope.getDetails($scope.reception.pharmacyOrder.id);
                         } else
                             $scope.loading = false;
                     }, function (e) {
@@ -132,7 +135,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                 query.pharmacyOrder = query.pharmacyOrder.id;
             query.date = new Date(query.date);
             query.receptionDetails = [];
-            if ($scope.reception.id > 0 && $scope.lines && $scope.lines.length > 0) {
+            if ($scope.lines.length > 0) {
                 for (var l in $scope.lines) {
                     var myLine = {
                         "item": $scope.lines[l].item.id,
@@ -170,7 +173,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
         $scope.deleteReception = function (reception) {
             var confirm = $mdDialog.confirm()
                     .title($translate.instant('Confirmation'))
-                    .textContent($translate.instant($translate.instant('Do you really want to delete this reception ?')))
+                    .textContent($translate.instant($translate.instant('Do you really want to delete this reception ? This will impact available stock')))
                     .ok($translate.instant('Yes'))
                     .cancel($translate.instant('Cancel'));
             $mdDialog.show(confirm).then(function () {

@@ -25,7 +25,7 @@
                     </md-select>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="33">
-                    <label translate>Date of Reception*</label>
+                    <label translate>Date of Reception</label>
                     <input type="date"  required ng-model="reception.date" >
                 </md-input-container>
                
@@ -39,7 +39,7 @@
                 <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in searchItems(searchText)" 
                     md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug*" md-clear-button="true" 
                     md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="25"
-                    ng-if="l.uuid === null || l.uuid === undefined">
+                    ng-if="!(l.item && l.item.id)">
                     <md-item-template>
                       <span md-highlight-text="searchText">{{item.name}}</span>
                     </md-item-template>
@@ -47,24 +47,24 @@
                         <span translate>No matches found.</span>
                     </md-not-found>
                 </md-autocomplete>
-                <md-input-container class="md-block" flex-gt-sm flex="25" ng-if="l.uuid  !== null && l.uuid !== undefined">
+                <md-input-container class="md-block" flex-gt-sm flex="25" ng-if="l.item && l.item.id">
                     <label translate>Drug*</label>
                     <input class="form-control" disabled type="text" ng-model="l.item.name" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Quantity*</label>
+                    <label translate>Quantity</label>
                     <input class="form-control"  required type="number" ng-model="l.quantityReceived" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Batch n°*</label>
+                    <label translate>Batch n°</label>
                     <input class="form-control"  required  type="text" ng-model="l.itemBatch">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Date of expiry*</label>
+                    <label translate>Date of expiry</label>
                     <input class="form-control"  required type="date" ng-model="l.itemExpiryDate">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Location*</label>
+                    <label translate>Location</label>
                     <md-select  required ng-model="l.itemLineLocation">
                         <md-option ng-repeat="lo in locations" ng-value="lo.uuid">
                             {{lo.name}}
