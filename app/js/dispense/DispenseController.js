@@ -1,4 +1,4 @@
-angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('DispenseController', ['$scope', '$rootScope', 'openmrsRest', 'toastr', '$state', '$stateParams', '$mdDialog', function ($scope, $rootScope, openmrsRest, toastr, $state, $stateParams, $mdDialog) {
+angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('DispenseController', ['$scope', '$rootScope', 'openmrsRest', 'toastr', '$state', '$stateParams', '$mdDialog', '$translate', function ($scope, $rootScope, openmrsRest, toastr, $state, $stateParams, $mdDialog, $translate) {
     $scope.resource = "savicspharmacy";
     $rootScope.links = {"Pharmacy management module": "", "Dispense": "dispense"};
     $scope.sending = {customer: {}, person: {}, sendingAmount: 0};
@@ -24,6 +24,15 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         enabled: false,
         visible: false
     };
+   
+    $scope.cancelBtn = {
+        text: "Cancel",
+        status: "Initiated",
+        canceled: false,
+        visible: false,
+        enabled: false,
+        background: "#ccc"
+    };
 
     $scope.query = {
         limit: 5,
@@ -36,9 +45,6 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
     $scope.searchCustomers = function (searchText) {
         return openmrsRest.getFull($scope.resource + "/customer?name=" + searchText).then(function (response) {
-            console.log("response.results");
-            console.log(response.results);
-            console.log($scope.dispenseMode);
             return response.results.filter(function(item) { return item.customerType.id == $scope.dispenseMode; });
         }, function (e) {
             return [];
@@ -136,16 +142,12 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         $scope.selectedCustomer = undefined;
         $scope.selectedPatient = undefined;
         $scope.customerSearchText = undefined;
-        console.log($scope.dispenseModes)
         var customerType = $scope.dispenseModes.filter(function(item) { return item.id == dispenseMode; })[0];
-        console.log(customerType)
         $scope.dispenseMode = customerType.id;
         $scope.dispenseModeuuid = customerType.uuid;
     };
 
     $scope.selectedItemLineChange = function (batch, index) {
-//            console.log(batch)
-//            batch = JSON.parse(batch);
         $scope.lines[index].sendingItemBatch = batch;
         $scope.lines[index].sendingDetailsValue = $scope.lines[index].item.sellPrice * $scope.lines[index].sendingDetailsQuantity;
     };
@@ -235,7 +237,6 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 query.sendingDetails.push(myLine);
             }
         }
-        console.log(query);
         if ($scope.sending && $scope.sending.uuid) {    //Edit
             openmrsRest.update($scope.resource + "/sending", query).then(function (response) {
                 response.date = new Date(response.date);
@@ -320,17 +321,35 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
     $scope.validate = function(){
         var confirm = $mdDialog.confirm()
-            .title('Confirmation')
-            .textContent('Do you really want to validate this dispense ?')
-            .ok('Yes')
-            .cancel('Cancel');
+            .title($translate.instant('Confirmation'))
+            .textContent($translate.instant('Do you really want to validate this dispense ?'))
+            .ok($translate.instant('Yes'))
+            .cancel($translate.instant('Cancel'));
         $mdDialog.show(confirm).then(function () {
             $scope.sending.validationDate = new Date();
+            $scope.sending.status = "VALID";
             $scope.saveSending();
-        }, function () {
-
+        }, function (e) {
+            console.error(e);
+                $scope.loading = false;
+                toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
         });      
     }
-
-
+    
+    $scope.reject = function(){
+        var confirm = $mdDialog.confirm()
+            .title($translate.instant('Confirmation'))
+            .textContent($translate.instant('Do you really want to cancel this dispense ?'))
+            .ok($translate.instant('Yes'))
+            .cancel($translate.instant('Cancel'));
+        $mdDialog.show(confirm).then(function () {
+            $scope.sending.validationDate = new Date();
+            $scope.sending.status = "CANCEL";
+            $scope.saveSending();
+        }, function (e) {
+            console.error(e);
+                $scope.loading = false;
+                toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+        });      
+    }
 }]);

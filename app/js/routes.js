@@ -706,7 +706,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         openmrsRest.getFull("session").then(function (response) {
             $rootScope.account = response.user;
             if (_.some(response.user.roles, function (item) {
-                return item.display === "Pharmacy: Administrator" || item.name === "Pharmacy: Administrator";
+                return item.display === "Pharmacy: Administrator" || item.name === "Pharmacy: Administrator" || item.name === "System Developer";
             })) {
                 $rootScope.account.role = 1;
             } else if (_.some(response.user.roles, function (item) {
