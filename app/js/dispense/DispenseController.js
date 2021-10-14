@@ -24,6 +24,15 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         enabled: false,
         visible: false
     };
+   
+    $scope.cancelBtn = {
+        text: "Cancel",
+        status: "Initiated",
+        canceled: false,
+        visible: false,
+        enabled: false,
+        background: "#ccc"
+    };
 
     $scope.query = {
         limit: 5,
@@ -319,6 +328,23 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         $mdDialog.show(confirm).then(function () {
             $scope.sending.validationDate = new Date();
             $scope.sending.status = "VALID";
+            $scope.saveSending();
+        }, function (e) {
+            console.error(e);
+                $scope.loading = false;
+                toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+        });      
+    }
+    
+    $scope.reject = function(){
+        var confirm = $mdDialog.confirm()
+            .title($translate.instant('Confirmation'))
+            .textContent($translate.instant('Do you really want to cancel this dispense ?'))
+            .ok($translate.instant('Yes'))
+            .cancel($translate.instant('Cancel'));
+        $mdDialog.show(confirm).then(function () {
+            $scope.sending.validationDate = new Date();
+            $scope.sending.status = "CANCEL";
             $scope.saveSending();
         }, function (e) {
             console.error(e);
