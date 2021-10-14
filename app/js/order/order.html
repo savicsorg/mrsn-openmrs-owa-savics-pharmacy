@@ -33,7 +33,7 @@
                     <input class="form-control" disabled type="text" ng-value="'CMD#' + order.id" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="50">
-                    <label translate>Supplier*</label>
+                    <label translate>Supplier</label>
                     <md-select  ng-model="order.supplier.id" required >
                         <md-option ng-repeat="s in suppliers" ng-value="s.id">
                             {{s.name}}
@@ -63,15 +63,15 @@
                     <md-not-found translate>No matches found. </md-not-found>
                 </md-autocomplete>
                 <md-input-container class="md-block" flex-gt-sm flex="45" ng-if="l.uuid  !== null && l.uuid !== undefined">
-                    <label translate>Drug*/label>
+                    <label translate>Drug*</label>
                     <input class="form-control" disabled type="text" ng-model="l.item.name" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="20">
-                    <label translate>Quantity*</label>
+                    <label translate>Quantity</label>
                     <input class="form-control" type="number"   required ng-change="lineQuantityChange($index)" ng-model="l.orderLineQuantity" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="20">
-                    <label translate>Price*</label>
+                    <label translate>Price</label>
                     <input class="form-control" type="number" disabled ng-change="updateOrderAmount()" ng-model="l.orderLineAmount">
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
