@@ -7,6 +7,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     $scope.dispenseModes = [];
     $scope.lines = [];
     $scope.loading = false;
+    $scope.isEditable = true;
     $scope.loadingStack = 0;
     $scope.batchSearchText = "";
     $scope.itemSearchText = "";
@@ -164,10 +165,12 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 $scope.selectedPatient = $scope.sending.person;
 
                 if($scope.sending && $scope.sending.validationDate){
+                    $scope.isEditable = false;
                     $scope.validateBtn.text = "Validated on " + new Date($scope.sending.validationDate).toLocaleDateString();
                     $scope.validateBtn.enabled = false;
                     $scope.validateBtn.visible = true;
                 } else {
+                    $scope.isEditable = true;
                     $scope.validateBtn.text = "Validate";
                     $scope.validateBtn.enabled = true;
                     $scope.validateBtn.visible = true;
@@ -190,7 +193,9 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 toastr.error('An unexpected error has occured.', 'Error');
             });
         } else {
+            $scope.isEditable = true;
             if($scope.sending && $scope.sending.validationDate){
+                $scope.isEditable = false;
                 $scope.validateBtn.text = "Validated on " + new Date($scope.sending.validationDate).toLocaleDateString();
                 $scope.validateBtn.enabled = false;
                 $scope.validateBtn.visible = true;

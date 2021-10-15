@@ -1,14 +1,13 @@
 <div id="content" class="container-fluid">
-    <a href="index.html#!/viewhistory/{{itemuuid}}">
-        <md-button class="md-raised">
-            <md-icon>arrow_back</md-icon><span translate>Back</span>
-        </md-button>
-    </a>
+    <md-button class="md-raised"
+        ng-click="openHistory(transaction.item.id, transaction.item.uuid, transaction.itemBatch)">
+        <md-icon>arrow_back</md-icon><span translate>Back</span>
+    </md-button>
 
     <div class="md-toolbar-tools">
         <div flex></div>
         <md-button class="md-raised md-primary" aria-label="Add"
-            ng-if='account.role === 1 && transaction.status == "INIT"' ng-click="approve()">
+            ng-if='account.role === 1 && transaction.status == "INIT" && transaction.transactionType != 3 && transaction.transactionType != 5 && transaction.transactionType != 6' ng-click="approve()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">check_circle</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Approve</span>
@@ -16,14 +15,14 @@
             {{'Approve' | translate}}
         </md-button>
         <md-button class="md-raised md-accent" aria-label="Add"
-            ng-if='account.role === 1 && transaction.status == "INIT"' ng-click="reject()">
+            ng-if='account.role === 1 && transaction.status == "INIT" && transaction.transactionType != 3 && transaction.transactionType != 5 && transaction.transactionType != 6' ng-click="reject()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">cancel</md-icon>
             <md-tooltip md-direction="top">
                 <span>{{'Cancel' | translate}}</span>
             </md-tooltip>
             {{'Cancel' | translate}}
         </md-button>
-        <md-button class="md-raised " aria-label="Add" ng-if='transaction.status == "INIT"'
+        <md-button class="md-raised " aria-label="Add" ng-if='transaction.status == "INIT" && transaction.transactionType != 3 && transaction.transactionType != 5 && transaction.transactionType != 6'
             ng-click="openEditTransaction()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">edit</md-icon>
             <md-tooltip md-direction="top">

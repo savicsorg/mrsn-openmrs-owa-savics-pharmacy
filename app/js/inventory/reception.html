@@ -41,8 +41,8 @@
         <md-card-content>           
             <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
                 <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in searchItems(searchText)" 
-                    md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug*" md-clear-button="true" 
-                    md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="25"
+                    md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug" md-clear-button="true" 
+                    md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" required flex-gt-sm flex="25"
                     ng-if="!(l.item && l.item.id)">
                     <md-item-template>
                       <span md-highlight-text="searchText">{{item.name}}</span>
@@ -52,8 +52,8 @@
                     </md-not-found>
                 </md-autocomplete>
                 <md-input-container class="md-block" flex-gt-sm flex="25" ng-if="l.item && l.item.id">
-                    <label translate>Drug*</label>
-                    <input class="form-control" disabled type="text" ng-model="l.item.name" >
+                    <label translate>Drug</label>
+                    <input class="form-control" disabled type="text" required ng-model="l.item.name" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
                     <label translate>Quantity</label>
