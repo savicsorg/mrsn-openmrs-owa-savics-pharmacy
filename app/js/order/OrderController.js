@@ -52,11 +52,11 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
 
     $scope.selectedItemChange = function (item, index) {
         $scope.lines[index].item = item;
-        $scope.lines[index].orderLineAmount = item.sellPrice * $scope.lines[index].orderLineQuantity;
+        $scope.lines[index].orderLineAmount = item.buyPrice * $scope.lines[index].orderLineQuantity;
     };
 
     $scope.lineQuantityChange = function (index) {        
-        $scope.lines[index].orderLineAmount = $scope.lines[index].item.sellPrice * $scope.lines[index].orderLineQuantity;
+        $scope.lines[index].orderLineAmount = $scope.lines[index].item.buyPrice * $scope.lines[index].orderLineQuantity;
         $scope.updateOrderAmount();
     };
 
