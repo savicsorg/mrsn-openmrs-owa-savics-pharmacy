@@ -35,7 +35,7 @@
                 <div layout="row"  layout-xs="column" class="flex flex-col">                
                     <md-input-container class="md-block"  flex-gt-sm flex="20">
                         <label translate>Type of Dispensation</label>
-                        <md-select ng-model="dispenseMode" ng-change="dispenseModeChange(dispenseMode)"  ng-disabled="!validateBtn.enabled" required>
+                        <md-select ng-model="dispenseMode" ng-change="dispenseModeChange(dispenseMode)"  ng-disabled="!isEditable" required>
                             <md-option ng-repeat="type in dispenseModes" value="{{type.id}}" > 
                                 {{ type.name}}
                             </md-option>
@@ -43,12 +43,12 @@
                     </md-input-container>
                     <md-input-container class="md-block"  flex-gt-sm flex="20" >
                         <label translate>Date</label>
-                        <input type="date" ng-model="sending.date"  ng-disabled="!validateBtn.enabled" required>
+                        <input type="date" ng-model="sending.date"  ng-disabled="!isEditable" required>
                     </md-input-container>               
                     <md-autocomplete md-selected-item="selectedCustomer" md-search-text="customerSearchText" md-items="customer in searchCustomers(customerSearchText)" 
                                      md-item-text="customer.name" class="md-block" flex-gt-sm md-floating-label="Customer" md-clear-button="true" 
                                      md-no-cache="true" md-selected-item-change="selectedCustomerChange(customer,$index)" flex="60" 
-                                     ng-if="dispenseModeuuid === '37688e92-f19c-4f19-b369-cdd31c8e7fba' || dispenseModeuuid === 'a6284bc5-f3b0-4687-abce-16ff8423470b'"  ng-disabled="!validateBtn.enabled"required>
+                                     ng-if="dispenseModeuuid === '37688e92-f19c-4f19-b369-cdd31c8e7fba' || dispenseModeuuid === 'a6284bc5-f3b0-4687-abce-16ff8423470b'"  ng-disabled="!isEditable"required>
                         <md-item-template>
                             <span md-highlight-text="customerSearchText">{{customer.name}}</span>
                         </md-item-template>
@@ -59,7 +59,7 @@
                     <md-autocomplete md-selected-item="selectedPatient" md-search-text="patientSearchText" md-items="patient in searchPatients(patientSearchText)" 
                                      md-item-text="patient.display" class="md-block" flex-gt-sm md-floating-label="Patient" md-clear-button="true" 
                                      md-no-cache="true" md-selected-item-change="selectedPatientChange(patient,$index)" flex="60"
-                                     ng-if="dispenseModeuuid === 'b54a1ddd-d25b-492e-98e9-5f1de0520e1a'"  ng-disabled="!validateBtn.enabled"required>
+                                     ng-if="dispenseModeuuid === 'b54a1ddd-d25b-492e-98e9-5f1de0520e1a'"  ng-disabled="!isEditable"required>
                         <md-item-template>
                             <span md-highlight-text="patientSearchText">{{patient.display}}</span>
                         </md-item-template>
@@ -91,7 +91,7 @@
                     </md-input-container> 
                     <md-input-container class="md-block" flex-gt-sm>
                         <label translate>Batch n°</label>
-                        <md-select ng-model="l.sendingItemBatch" ng-change="selectedItemLineChange(l.sendingItemBatch, $index)" ng-disabled="!validateBtn.enabled" required>
+                        <md-select ng-model="l.sendingItemBatch" ng-change="selectedItemLineChange(l.sendingItemBatch, $index)" ng-disabled="!isEditable" required>
                             <md-option ng-repeat="iLine in l.itemsLines" value="{{iLine.itemBatch}}"> 
                                 {{ iLine.itemBatch}}
                             </md-option>
@@ -100,19 +100,19 @@
 
                     <md-input-container class="md-block" flex-gt-sm flex="15">
                         <label translate>Quantity</label>
-                        <input class="form-control" type="number" ng-model="l.sendingDetailsQuantity" ng-change="updateLineValue($index)" ng-disabled="!validateBtn.enabled" required>
+                        <input class="form-control" type="number" ng-model="l.sendingDetailsQuantity" ng-change="updateLineValue($index)" ng-disabled="!isEditable" required>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm flex="15">
                         <label translate>Price</label>
                         <input class="form-control" ng-disabled="true" type="number" ng-model="l.sendingDetailsValue" >
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm flex="7">
-                        <md-button class="md-fab md-mini md-danger md-button" aria-label="remove" ng-click="deleteSendingDetail(l, $index)" ng-disabled="!validateBtn.enabled">
+                        <md-button class="md-fab md-mini md-danger md-button" aria-label="remove" ng-click="deleteSendingDetail(l, $index)" ng-disabled="!isEditable">
                             <md-icon>remove</md-icon>
                         </md-button>
                     </md-input-container>
                 </div>
-                <md-button class="md-raised md-primary" ng-click="addSendingLine()" ng-if="!sending.validationDate">
+                <md-button class="md-raised md-primary" ng-click="addSendingLine()" ng-if="isEditable">
                     <md-icon>add</md-icon> <span translate>Add a line</span>
                 </md-button>
                 <div layout="row" layout-xs="column">
@@ -127,7 +127,7 @@
             </md-card-content>
         </md-card>
         <div layout="row" layout-xs="column"  ng-if="!loading && !sending.validationdate">
-            <md-button class="md-raised md-primary" type="submit" ng-disabled="!validateBtn.enabled">
+            <md-button class="md-raised md-primary" type="submit" ng-disabled="!isEditable">
                 <md-icon>save</md-icon>
                 <md-tooltip md-direction="top">
                     <span translate>Save</span>

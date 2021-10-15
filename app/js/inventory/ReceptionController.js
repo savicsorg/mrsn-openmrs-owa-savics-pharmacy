@@ -1,4 +1,4 @@
-angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('ReceptionController', ['$scope', '$state', '$stateParams', '$rootScope', 'openmrsRest', 'toastr', 'gettextCatalog', '$translate', function ($scope, $state, $stateParams, $rootScope, openmrsRest, toastr, gettextCatalog, $translate) {
+angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('ReceptionController', ['$scope', '$state', '$stateParams', '$rootScope', 'openmrsRest', 'toastr', 'gettextCatalog', '$translate', '$mdDialog', function ($scope, $state, $stateParams, $rootScope, openmrsRest, toastr, gettextCatalog, $translate, $mdDialog) {
         $scope.resource = "savicspharmacy";
         $rootScope.links = {
             "Pharmacy management module": "",
@@ -189,5 +189,9 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
             $state.go('home.reception', {
                 uuid: data.uuid
             });
+        }
+
+        $scope.deleteReceptionDetail = function (index) {
+            $scope.lines.splice(index,1);
         }
     }])
