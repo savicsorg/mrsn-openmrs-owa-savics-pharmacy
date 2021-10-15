@@ -24,7 +24,7 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
         pageSelector: true,
         rowSelection: true
     };
-
+    $scope.nextID = "";
     $scope.query = {
         limit: 5,
         page: 1
@@ -214,5 +214,15 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
     $scope.deleteOrderDetail = function (index) {
         $scope.lines.splice(index,1);
         $scope.updateOrderAmount();  
+    }
+
+    if ($stateParams.order === null) {
+        openmrsRest.getFull($scope.resource + "/orderNextIncrement").then(function (response) {
+            $scope.nextID = response.results;
+            $scope.loading = false;
+        }, function (e) {
+            $scope.loading = false;
+            toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
+        });
     }
 }]);
