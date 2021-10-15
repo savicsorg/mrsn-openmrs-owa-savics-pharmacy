@@ -190,4 +190,8 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
                 uuid: data.uuid
             });
         }
+
+        $scope.deleteReceptionDetail = function (index) {
+            $scope.lines.splice(index,1);
+        }
     }])
