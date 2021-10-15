@@ -169,7 +169,7 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
                 else {
                     $scope.order = response;
                     loadData();
-                    $state.go('home.orders', { });
+                    $state.go('home.orders', {});
                     //toastr.success('Data saved successfully.', 'Success');                      
                 }
             },function(e){
