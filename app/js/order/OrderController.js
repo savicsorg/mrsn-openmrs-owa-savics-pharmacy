@@ -164,10 +164,14 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
         }
         if ($scope.order && $scope.order.uuid) {    //Edit
             openmrsRest.update($scope.resource + "/order", query).then(function (response) {
-                $scope.order = response;
-                loadData();
-                $state.go('home.orders', { });
-                //toastr.success('Data saved successfully.', 'Success');   
+                if(response === null)
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
+                else {
+                    $scope.order = response;
+                    loadData();
+                    $state.go('home.orders', { });
+                    //toastr.success('Data saved successfully.', 'Success');                      
+                }
             },function(e){
                 console.error(e);
                 $scope.loading = false;
@@ -175,10 +179,14 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
             });
         } else {    //Creation
             openmrsRest.create($scope.resource + "/order", query).then(function (response) {
-                $scope.order = response;
-                loadData();
-                $state.go('home.orders', { });
-                //toastr.success('Data saved successfully.', 'Success');   
+                if(response === null)
+                    toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
+                else {
+                    $scope.order = response;
+                    loadData();
+                    $state.go('home.orders', { });
+                    //toastr.success('Data saved successfully.', 'Success');                  
+                }   
             },function(e){
                 $scope.loading = false;
                 toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
