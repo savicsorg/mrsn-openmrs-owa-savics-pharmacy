@@ -97,7 +97,6 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     };
 
     $scope.openAdjustementStockTake = function (batch) {
-        console.log(batch);
         $state.go('home.adjustmentbatch', {
             id: batch.item.id,
             item_id: batch.item.id,

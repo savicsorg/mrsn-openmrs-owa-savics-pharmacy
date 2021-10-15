@@ -4,7 +4,10 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
     $scope.resource = "savicspharmacy";
     $scope.concept_ressource = "concept";
     $scope.transactionuuid = $stateParams.uuid;
-    $scope.itembatch = undefined;
+    $scope.itemuuid = $stateParams.itemuuid;
+    $scope.itemid = $stateParams.item_id;
+    $scope.itembatch = $stateParams.item_Batch;
+    console.log([$scope.itemid, $scope.itemuuid, $scope.transactionuuid, $scope.itembatch]);
     var dictionary = require("../utils/dictionary");
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Stock and inventory": "inventory", "History": "viewhistory", "Details": "Transactionview" };
@@ -47,11 +50,10 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
                 $scope.approveBtn.status = "Initiated";
             }
 
-
             $scope.openEditTransaction = function () {
                 $state.go('home.editAdjustment', {
                     id: $scope.itemid,
-                    adjustmentuuid: $scope.transaction.uuid,
+                    adjustmentuuid: $scope.transactionuuid,
                     itembatch: $scope.itembatch
                 });
             };
@@ -59,11 +61,11 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
     })
 
 
-    $scope.openHistory = function (batch_item_id, batch_item_uuid, batch_itemBatch) {
+    $scope.openHistory = function () {
         $state.go('home.viewhistorybatch', {
-            item_id: batch_item_id,
-            uuid: batch_item_uuid,
-            item_Batch: batch_itemBatch
+            item_id: $scope.itemid,
+            uuid: $scope.itemuuid,
+            item_Batch: $scope.itembatch
         });
     };
 

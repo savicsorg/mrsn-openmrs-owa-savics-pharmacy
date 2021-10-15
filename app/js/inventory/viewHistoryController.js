@@ -28,9 +28,12 @@ angular.module('viewHistoryController', []).controller('viewHistoryController', 
         }
     })
 
-    $scope.openViewTransaction = function (data) {
+    $scope.openViewTransaction = function (history) {
         $state.go('home.viewtransaction', {
-            uuid: data.uuid
+            uuid: history.uuid,
+            item_id: history.item.id,
+            item_Batch: history.itemBatch,
+            itemuuid: history.item.uuid,
         });
     };
 
