@@ -1,9 +1,8 @@
 <div id="content" class="container-fluid">
-    <a href="index.html#!/viewhistory/{{itemuuid}}">
-        <md-button class="md-raised">
-            <md-icon>arrow_back</md-icon><span translate>Back</span>
-        </md-button>
-    </a>
+    <md-button class="md-raised"
+        ng-click="openHistory(transaction.item.id, transaction.item.uuid, transaction.itemBatch)">
+        <md-icon>arrow_back</md-icon><span translate>Back</span>
+    </md-button>
 
     <div class="md-toolbar-tools">
         <div flex></div>

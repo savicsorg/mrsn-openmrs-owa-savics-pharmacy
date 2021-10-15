@@ -43,7 +43,7 @@
             </div>
             <div layout="row" layout-xs="column" class="flex flex-col">
                 <md-input-container class="md-block" flex-gt-sm flex="100">
-                    <label translate>Label*</label>
+                    <label translate>Label</label>
                     <input class="form-control" required type="text" ng-model="order.name" >
                 </md-input-container>
             </div>
@@ -54,17 +54,17 @@
         <md-card-content>           
             <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
                 <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in searchItems(searchText)" 
-                    md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug*" md-clear-button="true" 
+                    md-item-text="item.name" class="md-block" flex-gt-sm md-floating-label="Drug" md-clear-button="true" 
                     md-no-cache="true" md-selected-item-change="selectedItemChange(item,$index)" flex-gt-sm flex="45"
-                    ng-if="l.uuid === null || l.uuid === undefined">
+                    ng-if="l.uuid === null || l.uuid === undefined" required>
                     <md-item-template>
                       <span md-highlight-text="searchText">{{item.name}}</span>
                     </md-item-template>
                     <md-not-found translate>No matches found. </md-not-found>
                 </md-autocomplete>
                 <md-input-container class="md-block" flex-gt-sm flex="45" ng-if="l.uuid  !== null && l.uuid !== undefined">
-                    <label translate>Drug*</label>
-                    <input class="form-control" disabled type="text" ng-model="l.item.name" >
+                    <label translate>Drug</label>
+                    <input class="form-control" disabled type="text" ng-model="l.item.name" required>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="20">
                     <label translate>Quantity</label>
