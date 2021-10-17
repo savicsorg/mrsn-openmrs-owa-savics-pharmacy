@@ -182,8 +182,14 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
             $mdDialog.show(confirm).then(function () {
                 $scope.loading = true;
                 openmrsRest.remove($scope.resource + "/reception", reception, "Generic Reason").then(function (response) {
-                    loadData();
-                    toastr.success($translate.instant('Data removed successfully.'), $translate.instant('Success'));
+                    openmrsRest.getFull($scope.resource + "/reception").then(function (response) {
+                        $scope.receptions = response.results;
+                        $scope.loading = false;                      
+                        toastr.success($translate.instant('Data removed successfully.'), $translate.instant('Success'));
+                    }, function (e) {
+                        $scope.loading = false;
+                        toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
+                    });
                 }, function (e) {
                     $scope.loading = false;
                     toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
