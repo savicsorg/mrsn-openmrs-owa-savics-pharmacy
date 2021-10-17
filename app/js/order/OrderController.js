@@ -225,8 +225,9 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
     }
 
     if ($stateParams.order === null) {
-        openmrsRest.getFull($scope.resource + "/orderNextIncrement").then(function (response) {
-            $scope.nextID = response.results;
+        openmrsRest.get($scope.resource + "/orderNextIncrement").then(function (response) {
+            console.log(response);
+            //$scope.nextID = response;
             $scope.loading = false;
         }, function (e) {
             $scope.loading = false;
