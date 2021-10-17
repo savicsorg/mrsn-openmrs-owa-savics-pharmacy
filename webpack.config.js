@@ -71,6 +71,8 @@ if (target === 'web') {
             });
 }
 
+console.log(env)
+
 /** Minify for production */
 if (env === 'production') {
     plugins.push(new UglifyPlugin({

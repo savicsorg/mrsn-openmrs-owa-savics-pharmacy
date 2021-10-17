@@ -701,7 +701,6 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             return openmrsTranslate.changeLanguage(langKey);
         };
 
-        $rootScope.changeLanguage('fr');
 
         openmrsRest.getFull("session").then(function (response) {
             $rootScope.account = response.user;
@@ -748,7 +747,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
                 $state.go(state);
             }
 
-
+            $rootScope.changeLanguage('fr');
 
         });
     }]);
