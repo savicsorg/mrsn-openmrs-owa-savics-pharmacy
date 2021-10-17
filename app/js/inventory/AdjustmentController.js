@@ -22,7 +22,6 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
     var dictionary = require("../utils/dictionary");
     $scope.batches = [];
     $scope.transactionTypes = dictionary.getTransactionTypes("en");
-
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "adjustment": "Adjustment" };
 

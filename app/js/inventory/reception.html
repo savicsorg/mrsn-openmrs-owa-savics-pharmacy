@@ -26,7 +26,7 @@
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="66" ng-if="reception.pharmacyOrder && reception.pharmacyOrder.uuid">
                     <label translate>Order n°</label>
-                    <input class="form-control" disabled type="text" ng-model="reception.pharmacyOrder.name" >
+                    <input class="form-control" disabled type="text" ng-model="'CMD#' + reception.pharmacyOrder.id + ' ' + reception.pharmacyOrder.name" >
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="33">
                     <label translate>Date of Reception</label>
@@ -77,10 +77,10 @@
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm flex="15">
                     <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
-                        ng-click="deteleReceptionDetail(l, $index)">
+                        ng-click="deteleReceptionDetail($index)">
                         <md-icon>remove</md-icon>
                         <md-tooltip md-direction="top">
-                            <span translate>Cancel</span>
+                            <span translate>Remove</span>
                         </md-tooltip>
                     </md-button>
                 </md-input-container>
