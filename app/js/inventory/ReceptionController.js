@@ -144,20 +144,28 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
             }            
             if (query.reception && query.uuid) {    //Edit
                 openmrsRest.update($scope.resource + "/reception", query).then(function (response) {
-                    response.date = new Date(response.date);
-                    $scope.reception = response;
-                    toastr.success($translate.instant('Data saved successfully.'), $translate.instant('Success'));                    
-                    $state.go("home.receptions", {});
+                    if(response === null)
+                        toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
+                    else {
+                        response.date = new Date(response.date);
+                        $scope.reception = response;
+                        toastr.success($translate.instant('Data saved successfully.'), $translate.instant('Success'));                    
+                        $state.go("home.receptions", {});
+                    }                   
                 }, function (e) {
                     $scope.loading = false;
                     toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
                 });
             } else {    //Creation
                 openmrsRest.create($scope.resource + "/reception", query).then(function (response) {
-                    response.date = new Date(response.date);
-                    $scope.reception = response;
-                    toastr.success($translate.instant('Data saved successfully.'), $translate.instant('Success'));                   
-                    $state.go("home.receptions", {});
+                    if(response === null)
+                        toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
+                    else {                       
+                        response.date = new Date(response.date);
+                        $scope.reception = response;
+                        toastr.success($translate.instant('Data saved successfully.'), $translate.instant('Success'));                   
+                        $state.go("home.receptions", {});
+                    }
                 }, function (e) {
                     $scope.loading = false;
                     toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
@@ -174,8 +182,14 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
             $mdDialog.show(confirm).then(function () {
                 $scope.loading = true;
                 openmrsRest.remove($scope.resource + "/reception", reception, "Generic Reason").then(function (response) {
-                    loadData();
-                    toastr.success($translate.instant('Data removed successfully.'), $translate.instant('Success'));
+                    openmrsRest.getFull($scope.resource + "/reception").then(function (response) {
+                        $scope.receptions = response.results;
+                        $scope.loading = false;                      
+                        toastr.success($translate.instant('Data removed successfully.'), $translate.instant('Success'));
+                    }, function (e) {
+                        $scope.loading = false;
+                        toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
+                    });
                 }, function (e) {
                     $scope.loading = false;
                     toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));

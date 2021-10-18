@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "name": "Savics Pharmacy",
-  "description": "Lets you manage Drugs",
+  "description": "Lets you manage the pharmacy stock end inventory",
   "launch_path": "index.html",
   "icons": {
     "48": "/img/omrs-button.png"
@@ -10,7 +10,7 @@
     "name": "anatoleabe, lcdamy, enokby",
     "url": "https://github.com/savicsorg/mrsn-openmrs-owa-savics-pharmacy"
   },
-  "default_locale": "en",
+  "default_locale": "fr",
     "activities": {
       "openmrs": {
         "href": "*"
