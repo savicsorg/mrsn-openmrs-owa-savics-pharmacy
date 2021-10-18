@@ -24,7 +24,6 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
         pageSelector: true,
         rowSelection: true
     };
-    $scope.nextID = "";
     $scope.query = {
         limit: 5,
         page: 1
@@ -224,14 +223,44 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
         $scope.updateOrderAmount();  
     }
 
-    if ($stateParams.order === null) {
-        openmrsRest.get($scope.resource + "/orderNextIncrement").then(function (response) {
-            console.log(response);
-            //$scope.nextID = response;
-            $scope.loading = false;
+    $scope.create = function () {
+        var confirm = $mdDialog.confirm()
+            .title($translate.instant('Confirmation'))
+            .textContent($translate.instant('Do you really want to create a new order ?'))
+            .ok($translate.instant('Yes'))
+            .cancel($translate.instant('Cancel'));
+        $mdDialog.show(confirm).then(function () {
+            $scope.loading = true;
+            openmrsRest.getFull($scope.resource + "/supplier").then(function (response) {
+                if(response.results.length == 0){
+                    $scope.loading = false;
+                    toastr.error($translate.instant('No supplier registered. Please add from Settings'), $translate.instant('Error'));                  
+                } else {
+                    var query = {};
+                    query.name = "Nouvel ordre de commande";                   
+                    query.date = new Date();
+                    query.supplier = response.results[0].id;
+                    openmrsRest.create($scope.resource + "/order", query).then(function (response) {
+                        if(response === null){
+                            $scope.loading = false;
+                            toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
+                        } else {
+                            $scope.loading = false;
+                            $scope.order = response;
+                            $state.go('home.order', { order: $scope.order });
+                            toastr.success('Data saved successfully.', 'Success');                  
+                        }   
+                    },function(e){
+                        $scope.loading = false;
+                        toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
+                    });
+                }
+            }, function (e) {
+                $scope.loading = false;
+                toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
+            });
         }, function (e) {
             $scope.loading = false;
-            toastr.error($translate.instant('An unexpected error has occured.'), $translate.instant('Error'));
-        });
+        });    
     }
 }]);
