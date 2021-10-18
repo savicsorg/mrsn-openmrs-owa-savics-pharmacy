@@ -750,7 +750,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             $state.go(state);
         }
 
-            $rootScope.changeLanguage('fr');
+        $rootScope.changeLanguage('fr');
 
     });
 }]);
