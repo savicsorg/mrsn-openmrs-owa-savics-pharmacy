@@ -48,7 +48,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="stock in stockAtRisk|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="stock in stockAtRisk|filter:search | limitTo: query.limit : (query.page -1) * query.limit | orderBy:'name'">
                         <td>{{stock.code}}</td>
                         <td>{{stock.name}}</td>
                         <td>{{stock.itemBatch}}</td>

@@ -37,7 +37,7 @@
 
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="reception in receptions|filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="reception in receptions|filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit | orderBy:'-id'">
                         <td>{{reception.date | date: 'dd/MM/yyyy' : 'UTC'}}</td>
                         <td>{{reception.person.display}}</td>
                         <td>{{reception.pharmacyOrder.id > 0 ? 'CMD#' + reception.pharmacyOrder.id : ''}}</td>

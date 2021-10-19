@@ -44,7 +44,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="customer in customers |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="customer in customers |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit | orderBy:'name'">
                         <td>{{customer.code}}</td>
                         <td>{{customer.customerType.name}}</td>
                         <td>{{customer.name}}</td>

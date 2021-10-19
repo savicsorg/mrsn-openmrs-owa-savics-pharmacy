@@ -39,7 +39,7 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row data-ng-repeat="receive in receives">
+                    <tr md-row data-ng-repeat="receive in receives | orderBy:'-id'">
                         <td md-cell>{{receive.code}}</td>
                         <td md-cell>{{receive.supplier}}</td>
                         <td md-cell>{{receive.approbation}}</td>

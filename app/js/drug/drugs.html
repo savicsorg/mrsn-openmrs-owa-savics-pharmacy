@@ -47,7 +47,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="drug in drugs|filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="drug in drugs|filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit | orderBy:'name'">
                         <td>{{drug.code}}</td>
                         <td>{{drug.name}}</td>
                         <td>{{drug.unit.name}}</td>
