@@ -1,4 +1,4 @@
-angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).controller('OrderController', ['$scope', '$rootScope', '$mdToast', '$state', '$stateParams', '$mdDialog', 'openmrsRest', 'toastr', '$translate', function ($scope, $rootScope, $mdToast, $state, $stateParams, $mdDialog, openmrsRest, toastr, $translate) {
+angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('OrderController', ['$scope', '$rootScope', '$mdToast', '$state', '$stateParams', '$mdDialog', 'openmrsRest', 'toastr', '$translate', function ($scope, $rootScope, $mdToast, $state, $stateParams, $mdDialog, openmrsRest, toastr, $translate) {
     $scope.rootscope = $rootScope;
     $scope.resource = "savicspharmacy";
     $rootScope.links = {};
@@ -25,7 +25,7 @@ angular.module('OrderController', ['ngMaterial', 'ngAnimate', 'toastr']).control
         rowSelection: true
     };
     $scope.query = {
-        limit: 5,
+        limit: 25,
         page: 1
     };
 
