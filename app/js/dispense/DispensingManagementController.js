@@ -17,7 +17,7 @@ angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'to
         };
 
         $scope.query = {
-            limit: 10,
+            limit: 25,
             page: 1
         };
 
