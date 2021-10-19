@@ -51,15 +51,16 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
             }
 
             $scope.openEditTransaction = function () {
-                $state.go('home.editAdjustment', {
+                $state.go('home.adjustmentbatch', {
                     id: $scope.itemid,
+                    item_id: $scope.itemid,
+                    batch_id: $scope.transaction.id,
                     adjustmentuuid: $scope.transactionuuid,
-                    itembatch: $scope.itembatch
+                    itembatch: $scope.itembatch,
                 });
             };
         }
     })
-
 
     $scope.openHistory = function () {
         $state.go('home.viewhistorybatch', {
