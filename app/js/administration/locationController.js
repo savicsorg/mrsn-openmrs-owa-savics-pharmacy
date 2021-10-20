@@ -7,7 +7,7 @@ angular.module('LocationController', []).controller('LocationController', ['$sco
 
 
     var vm = this;
-    vm.appTitle = "New location entry";
+    vm.appTitle = $translate.instant("New location entry");
 
     var type = "";
     var msg = "";

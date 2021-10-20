@@ -26,6 +26,12 @@ angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
         pageSelector: true,
         rowSelection: true
     };
+    
+    $scope.label = {
+        page: $translate.instant("Page")  + $translate.instant(":"),
+        rowsPerPage: $translate.instant("Rows per page") + $translate.instant(":"),
+        of: $translate.instant("of")
+    }
 
         $scope.query = {
             limit: 25,

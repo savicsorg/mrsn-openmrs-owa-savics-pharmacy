@@ -21,14 +21,14 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         rowSelection: true
     };
     $scope.validateBtn = {
-        text: "Validate",
+        text: $translate.instant("Validate"),
         enabled: false,
         visible: false
     };
    
     $scope.cancelBtn = {
-        text: "Cancel",
-        status: "Initiated",
+        text: $translate.instant("Cancel"),
+        status: $translate.instant("Initiated"),
         canceled: false,
         visible: false,
         enabled: false,
@@ -166,12 +166,12 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
                 if($scope.sending && $scope.sending.validationDate){
                     $scope.isEditable = false;
-                    $scope.validateBtn.text = "Validated on " + new Date($scope.sending.validationDate).toLocaleDateString();
+                    $scope.validateBtn.text = $translate.instant("Validated on ") + new Date($scope.sending.validationDate).toLocaleDateString();
                     $scope.validateBtn.enabled = false;
                     $scope.validateBtn.visible = true;
                 } else {
                     $scope.isEditable = true;
-                    $scope.validateBtn.text = "Validate";
+                    $scope.validateBtn.text = $translate.instant("Validate");
                     $scope.validateBtn.enabled = true;
                     $scope.validateBtn.visible = true;
                 }
@@ -190,17 +190,17 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 });
             }, function (e) {
                 $scope.loading = false;
-                toastr.error('An unexpected error has occured.', 'Error');
+                toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
             });
         } else {
             $scope.isEditable = true;
             if($scope.sending && $scope.sending.validationDate){
                 $scope.isEditable = false;
-                $scope.validateBtn.text = "Validated on " + new Date($scope.sending.validationDate).toLocaleDateString();
+                $scope.validateBtn.text = $translate.instant("Validated on ") + new Date($scope.sending.validationDate).toLocaleDateString();
                 $scope.validateBtn.enabled = false;
                 $scope.validateBtn.visible = true;
             } else if($scope.sending && $scope.sending.id > 0){
-                $scope.validateBtn.text = "Validate";
+                $scope.validateBtn.text = $translate.instant("Validate");
                 $scope.validateBtn.enabled = true;
                 $scope.validateBtn.visible = true;
             }
@@ -247,26 +247,26 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 response.date = new Date(response.date);
                 $scope.sending = response;
                 $scope.getData();
-                toastr.success('Data saved successfully.', 'Success');
+                toastr.success($translate.instant('Data saved successfully.'), 'Success');
                 $state.go('home.dispensemain');
                 $scope.loading = false;
             }, function (e) {
                 console.log(e)
                 $scope.loading = false;
-                toastr.error('An unexpected error has occured.', 'Error');
+                toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
             });
         } else {    //Creation
             openmrsRest.create($scope.resource + "/sending", query).then(function (response) {
                 response.date = new Date(response.date);
                 $scope.sending = response;
                 $scope.getData();
-                toastr.success('Data saved successfully.', 'Success');
+                toastr.success($translate.instant('Data saved successfully.'), 'Success');
                 $state.go('home.dispensemain');
                 $scope.loading = false;
             }, function (e) {
                 console.log(e)
                 $scope.loading = false;
-                toastr.error('An unexpected error has occured.', 'Error');
+                toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
             });
         }
     }
@@ -274,17 +274,17 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     $scope.deleteSending = function (sending) {
         var confirm = $mdDialog.confirm()
                 .title('Confirmation')
-                .textContent('Do you really want to delete this dispense ?')
+                .textContent($translate.instant('Do you really want to delete this dispense ?'))
                 .ok('Yes')
                 .cancel('Cancel');
         $mdDialog.show(confirm).then(function () {
             $scope.loading = true;
             openmrsRest.remove($scope.resource + "/sending", sending, "Generic Reason").then(function (response) {
                 loadData();
-                toastr.success('Data removed successfully.', 'Success');
+                toastr.success($translate.instant('Data removed successfully.'), 'Success');
             }, function (e) {
                 $scope.loading = false;
-                toastr.error('An unexpected error has occured.', 'Error');
+                toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
             });
         }, function () {
 
@@ -294,7 +294,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     $scope.deleteSendingDetail = function (sendingDetail, index) {
         var confirm = $mdDialog.confirm()
                 .title('Confirmation')
-                .textContent('Do you really want to delete this line ?')
+                .textContent($translate.instant('Do you really want to delete this line ?'))
                 .ok('Yes')
                 .cancel('Cancel');
         $mdDialog.show(confirm).then(function () {
@@ -304,7 +304,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                     $scope.lines.splice(index, 1);
                     $scope.updateAmount();
                     $scope.loading = false;
-                    toastr.success('Data removed successfully.', 'Success');
+                    toastr.success($translate.instant('Data removed successfully.'), 'Success');
                 }, function (e) {
                     $scope.loading = false;
                     toastr.error($translate.instant('An unexpected error has occured.'), 'Error');

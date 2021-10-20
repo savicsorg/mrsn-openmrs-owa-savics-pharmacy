@@ -5,7 +5,7 @@ angular.module('viewHistoryController', []).controller('viewHistoryController', 
     $scope.item_uuid = $stateParams.uuid;
     var dictionary = require("../utils/dictionary");
     //Breadcrumbs properties
-    $rootScope.links = { "Pharmacy management module": "", "Viewhistory": "View history" };
+    $rootScope.links = { "Pharmacy management module": "", "View history": "Viewhistory" };
 
     var vm = this;
     vm.appTitle = $translate.instant("View history");

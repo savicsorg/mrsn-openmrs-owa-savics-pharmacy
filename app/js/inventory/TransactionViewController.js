@@ -30,7 +30,7 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
     };
 
     $scope.getTransactionType = function (id) {
-        return dictionary.getTransactionTypeById(id, "en");
+        return dictionary.getTransactionTypeById(id, $rootScope.selectedLanguage);
     };
 
     openmrsRest.get($scope.resource + "/transaction/" + $scope.transactionuuid).then(function (response) {
@@ -74,8 +74,8 @@ angular.module('TransactionViewController', []).controller('TransactionViewContr
         $mdDialog.show($mdDialog.confirm()
             .title('Confirmation')
             .textContent($translate.instant('Do you really want to reject this adjustment ?'))
-            .ok('Yes')
-            .cancel('Cancel')).then(function () {
+            .ok($translate.instant('Yes'))
+            .cancel($translate.instant('Cancel'))).then(function () {
                 $scope.loading = true;
                 $scope.transaction.adjustmentDate = new Date();
                 $scope.transaction.status = "REJEC";
