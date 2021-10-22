@@ -5,6 +5,11 @@ angular.module('UnitsController', ['ngMaterial', 'md.data.table']).controller('U
     $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Unit": "units" };
+    $scope.label = {
+        page: $translate.instant("Page")  + $translate.instant(":"),
+        rowsPerPage: $translate.instant("Rows per page") + $translate.instant(":"),
+        of: $translate.instant("of")
+    }
 
     var vm = this;
     vm.appTitle = "Gestion des types";

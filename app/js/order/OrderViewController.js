@@ -4,7 +4,7 @@ angular.module('OrderViewController', []).controller('OrderViewController', ['$s
     $scope.resource = "savicspharmacy";
     $scope.concept_ressource = "concept";
     //Breadcrumbs properties
-    $rootScope.links = { "Pharmacy Management Module": "", "Orders": "orders", "View": "order" };
+    $rootScope.links = { "Pharmacy management module": "", "Orders": "orders", "View": "order" };
 
     var vm = this;
     vm.appTitle = $translate.instant("View Order");

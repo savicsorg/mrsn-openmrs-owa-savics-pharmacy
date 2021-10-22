@@ -2,7 +2,7 @@
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex=""><span translate>Stock and Inventory</span></h1>
         <a href="index.html#!/">
-            <md-button class="md-raised">
+            <md-button>
                 <md-icon>arrow_back</md-icon><span translate>Back</span>
             </md-button>
         </a>
@@ -53,7 +53,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="drug in viewOnStock|filter:search | limitTo: query.limit : (query.page -1) * query.limit | orderBy:'name'">
+                        data-ng-repeat="drug in viewOnStock | orderBy:'name' | filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{drug.name}}</td>
                         <td>{{drug.stockMin}}</td>
                         <td>{{drug.stockMax}}</td>
@@ -95,7 +95,7 @@
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{viewOnStock.length}}"
             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-limit-options="[25, 50, 100]"
-            md-on-paginate="logPagination" md-label="label" >
+            md-on-paginate="logPagination" md-label="$parent.label">
         </md-table-pagination>
     </md-card>
 </div>

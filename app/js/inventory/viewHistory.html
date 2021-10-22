@@ -1,7 +1,7 @@
 <div id="content" class="container-fluid" ng-controller="viewHistoryController as vm">
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
-        <md-button class="md-raised" ng-click="returnToPrevious()">
+        <md-button ng-click="returnToPrevious()">
             <md-icon>arrow_back</md-icon><span translate>Back</span>
         </md-button>
     </div>
@@ -25,7 +25,7 @@
                 <tbody md-body>
                     <tr md-row
                         style="background: {{(history.status == 'VALID')?'#3dcc6785':(history.status == 'REJEC')?'#ea340aab':''}};"
-                        data-ng-repeat="history in transactions| limitTo: query.limit : (query.page -1) * query.limit | orderBy:'-id'">
+                        data-ng-repeat="history in transactions | orderBy:'-id' | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>
                             <center>{{history.id}}</center>
                         </td>
@@ -47,7 +47,7 @@
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{transactions.length}}"
             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
-            md-limit-options="[5, 25, 50]" md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
+            md-limit-options="[5, 25, 50]" md-on-paginate="logPagination" md-label="$parent.label">
         </md-table-pagination>
     </md-card>
 </div>
