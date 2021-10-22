@@ -670,7 +670,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
     })
     //$urlRouterProvider.otherwise('/error');
     //$locationProvider.html5Mode(true);
-}]).run(['$rootScope', '$state', '$transitions', 'openmrsTranslate', 'openmrsRest', '$translate', function ($rootScope, $state, $transitions, openmrsTranslate, openmrsRest, $translate) {
+}]).run(['$rootScope', '$state', '$transitions', 'openmrsTranslate', 'openmrsRest', function ($rootScope, $state, $transitions, openmrsTranslate, openmrsRest) {
     var _ = require("underscore");
     $rootScope.kernel = {
 
@@ -686,12 +686,6 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         $rootScope.selectedLanguage = langKey;
         return openmrsTranslate.changeLanguage(langKey);
     };
-
-    $rootScope.label = {
-        page: $translate.instant("Page") + $translate.instant(":"),
-        rowsPerPage: $translate.instant("Rows per page") + $translate.instant(":"),
-        of: $translate.instant("of")
-    }
 
     $rootScope.changeLanguage('fr');
 

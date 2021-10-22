@@ -5,6 +5,11 @@ angular.module('RoutesController', []).controller('RoutesController', ['$scope',
     $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Route": "routes" };
+    $scope.label = {
+        page: $translate.instant("Page")  + $translate.instant(":"),
+        rowsPerPage: $translate.instant("Rows per page") + $translate.instant(":"),
+        of: $translate.instant("of")
+    }
 
     var vm = this;
     vm.appTitle = "Gestion des routes";

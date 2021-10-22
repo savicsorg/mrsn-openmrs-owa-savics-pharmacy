@@ -3,7 +3,7 @@
         <div class="md-toolbar-tools">
             <h1 md-truncate="" flex=""><span translate>Units Management</span></h1>
             <a href="index.html#!/administration">
-                <md-button class="md-raised">
+                <md-button>
                     <md-icon>arrow_back</md-icon><span translate>Back</span>
                 </md-button>
             </a>
@@ -59,7 +59,7 @@
             </md-table-container>
             <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{units.length}}"
                 md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-limit-options="[5, 25, 50]"
-                md-on-paginate="logPagination" md-label="{rowsPerPage: options.rowsPerPageLabel}">
+                md-on-paginate="logPagination" md-label="$parent.label">
             </md-table-pagination>
         </md-card>
     </md-content>

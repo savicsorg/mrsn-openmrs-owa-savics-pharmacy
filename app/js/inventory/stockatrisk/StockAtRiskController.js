@@ -3,6 +3,11 @@ angular.module('StockAtRiskController', ['ngMaterial','ngAnimate', 'toastr', 'md
     $rootScope.links = { "Pharmacy management module": "", "Inventory": "index.html#!/inventory", "Stock at risk": "stockatrisk"};
     $scope.loading = false;
     $scope.stockAtRisk = [];
+    $scope.label = {
+        page: $translate.instant("Page")  + $translate.instant(":"),
+        rowsPerPage: $translate.instant("Rows per page") + $translate.instant(":"),
+        of: $translate.instant("of")
+    }
 
     $scope.getStockAtRisk = function () {
         $scope.loading = true;        

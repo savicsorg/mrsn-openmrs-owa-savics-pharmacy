@@ -5,7 +5,6 @@ angular.module('LocationController', []).controller('LocationController', ['$sco
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Locations": "locations", "New": "location" };
 
-
     var vm = this;
     vm.appTitle = $translate.instant("New location entry");
 

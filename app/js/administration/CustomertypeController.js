@@ -5,6 +5,11 @@ angular.module('CustomertypeController', []).controller('CustomertypeController'
     $scope.loading = false;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Customertype": "customer type", "New": "customer type" };
+    $scope.label = {
+        page: $translate.instant("Page")  + $translate.instant(":"),
+        rowsPerPage: $translate.instant("Rows per page") + $translate.instant(":"),
+        of: $translate.instant("of")
+    }
     var vm = this;
     vm.appTitle = $translate.instant("New type entry");
 
