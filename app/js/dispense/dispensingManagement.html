@@ -49,7 +49,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="dispense in dispenses|filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="dispense in dispenses | orderBy:'-id' | filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>
                             <center>{{dispense.id}}</center>
                         </td>

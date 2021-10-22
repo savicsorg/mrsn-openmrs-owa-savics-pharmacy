@@ -2,7 +2,7 @@ angular.module('ReceptionController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.
         $scope.resource = "savicspharmacy";
         $rootScope.links = {
             "Pharmacy management module": "",
-            "Inventory": "index.html#!/inventory",
+            "Inventaire": "index.html#!/inventory",
             "Receptions": "index.html#!/receptions"
         };
         $scope.loading = false;

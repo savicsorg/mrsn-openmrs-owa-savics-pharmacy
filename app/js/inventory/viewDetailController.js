@@ -101,7 +101,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
             id: batch.item.id,
             item_id: batch.item.id,
             batch_id: batch.id,
-            adjustment_for: 'stock detail for: ' + batch.item.name
+            adjustment_for: $translate.instant('Stock detail for: ') + batch.item.name
         });
     }
 

@@ -3,56 +3,56 @@
         "id": 1,
         "code": "nadj",
         "en": "Negative adjustement",
-        "fr": "Negative adjustement",
+        "fr": "Adjustement négatif",
         "type": "Negative"
     },
     {
         "id": 2,
         "code": "padj",
-        "fr": "Positive adjustement",
         "en": "Positive adjustement",
+        "fr": "Adjustement positif",
         "type": "Positive"
     },
     {
         "id": 3,
         "code": "bcreate",
         "en": "Batch creation",
-        "fr": "Batch creation",
+        "fr": "Creation de lot",
         "type": "Positve"
     },
     {
         "id": 4,
         "code": "bremove",
         "en": "Batch removal",
-        "fr": "Batch removal",
+        "fr": "Suppression de lots",
         "type": "Negative"
     },
     {
         "id": 5,
         "code": "disp",
         "en": "Drug dispense",
-        "fr": "Drug dispense",
+        "fr": "Distribution de médicaments",
         "type": "Negative"
     },
     {
         "id": 6,
         "code": "rece",
         "en": "Reception",
-        "fr": "Reception",
+        "fr": "Réception",
         "type": "Positive"
     },
     {
         "id": 7,
         "code": "nstocktake",
         "en": "Negative stocktake",
-        "fr": "Inventaire negative",
+        "fr": "Inventaire négatif",
         "type": "Stocktake"
     },
     {
         "id": 8,
         "code": "pstocktake",
         "en": "Positive stocktake",
-        "fr": "Inventaire positive",
+        "fr": "Inventaire positif",
         "type": "Stocktake"
     }
 ]

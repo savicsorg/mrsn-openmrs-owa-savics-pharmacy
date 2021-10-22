@@ -25,7 +25,7 @@
                 <tbody md-body>
                     <tr md-row
                         style="background: {{(history.status == 'VALID')?'#3dcc6785':(history.status == 'REJEC')?'#ea340aab':''}};"
-                        data-ng-repeat="history in transactions| limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="history in transactions | orderBy:'-id' | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>
                             <center>{{history.id}}</center>
                         </td>

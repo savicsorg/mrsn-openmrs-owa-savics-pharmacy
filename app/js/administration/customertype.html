@@ -54,7 +54,7 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row
-                            data-ng-repeat="customer in customertypes |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                            data-ng-repeat="customer in customertypes | orderBy:'name' | filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                             <td>{{customer.name}}</td>
                             <td>
                                 <button ng-click="openEdit(customer)" class="md-fab md-mini md-primary md-button"
