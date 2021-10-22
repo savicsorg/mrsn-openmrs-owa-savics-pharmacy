@@ -60,15 +60,20 @@
                         <td>{{dispense.sendingAmount}}</td>
                         <td>{{dispense.date | date:'dd/MM/yyyy' : 'UTC'}}</td>
                         <td width="200px">
-                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Edit"
-                                ng-click="openEdit(dispense)">
+                            <button ng-if="!dispense.validationDate" class="md-fab md-mini md-primary md-button"
+                                type="button" aria-label="Edit" ng-click="openEdit(dispense)">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">edit</md-icon>
                                 <md-tooltip md-direction="top"><span translate>Edit</span></md-tooltip>
                             </button>
-                            <button class="md-fab md-mini md-primary md-button" type="button" aria-label="History"
-                                ng-click="showConfirm($event,dispense)">
+                            <button ng-if="!dispense.validationDate" class="md-fab md-mini md-primary md-button"
+                                type="button" aria-label="History" ng-click="showConfirm($event,dispense)">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
                                 <md-tooltip md-direction="top"><span translate>Delete</span></md-tooltip>
+                            </button>
+                            <button ng-if="dispense.validationDate" class="md-fab md-mini md-primary md-button"
+                                type="button" aria-label="History" ng-click="openEdit(dispense)">
+                                <md-icon class="material-icons" role="img" aria-hidden="true">visibility</md-icon>
+                                <md-tooltip md-direction="top"><span translate>Dispense Detail</span></md-tooltip>
                             </button>
                         </td>
                     </tr>

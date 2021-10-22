@@ -465,6 +465,8 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             id: null,
             item_id: null,
             batch_id: null,
+            itembatch: null,
+            adjustmentuuid: null,
             adjustment_for: null
         },
         template: require('./inventory/adjustment.html'),
