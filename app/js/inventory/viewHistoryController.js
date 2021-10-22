@@ -43,7 +43,7 @@ angular.module('viewHistoryController', []).controller('viewHistoryController', 
     };
 
     $scope.getTransactionType = function (id) {
-        return dictionary.getTransactionTypeById(id, "en");
+        return dictionary.getTransactionTypeById(id, $rootScope.selectedLanguage);
     };
 
     $scope.query = {
