@@ -47,8 +47,10 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                         $scope.adjustment.oldQuantity = $scope.adjustment.quantity;
                         if ($scope.adjustment.transactionType == 2) {
                             $scope.transactionType = "padj";
+                            $scope.adjustment.oldTransactionTypeCode = "padj";
                         } else if ($scope.adjustment.transactionType == 1) {
                             $scope.transactionType = "nadj";
+                            $scope.adjustment.oldTransactionTypeCode = "nadj";
                         }
                     }
                 })
