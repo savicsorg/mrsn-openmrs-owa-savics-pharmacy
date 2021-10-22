@@ -40,7 +40,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="route in routes |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit | orderBy:'name'">
+                        data-ng-repeat="route in routes | orderBy:'name' | filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
 
                         <td>{{route.code}}</td>
                         <td>{{route.name}}</td>
