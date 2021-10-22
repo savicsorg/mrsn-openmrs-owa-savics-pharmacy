@@ -52,7 +52,7 @@
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row data-ng-repeat="batch in batches|filter:onlyExpiredLots | orderBy:'-id'">
+                        <tr md-row data-ng-repeat="batch in batches | orderBy:'-id' | filter:onlyExpiredLots">
                             <td>{{batch.itemBatch}}</td>
                             <td>{{batch.item.unit.name}}</td>
                             <td> {{batch.pharmacyLocation.name}} </td>

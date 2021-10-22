@@ -53,7 +53,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="drug in viewOnStock|filter:search | limitTo: query.limit : (query.page -1) * query.limit | orderBy:'name'">
+                        data-ng-repeat="drug in viewOnStock | orderBy:'name' | filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{drug.name}}</td>
                         <td>{{drug.stockMin}}</td>
                         <td>{{drug.stockMax}}</td>

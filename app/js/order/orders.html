@@ -46,7 +46,7 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row
-                            data-ng-repeat="data in orders|filter:search | limitTo: query.limit : (query.page -1) * query.limit | orderBy:'-id'">
+                            data-ng-repeat="data in orders | orderBy:'-id' | filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                             <td md-cell>CMD#{{data.id}}</td>
                             <td md-cell>{{data.supplier.name}}</td>
                             <td md-cell>{{data.dateReception | date: 'dd/MM/yyyy' : 'UTC'}}</td>

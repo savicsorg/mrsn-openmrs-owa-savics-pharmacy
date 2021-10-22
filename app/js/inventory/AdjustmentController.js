@@ -10,7 +10,6 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
     $scope.transactionType = "padj";
     $scope.transactionTypes = [];
     $scope.stocktake = false;
-
     if ($stateParams.batch_id) {
         $scope.batch_id = $stateParams.batch_id;
     }
@@ -40,6 +39,7 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
             //for edition
             if ($stateParams.itembatch && $stateParams.adjustmentuuid) {
                 $scope.selectedBatch = $scope.batches.find(element => element.itemBatch == $stateParams.itembatch);
+                $scope.batch_id = $scope.selectedBatch.id;
                 openmrsRest.get($scope.resource + "/transaction/" + $scope.adjustmentuuid).then(function (response) {
                     if (response && response.uuid) {
                         $scope.adjustment = response;

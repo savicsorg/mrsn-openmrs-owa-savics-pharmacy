@@ -40,7 +40,7 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row
-                            ng-repeat="unit in units |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit | orderBy:'name'">
+                            ng-repeat="unit in units | orderBy:'name' | filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                             <td> {{unit.code}} </td>
                             <td> {{unit.name}} </td>
                             <td>
