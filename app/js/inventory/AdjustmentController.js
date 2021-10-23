@@ -93,10 +93,14 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                     $scope.loading = true;
                     //Creation
                     openmrsRest.create($scope.resource + "/transaction", $scope.adjustment).then(function (response) {
+                        
                         $scope.adjustmentRes = response;
                         $state.go('home.inventory')
                         toastr.success($translate.instant('Data saved successfully.'), 'Success');
                     }, function (e) {
+                        if(e.error.message === "UNAPPROVED_TRANSACTIONS"){
+                            toastr.error($translate.instant('Please approve or reject all previous transactions before proceeding.'), 'Error');
+                        }
                         console.error(e);
                         $scope.loading = false;
                         toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
