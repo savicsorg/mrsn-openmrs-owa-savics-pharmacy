@@ -9,7 +9,7 @@
                 <span translate>Back</span>
             </md-button>
         </a>
-        <md-button class="md-raised md-primary" aria-label="Add" ng-if="validateBtn.visible"
+        <md-button class="md-raised md-primary" aria-label="Add" ng-if="account.role === 1 && validateBtn.visible"
             ng-disabled="!validateBtn.enabled" ng-click="validate()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">check_circle</md-icon>
             <md-tooltip md-direction="top">
@@ -150,7 +150,7 @@
                 <span translate>Save</span>
             </md-button>
             <a href="index.html#!/dispenses">
-                <md-button class="md-raised" aria-label="Cancel">
+                <md-button aria-label="Cancel">
                     <md-icon>close</md-icon>
                     <span translate>Cancel</span>
                 </md-button>

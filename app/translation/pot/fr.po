@@ -181,16 +181,16 @@ msgstr "Page"
 #: app/js/order/orderview.html:40 app/js/order/orderview.html:46
 #: app/js/order/orderview.html:52 app/js/purchase/purchase.html:117
 msgid ":"
-msgstr ":"
+msgstr " :"
 
 #: app/js/routes.js:692 app/js/administration/unitsController.js:37
 #: app/js/inventory/inventoryController.js:32
 msgid "Rows per page"
-msgstr "LIgnes par page"
+msgstr "Lignes par page"
 
 #: app/js/routes.js:693 app/js/inventory/inventoryController.js:33
 msgid "of"
-msgstr "de"
+msgstr "sur"
 
 #: app/js/administration/CustomerController.js:95
 #: app/js/administration/CustomersController.js:90

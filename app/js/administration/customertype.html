@@ -25,7 +25,7 @@
             <span translate>Save</span>
         </md-button>
         <a href="index.html#!/administration">
-            <md-button class="md-raised" aria-label="Add">
+            <md-button aria-label="Cancel">
                 <md-icon>close</md-icon>
                 <span translate>Cancel</span>
             </md-button>
@@ -54,7 +54,7 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row
-                            data-ng-repeat="customer in customertypes |filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit | orderBy:'name'">
+                            data-ng-repeat="customer in customertypes | orderBy:'name' | filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                             <td>{{customer.name}}</td>
                             <td>
                                 <button ng-click="openEdit(customer)" class="md-fab md-mini md-primary md-button"
@@ -72,7 +72,7 @@
             </md-table-container>
             <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{customertypes.length}}"
                 md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-limit-options="[10, 50, 100]"
-                md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
+                md-on-paginate="logPagination" md-label="$parent.label">
             </md-table-pagination>
         </md-card>
     </md-card>

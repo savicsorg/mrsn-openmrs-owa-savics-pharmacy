@@ -6,7 +6,11 @@ angular.module('ReceiveController', []).controller('ReceiveController', ['$scope
     $rootScope.links = {};
     $rootScope.links["Home"] = "";
     $rootScope.links["Receives"] = "/receives";
-
+    $scope.label = {
+        page: $translate.instant("Page")  + $translate.instant(":"),
+        rowsPerPage: $translate.instant("Rows per page") + $translate.instant(":"),
+        of: $translate.instant("of")
+    }
     var vm = this;
     vm.appTitle = "Gestion des Receives";
     vm.resource = "savicspharmcy/receives";

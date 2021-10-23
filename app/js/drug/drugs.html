@@ -2,11 +2,11 @@
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex=""><span translate>Drugs Management</span></h1>
         <a href="index.html#!/administration">
-            <md-button class="md-raised">
+            <md-button>
                 <md-icon>arrow_back</md-icon><span translate>Back</span>
             </md-button>
         </a>
-        <a href="index.html#!/drug">
+        <a href="index.html#!/drug" ng-if="account.role === 1">
             <md-button class="md-raised md-primary" aria-label="Add">
                 <md-icon>add</md-icon>
                 <md-tooltip md-direction="top">
@@ -47,7 +47,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="drug in drugs|filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit | orderBy:'name'">
+                        data-ng-repeat="drug in drugs | orderBy:'name' | filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{drug.code}}</td>
                         <td>{{drug.name}}</td>
                         <td>{{drug.unit.name}}</td>
@@ -65,7 +65,7 @@
                                 <md-tooltip md-direction="top"><span translate>Edit</span></md-tooltip>
                             </button>
                             <button class="md-fab md-mini md-primary md-button" type="button" aria-label="Remove"
-                                ng-click="showConfirm($event,drug)">
+                                ng-click="showConfirm($event,drug)" ng-if="account.role === 1">
                                 <md-icon class="material-icons" role="img" aria-hidden="true">delete</md-icon>
                                 <md-tooltip md-direction="top"><span translate>Delete</span></md-tooltip>
                             </button>
@@ -76,7 +76,7 @@
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{drugs.length}}"
             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-limit-options="[5, 25, 50]"
-            md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
+            md-on-paginate="logPagination" md-label="$parent.label">
         </md-table-pagination>
     </md-card>
 </div>

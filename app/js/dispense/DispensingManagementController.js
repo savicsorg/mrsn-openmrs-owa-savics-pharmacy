@@ -4,7 +4,11 @@ angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'to
         $scope.resource = "savicspharmacy";
         //Breadcrumbs properties
         $rootScope.links = {"Pharmacy management module": "", "Dispense": "dispense"};
-
+        $scope.label = {
+            page: $translate.instant("Page")  + $translate.instant(":"),
+            rowsPerPage: $translate.instant("Rows per page") + $translate.instant(":"),
+            of: $translate.instant("of")
+        }
         $scope.dispenses = [];
 
 

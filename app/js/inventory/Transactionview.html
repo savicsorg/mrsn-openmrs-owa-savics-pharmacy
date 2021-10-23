@@ -14,6 +14,7 @@
             </md-tooltip>
             {{'Approve' | translate}}
         </md-button>
+
         <md-button class="md-raised md-accent" aria-label="Add"
             ng-if='account.role === 1 && transaction.status == "INIT" && transaction.transactionType != 3 && transaction.transactionType != 5 && transaction.transactionType != 6'
             ng-click="reject()">

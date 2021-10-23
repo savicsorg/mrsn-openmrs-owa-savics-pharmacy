@@ -10,7 +10,6 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
     $scope.transactionType = "padj";
     $scope.transactionTypes = [];
     $scope.stocktake = false;
-
     if ($stateParams.batch_id) {
         $scope.batch_id = $stateParams.batch_id;
     }
@@ -21,7 +20,7 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
 
     var dictionary = require("../utils/dictionary");
     $scope.batches = [];
-    $scope.transactionTypes = dictionary.getTransactionTypes("en");
+    $scope.transactionTypes = dictionary.getTransactionTypes($rootScope.selectedLanguage);
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "adjustment": "Adjustment" };
 
@@ -40,6 +39,7 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
             //for edition
             if ($stateParams.itembatch && $stateParams.adjustmentuuid) {
                 $scope.selectedBatch = $scope.batches.find(element => element.itemBatch == $stateParams.itembatch);
+                $scope.batch_id = $scope.selectedBatch.id;
                 openmrsRest.get($scope.resource + "/transaction/" + $scope.adjustmentuuid).then(function (response) {
                     if (response && response.uuid) {
                         $scope.adjustment = response;
@@ -47,8 +47,10 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                         $scope.adjustment.oldQuantity = $scope.adjustment.quantity;
                         if ($scope.adjustment.transactionType == 2) {
                             $scope.transactionType = "padj";
+                            $scope.adjustment.oldTransactionTypeCode = "padj";
                         } else if ($scope.adjustment.transactionType == 1) {
                             $scope.transactionType = "nadj";
+                            $scope.adjustment.oldTransactionTypeCode = "nadj";
                         }
                     }
                 })

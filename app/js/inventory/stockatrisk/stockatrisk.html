@@ -2,7 +2,7 @@
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="" translate>Stocks at risk management</h1>
         <a href="index.html#!/inventory">
-            <md-button class="md-raised">
+            <md-button>
                 <md-icon>arrow_back</md-icon><span translate>Back</span>
             </md-button>
         </a>
@@ -48,7 +48,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="stock in stockAtRisk|filter:search | limitTo: query.limit : (query.page -1) * query.limit | orderBy:'name'">
+                        data-ng-repeat="stock in stockAtRisk | orderBy:'name' | filter:search | limitTo: query.limit : (query.page -1) * query.limit">
                         <td>{{stock.code}}</td>
                         <td>{{stock.name}}</td>
                         <td>{{stock.itemBatch}}</td>
@@ -64,7 +64,7 @@
         </md-table-container>
         <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{stockAtRisk.length}}"
             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-limit-options="[10, 50, 100]"
-            md-on-paginate="logPagination" md-label="{rowsPerPage: 'Rows per page'}">
+            md-on-paginate="logPagination" md-label="$parent.label">
         </md-table-pagination>
     </md-card>
 </div>
