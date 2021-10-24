@@ -64,9 +64,10 @@
                         <td>{{drug.virtualstock}}</td>
                         <td style="text-align: center">
 
-                            <md-icon style="color:{{drug.numberOfExpiredLots > 0 ?'red':'green'}}">
+                            <md-icon style="color:{{drug.numberOfExpiredLots > 0 ?'red':drug.numberOfNearExpiredLots > 0 ?'#e9971c':'green'}}">
                                 <md-tooltip>
-                                    {{drug.numberOfExpiredLots}} lot(s) expired
+                                    {{drug.numberOfExpiredLots}} <span translate>lot(s) expired</span> |
+                                    {{drug.numberOfNearExpiredLots}} <span translate>expiring lot(s)</span>
                                 </md-tooltip>
                                 fiber_manual_record
                             </md-icon>
