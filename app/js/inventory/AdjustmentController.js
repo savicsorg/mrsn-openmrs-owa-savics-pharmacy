@@ -100,12 +100,13 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                         $state.go('home.inventory')
                         toastr.success($translate.instant('Data saved successfully.'), 'Success');
                     }, function (e) {
-                        if(e.error.message === "UNAPPROVED_TRANSACTIONS"){
+                        if(e.error && e.error.message && e.error.message.includes("UNAPPROVED_TRANSACTIONS")){
                             toastr.error($translate.instant('Please approve or reject all previous transactions before proceeding.'), 'Error');
+                        } else {                            
+                            toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                         }
                         console.error(e);
                         $scope.loading = false;
-                        toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
                     });
                 } else {
                     toastr.error($translate.instant('Transaction type are missing.'), 'Error');
