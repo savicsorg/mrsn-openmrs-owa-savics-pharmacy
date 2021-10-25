@@ -486,7 +486,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
         },
         breadcrumbs: ["Home", "inventory", "adjustment"]
     }).state('home.addbatch', {
-        url: 'addbatch',
+        url: 'addbatch/:item_id',
         params: {
             item_id: undefined,
             item: undefined
@@ -680,7 +680,7 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
     if (!$rootScope.account) {
         $rootScope.account = {};
     }
-    
+
     $rootScope.selectedLanguage = "fr";
 
     //CHange language function

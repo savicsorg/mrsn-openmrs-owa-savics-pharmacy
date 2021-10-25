@@ -8,7 +8,7 @@ angular.module('viewDetailController', []).controller('viewDetailController', ['
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "Viewdetail": "View detail" };
     $scope.label = {
-        page: $translate.instant("Page")  + $translate.instant(":"),
+        page: $translate.instant("Page") + $translate.instant(":"),
         rowsPerPage: $translate.instant("Rows per page") + $translate.instant(":"),
         of: $translate.instant("of")
     }
