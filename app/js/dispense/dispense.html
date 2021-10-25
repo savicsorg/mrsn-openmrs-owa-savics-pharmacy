@@ -83,7 +83,7 @@
                 <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
                     <md-autocomplete md-selected-item="selectedItem" md-search-text="itemSearchText"
                         md-items="item in searchItems(itemSearchText)" md-item-text="item.name" class="md-block"
-                        flex-gt-sm md-floating-label="Drug" md-clear-button="true" md-no-cache="true"
+                        flex-gt-sm md-floating-label="{{'Drug'| translate}}" md-clear-button="true" md-no-cache="true"
                         md-selected-item-change="selectedItemChange(item,$index)" flex="33"
                         ng-if="l.id === null || l.id === undefined" required>
                         <md-item-template>

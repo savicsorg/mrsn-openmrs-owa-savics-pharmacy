@@ -17,7 +17,7 @@
         <md-card-title translate>General Informations</md-card-title>
         <md-card-content>
             <div layout="row" layout-xs="column"  class="flex flex-col">
-                <md-autocomplete class="md-block" flex-gt-sm md-floating-label="Search drug"
+                <md-autocomplete class="md-block" flex-gt-sm md-floating-label="{{'Search drug'| translate}}"
                     md-selected-item="selectedItem" md-search-text="searchText"
                     md-items="item in getMatches(searchText)" md-item-text="item.display" md-clear-button="true"
                     md-selected-item-change="selectedItemChange(item)" required flex="50">

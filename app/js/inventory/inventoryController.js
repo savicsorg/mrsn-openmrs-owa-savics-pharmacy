@@ -1,5 +1,6 @@
 angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('InventoryController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'toastr', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, toastr, $translate) {
     $scope.resource = "savicspharmacy";
+    var invTitle = $translate.instant("Inventory");
     $rootScope.links = { "Pharmacy management module": "", "Inventory": "index.html#!/inventory" };
     $scope.loading = false;
     $scope.viewOnStock = [];
