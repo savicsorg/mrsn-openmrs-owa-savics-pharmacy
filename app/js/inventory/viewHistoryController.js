@@ -47,7 +47,7 @@ angular.module('viewHistoryController', []).controller('viewHistoryController', 
     };
 
     $scope.query = {
-        limit: 5,
+        limit: 25,
         page: 1
     };
 

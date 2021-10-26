@@ -142,7 +142,7 @@
             </md-card-content>
         </md-card>
         <div layout="row" layout-xs="column" ng-if="!loading && !sending.validationdate">
-            <md-button class="md-raised md-primary" type="submit" ng-disabled="!isEditable">
+            <md-button class="md-raised md-primary" type="submit" ng-disabled="!isEditable && !actionnable">
                 <md-icon>save</md-icon>
                 <md-tooltip md-direction="top">
                     <span translate>Save</span>

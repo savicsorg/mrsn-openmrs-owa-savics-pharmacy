@@ -35,7 +35,7 @@
         <span id="loading_submit" style="visibility: hidden;"><span translate>Please wait...</span></span>
     </div>
     <div layout="row" layout-xs="column">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="batch()">
+        <md-button class="md-raised md-primary" aria-label="Add" ng-click="batch()" ng-disabled="!actionnable">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
