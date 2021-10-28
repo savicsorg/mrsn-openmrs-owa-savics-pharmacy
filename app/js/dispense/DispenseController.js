@@ -13,6 +13,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     $scope.itemSearchText = "";
     $scope.patientSearchText = "";
     $scope.customerSearchText = "";
+    $scope.actionnable = true;
     $scope.options = {
         autoSelect: true,
         boundaryLinks: false,
@@ -222,6 +223,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     }
 
     $scope.saveSending = function () {
+        $scope.actionnable = false;
         $scope.loading = true;
         var query = JSON.parse(JSON.stringify($scope.sending));
         query.customer = ($scope.sending.customer) ? $scope.sending.customer.id : null;

@@ -100,7 +100,7 @@ angular.module('AdjustmentController', []).controller('AdjustmentController', ['
                         $state.go('home.inventory')
                         toastr.success($translate.instant('Data saved successfully.'), 'Success');
                     }, function (e) {
-                        if(e.error && e.error.message && e.error.message.includes("UNAPPROVED_TRANSACTIONS")){
+                        if(e.data.error && e.data.error.message && e.data.error.message === "[UNAPPROVED_TRANSACTIONS]"){
                             toastr.error($translate.instant('Attention, you cannot make new transactions while you already have old one(s) waiting for approval. Please, go to drug history and approve or reject all previous transactions before proceeding.'), 'Error');
                         } else {                            
                             toastr.error($translate.instant('An unexpected error has occured.'), 'Error');

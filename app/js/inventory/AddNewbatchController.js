@@ -3,6 +3,7 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
     $scope.appTitle = $translate.instant("Add New batch");
     $scope.resource = "savicspharmacy";
     $scope.item_id = $stateParams.item_id;
+    $scope.actionnable = true;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "AddNewbatch": "AddNewbatch" };
     var vm = this;
@@ -12,6 +13,7 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
     var msg = "";
 
     $scope.batch = function () {
+        $scope.actionnable = false;
         if (!vm.batch || !vm.batch.itemBatch || !vm.batch.pharmacyLocation || !vm.batch.itemVirtualstock || !vm.batch.itemExpiryDate) {
             type = "error";
             msg = $translate.instant("Please check if your input are valid ones.")
