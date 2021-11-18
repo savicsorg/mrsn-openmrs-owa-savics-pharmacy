@@ -2,6 +2,7 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
     $scope.rootscope = $rootScope;
     $scope.appTitle = $translate.instant("Add New batch");
     $scope.resource = "savicspharmacy";
+    $scope.item_id = $stateParams.item_id;
     $scope.actionnable = true;
     //Breadcrumbs properties
     $rootScope.links = { "Pharmacy management module": "", "AddNewbatch": "AddNewbatch" };
@@ -40,6 +41,12 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
     }
 
     $scope.locations();
+
+    $scope.returnToPrevious = function () {
+        if ($scope.item_id) { //for parameters with three ids
+            $state.go('home.viewdetail', { id: $scope.item_id });
+        }
+    }
 
     function handleResponse(response, e = null) {
         document.getElementById("loading_submit").style.visibility = "hidden";
