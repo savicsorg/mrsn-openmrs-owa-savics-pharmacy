@@ -62,13 +62,13 @@
                         </md-not-found>
                     </md-autocomplete>
                     <md-autocomplete md-selected-item="selectedPatient" md-search-text="patientSearchText"
-                        md-items="patient in searchPatients(patientSearchText)" md-item-text="patient.display"
-                        class="md-block" flex-gt-sm md-floating-label="Patient" md-clear-button="true"
+                        md-items="patient in searchPatients(patientSearchText)" md-item-text="patient.patient.display"
+                        class="md-block" flex-gt-sm md-floating-label="{{'Patient (with active visit)' | translate}}" md-clear-button="true"
                         md-no-cache="true" md-selected-item-change="selectedPatientChange(patient,$index)" flex="60"
                         ng-if="dispenseModeuuid === 'b54a1ddd-d25b-492e-98e9-5f1de0520e1a'" ng-disabled="!isEditable"
                         required>
                         <md-item-template>
-                            <span md-highlight-text="patientSearchText">{{patient.display}}</span>
+                            <span md-highlight-text="patientSearchText">{{patient.patient.display}}</span>
                         </md-item-template>
                         <md-not-found>
                             <span translate>No matches found.</span>

@@ -65,8 +65,8 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     };
 
     $scope.searchPatients = function (searchText) {
-        return openmrsRest.getFull("patient?q=" + searchText).then(function (response) {
-            return response.results;
+        return openmrsRest.getFull("visit?includeInactive=false&v=full" ).then(function (response) {
+            return response.results.filter(function(item) { return item.patient.display.toLowerCase().includes(searchText.toLowerCase())});
         }, function (e) {
             return [];
         });
@@ -119,7 +119,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     };
 
     $scope.selectedPatientChange = function (item) {
-        $scope.sending.person = item;
+        $scope.sending.person = item.patient;
         $scope.sending.customer = null;
     };
 
