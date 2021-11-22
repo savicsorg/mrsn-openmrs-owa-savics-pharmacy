@@ -30,7 +30,7 @@
                 </md-autocomplete>
                 <md-input-container class="md-block" flex-gt-sm flex="50">
                     <label translate>Code</label>
-                    <input ng-model="drug.code" required>
+                    <input ng-model="drug.code" minlength="3" maxlength="120" required>
                 </md-input-container>
             </div>
             <div layout="row" layout-xs="column"  class="flex flex-col">
