@@ -12,96 +12,108 @@
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
-    <md-card ng-show="!loading">
-        <md-card-title translate>Reception Information</md-card-title>
-        <md-card-content>
-            <div layout="row" layout-xs="column" class="flex flex-col">
-                <md-input-container class="md-block" flex-gt-sm flex="66"
-                    ng-if="!(reception.pharmacyOrder && reception.pharmacyOrder.uuid)">
-                    <label translate>Order n°</label>
-                    <md-select ng-model="reception.pharmacyOrder.id" ng-change="getDetails(reception.pharmacyOrder.id)">
-                        <md-option ng-repeat="o in orders" ng-value="o.id">
-                            [CMD#{{o.id}}] {{o.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="66"
-                    ng-if="reception.pharmacyOrder && reception.pharmacyOrder.uuid">
-                    <label translate>Order n°</label>
-                    <input class="form-control" disabled type="text"
-                        ng-model="'CMD#' + reception.pharmacyOrder.id + ' ' + reception.pharmacyOrder.name">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="33">
-                    <label translate>Date of Reception</label>
-                    <input type="date" ng-model="reception.date" ng-model-options="{timezone: 'UTC'}" required>
-                </md-input-container>
+    <form name="form" ng-submit="saveReception()" >
+        <md-card ng-show="!loading">
+            <md-card-title translate>Reception Information</md-card-title>
+            <md-card-content>
+                <div layout="row" layout-xs="column" class="flex flex-col">
+                    <md-input-container class="md-block" flex-gt-sm flex="66"
+                                        ng-if="!(reception.pharmacyOrder && reception.pharmacyOrder.uuid)">
+                        <label translate>Order n°</label>
+                        <md-select name="pharmacyOrderid" ng-model="reception.pharmacyOrder.id" ng-change="getDetails(reception.pharmacyOrder.id)" required>
+                            <md-option ng-repeat="o in orders" ng-value="o.id">
+                                [CMD#{{o.id}}] {{o.name}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="form.pharmacyOrderid.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                This field is mandatory
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="66"
+                                        ng-if="reception.pharmacyOrder && reception.pharmacyOrder.uuid">
+                        <label translate>Order n°</label>
+                        <input class="form-control" disabled type="text"
+                               ng-model="'CMD#' + reception.pharmacyOrder.id + ' ' + reception.pharmacyOrder.name">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="33">
+                        <label translate>Date of Reception</label>
+                        <input name="date" type="date" ng-model="reception.date" ng-model-options="{timezone: 'UTC'}" required>
+                        <div ng-messages="form.date.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                This field is mandatory
+                            </div>
+                        </div>
+                    </md-input-container>
 
-            </div>
-        </md-card-content>
-    </md-card>
-    <md-card ng-show="!loading">
-        <md-card-title translate>List of items received</md-card-title>
-        <md-card-content>
-            <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
-                <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText"
-                    md-items="item in searchItems(searchText)" md-item-text="item.name" class="md-block" flex-gt-sm
-                    md-floating-label="{{'Drug'| translate}}" md-clear-button="true" md-no-cache="true"
-                    md-selected-item-change="selectedItemChange(item,$index)" required flex="25"
-                    ng-if="!(l.item && l.item.id)">
-                    <md-item-template>
-                        <span md-highlight-text="searchText">{{item.name}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        <span translate>No matches found.</span>
-                    </md-not-found>
-                </md-autocomplete>
-                <md-input-container class="md-block" flex-gt-sm flex="25" ng-if="l.item && l.item.id">
-                    <label translate>Drug</label>
-                    <input class="form-control" disabled type="text" required ng-model="l.item.name">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Quantity</label>
-                    <input class="form-control" required type="number" ng-model="l.quantityReceived">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Batch n°</label>
-                    <input class="form-control" required type="text" ng-model="l.itemBatch">
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Date of expiry</label>
-                    <input class="form-control" type="date" ng-model="l.itemExpiryDate"
-                        ng-model-options="{timezone: 'UTC'}" required>
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <label translate>Location</label>
-                    <md-select required ng-model="l.itemLineLocation">
-                        <md-option ng-repeat="lo in locations" ng-value="lo.uuid">
-                            {{lo.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="15">
-                    <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
-                        ng-click="deteleReceptionDetail($index)">
-                        <md-icon>remove</md-icon>
-                        <md-tooltip md-direction="top">
-                            <span translate>Remove</span>
-                        </md-tooltip>
-                    </md-button>
-                </md-input-container>
-            </div>
-            <md-button class=" md-primary md-button" aria-label="Add" ng-click="addReceptionLine()">
-                <md-icon>add</md-icon> <span translate>Add a line</span>
-            </md-button>
-        </md-card-content>
-    </md-card>
-    <div layout="row" layout-xs="column" ng-if="!loading">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="saveReception()">
-            <md-icon>save</md-icon>
-            <md-tooltip md-direction="top">
+                </div>
+            </md-card-content>
+        </md-card>
+        <md-card ng-show="!loading">
+            <md-card-title translate>List of items received</md-card-title>
+            <md-card-content>
+                <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
+                    <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText"
+                                     md-items="item in searchItems(searchText)" md-item-text="item.name" class="md-block" flex-gt-sm
+                                     md-floating-label="{{'Drug'| translate}}" md-clear-button="true" md-no-cache="true"
+                                     md-selected-item-change="selectedItemChange(item,$index)" required flex="25"
+                                     ng-if="!(l.item && l.item.id)">
+                        <md-item-template>
+                            <span md-highlight-text="searchText">{{item.name}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            <span translate>No matches found.</span>
+                        </md-not-found>
+                    </md-autocomplete>
+                    <md-input-container class="md-block" flex-gt-sm flex="25" ng-if="l.item && l.item.id">
+                        <label translate>Drug</label>
+                        <input class="form-control" disabled type="text" required ng-model="l.item.name">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="15">
+                        <label translate>Quantity</label>
+                        <input class="form-control" required type="number" ng-model="l.quantityReceived">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="15">
+                        <label translate>Batch n°</label>
+                        <input class="form-control" required type="text" ng-model="l.itemBatch">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="15">
+                        <label translate>Date of expiry</label>
+                        <input class="form-control" type="date" ng-model="l.itemExpiryDate"
+                               ng-model-options="{timezone: 'UTC'}" required>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="15">
+                        <label translate>Location</label>
+                        <md-select required ng-model="l.itemLineLocation">
+                            <md-option ng-repeat="lo in locations" ng-value="lo.uuid">
+                                {{lo.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="15">
+                        <md-button class="md-fab md-mini md-primary md-button" aria-label="remove"
+                                   ng-click="deteleReceptionDetail($index)">
+                            <md-icon>remove</md-icon>
+                            <md-tooltip md-direction="top">
+                                <span translate>Remove</span>
+                            </md-tooltip>
+                        </md-button>
+                    </md-input-container>
+                </div>
+                <md-button class=" md-primary md-button" aria-label="Add" ng-click="addReceptionLine()">
+                    <md-icon>add</md-icon> <span translate>Add a line</span>
+                </md-button>
+            </md-card-content>
+        </md-card>
+        <div layout="row" layout-xs="column" ng-if="!loading">
+            <md-button class="md-raised md-primary" aria-label="Add" type="submit">
+                <md-icon>save</md-icon>
+                <md-tooltip md-direction="top">
+                    <span translate>Save</span>
+                </md-tooltip>
                 <span translate>Save</span>
-            </md-tooltip>
-            <span translate>Save</span>
-        </md-button>
-    </div>
+            </md-button>
+        </div>
+    </form>
 </div>

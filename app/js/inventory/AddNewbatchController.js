@@ -12,7 +12,7 @@ angular.module('AddNewbatchController', []).controller('AddNewbatchController', 
     var type = "";
     var msg = "";
 
-    $scope.batch = function () {
+    vm.batchSave = function () {
         $scope.actionnable = false;
         if (!vm.batch || !vm.batch.itemBatch || !vm.batch.pharmacyLocation || !vm.batch.itemVirtualstock || !vm.batch.itemExpiryDate) {
             type = "error";

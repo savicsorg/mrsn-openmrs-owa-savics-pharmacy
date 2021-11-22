@@ -1,50 +1,72 @@
 <div id="content" class="container-fluid" ng-controller="AddNewbatchController as vm">
-    <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
-    </div>
-    <md-card>
-        <md-card-content>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Batch</label>
-                    <input class="form-control" type="text" ng-model="vm.batch.itemBatch" required>
-                </md-input-container>
+    <form name="form" ng-submit="vm.batchSave()" >
+        <div class="md-toolbar-tools">
+            <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
+        </div>
+        <md-card>
+            <md-card-content>
+                <div layout="row" layout-xs="column">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Batch</label>
+                        <input name="batch" class="form-control" type="text" ng-model="vm.batch.itemBatch" required>
+                        <div ng-messages="form.batch.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                This field is mandatory: specify the lot number
+                            </div>
+                        </div>
+                    </md-input-container>
 
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Location</label>
-                    <md-select ng-model="vm.batch.pharmacyLocation" ng-selected="l.id == pharmacy_location_id" required>
-                        <md-option ng-repeat="l in vm.locations" ng-value="l.id">
-                            {{l.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-            </div>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Quantity</label>
-                    <input class="form-control" type="number" ng-model="vm.batch.itemVirtualstock" required>
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Expiration Date</label>
-                    <input type="date" ng-model="vm.batch.itemExpiryDate" ng-model-options="{timezone: 'UTC'}" required>
-                </md-input-container>
-            </div>
-        </md-card-content>
-    </md-card>
-    <div layout="row" layout-xs="column">
-        <span id="loading_submit" style="visibility: hidden;"><span translate>Please wait...</span></span>
-    </div>
-    <div layout="row" layout-xs="column">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="batch()" ng-disabled="!actionnable">
-            <md-icon>save</md-icon>
-            <md-tooltip md-direction="top">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Location</label>
+                        <md-select name="location" ng-model="vm.batch.pharmacyLocation" ng-selected="l.id == pharmacy_location_id" required>
+                            <md-option ng-repeat="l in vm.locations" ng-value="l.id">
+                                {{l.name}}
+                            </md-option>
+                        </md-select>
+                        <div ng-messages="form.location.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                This field is mandatory
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-xs="column">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Quantity</label>
+                        <input name="itemVirtualstock" class="form-control" type="number" ng-model="vm.batch.itemVirtualstock" required>
+                        <div ng-messages="form.itemVirtualstock.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                This field is mandatory
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Expiration Date</label>
+                        <input type="date" ng-model="vm.batch.itemExpiryDate" ng-model-options="{timezone: 'UTC'}" required>
+                        <div ng-messages="form.date.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                This field is mandatory
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </md-card-content>
+        </md-card>
+        <div layout="row" layout-xs="column">
+            <span id="loading_submit" style="visibility: hidden;"><span translate>Please wait...</span></span>
+        </div>
+        <div layout="row" layout-xs="column">
+            <md-button class="md-raised md-primary" aria-label="Add" type="submit" ng-disabled="!actionnable">
+                <md-icon>save</md-icon>
+                <md-tooltip md-direction="top">
+                    <span translate>Save</span>
+                </md-tooltip>
                 <span translate>Save</span>
-            </md-tooltip>
-            <span translate>Save</span>
-        </md-button>
-        <md-button aria-label="Add" ng-click="returnToPrevious()">
-            <md-icon>close</md-icon>
-            <span translate>Cancel</span>
-        </md-button>
-    </div>
+            </md-button>
+            <md-button aria-label="Add" ng-click="returnToPrevious()">
+                <md-icon>close</md-icon>
+                <span translate>Cancel</span>
+            </md-button>
+        </div>
+    </form>
 </div>

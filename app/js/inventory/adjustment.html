@@ -26,28 +26,43 @@
                 <div layout="row" layout-xs="column">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label translate>Batch Number</label>
-                        <md-select ng-model="selectedBatch" required ng-change="getSpecificItemList(batch_id)">
+                        <md-select name="bnumber" ng-model="selectedBatch" required ng-change="getSpecificItemList(batch_id)" >
                             <md-option ng-repeat="b in batches" ng-value="b" ng-selected="b.id == batch_id">
                                 {{b.itemBatch}}
                             </md-option>
                         </md-select>
+                        <div ng-messages="form.bnumber.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                This field is mandatory
+                            </div>
+                        </div>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label translate ng-if="stocktake">Counted Quantity</label>
                         <label translate ng-if="!stocktake">Quantity</label>
-                        <input type="number" min="0" ng-model="adjustment.quantity" required>
+                        <input name="quantity" type="number" min="0" ng-model="adjustment.quantity" required>
+                        <div ng-messages="form.quantity.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                This field is mandatory
+                            </div>
+                        </div>
                     </md-input-container>
                 </div>
                 <div layout="row" layout-xs="column" ng-show="stocktake">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label translate>The adjustment that will will be operated:</label>
-                        <input type="number" min="-99999" ng-model="adjustment.stocktakedifference" disabled>
+                        <input name="stocktakedifference" type="number" min="-99999" ng-model="adjustment.stocktakedifference" disabled>
+                        <div ng-messages="form.stocktakedifference.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                This field is mandatory
+                            </div>
+                        </div>
                     </md-input-container>
                 </div>
                 <div layout="row" layout-xs="column">
                     <md-input-container class="md-block md-input-has-value" flex-gt-sm>
                         <label translate>Reason</label>
-                        <textarea ng-model="adjustment.reason" md-maxlength="150" rows="5"></textarea>
+                        <textarea name="reason" ng-model="adjustment.reason" md-maxlength="150" rows="5"></textarea>
                     </md-input-container>
                 </div>
             </md-card-content>
