@@ -17,7 +17,7 @@ angular.module('LocationController', []).controller('LocationController', ['$sco
         vm.appTitle = $translate.instant("Edit type entry");
     }
 
-    $scope.location = function () {
+    vm.locationSave = function () {
   
         if (!vm.location || !vm.location.code || !vm.location.name) {
             type = "error";

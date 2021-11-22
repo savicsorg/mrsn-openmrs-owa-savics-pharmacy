@@ -1,40 +1,52 @@
 <div id="content" class="container-fluid" ng-controller="LocationController as vm">
-    <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
-    </div>
-    <md-card>
-        <md-card-title translate>General Informations</md-card-title>
-        <md-card-content>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Code</label>
-                    <input ng-model="vm.location.code" required>
-                </md-input-container>
-            </div>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Name</label>
-                    <input ng-model="vm.location.name" required flex-gt-sm>
-                </md-input-container>
-            </div>
-        </md-card-content>
-    </md-card>
-    <div layout="row" layout-xs="column">
-        <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
-    </div>
-    <div layout="row" layout-xs="column">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="location()">
-            <md-icon>save</md-icon>
-            <md-tooltip md-direction="top">
+    <form name="form" ng-submit="vm.locationSave()" >
+        <div class="md-toolbar-tools">
+            <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
+        </div>
+        <md-card>
+            <md-card-title translate>General Informations</md-card-title>
+            <md-card-content>
+                <div layout="row" layout-xs="column">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Code</label>
+                        <input name="code" ng-model="vm.location.code" required>
+                        <div ng-messages="form.code.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                The code must have at least 3 characters max.
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-xs="column">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Name</label>
+                        <input name="name" ng-model="vm.location.name" required flex-gt-sm>
+                        <div ng-messages="form.name.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                This field is mandatory
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </md-card-content>
+        </md-card>
+        <div layout="row" layout-xs="column">
+            <span id="loading_submit" style="visibility: hidden;">Please wait...</span>
+        </div>
+        <div layout="row" layout-xs="column">
+            <md-button class="md-raised md-primary" aria-label="Add" type="submit">
+                <md-icon>save</md-icon>
+                <md-tooltip md-direction="top">
+                    <span translate>Save</span>
+                </md-tooltip>
                 <span translate>Save</span>
-            </md-tooltip>
-            <span translate>Save</span>
-        </md-button>
-        <a href="index.html#!/locations">
-            <md-button aria-label="Add">
-                <md-icon>close</md-icon>
-                <span translate>Cancel</span>
             </md-button>
-        </a>
-    </div>
+            <a href="index.html#!/locations">
+                <md-button aria-label="Add">
+                    <md-icon>close</md-icon>
+                    <span translate>Cancel</span>
+                </md-button>
+            </a>
+        </div>
+    </form>
 </div>

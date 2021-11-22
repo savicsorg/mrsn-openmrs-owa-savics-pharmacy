@@ -17,10 +17,10 @@ angular.module('SupplierController', []).controller('SupplierController', ['$sco
         vm.appTitle = $translate.instant("Edit type entry");
     }
 
-    $scope.supplier = function () {
+    vm.supplierSave = function () {
 
         $scope.loading = true;
-        if (!vm.supplier || !vm.supplier.code || !vm.supplier.name || !vm.supplier.address || !vm.supplier.email || !vm.supplier.tel) {
+        if (!vm.supplier || !vm.supplier.code || !vm.supplier.name ) {
             type = "error";
             msg = $translate.instant("Please check if your input are valid ones.")
             showToast(msg, type);
@@ -28,7 +28,7 @@ angular.module('SupplierController', []).controller('SupplierController', ['$sco
             return;
         }
 
-        if (!Regvalidate("email", vm.supplier.email)) {
+        if (vm.supplier.email && !Regvalidate("email", vm.supplier.email)) {
             type = "error";
             msg = $translate.instant("Please check if your email is a valid one.");
             showToast(msg, type);
@@ -36,7 +36,7 @@ angular.module('SupplierController', []).controller('SupplierController', ['$sco
             return;
         }
         
-        if (!Regvalidate("phone", vm.supplier.tel)) {
+        if (vm.supplier.tel  && !Regvalidate("phone", vm.supplier.tel)) {
             type = "error";
             msg = $translate.instant("Please check if your phone number is a valid one.");
             showToast(msg, type);

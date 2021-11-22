@@ -1,69 +1,84 @@
+
 <div id="content" class="container-fluid" ng-controller="CustomerController as vm">
-    <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
-    </div>
-    <md-card>
-        <md-card-title translate>General Informations</md-card-title>
-        <md-card-content>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Code</label>
-                    <input ng-model="vm.customer.code" required>
-                </md-input-container>
-            </div>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Name</label>
-                    <input ng-model="vm.customer.name" flex-gt-sm required>
-                </md-input-container>
-            </div>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Type</label>
-                    <md-select ng-model="vm.customer.type.id" required>
-                        <md-option ng-repeat="t in vm.customertypes" ng-if="t.uuid !== 'b54a1ddd-d25b-492e-98e9-5f1de0520e1a'" ng-value="t.id"
-                            ng-selected="t.id == customer_type_id">
-                            {{t.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-            </div>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Address</label>
-                    <input ng-model="vm.customer.address" required flex-gt-sm>
-                </md-input-container>
-            </div>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Email</label>
-                    <input ng-model="vm.customer.email" required flex-gt-sm>
-                </md-input-container>
-            </div>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label translate>Tel</label>
-                    <input ng-model="vm.customer.tel" required flex-gt-sm>
-                </md-input-container>
-            </div>
-        </md-card-content>
-    </md-card>
-    <div layout="row" layout-xs="column">
-        <span id="loading_submit" style="visibility: hidden;" translate>Please wait...</span>
-    </div>
-    <div layout="row" layout-xs="column">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="customer()">
-            <md-icon>save</md-icon>
-            <md-tooltip md-direction="top">
+    <form name="form" ng-submit="vm.customerSave()" >
+        <div class="md-toolbar-tools">
+            <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
+        </div>
+        <md-card>
+            <md-card-title translate>General Informations</md-card-title>
+            <md-card-content>
+                <div layout="row" layout-xs="column">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Code</label>
+                        <input name="code" ng-model="vm.customer.code" required>
+                        <div ng-messages="form.code.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                The code must have at least 3 characters max.
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-xs="column">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Name</label>
+                        <input name="name" ng-model="vm.customer.name" flex-gt-sm required>
+                        <div ng-messages="form.name.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                This field is mandatory
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-xs="column">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Type</label>
+                        <md-select ng-model="vm.customer.type.id" required>
+                            <md-option ng-repeat="t in vm.customertypes" ng-if="t.uuid !== 'b54a1ddd-d25b-492e-98e9-5f1de0520e1a'" ng-value="t.id"
+                                       ng-selected="t.id == customer_type_id">
+                                {{t.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-xs="column">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label translate>Address</label>
+                        <input ng-model="vm.customer.address" flex-gt-sm>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-xs="column">
+                    <md-input-container name="email" class="md-block" flex-gt-sm>
+                        <label translate>Email</label>
+                        <input ng-model="vm.customer.email" type="email" flex-gt-sm>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-xs="column">
+                    <md-input-container name="phone" class="md-block" flex-gt-sm>
+                        <label translate>Tel</label>
+                        <input ng-model="vm.customer.tel" type="phone" flex-gt-sm>
+                    </md-input-container>
+                </div>
+            </md-card-content>
+        </md-card>
+        <div layout="row" layout-xs="column">
+            <span id="loading_submit" style="visibility: hidden;" translate>Please wait...</span>
+        </div>
+        <div layout="row" layout-xs="column">
+            <md-button class="md-raised md-primary" aria-label="Add" type="submit" >
+                <md-icon>save</md-icon>
+                <md-tooltip md-direction="top">
+                    <span translate>Save</span>
+                </md-tooltip>
                 <span translate>Save</span>
-            </md-tooltip>
-            <span translate>Save</span>
-        </md-button>
-        <a href="index.html#!/customers">
-            <md-button aria-label="Add">
-                <md-icon>close</md-icon>
-                <span translate>Cancel</span>
             </md-button>
-        </a>
-    </div>
+            <a href="index.html#!/customers">
+                <md-button aria-label="Add">
+                    <md-icon>close</md-icon>
+                    <span translate>Cancel</span>
+                </md-button>
+            </a>
+        </div>
+
+
+    </form>
 </div>

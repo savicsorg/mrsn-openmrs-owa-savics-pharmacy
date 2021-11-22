@@ -1,100 +1,107 @@
-<div id="content" class="container-fluid">
-    <div class="md-toolbar-tools">
-        <h1 md-truncate="" flex="">
-            <md-icon>note_add</md-icon> {{"Add/Modify a drug" | translate}}
-        </h1>
-        <a href="index.html#!/" ng-if="!loading">
-            <md-button >
-                <md-icon>arrow_back</md-icon><span translate>Back</span>
-            </md-button>
-        </a>
-    </div>   
-    
-    <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
-        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-    </div>
-    <md-card  ng-if="!loading">
-        <md-card-title translate>General Informations</md-card-title>
-        <md-card-content>
-            <div layout="row" layout-xs="column"  class="flex flex-col">
-                <md-autocomplete class="md-block" flex-gt-sm md-floating-label="{{'Search drug'| translate}}"
-                    md-selected-item="selectedItem" md-search-text="searchText"
-                    md-items="item in getMatches(searchText)" md-item-text="item.display" md-clear-button="true"
-                    md-selected-item-change="selectedItemChange(item)" required flex="50">
-                    <md-item-template>
-                        <span md-highlight-text="searchText">{{item.display}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        <span translate>No matches found.</span>
-                    </md-not-found>
-                </md-autocomplete>
-                <md-input-container class="md-block" flex-gt-sm flex="50">
-                    <label translate>Code</label>
-                    <input ng-model="drug.code" minlength="3" maxlength="120" required>
-                </md-input-container>
-            </div>
-            <div layout="row" layout-xs="column"  class="flex flex-col">
-                <md-input-container class="md-block" flex-gt-sm flex="50">
-                    <label translate>Unit</label>
-                    <md-select ng-model="drug.unit.id" required>
-                        <md-option ng-repeat="d in units" ng-value="d.id" >
-                            {{d.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="50">
-                    <label translate>Route</label >
-                    <md-select ng-model="drug.route.id" required>
-                        <md-option ng-repeat="r in routes" ng-value="r.id" >
-                            {{r.name}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-            </div>
-        </md-card-content>
-    </md-card>
-    <md-card  ng-if="!loading">
-        <md-card-title translate>Inventory Informations</md-card-title>
-        <md-card-content>
-            <div layout="row" layout-xs="column"  class="flex flex-col">
-                <md-input-container class="md-block md-input-has-value" flex-gt-sm flex="50">
-                    <label translate>Buying Price</label>
-                    <input type="number" min="0" required ng-model="drug.buyPrice">
-                    <span class="validity"></span>
-                </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm flex="50">
-                    <label translate>Selling Price</label>
-                    <input type="number" min="0" required ng-model="drug.sellPrice">
-                    <span class="validity"></span>
-                </md-input-container>
-            </div>
-            <div layout="row" layout-xs="column"  class="flex flex-col">
-                <md-input-container class="md-block md-input-has-value" flex-gt-sm flex="50">
-                    <label translate>Min Stock</label>
-                    <input type="number" min="0" step="1" required ng-model="drug.stockMin">
-                    <span class="validity"></span>
-                </md-input-container>
-                <md-input-container class="md-block"  flex-gt-sm flex="50">
-                    <label translate>Max Stock</label>
-                    <input type="number" min="0" step="1" required ng-model="drug.stockMax">
-                    <span class="validity"></span>
-                </md-input-container>
-            </div>
-            <div layout="row" layout-xs="column">
-                <md-input-container class="md-block md-input-has-value" flex-gt-sm>
-                    <label translate>Description</label>
-                    <textarea ng-model="drug.description" md-maxlength="150" rows="5"></textarea>
-                </md-input-container>
-            </div>
-        </md-card-content>
-    </md-card>
-    <div layout="row" layout-xs="column" ng-if="!loading">
-        <md-button class="md-raised md-primary" ng-click="saveDrug()">
-            <md-icon>save</md-icon>
-            <md-tooltip md-direction="top">
+<form name="drugForm" onsubmit="saveDrug()">
+    <div id="content" class="container-fluid">
+        <div class="md-toolbar-tools">
+            <h1 md-truncate="" flex="">
+                <md-icon>note_add</md-icon> {{"Add/Modify a drug"| translate}}
+            </h1>
+            <a href="index.html#!/" ng-if="!loading">
+                <md-button >
+                    <md-icon>arrow_back</md-icon><span translate>Back</span>
+                </md-button>
+            </a>
+        </div>   
+
+        <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <md-card  ng-if="!loading">
+            <md-card-title translate>General Informations</md-card-title>
+            <md-card-content>
+                <div layout="row" layout-xs="column"  class="flex flex-col">
+                    <md-autocomplete autoFocus class="md-block" flex-gt-sm md-floating-label="{{'Search drug'| translate}}"
+                                     md-selected-item="selectedItem" md-search-text="searchText"
+                                     md-items="item in getMatches(searchText)" md-item-text="item.display" md-clear-button="true"
+                                     md-selected-item-change="selectedItemChange(item)" required flex="50">
+                        <md-item-template>
+                            <span md-highlight-text="searchText">{{item.display}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            <span translate>No matches found.</span>
+                        </md-not-found>
+                    </md-autocomplete>
+                    <md-input-container class="md-block" flex-gt-sm flex="50">
+                        <label translate>Code</label>
+                        <input autoFocus ng-model="drug.code"  name="code" minlength="3" maxlength="120" required>
+                        <div ng-messages="drugForm.code.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                The product code must be between 3 and 120 characters max.
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-xs="column"  class="flex flex-col">
+                    <md-input-container class="md-block" flex-gt-sm flex="50">
+                        <label translate>Unit</label>
+                        <md-select autoFocus ng-model="drug.unit.id" required>
+                            <md-option ng-repeat="d in units" ng-value="d.id" >
+                                {{d.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="50">
+                        <label translate>Route</label >
+                        <md-select autoFocus ng-model="drug.route.id" required>
+                            <md-option ng-repeat="r in routes" ng-value="r.id" >
+                                {{r.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </md-card-content>
+        </md-card>
+        <md-card  ng-if="!loading">
+            <md-card-title translate>Inventory Informations</md-card-title>
+            <md-card-content>
+                <div layout="row" layout-xs="column"  class="flex flex-col">
+                    <md-input-container class="md-block md-input-has-value" flex-gt-sm flex="50">
+                        <label translate>Buying Price</label>
+                        <input autoFocus type="number" min="0" required ng-model="drug.buyPrice">
+                        <span class="validity"></span>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="50">
+                        <label translate>Selling Price</label>
+                        <input autoFocus type="number" min="0" required ng-model="drug.sellPrice">
+                        <span class="validity"></span>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-xs="column"  class="flex flex-col">
+                    <md-input-container class="md-block md-input-has-value" flex-gt-sm flex="50">
+                        <label translate>Min Stock</label>
+                        <input autoFocus type="number" min="0" step="1" required ng-model="drug.stockMin">
+                        <span class="validity"></span>
+                    </md-input-container>
+                    <md-input-container class="md-block"  flex-gt-sm flex="50">
+                        <label translate>Max Stock</label>
+                        <input autoFocus type="number" min="0" step="1" required ng-model="drug.stockMax">
+                        <span class="validity"></span>
+                    </md-input-container>
+                </div>
+                <div layout="row" layout-xs="column">
+                    <md-input-container class="md-block md-input-has-value" flex-gt-sm>
+                        <label translate>Description</label>
+                        <textarea ng-model="drug.description" md-maxlength="150" rows="5"></textarea>
+                    </md-input-container>
+                </div>
+            </md-card-content>
+        </md-card>
+        <div layout="row" layout-xs="column" ng-if="!loading">
+            <md-button class="md-raised md-primary" type="submit" >
+                <md-icon>save</md-icon>
+                <md-tooltip md-direction="top">
+                    <span translate>Save</span>
+                </md-tooltip>
                 <span translate>Save</span>
-            </md-tooltip>
-            <span translate>Save</span>
-        </md-button>
+            </md-button>
+        </div>
     </div>
-</div>
+</form>

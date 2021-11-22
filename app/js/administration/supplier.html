@@ -1,4 +1,5 @@
 <div id="content" class="container-fluid" ng-controller="SupplierController as vm">
+    <form name="form" ng-submit="vm.supplierSave()" >
     <div class="md-toolbar-tools">
         <h1 md-truncate="" flex="">{{vm.appTitle}}</h1>
         <a href="index.html#!/suppliers" ng-if="!loading">
@@ -14,39 +15,49 @@
         <md-card-title translate>General Informations</md-card-title>
         <md-card-content>
             <div layout="row" layout-xs="column">
-                <md-input-container class="md-block" flex-gt-sm>
+                <md-input-container name="code" class="md-block" flex-gt-sm>
                     <label translate>Code</label>
                     <input ng-model="vm.supplier.code" required>
+                    <div ng-messages="form.code.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                The code must have at least 3 characters max.
+                            </div>
+                        </div>
                 </md-input-container>
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Name</label>
-                    <input ng-model="vm.supplier.name" required flex-gt-sm>
+                    <input name="name" ng-model="vm.supplier.name" required flex-gt-sm>
+                    <div ng-messages="form.name.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" translate>
+                                This field is mandatory
+                            </div>
+                        </div>
                 </md-input-container>
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Address</label>
-                    <input ng-model="vm.supplier.address" required flex-gt-sm>
+                    <input ng-model="vm.supplier.address"  flex-gt-sm>
                 </md-input-container>
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Email</label>
-                    <input ng-model="vm.supplier.email" required flex-gt-sm>
+                    <input ng-model="vm.supplier.email"  flex-gt-sm>
                 </md-input-container>
             </div>
             <div layout="row" layout-xs="column">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label translate>Tel</label>
-                    <input ng-model="vm.supplier.tel" required flex-gt-sm>
+                    <input ng-model="vm.supplier.tel"  flex-gt-sm>
                 </md-input-container>
             </div>
         </md-card-content>
     </md-card>
     <div layout="row" layout-xs="column" ng-if="!loading">
-        <md-button class="md-raised md-primary" aria-label="Add" ng-click="supplier()">
+        <md-button class="md-raised md-primary" aria-label="Add" type="submit">
             <md-icon>save</md-icon>
             <md-tooltip md-direction="top">
                 <span translate>Save</span>
@@ -54,4 +65,5 @@
             <span translate>Save</span>
         </md-button>
     </div>
+        </form>
 </div>

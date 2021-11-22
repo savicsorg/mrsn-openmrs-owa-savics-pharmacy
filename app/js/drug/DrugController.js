@@ -69,7 +69,7 @@ angular.module('DrugController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.
                             toastr.error($translate.instant('You must fill in the required fields before you proceed.'), $translate.instant('Error'));
                         }
                         if ($scope.drug.code && ($scope.drug.code.length <= 3 || $scope.drug.code.length > 120)) {
-                            toastr.error($translate.instant('The product code must be between 3 and 120 caracteres max.'), $translate.instant('Error'));
+                            toastr.error($translate.instant('The product code must be between 3 and 120 characters max.'), $translate.instant('Error'));
                         } else if ($scope.drug.name && $scope.drug.name == "") {
                             toastr.error($translate.instant('The product name must not be empty.'), $translate.instant('Error'));
                         }
