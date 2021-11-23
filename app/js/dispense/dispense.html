@@ -105,7 +105,7 @@
                             ng-change="selectedItemLineChange(l.sendingItemBatch, $index)" ng-disabled="!isEditable"
                             required>
                             <md-option ng-repeat="iLine in l.itemsLines" value="{{iLine.itemBatch}}">
-                                {{ iLine.itemBatch}}
+                                <span translate>Lot N°: </span>  {{ iLine.itemBatch }} | <span translate>Location: </span> {{ iLine.pharmacyLocation.name }}  | <span translate>Exp.: </span> {{ iLine.itemExpiryDate | date:'dd/MM/yyyy'}} 
                             </md-option>
                         </md-select>
                     </md-input-container>
