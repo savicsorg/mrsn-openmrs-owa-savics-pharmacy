@@ -1,5 +1,10 @@
 <small>
     Choose language:
-    <a href="#" ng-click="changeLanguage('en')">English</a>,
-    <a href="#" ng-click="changeLanguage('fr')">Français</a>
+    <a href="#">
+        <span ng-click="$event.preventDefault();changeLanguage('en')">English</span>
+    </a>
+    |
+    <a href="#">
+        <span ng-click="$event.preventDefault();changeLanguage('fr')">Français</span>
+    </a>
 </small>
