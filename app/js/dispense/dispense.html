@@ -38,7 +38,10 @@
                         <label translate>Type of Dispensation</label>
                         <md-select ng-model="dispenseMode" ng-change="dispenseModeChange(dispenseMode)"
                             ng-disabled="!isEditable" required>
-                            <md-option ng-repeat="type in dispenseModes" value="{{type.id}}">
+                            <md-option ng-repeat="type in dispenseModes" value="{{type.id}}" ng-if="account.role === 4 && type.uuid === 'b54a1ddd-d25b-492e-98e9-5f1de0520e1a'">
+                                {{ type.name}}
+                            </md-option>
+                            <md-option ng-repeat="type in dispenseModes" value="{{type.id}}" ng ng-if="account.role !== 4 ">
                                 {{ type.name}}
                             </md-option>
                         </md-select>

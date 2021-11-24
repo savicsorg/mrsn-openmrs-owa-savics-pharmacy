@@ -705,6 +705,10 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             return item.display === "Approve Orders" || item.name === "Approve Orders";
         })) {
             $rootScope.account.role = 3;
+        } else if (_.some(response.user.roles, function (item) {
+            return item.display === "Pharmacy: distributor" || item.name === "Pharmacy: distributor";
+        })) {
+            $rootScope.account.role = 4;
         }
 
     }, function (e) {

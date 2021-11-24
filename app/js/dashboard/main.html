@@ -8,7 +8,7 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 homeList" id="apps">
                 <a id="coreapps-systemadministration-homepageLink-coreapps-systemadministration-homepageLink-extension"
                     href="index.html#!/orders" class="btn btn-default btn-lg button app big align-self-center"
-                    type="button">
+                    type="button" ng-if="account.role !== 4">
                     <i class="icon-shopping-cart"></i>
                     {{"Orders Management" | translate}}
                 </a>
@@ -20,7 +20,7 @@
                 </a>
                 <a id="coreapps-systemadministration-homepageLink-coreapps-systemadministration-homepageLink-extension"
                     href="index.html#!/inventory" class="btn btn-default btn-lg button app big align-self-center"
-                    type="button">
+                    type="button" ng-if="account.role !== 4">
                     <i class="icon-list-alt"></i>
                     {{"Stock and Inventory" | translate}}
                 </a>
