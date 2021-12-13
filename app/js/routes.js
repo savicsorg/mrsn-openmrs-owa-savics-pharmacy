@@ -710,10 +710,11 @@ angular.module('routes', []).config(['$stateProvider', '$urlRouterProvider', '$h
             })) {
                 $rootScope.account.role = 3;
             } else if (_.some(response.user.roles, function (item) {
-                return item.display === "Pharmacy: distributor" || item.name === "Pharmacy: distributor";
+                return item.display === "Pharmacy: Distributor" || item.name === "Pharmacy: Distributor";
             })) {
                 $rootScope.account.role = 4;
             }
+            
 
         }, function (e) {
             console.log(e);
