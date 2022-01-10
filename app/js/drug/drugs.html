@@ -47,7 +47,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="drug in drugs | orderBy:'name' | filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="drug in drugs | orderBy:'name' | filter:searchAll ">
                         <td>{{drug.code}}</td>
                         <td>{{drug.name}}</td>
                         <td>{{drug.unit.name}}</td>
@@ -74,9 +74,8 @@
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{drugs.length}}"
-            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-limit-options="[5, 25, 50]"
-            md-on-paginate="logPagination" md-label="$parent.label">
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{query.count}}"
+            md-page-select="true"  md-limit-options="[25, 50, 100]" md-on-paginate="getAllDrug" md-label="$parent.label">
         </md-table-pagination>
     </md-card>
 </div>

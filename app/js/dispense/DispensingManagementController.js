@@ -1,11 +1,11 @@
-angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('DispensingManagementController', ['$scope', '$rootScope', 'openmrsRest', '$mdDialog', '$mdToast', '$log', '$state', '$stateParams', '$translate', function ($scope, $rootScope, openmrsRest, $mdDialog, $mdToast, $log, $state , $stateParams, $translate) {
+angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('DispensingManagementController', ['$scope', '$rootScope', 'openmrsRest', '$mdDialog', '$mdToast', '$log', '$state', '$stateParams', '$translate', '$q', function ($scope, $rootScope, openmrsRest, $mdDialog, $mdToast, $log, $state, $stateParams, $translate, $q) {
         $scope.rootscope = $rootScope;
         $scope.appTitle = $translate.instant("Drugs dispensing management");
         $scope.resource = "savicspharmacy";
         //Breadcrumbs properties
         $rootScope.links = {"Pharmacy management module": "", "Dispense": "dispense"};
         $scope.label = {
-            page: $translate.instant("Page")  + $translate.instant(":"),
+            page: $translate.instant("Page") + $translate.instant(":"),
             rowsPerPage: $translate.instant("Rows per page") + $translate.instant(":"),
             of: $translate.instant("of")
         }
@@ -21,22 +21,32 @@ angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'to
         };
 
         $scope.query = {
-            limit: 25,
-            page: 1
+            limit: 50,
+            page: 1,
+            startIndex: 0,
+            count: 0
         };
-
-
-        $scope.logPagination = function (page, limit) {
-
-        };
-
         $scope.getAllSendings = function () {
-            openmrsRest.get($scope.resource + "/sending").then(function (response) {
+            $scope.loading = true;
+            var deferred = $q.defer();
+            $scope.promise = deferred.promise;
+            $scope.query.startIndex = $scope.query.limit * ($scope.query.page - 1);
+            openmrsRest.get($scope.resource + "/sending?limit=" + $scope.query.limit + "&startIndex=" + $scope.query.startIndex).then(function (response) {
                 if (response.results.length >= 1) {
                     $scope.dispenses = response.results;
-                }else{
+                } else {
                     $scope.dispenses = [];
                 }
+                openmrsRest.get($scope.resource + "/sending/count").then(function (response) {
+                    if (response.count) {
+                        $scope.query.count = response.count;
+                    }
+                    $rootScope.kernel.loading = 100;
+                    deferred.resolve(response.results);
+                }, function (e) {
+                    $scope.loading = false;
+                    showToast($translate.instant("An unexpected error has occured."), "error");
+                });
             })
         }
 
@@ -56,12 +66,12 @@ angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'to
         }
 
 
-        
-    $scope.openEdit = function (data) {
-        $state.go('home.dispense', {
+
+        $scope.openEdit = function (data) {
+            $state.go('home.dispense', {
                 uuid: data.uuid
             });
-    }
+        }
 
 
 
@@ -96,8 +106,8 @@ angular.module('DispensingManagementController', ['ngMaterial', 'ngAnimate', 'to
             });
         }
 
-        $scope.search = function(item) {
-            if (!$scope.searchAll || (item.id.toString().indexOf($scope.searchAll) != -1) || (item.customer && item.customer.name.toLowerCase().indexOf($scope.searchAll) != -1) || (item.person && item.person.display.toLowerCase().indexOf($scope.searchAll.toLowerCase()) != -1) ){
+        $scope.search = function (item) {
+            if (!$scope.searchAll || (item.id.toString().indexOf($scope.searchAll) != -1) || (item.customer && item.customer.name.toLowerCase().indexOf($scope.searchAll) != -1) || (item.person && item.person.display.toLowerCase().indexOf($scope.searchAll.toLowerCase()) != -1)) {
                 return true;
             }
             return false;

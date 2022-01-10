@@ -40,7 +40,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="location in locations  | orderBy:'name' | filter:searchAll | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="location in locations  | orderBy:'name' | filter:searchAll ">
 
                         <td>{{location.code}}</td>
                         <td>{{location.name}}</td>
@@ -58,9 +58,9 @@
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{locations.length}}"
-            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"  md-limit-options="[5, 25, 50]"
-            md-on-paginate="logPagination" md-label="$parent.label">
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{query.count}}"
+            md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"  md-limit-options="[25, 50, 100]"
+            md-on-paginate="getAllLocation" md-label="$parent.label">
         </md-table-pagination>
     </md-card>
 </div>

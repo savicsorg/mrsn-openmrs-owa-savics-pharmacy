@@ -49,7 +49,7 @@
                 </thead>
                 <tbody md-body>
                     <tr md-row
-                        data-ng-repeat="dispense in dispenses | orderBy:'-id' | filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                        data-ng-repeat="dispense in dispenses | orderBy:'-id' | filter:search ">
                         <td>
                             <center>{{dispense.id}}</center>
                         </td>
@@ -80,9 +80,9 @@
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{dispenses.length}}"
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{query.count}}"
             md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-limit-options="[25, 50, 100]"
-            md-on-paginate="logPagination" md-label="$parent.label">
+            md-on-paginate="getAllSendings" md-label="$parent.label">
         </md-table-pagination>
     </md-card>
 </div>

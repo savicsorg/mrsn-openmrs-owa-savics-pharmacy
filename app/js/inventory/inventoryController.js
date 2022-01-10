@@ -1,85 +1,101 @@
-angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('InventoryController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'toastr', '$translate', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, toastr, $translate) {
-    $scope.resource = "savicspharmacy";
-    var invTitle = $translate.instant("Inventory");
-    $rootScope.links = { "Pharmacy management module": "", "Inventory": "index.html#!/inventory" };
-    $scope.loading = false;
-    $scope.viewOnStock = [];
-    $scope.stockAtRisOnly = false;
-    $scope.searchAll = "";
-    $scope.label = {
-        page: $translate.instant("Page")  + $translate.instant(":"),
-        rowsPerPage: $translate.instant("Rows per page") + $translate.instant(":"),
-        of: $translate.instant("of")
-    }
-
-    $scope.getData = function () {
-        $scope.loading = true;
-        openmrsRest.getFull($scope.resource + "/item").then(function (response) {
-            $scope.viewOnStock = response.results;
-            $scope.loading = false;
-        }, function (e) {
-            $scope.loading = false;
-            toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
-        });
-    };
-
-    $scope.getData();
-
-    $scope.options = {
-        autoSelect: true,
-        boundaryLinks: false,
-        largeEditDialog: true,
-        pageSelector: true,
-        rowSelection: true
-    };
+angular.module('InventoryController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('InventoryController', ['$scope', '$state', '$stateParams', '$rootScope', '$mdToast', 'openmrsRest', 'toastr', '$translate', '$q', function ($scope, $state, $stateParams, $rootScope, $mdToast, openmrsRest, toastr, $translate, $q) {
+        $scope.resource = "savicspharmacy";
+        var invTitle = $translate.instant("Inventory");
+        $rootScope.links = {"Pharmacy management module": "", "Inventory": "index.html#!/inventory"};
+        $scope.loading = false;
+        $scope.viewOnStock = [];
+        $scope.stockAtRisOnly = false;
+        $scope.searchAll = "";
+        $scope.label = {
+            page: $translate.instant("Page") + $translate.instant(":"),
+            rowsPerPage: $translate.instant("Rows per page") + $translate.instant(":"),
+            of: $translate.instant("of")
+        }
 
         $scope.query = {
-            limit: 25,
-            page: 1
+            limit: 50,
+            page: 1,
+            startIndex: 0,
+            count: 0
         };
 
-    $scope.logPagination = function (page, limit) {
+        $scope.getData = function () {
+            $scope.loading = true;
+            var deferred = $q.defer();
+            $scope.promise = deferred.promise;
+            $scope.query.startIndex = $scope.query.limit * ($scope.query.page - 1);
+            openmrsRest.getFull($scope.resource + "/item?limit=" + $scope.query.limit + "&startIndex=" + $scope.query.startIndex).then(function (response) {
+                $scope.viewOnStock = response.results;
+                $scope.loading = false;
+                openmrsRest.get($scope.resource + "/items/count").then(function (response) {
+                    if (response.count) {
+                        $scope.query.count = response.count;
+                    }
+                    $rootScope.kernel.loading = 100;
+                    deferred.resolve(response.results);
+                }, function (e) {
+                    $scope.loading = false;
+                    showToast($translate.instant("An unexpected error has occured."), "error");
+                });
+            }, function (e) {
+                $scope.loading = false;
+                toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+            });
+        };
 
-    };
+        $scope.getData();
 
-    $scope.openView = function (data) {
-        $state.go('home.viewdetail', {
-            item: data,
-            id: data.id
-        });
-    };
+        $scope.options = {
+            autoSelect: true,
+            boundaryLinks: false,
+            largeEditDialog: true,
+            pageSelector: true,
+            rowSelection: true
+        };
 
-    $scope.openAdjustement = function (data) {
-        $state.go('home.adjustment', {
-            item: data.code,
-            id: data.id
-        });
-    };
 
-    $scope.openHistory = function (data) {
-        $state.go('home.viewhistory', {
-            item: data.code,
-            uuid: data.uuid
-        });
-    };
+        $scope.logPagination = function (page, limit) {
 
-    $scope.search = function (item) {
-        if($scope.searchAll == "" || ($scope.searchAll.length > 0 && item.name.toLowerCase().indexOf($scope.searchAll.toLowerCase()) > -1)){
-            if ($scope.stockAtRisOnly == true) {
-                return item.numberOfExpiredLots > 0 || item.numberOfNearExpiredLots > 0 || item.soh < item.stockMin;
+        };
+
+        $scope.openView = function (data) {
+            $state.go('home.viewdetail', {
+                item: data,
+                id: data.id
+            });
+        };
+
+        $scope.openAdjustement = function (data) {
+            $state.go('home.adjustment', {
+                item: data.code,
+                id: data.id
+            });
+        };
+
+        $scope.openHistory = function (data) {
+            $state.go('home.viewhistory', {
+                item: data.code,
+                uuid: data.uuid
+            });
+        };
+
+        $scope.search = function (item) {
+            if ($scope.searchAll == "" || ($scope.searchAll.length > 0 && item.name.toLowerCase().indexOf($scope.searchAll.toLowerCase()) > -1)) {
+                if ($scope.stockAtRisOnly == true) {
+                    return item.numberOfExpiredLots > 0 || item.numberOfNearExpiredLots > 0 || item.soh < item.stockMin;
+                } else {
+                    return true;
+                }
             } else {
-                return true;
+                return false;
             }
-        } else {
-            return false;
+        };
+
+
+        $scope.donwload = function () {
+            let link = window.location.protocol + "//" + window.location.host + "/openmrs/ws/rest/v1/savicspharmacy/items/stockatrisk?atriskOnly=" + $scope.stockAtRisOnly;
+            localStorage.setItem("export_link", link);
+            window.location = link;
         }
-    };
 
-
-    $scope.donwload = function () {
-        let link = window.location.protocol + "//" + window.location.host + "/openmrs/ws/rest/v1/savicspharmacy/items/stockatrisk?atriskOnly=" + $scope.stockAtRisOnly;
-        localStorage.setItem("export_link", link);
-        window.location = link;
-    }
-
-}])
+    }])

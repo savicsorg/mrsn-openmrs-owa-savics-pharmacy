@@ -46,7 +46,7 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row
-                            data-ng-repeat="data in orders | orderBy:'-id' | filter:search | limitTo: query.limit : (query.page -1) * query.limit">
+                            data-ng-repeat="data in orders | orderBy:'-id' | filter:search ">
                             <td md-cell>CMD#{{data.id}}</td>
                             <td md-cell>{{data.supplier.name}}</td>
                             <td md-cell>{{data.dateReception | date: 'dd/MM/yyyy' : 'UTC'}}</td>
@@ -86,9 +86,9 @@
                 </table>
             </md-table-container>
             {{$parent.label}}
-            <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{orders.length}}"
+            <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{query.count}}"
                 md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"
-                md-limit-options="[25, 50, 100]" md-on-paginate="logPagination" md-label="$parent.label">
+                md-limit-options="[25, 50, 100]" md-on-paginate="loadData" md-label="$parent.label">
             </md-table-pagination>
         </md-card-content>
     </md-card>
