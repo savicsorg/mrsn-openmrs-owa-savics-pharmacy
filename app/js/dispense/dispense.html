@@ -97,10 +97,19 @@
                         </md-not-found>
                     </md-autocomplete>
                     <md-input-container class="md-block" flex-gt-sm flex="33"
-                        ng-if="l.id !== null && l.id !== undefined">
+                        ng-if="l.id !== null && l.id !== undefined" >
                         <label>{{"Drug"| translate}}</label>
                         <input class="form-control" disabled type="text" ng-model="l.item.name" ng-
                             ng="selectedItemChange(l.item,$index)">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="15">
+                        <label translate>Quantity</label>
+                        <input class="form-control" type="number" ng-model="l.sendingDetailsQuantity"
+                            ng-change="updateLineValue($index)" ng-disabled="!isEditable" required>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="15">
+                        <label translate>Price</label>
+                        <input class="form-control" ng-disabled="true" type="number" ng-model="l.sendingDetailsValue">
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label translate>Batch n°</label>
@@ -111,16 +120,6 @@
                                 <span translate>Lot N°: </span>  {{ iLine.itemBatch }} | <span translate>Location: </span> {{ iLine.pharmacyLocation.name }}  | <span translate>Exp.: </span> {{ iLine.itemExpiryDate | date:'dd/MM/yyyy'}} 
                             </md-option>
                         </md-select>
-                    </md-input-container>
-
-                    <md-input-container class="md-block" flex-gt-sm flex="15">
-                        <label translate>Quantity</label>
-                        <input class="form-control" type="number" ng-model="l.sendingDetailsQuantity"
-                            ng-change="updateLineValue($index)" ng-disabled="!isEditable" required>
-                    </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm flex="15">
-                        <label translate>Price</label>
-                        <input class="form-control" ng-disabled="true" type="number" ng-model="l.sendingDetailsValue">
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm flex="7">
                         <md-button class="md-fab md-mini md-danger md-button" aria-label="remove"

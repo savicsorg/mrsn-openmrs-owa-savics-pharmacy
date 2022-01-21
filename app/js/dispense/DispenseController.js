@@ -56,6 +56,13 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     $scope.updateLineValue = function (index) {
         $scope.lines[index].sendingDetailsValue = $scope.lines[index].item.sellPrice * $scope.lines[index].sendingDetailsQuantity;
         $scope.updateAmount();
+        openmrsRest.get($scope.resource + "/itemsLine?item=" + $scope.lines[index].item.id+ "&quantity=" + $scope.lines[index].sendingDetailsQuantity).then(function (response) {               
+            $scope.lines[index].itemsLines = response.results;
+            if($scope.lines[index].itemsLines.length > 0)
+                $scope.lines[index].sendingItemBatch =  $scope.lines[index].itemsLines[0].itemBatch;
+        }, function (e) {
+            return [];
+        });
     };
 
     $scope.updateAmount = function () {
@@ -93,8 +100,10 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
     $scope.searchItemsLines = function (item, index) {
         if (item && item.uuid)
-            return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id).then(function (response) {
+            return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id+ "&quantity=" + $scope.lines[index].sendingDetailsQuantity).then(function (response) {               
                 $scope.lines[index].itemsLines = response.results;
+                if($scope.lines[index].itemsLines.length > 0)
+                    $scope.lines[index].sendingItemBatch =  $scope.lines[index].itemsLines[0].itemBatch;
             }, function (e) {
                 return [];
             });
@@ -102,16 +111,16 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
             return [];
     };
 
-    $scope.searchItemLines = function (searchText, item) {
-        if (item && item.uuid)
-            return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id + "&itemBatch=" + searchText).then(function (response) {
-                return response.results;
-            }, function (e) {
-                return [];
-            });
-        else
-            return [];
-    };
+    // $scope.searchItemLines = function (searchText, item) {
+    //     if (item && item.uuid)
+    //         return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id + "&quantity=" + item.sendingDetailsQuantity + "&itemBatch=" + searchText).then(function (response) {
+    //             return response.results;
+    //         }, function (e) {
+    //             return [];
+    //         });
+    //     else
+    //         return [];
+    // };
 
     $scope.selectedCustomerChange = function (item) {
         $scope.sending.customer = item;
