@@ -13,7 +13,7 @@
             ng-disabled="!validateBtn.enabled" ng-click="validate()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">check_circle</md-icon>
             <md-tooltip md-direction="top">
-                <span translate>{{validateBtn.text}}</span>
+                <span>{{validateBtn.text}}</span>
             </md-tooltip>
             {{validateBtn.text}}
         </md-button>
@@ -102,24 +102,24 @@
                         <input class="form-control" disabled type="text" ng-model="l.item.name" ng-
                             ng="selectedItemChange(l.item,$index)">
                     </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm flex="15">
-                        <label translate>Quantity</label>
-                        <input class="form-control" type="number" ng-model="l.sendingDetailsQuantity"
-                            ng-change="updateLineValue($index)" ng-disabled="!isEditable" required>
-                    </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm flex="15">
-                        <label translate>Price</label>
-                        <input class="form-control" ng-disabled="true" type="number" ng-model="l.sendingDetailsValue">
-                    </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label translate>Batch n°</label>
                         <md-select ng-model="l.sendingItemBatch"
                             ng-change="selectedItemLineChange(l.sendingItemBatch, $index)" ng-disabled="!isEditable"
                             required>
                             <md-option ng-repeat="iLine in l.itemsLines" value="{{iLine.itemBatch}}">
-                                <span translate>Lot N°: </span>  {{ iLine.itemBatch }} | <span translate>Location: </span> {{ iLine.pharmacyLocation.name }}  | <span translate>Exp.: </span> {{ iLine.itemExpiryDate | date:'dd/MM/yyyy'}} 
+                                <span translate>Batch N°: </span> {{ iLine.itemBatch }} | <span translate>Qty v.: </span> {{ iLine.itemVirtualstock }} | <span translate>Loc.: </span> {{ iLine.pharmacyLocation.name }} | <span translate>Exp.: </span> {{ iLine.itemExpiryDate | date:'dd/MM/yyyy'}} 
                             </md-option>
                         </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="15">
+                        <label translate>Quantity</label>
+                        <input class="form-control" type="number" ng-model="l.sendingDetailsQuantity"
+                            ng-change="selectedItemLineChange(l.sendingItemBatch, $index);updateLineValue(l.sendingItemBatch, $index)" ng-disabled="!isEditable" required>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm flex="15">
+                        <label translate>Price</label>
+                        <input class="form-control" ng-disabled="true" type="number" ng-model="l.sendingDetailsValue">
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm flex="7">
                         <md-button class="md-fab md-mini md-danger md-button" aria-label="remove"

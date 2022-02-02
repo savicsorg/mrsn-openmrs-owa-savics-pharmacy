@@ -53,16 +53,29 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         });
     };
 
-    $scope.updateLineValue = function (index) {
-        $scope.lines[index].sendingDetailsValue = $scope.lines[index].item.sellPrice * $scope.lines[index].sendingDetailsQuantity;
+    $scope.updateLineValue = function (batch, index) {
         $scope.updateAmount();
-        openmrsRest.get($scope.resource + "/itemsLine?item=" + $scope.lines[index].item.id+ "&quantity=" + $scope.lines[index].sendingDetailsQuantity).then(function (response) {               
-            $scope.lines[index].itemsLines = response.results;
-            if($scope.lines[index].itemsLines.length > 0)
-                $scope.lines[index].sendingItemBatch =  $scope.lines[index].itemsLines[0].itemBatch;
-        }, function (e) {
-            return [];
-        });
+        var fullBatch = _.findWhere($scope.lines[index].itemsLines, {itemBatch: batch});
+        var maxQty = 0;
+        if(fullBatch){
+            maxQty = fullBatch.itemVirtualstock;
+        }
+        var allLinesOfThisBatch = _.where($scope.lines, {sendingItemBatch: batch});
+        var sumAllLinesOfThisBatch = 0;
+        for(var i=0;i<allLinesOfThisBatch.length;i++){
+            sumAllLinesOfThisBatch = sumAllLinesOfThisBatch + (isNaN(allLinesOfThisBatch[i].sendingDetailsQuantity) ? 0 : allLinesOfThisBatch[i].sendingDetailsQuantity);
+        }
+        if(sumAllLinesOfThisBatch > maxQty){
+            $mdDialog.show(
+                $mdDialog.alert()
+                    .clickOutsideToClose(true)
+                    .title($translate.instant('Too high quantity'))
+                    .textContent($translate.instant('The quantity requested is higher than the quantity available in this lot. Please enter a quantity less than') + ' ' + (maxQty-sumAllLinesOfThisBatch+$scope.lines[index].sendingDetailsQuantity) + '.')
+                    .ariaLabel('Quantity too high')
+                    .ok($translate.instant('OK'))
+            );
+            $scope.lines[index].sendingDetailsQuantity = "";
+        }
     };
 
     $scope.updateAmount = function () {
@@ -262,7 +275,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 $state.go('home.dispensemain');
                 $scope.loading = false;
             }, function (e) {
-                console.log(e)
+                console.error(e)
                 $scope.loading = false;
                 toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
             });
@@ -275,7 +288,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 $state.go('home.dispensemain');
                 $scope.loading = false;
             }, function (e) {
-                console.log(e)
+                console.error(e)
                 $scope.loading = false;
                 toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
             });
