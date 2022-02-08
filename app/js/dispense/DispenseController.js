@@ -78,6 +78,21 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         }
     };
 
+    function filterFullyUsedBatches(items){
+        var toReturn = [];
+        for(var i=0;i<items.length;i++){
+            var allLinesOfThisBatch = _.where($scope.lines, {sendingItemBatch: items[i].itemBatch});
+            var sumAllLinesOfThisBatch = 0;
+            for(var j=0;j<allLinesOfThisBatch.length;j++){
+                sumAllLinesOfThisBatch = sumAllLinesOfThisBatch + (isNaN(allLinesOfThisBatch[j].sendingDetailsQuantity) ? 0 : allLinesOfThisBatch[j].sendingDetailsQuantity);
+            }
+            if(sumAllLinesOfThisBatch < items[i].itemVirtualstock){
+                toReturn.push(items[i]);
+            }
+        }
+        return toReturn;
+    }
+
     $scope.updateAmount = function () {
         $scope.sending.sendingAmount = _.reduce($scope.lines, function (result, line) {
             return result + line.sendingDetailsValue;
@@ -114,9 +129,10 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     $scope.searchItemsLines = function (item, index) {
         if (item && item.uuid)
             return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id+ "&quantity=" + $scope.lines[index].sendingDetailsQuantity).then(function (response) {               
-                $scope.lines[index].itemsLines = response.results;
-                if($scope.lines[index].itemsLines.length > 0)
+                $scope.lines[index].itemsLines = filterFullyUsedBatches(response.results);
+                if($scope.lines[index].itemsLines.length > 0){
                     $scope.lines[index].sendingItemBatch =  $scope.lines[index].itemsLines[0].itemBatch;
+                }
             }, function (e) {
                 return [];
             });

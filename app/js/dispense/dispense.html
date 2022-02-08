@@ -83,7 +83,7 @@
         <md-card ng-if="!loading">
             <md-card-title translate>List of drugs</md-card-title>
             <md-card-content>
-                <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col">
+                <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col" style="overflow: auto;">
                     <md-autocomplete md-selected-item="selectedItem" md-search-text="itemSearchText"
                         md-items="item in searchItems(itemSearchText)" md-item-text="item.name" class="md-block"
                         flex-gt-sm md-floating-label="{{'Drug'| translate}}" md-clear-button="true" md-no-cache="true"
@@ -108,7 +108,7 @@
                             ng-change="selectedItemLineChange(l.sendingItemBatch, $index)" ng-disabled="!isEditable"
                             required>
                             <md-option ng-repeat="iLine in l.itemsLines" value="{{iLine.itemBatch}}">
-                                <span translate>Batch N°: </span> {{ iLine.itemBatch }} | <span translate>Qty v.: </span> {{ iLine.itemVirtualstock }} | <span translate>Loc.: </span> {{ iLine.pharmacyLocation.name }} | <span translate>Exp.: </span> {{ iLine.itemExpiryDate | date:'dd/MM/yyyy'}} 
+                                <span translate>Batch N°: </span> <span ng-bind="iLine.itemBatch | limitTo:7"></span><span ng-if="iLine.itemBatch.length > 7">...</span> | <span translate>Qty v.: </span> {{ iLine.itemVirtualstock }} | <span translate>Loc.: </span> <span ng-bind="iLine.pharmacyLocation.name | limitTo:7"></span><span ng-if="iLine.pharmacyLocation.name.length > 7">...</span> | <span translate>Exp.: </span> {{ iLine.itemExpiryDate | date:'dd/MM/yyyy'}} 
                             </md-option>
                         </md-select>
                     </md-input-container>
