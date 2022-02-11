@@ -8,6 +8,8 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     $scope.lines = [];
     $scope.loading = false;
     $scope.isEditable = true;
+    $scope.editMode = false;
+    $scope.editCancelable = true;
     $scope.loadingStack = 0;
     $scope.batchSearchText = "";
     $scope.itemSearchText = "";
@@ -40,6 +42,8 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         limit: 5,
         page: 1
     };
+    
+    var usedBatchNumbers = [];
 
     $scope.logPagination = function (page, limit) { };
 
@@ -126,12 +130,16 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         });
     };
 
-    $scope.searchItemsLines = function (item, index) {
+    $scope.searchItemsLines = function (item, index, selectedItemsLine) {
         if (item && item.uuid)
-            return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id+ "&quantity=" + $scope.lines[index].sendingDetailsQuantity).then(function (response) {               
-                $scope.lines[index].itemsLines = filterFullyUsedBatches(response.results);
-                if($scope.lines[index].itemsLines.length > 0){
-                    $scope.lines[index].sendingItemBatch =  $scope.lines[index].itemsLines[0].itemBatch;
+            return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id).then(function (response) {
+                //$scope.lines[index].itemsLines = filterFullyUsedBatches(response.results);
+                if (response.results){
+                    $scope.lines[index].itemsLines = response.results.filter(function (el) {
+                        return (usedBatchNumbers.indexOf(el.itemBatch) === -1);
+                    });
+                }else{
+                    $scope.lines[index].itemsLines = [];
                 }
             }, function (e) {
                 return [];
@@ -139,17 +147,6 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         else
             return [];
     };
-
-    // $scope.searchItemLines = function (searchText, item) {
-    //     if (item && item.uuid)
-    //         return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id + "&quantity=" + item.sendingDetailsQuantity + "&itemBatch=" + searchText).then(function (response) {
-    //             return response.results;
-    //         }, function (e) {
-    //             return [];
-    //         });
-    //     else
-    //         return [];
-    // };
 
     $scope.selectedCustomerChange = function (item) {
         $scope.sending.customer = item;
@@ -161,12 +158,16 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         $scope.sending.customer = null;
     };
 
-    $scope.selectedItemChange = function (item, index) {
+    $scope.selectedItemChange = function (item, index, itemsLine) {
         if (item) {
             $scope.lines[index].item = item;
             $scope.lines[index].itemId = item.id;
             $scope.updateAmount();
-            $scope.lines[index].itemsLines = $scope.searchItemsLines(item, index);
+            if (itemsLine){
+                $scope.lines[index].itemsLines = [itemsLine];
+            }else{
+                $scope.lines[index].itemsLines = $scope.searchItemsLines(item, index, itemsLine);
+            }
         } else {
             $scope.lines[index].item = null;
             $scope.lines[index].itemId = null;
@@ -190,11 +191,13 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     $scope.selectedItemLineChange = function (batch, index) {
         $scope.lines[index].sendingItemBatch = batch;
         $scope.lines[index].sendingDetailsValue = $scope.lines[index].item.sellPrice * $scope.lines[index].sendingDetailsQuantity;
+        usedBatchNumbers.push(batch);
     };
 
     $scope.getData = function () {
         $scope.loading = true;
         if ($stateParams.uuid && $stateParams.uuid != "new") {
+            $scope.editMode = true;
             openmrsRest.getFull($scope.resource + "/sending/" + $stateParams.uuid).then(function (response) {
                 $scope.sending = response;
                 $scope.sending.date = new Date($scope.sending.date);
@@ -219,7 +222,9 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 openmrsRest.getFull($scope.resource + "/sendingDetail?sendingId=" + $scope.sending.id).then(function (response) {
                     $scope.lines = response.results;
                     for (var i = 0; i < $scope.lines.length; i++) {
-                        $scope.selectedItemChange($scope.lines[i].item, i);
+                        usedBatchNumbers.push($scope.lines[i].itemsLine.itemBatch);
+                        $scope.selectedItemChange($scope.lines[i].item, i, $scope.lines[i].itemsLine);
+                        $scope.lines[i].sendingItemBatch = $scope.lines[i].itemsLine.itemBatch;
                         $scope.lines[i].itemId = $scope.lines[i].item.id;
                     }
                     $scope.loading = false;
@@ -232,6 +237,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
             });
         } else {
+            $scope.editMode = false;
             $scope.isEditable = true;
             if($scope.sending && $scope.sending.validationDate){
                 $scope.isEditable = false;
@@ -334,13 +340,14 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     $scope.deleteSendingDetail = function (sendingDetail, index) {
         var confirm = $mdDialog.confirm()
                 .title('Confirmation')
-                .textContent($translate.instant('Do you really want to delete this line ?'))
+                .textContent($translate.instant('Do you really want to delete this line ? This action is irreversible if you click YES. '))
                 .ok('Yes')
                 .cancel('Cancel');
         $mdDialog.show(confirm).then(function () {
             if (sendingDetail.uuid) {
                 $scope.loading = true;
                 openmrsRest.remove($scope.resource + "/sendingDetail", sendingDetail, "Generic Reason").then(function (response) {
+                    $scope.editCancelable = false;
                     $scope.lines.splice(index, 1);
                     $scope.updateAmount();
                     $scope.loading = false;
@@ -353,6 +360,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 $scope.lines.splice(index, 1);
                 $scope.updateAmount();
             }
+            usedBatchNumbers = usedBatchNumbers.filter(v => v !== sendingDetail.sendingItemBatch); 
         }, function () {
 
         });

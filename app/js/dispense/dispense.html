@@ -82,6 +82,7 @@
         </md-card>
         <md-card ng-if="!loading">
             <md-card-title translate>List of drugs</md-card-title>
+            <span style="font-size: 10px; color: red; margin-left: 15px; margin-top: -15px" ng-if="editMode" translate>If you want to modify the dispense of one of the drugs, you must delete the line and recreate it</span>
             <md-card-content>
                 <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col" style="overflow: auto;">
                     <md-autocomplete md-selected-item="selectedItem" md-search-text="itemSearchText"
@@ -105,9 +106,9 @@
                     <md-input-container class="md-block" flex-gt-sm>
                         <label translate>Batch n°</label>
                         <md-select ng-model="l.sendingItemBatch"
-                            ng-change="selectedItemLineChange(l.sendingItemBatch, $index)" ng-disabled="!isEditable"
+                            ng-change="selectedItemLineChange(l.sendingItemBatch, $index)" ng-disabled="!isEditable || !(l.id === null || l.id === undefined)"
                             required>
-                            <md-option ng-repeat="iLine in l.itemsLines" value="{{iLine.itemBatch}}">
+                            <md-option ng-repeat="iLine in l.itemsLines" value="{{iLine.itemBatch}}" >
                                 <span translate>Batch N°: </span> <span ng-bind="iLine.itemBatch | limitTo:7"></span><span ng-if="iLine.itemBatch.length > 7">...</span> | <span translate>Qty v.: </span> {{ iLine.itemVirtualstock }} | <span translate>Loc.: </span> <span ng-bind="iLine.pharmacyLocation.name | limitTo:7"></span><span ng-if="iLine.pharmacyLocation.name.length > 7">...</span> | <span translate>Exp.: </span> {{ iLine.itemExpiryDate | date:'dd/MM/yyyy'}} 
                             </md-option>
                         </md-select>
@@ -115,7 +116,7 @@
                     <md-input-container class="md-block" flex-gt-sm flex="15">
                         <label translate>Quantity</label>
                         <input class="form-control" type="number" ng-model="l.sendingDetailsQuantity"
-                            ng-change="selectedItemLineChange(l.sendingItemBatch, $index);updateLineValue(l.sendingItemBatch, $index)" ng-disabled="!isEditable" required>
+                            ng-change="selectedItemLineChange(l.sendingItemBatch, $index);updateLineValue(l.sendingItemBatch, $index)" ng-disabled="!isEditable || !(l.id === null || l.id === undefined)" required>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm flex="15">
                         <label translate>Price</label>
@@ -151,7 +152,7 @@
                 </md-tooltip>
                 <span translate>Save</span>
             </md-button>
-            <a href="index.html#!/dispenses">
+            <a href="index.html#!/dispenses" ng-hide="!editCancelable">
                 <md-button aria-label="Cancel">
                     <md-icon>close</md-icon>
                     <span translate>Cancel</span>
