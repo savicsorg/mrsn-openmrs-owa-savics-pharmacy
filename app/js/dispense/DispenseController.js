@@ -266,7 +266,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         });
     }
 
-    $scope.saveSending = function () {
+    $scope.saveSending = function (gotoList) {
         $scope.actionnable = false;
         $scope.loading = true;
         var query = JSON.parse(JSON.stringify($scope.sending));
@@ -293,8 +293,10 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 response.date = new Date(response.date);
                 $scope.sending = response;
                 $scope.getData();
-                toastr.success($translate.instant('Data saved successfully.'), 'Success');
-                $state.go('home.dispensemain');
+                if (gotoList !== '#'){
+                    toastr.success($translate.instant('Data saved successfully.'), 'Success');
+                    $state.go('home.dispensemain');
+                }
                 $scope.loading = false;
             }, function (e) {
                 console.error(e)
@@ -351,6 +353,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                     $scope.lines.splice(index, 1);
                     $scope.updateAmount();
                     $scope.loading = false;
+                    $scope.saveSending("#");
                     toastr.success($translate.instant('Data removed successfully.'), 'Success');
                 }, function (e) {
                     $scope.loading = false;
