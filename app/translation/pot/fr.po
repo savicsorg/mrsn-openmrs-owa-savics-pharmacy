@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: app/js/appFilters.js:87 app/js/appFilters.js:147
@@ -286,8 +286,8 @@ msgstr "Jour de chance"
 #: app/js/administration/routesController.js:93
 #: app/js/administration/SuppliersController.js:89
 #: app/js/administration/unitsController.js:111
-#: app/js/dispense/DispenseController.js:355
-#: app/js/dispense/DispenseController.js:372
+#: app/js/dispense/DispenseController.js:382
+#: app/js/dispense/DispenseController.js:399
 #: app/js/dispense/DispensingManagementController.js:84
 #: app/js/inventory/ReceptionController.js:185
 #: app/js/inventory/TransactionViewController.js:78
@@ -304,9 +304,9 @@ msgstr "Oui"
 #: app/js/administration/routesController.js:94
 #: app/js/administration/SuppliersController.js:90
 #: app/js/administration/unitsController.js:112
-#: app/js/dispense/DispenseController.js:356
-#: app/js/dispense/DispenseController.js:373
-#: app/js/dispense/DispenseController.js:31
+#: app/js/dispense/DispenseController.js:383
+#: app/js/dispense/DispenseController.js:400
+#: app/js/dispense/DispenseController.js:33
 #: app/js/dispense/DispensingManagementController.js:85
 #: app/js/inventory/ReceptionController.js:186
 #: app/js/inventory/TransactionViewController.js:79
@@ -317,7 +317,7 @@ msgstr "Oui"
 #: app/js/administration/customertype.html:30
 #: app/js/administration/location.html:47 app/js/administration/route.html:38
 #: app/js/administration/unit.html:42 app/js/dispense/dispense.html:24
-#: app/js/dispense/dispense.html:26 app/js/dispense/dispense.html:157
+#: app/js/dispense/dispense.html:26 app/js/dispense/dispense.html:158
 #: app/js/inventory/addNewbatch.html:68 app/js/inventory/adjustment.html:83
 #: app/js/inventory/Transactionview.html:23
 #: app/js/inventory/Transactionview.html:25 app/js/purchase/purchase.html:141
@@ -365,7 +365,7 @@ msgstr "Page"
 #: app/js/inventory/viewHistoryController.js:11
 #: app/js/order/OrderController.js:28 app/js/order/OrderController.js:29
 #: app/js/purchase/ReceiveController.js:10
-#: app/js/purchase/ReceiveController.js:11 app/js/dispense/dispense.html:138
+#: app/js/purchase/ReceiveController.js:11 app/js/dispense/dispense.html:139
 #: app/js/drug/drugview.html:16 app/js/drug/drugview.html:21
 #: app/js/drug/drugview.html:26 app/js/drug/drugview.html:38
 #: app/js/drug/drugview.html:44 app/js/drug/drugview.html:59
@@ -434,14 +434,14 @@ msgstr "sur"
 #: app/js/administration/SuppliersController.js:50
 #: app/js/administration/unitsController.js:47
 #: app/js/administration/unitsController.js:51
-#: app/js/dispense/DispenseController.js:212
-#: app/js/dispense/DispenseController.js:216
-#: app/js/dispense/DispenseController.js:280
-#: app/js/dispense/DispenseController.js:293
-#: app/js/dispense/DispenseController.js:311
-#: app/js/dispense/DispenseController.js:334
-#: app/js/dispense/DispenseController.js:364
-#: app/js/dispense/DispenseController.js:381
+#: app/js/dispense/DispenseController.js:233
+#: app/js/dispense/DispenseController.js:237
+#: app/js/dispense/DispenseController.js:304
+#: app/js/dispense/DispenseController.js:317
+#: app/js/dispense/DispenseController.js:335
+#: app/js/dispense/DispenseController.js:360
+#: app/js/dispense/DispenseController.js:391
+#: app/js/dispense/DispenseController.js:408
 #: app/js/dispense/DispensingManagementController.js:48
 #: app/js/drug/DrugController.js:24 app/js/drug/DrugController.js:30
 #: app/js/drug/DrugController.js:34 app/js/drug/DrugController.js:53
@@ -530,11 +530,11 @@ msgstr "Entrée d’un nouveau fournisseur"
 msgid "Please check if your email is a valid one."
 msgstr "Veuillez vérifier si votre e-mail est valide."
 
-#: app/js/dispense/DispenseController.js:72
+#: app/js/dispense/DispenseController.js:76
 msgid "Too high quantity"
 msgstr "Quantité trop élevée"
 
-#: app/js/dispense/DispenseController.js:73
+#: app/js/dispense/DispenseController.js:77
 msgid ""
 "The quantity requested is higher than the quantity available in this lot. "
 "Please enter a quantity less than"
@@ -542,12 +542,12 @@ msgstr ""
 "La quantité demandée est supérieure à la quantité disponible dans ce lot. "
 "Veuillez saisir une quantité inférieure à"
 
-#: app/js/dispense/DispenseController.js:75
+#: app/js/dispense/DispenseController.js:79
 msgid "OK"
 msgstr "OK"
 
-#: app/js/dispense/DispenseController.js:274
-#: app/js/dispense/DispenseController.js:287
+#: app/js/dispense/DispenseController.js:297
+#: app/js/dispense/DispenseController.js:311
 #: app/js/inventory/AdjustmentController.js:101
 #: app/js/inventory/ReceptionController.js:157
 #: app/js/inventory/ReceptionController.js:171
@@ -555,49 +555,53 @@ msgstr "OK"
 msgid "Data saved successfully."
 msgstr "Données enregistrées avec succès."
 
-#: app/js/dispense/DispenseController.js:301
+#: app/js/dispense/DispenseController.js:325
 msgid "Do you really want to delete this dispense ?"
 msgstr "Voulez-vous vraiment supprimer cette dispense ?"
 
-#: app/js/dispense/DispenseController.js:308
-#: app/js/dispense/DispenseController.js:331
+#: app/js/dispense/DispenseController.js:332
+#: app/js/dispense/DispenseController.js:357
 #: app/js/inventory/ReceptionController.js:193
 #: app/js/order/OrderController.js:228
 msgid "Data removed successfully."
 msgstr "Données supprimées avec succès."
 
-#: app/js/dispense/DispenseController.js:321
-msgid "Do you really want to delete this line ?"
-msgstr "Voulez-vous vraiment supprimer cette ligne ?"
+#: app/js/dispense/DispenseController.js:345
+msgid ""
+"Do you really want to delete this line ? This action is irreversible if you "
+"click YES."
+msgstr ""
+"Voulez-vous vraiment supprimer cette ligne ? Cette action est irréversible "
+"si vous cliquez sur OUI."
 
-#: app/js/dispense/DispenseController.js:353
-#: app/js/dispense/DispenseController.js:370
+#: app/js/dispense/DispenseController.js:380
+#: app/js/dispense/DispenseController.js:397
 #: app/js/inventory/ReceptionController.js:183
 #: app/js/order/OrderController.js:152 app/js/order/OrderController.js:220
 #: app/js/order/OrderController.js:246
 msgid "Confirmation"
 msgstr "Confirmation"
 
-#: app/js/dispense/DispenseController.js:354
+#: app/js/dispense/DispenseController.js:381
 msgid "Do you really want to validate this dispense ?"
 msgstr "Voulez-vous vraiment valider cette dispense ?"
 
-#: app/js/dispense/DispenseController.js:371
+#: app/js/dispense/DispenseController.js:398
 msgid "Do you really want to cancel this dispense ?"
 msgstr "Voulez-vous vraiment annuler cette distribution ?"
 
-#: app/js/dispense/DispenseController.js:25
-#: app/js/dispense/DispenseController.js:197
-#: app/js/dispense/DispenseController.js:226
+#: app/js/dispense/DispenseController.js:27
+#: app/js/dispense/DispenseController.js:216
+#: app/js/dispense/DispenseController.js:248
 msgid "Validate"
 msgstr "Valider"
 
-#: app/js/dispense/DispenseController.js:32
+#: app/js/dispense/DispenseController.js:34
 msgid "Initiated"
 msgstr "Initié"
 
-#: app/js/dispense/DispenseController.js:192
-#: app/js/dispense/DispenseController.js:222
+#: app/js/dispense/DispenseController.js:211
+#: app/js/dispense/DispenseController.js:244
 msgid "Validated on"
 msgstr "Validé le"
 
@@ -851,8 +855,8 @@ msgstr "Veuillez patienter..."
 #: app/js/administration/location.html:42 app/js/administration/route.html:31
 #: app/js/administration/route.html:33 app/js/administration/supplier.html:63
 #: app/js/administration/supplier.html:65 app/js/administration/unit.html:35
-#: app/js/administration/unit.html:37 app/js/dispense/dispense.html:150
-#: app/js/dispense/dispense.html:152 app/js/drug/drug.html:101
+#: app/js/administration/unit.html:37 app/js/dispense/dispense.html:151
+#: app/js/dispense/dispense.html:153 app/js/drug/drug.html:101
 #: app/js/drug/drug.html:103 app/js/inventory/addNewbatch.html:62
 #: app/js/inventory/addNewbatch.html:64 app/js/inventory/adjustment.html:77
 #: app/js/inventory/adjustment.html:79 app/js/inventory/reception.html:113
@@ -999,7 +1003,7 @@ msgstr "Client"
 msgid "Patient (with active visit)"
 msgstr "Patient (avec visite active)"
 
-#: app/js/dispense/dispense.html:89 app/js/dispense/dispense.html:101
+#: app/js/dispense/dispense.html:90 app/js/dispense/dispense.html:102
 #: app/js/inventory/reception.html:59 app/js/inventory/reception.html:70
 #: app/js/order/order.html:58 app/js/order/order.html:67
 #: app/js/purchase/purchase.html:62
@@ -1025,7 +1029,7 @@ msgid "Date"
 msgstr "Date"
 
 #: app/js/dispense/dispense.html:64 app/js/dispense/dispense.html:77
-#: app/js/dispense/dispense.html:96 app/js/drug/drug.html:29
+#: app/js/dispense/dispense.html:97 app/js/drug/drug.html:29
 #: app/js/inventory/reception.html:66 app/js/order/order.html:64
 #: app/js/purchase/purchase.html:72
 msgid "No matches found."
@@ -1035,27 +1039,35 @@ msgstr "Aucun résultat trouvé."
 msgid "List of drugs"
 msgstr "Liste des médicaments"
 
-#: app/js/dispense/dispense.html:106 app/js/inventory/reception.html:78
+#: app/js/dispense/dispense.html:85
+msgid ""
+"If you want to modify the dispense of one of the drugs, you must delete the "
+"line and recreate it"
+msgstr ""
+"Si vous souhaitez modifier la distribution de l’un des médicaments, vous "
+"devez supprimer la ligne et la recréer"
+
+#: app/js/dispense/dispense.html:107 app/js/inventory/reception.html:78
 msgid "Batch n°"
 msgstr "Lot n°"
 
-#: app/js/dispense/dispense.html:111
+#: app/js/dispense/dispense.html:112
 msgid "Batch N°:"
 msgstr "Lot N° :"
 
-#: app/js/dispense/dispense.html:111
+#: app/js/dispense/dispense.html:112
 msgid "Qty v.:"
 msgstr "Qté v. :"
 
-#: app/js/dispense/dispense.html:111
+#: app/js/dispense/dispense.html:112
 msgid "Loc.:"
 msgstr "Loc. :"
 
-#: app/js/dispense/dispense.html:111
+#: app/js/dispense/dispense.html:112
 msgid "Exp.:"
 msgstr "Exp. :"
 
-#: app/js/dispense/dispense.html:116
+#: app/js/dispense/dispense.html:117
 #: app/js/dispense/dispensingManagement.html:44
 #: app/js/inventory/addNewbatch.html:35 app/js/inventory/adjustment.html:42
 #: app/js/inventory/reception.html:74 app/js/order/order.html:71
@@ -1063,17 +1075,17 @@ msgstr "Exp. :"
 msgid "Quantity"
 msgstr "Quantité"
 
-#: app/js/dispense/dispense.html:121 app/js/order/order.html:75
+#: app/js/dispense/dispense.html:122 app/js/order/order.html:75
 #: app/js/purchase/purchase.html:54 app/js/purchase/purchase.html:93
 msgid "Price"
 msgstr "Prix"
 
-#: app/js/dispense/dispense.html:132 app/js/inventory/reception.html:105
+#: app/js/dispense/dispense.html:133 app/js/inventory/reception.html:105
 #: app/js/order/order.html:91 app/js/order/order.html:92
 msgid "Add a line"
 msgstr "Ajouter une ligne"
 
-#: app/js/dispense/dispense.html:138 app/js/purchase/purchase.html:117
+#: app/js/dispense/dispense.html:139 app/js/purchase/purchase.html:117
 msgid "Total"
 msgstr "Total"
 
@@ -1532,3 +1544,6 @@ msgstr "Imprimer"
 #: app/js/inventory/stockatrisk/stockatrisk.html:44
 msgid "Available Qty"
 msgstr "Qté disponible"
+
+#~ msgid "Do you really want to delete this line ?"
+#~ msgstr "Voulez-vous vraiment supprimer cette ligne ?"
