@@ -1,7 +1,7 @@
 angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.table']).controller('DispenseController', ['$scope', '$rootScope', 'openmrsRest', 'toastr', '$state', '$stateParams', '$mdDialog', '$translate', function ($scope, $rootScope, openmrsRest, toastr, $state, $stateParams, $mdDialog, $translate) {
     $scope.resource = "savicspharmacy";
-    $rootScope.links = {"Pharmacy management module": "", "Dispense": "dispense"};
-    $scope.sending = {customer: {}, person: {}, sendingAmount: 0};
+    $rootScope.links = { "Pharmacy management module": "", "Dispense": "dispense" };
+    $scope.sending = { customer: {}, person: {}, sendingAmount: 0 };
     $scope.dispenseModeuuid = "b54a1ddd-d25b-492e-98e9-5f1de0520e1a";
     $scope.dispenseMode = undefined;
     $scope.dispenseModes = [];
@@ -28,7 +28,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         enabled: false,
         visible: false
     };
-   
+
     $scope.cancelBtn = {
         text: $translate.instant("Cancel"),
         status: $translate.instant("Initiated"),
@@ -42,7 +42,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         limit: 5,
         page: 1
     };
-    
+
     var usedBatchNumbers = [];
 
     $scope.logPagination = function (page, limit) { };
@@ -51,7 +51,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
     $scope.searchCustomers = function (searchText) {
         return openmrsRest.getFull($scope.resource + "/customer?name=" + searchText).then(function (response) {
-            return response.results.filter(function(item) { return item.customerType.id == $scope.dispenseMode; });
+            return response.results.filter(function (item) { return item.customerType.id == $scope.dispenseMode; });
         }, function (e) {
             return [];
         });
@@ -59,22 +59,22 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
     $scope.updateLineValue = function (batch, index) {
         $scope.updateAmount();
-        var fullBatch = _.findWhere($scope.lines[index].itemsLines, {itemBatch: batch});
+        var fullBatch = _.findWhere($scope.lines[index].itemsLines, { itemBatch: batch });
         var maxQty = 0;
-        if(fullBatch){
+        if (fullBatch) {
             maxQty = fullBatch.itemVirtualstock;
         }
-        var allLinesOfThisBatch = _.where($scope.lines, {sendingItemBatch: batch});
+        var allLinesOfThisBatch = _.where($scope.lines, { sendingItemBatch: batch });
         var sumAllLinesOfThisBatch = 0;
-        for(var i=0;i<allLinesOfThisBatch.length;i++){
+        for (var i = 0; i < allLinesOfThisBatch.length; i++) {
             sumAllLinesOfThisBatch = sumAllLinesOfThisBatch + (isNaN(allLinesOfThisBatch[i].sendingDetailsQuantity) ? 0 : allLinesOfThisBatch[i].sendingDetailsQuantity);
         }
-        if(sumAllLinesOfThisBatch > maxQty){
+        if (sumAllLinesOfThisBatch > maxQty) {
             $mdDialog.show(
                 $mdDialog.alert()
                     .clickOutsideToClose(true)
                     .title($translate.instant('Too high quantity'))
-                    .textContent($translate.instant('The quantity requested is higher than the quantity available in this lot. Please enter a quantity less than') + ' ' + (maxQty-sumAllLinesOfThisBatch+$scope.lines[index].sendingDetailsQuantity) + '.')
+                    .textContent($translate.instant('The quantity requested is higher than the quantity available in this lot. Please enter a quantity less than') + ' ' + (maxQty - sumAllLinesOfThisBatch + $scope.lines[index].sendingDetailsQuantity) + '.')
                     .ariaLabel('Quantity too high')
                     .ok($translate.instant('OK'))
             );
@@ -82,15 +82,15 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         }
     };
 
-    function filterFullyUsedBatches(items){
+    function filterFullyUsedBatches(items) {
         var toReturn = [];
-        for(var i=0;i<items.length;i++){
-            var allLinesOfThisBatch = _.where($scope.lines, {sendingItemBatch: items[i].itemBatch});
+        for (var i = 0; i < items.length; i++) {
+            var allLinesOfThisBatch = _.where($scope.lines, { sendingItemBatch: items[i].itemBatch });
             var sumAllLinesOfThisBatch = 0;
-            for(var j=0;j<allLinesOfThisBatch.length;j++){
+            for (var j = 0; j < allLinesOfThisBatch.length; j++) {
                 sumAllLinesOfThisBatch = sumAllLinesOfThisBatch + (isNaN(allLinesOfThisBatch[j].sendingDetailsQuantity) ? 0 : allLinesOfThisBatch[j].sendingDetailsQuantity);
             }
-            if(sumAllLinesOfThisBatch < items[i].itemVirtualstock){
+            if (sumAllLinesOfThisBatch < items[i].itemVirtualstock) {
                 toReturn.push(items[i]);
             }
         }
@@ -104,8 +104,8 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     };
 
     $scope.searchPatients = function (searchText) {
-        return openmrsRest.getFull("visit?includeInactive=false&v=full" ).then(function (response) {
-            return response.results.filter(function(item) { return item.patient.display.toLowerCase().includes(searchText.toLowerCase())});
+        return openmrsRest.getFull("visit?includeInactive=false&v=full").then(function (response) {
+            return response.results.filter(function (item) { return item.patient.display.toLowerCase().includes(searchText.toLowerCase()) });
         }, function (e) {
             return [];
         });
@@ -114,12 +114,12 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     $scope.getCustomerTypes = function () {
         return openmrsRest.getFull($scope.resource + "/customerType").then(function (response) {
             $scope.dispenseModes = response.results;
-            
+
         }, function (e) {
             $scope.dispenseModes = [];
         });
     };
-    
+
     $scope.getCustomerTypes();
 
     $scope.searchItems = function (searchText) {
@@ -134,11 +134,11 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         if (item && item.uuid)
             return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id).then(function (response) {
                 //$scope.lines[index].itemsLines = filterFullyUsedBatches(response.results);
-                if (response.results){
+                if (response.results) {
                     $scope.lines[index].itemsLines = response.results.filter(function (el) {
                         return (usedBatchNumbers.indexOf(el.itemBatch) === -1);
                     });
-                }else{
+                } else {
                     $scope.lines[index].itemsLines = [];
                 }
             }, function (e) {
@@ -163,9 +163,9 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
             $scope.lines[index].item = item;
             $scope.lines[index].itemId = item.id;
             $scope.updateAmount();
-            if (itemsLine){
+            if (itemsLine) {
                 $scope.lines[index].itemsLines = [itemsLine];
-            }else{
+            } else {
                 $scope.lines[index].itemsLines = $scope.searchItemsLines(item, index, itemsLine);
             }
         } else {
@@ -183,7 +183,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         $scope.selectedCustomer = undefined;
         $scope.selectedPatient = undefined;
         $scope.customerSearchText = undefined;
-        var customerType = $scope.dispenseModes.filter(function(item) { return item.id == dispenseMode; })[0];
+        var customerType = $scope.dispenseModes.filter(function (item) { return item.id == dispenseMode; })[0];
         $scope.dispenseMode = customerType.id;
         $scope.dispenseModeuuid = customerType.uuid;
     };
@@ -199,26 +199,31 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         if ($stateParams.uuid && $stateParams.uuid != "new") {
             $scope.editMode = true;
             openmrsRest.getFull($scope.resource + "/sending/" + $stateParams.uuid).then(function (response) {
-                $scope.sending = response;
-                $scope.sending.date = new Date($scope.sending.date);
-                $scope.dispenseMode = $scope.sending.customerType.id ;
-                $scope.dispenseModeuuid = $scope.sending.customerType.uuid ;
-                $scope.selectedCustomer = $scope.sending.customer;
-                $scope.selectedPatient = $scope.sending.person;
-
-                if($scope.sending && $scope.sending.validationDate){
-                    $scope.isEditable = false;
-                    $scope.validateBtn.text = $translate.instant("Validated on ") + new Date($scope.sending.validationDate).toLocaleDateString();
-                    $scope.validateBtn.enabled = false;
-                    $scope.validateBtn.visible = true;
-                } else {
-                    $scope.isEditable = true;
-                    $scope.validateBtn.text = $translate.instant("Validate");
-                    $scope.validateBtn.enabled = true;
-                    $scope.validateBtn.visible = true;
+                try {
+                    $scope.sending = response;
+                    $scope.sending.date = new Date($scope.sending.date);
+                    $scope.dispenseMode = $scope.sending.customerType.id;
+                    $scope.dispenseModeuuid = $scope.sending.customerType.uuid;
+                    $scope.selectedCustomer = $scope.sending.customer;
+                    if ($scope.sending.person) {
+                        $scope.selectedPatient = $scope.sending.person.person.display;
+                    }
+                    if ($scope.sending && $scope.sending.validationDate) {
+                        $scope.isEditable = false;
+                        $scope.validateBtn.text = $translate.instant("Validated on ") + new Date($scope.sending.validationDate).toLocaleDateString();
+                        $scope.validateBtn.enabled = false;
+                        $scope.validateBtn.visible = true;
+                    } else {
+                        $scope.isEditable = true;
+                        $scope.validateBtn.text = $translate.instant("Validate");
+                        $scope.validateBtn.enabled = true;
+                        $scope.validateBtn.visible = true;
+                    }
+                    $scope.customerSearchText = ($scope.sending.customer != null) ? $scope.sending.customer.name : $scope.sending.person.display;
                 }
-
-                $scope.customerSearchText = ($scope.sending.customer != null) ? $scope.sending.customer.name : $scope.sending.person.display;
+                catch (err) {
+                    console.log(err.message);
+                }
                 openmrsRest.getFull($scope.resource + "/sendingDetail?sendingId=" + $scope.sending.id).then(function (response) {
                     $scope.lines = response.results;
                     for (var i = 0; i < $scope.lines.length; i++) {
@@ -239,12 +244,12 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         } else {
             $scope.editMode = false;
             $scope.isEditable = true;
-            if($scope.sending && $scope.sending.validationDate){
+            if ($scope.sending && $scope.sending.validationDate) {
                 $scope.isEditable = false;
                 $scope.validateBtn.text = $translate.instant("Validated on ") + new Date($scope.sending.validationDate).toLocaleDateString();
                 $scope.validateBtn.enabled = false;
                 $scope.validateBtn.visible = true;
-            } else if($scope.sending && $scope.sending.id > 0){
+            } else if ($scope.sending && $scope.sending.id > 0) {
                 $scope.validateBtn.text = $translate.instant("Validate");
                 $scope.validateBtn.enabled = true;
                 $scope.validateBtn.visible = true;
@@ -259,7 +264,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         $scope.lines.push({
             sending: $scope.sending.id,
             sendingDetailsQuantity: 0,
-            item: {name: ""},
+            item: { name: "" },
             itemsLines: [],
             sendingDetailsValue: 0,
             sendingItemBatch: "",
@@ -271,7 +276,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         $scope.loading = true;
         var query = JSON.parse(JSON.stringify($scope.sending));
         query.customer = ($scope.sending.customer) ? $scope.sending.customer.id : null;
-        query.person = ($scope.sending.person) ? $scope.sending.person.uuid :  null;
+        query.person = ($scope.sending.person) ? $scope.sending.person.uuid : null;
         query.date = new Date($scope.sending.date);
         query.sendingDetails = [];
         query.customerType = $scope.dispenseMode;
@@ -293,7 +298,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 response.date = new Date(response.date);
                 $scope.sending = response;
                 $scope.getData();
-                if (gotoList !== '#'){
+                if (gotoList !== '#') {
                     toastr.success($translate.instant('Data saved successfully.'), 'Success');
                     $state.go('home.dispensemain');
                 }
@@ -321,10 +326,10 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
     $scope.deleteSending = function (sending) {
         var confirm = $mdDialog.confirm()
-                .title('Confirmation')
-                .textContent($translate.instant('Do you really want to delete this dispense ?'))
-                .ok('Yes')
-                .cancel('Cancel');
+            .title('Confirmation')
+            .textContent($translate.instant('Do you really want to delete this dispense ?'))
+            .ok('Yes')
+            .cancel('Cancel');
         $mdDialog.show(confirm).then(function () {
             $scope.loading = true;
             openmrsRest.remove($scope.resource + "/sending", sending, "Generic Reason").then(function (response) {
@@ -341,10 +346,10 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
     $scope.deleteSendingDetail = function (sendingDetail, index) {
         var confirm = $mdDialog.confirm()
-                .title('Confirmation')
-                .textContent($translate.instant('Do you really want to delete this line ? This action is irreversible if you click YES. '))
-                .ok('Yes')
-                .cancel('Cancel');
+            .title('Confirmation')
+            .textContent($translate.instant('Do you really want to delete this line ? This action is irreversible if you click YES. '))
+            .ok('Yes')
+            .cancel('Cancel');
         $mdDialog.show(confirm).then(function () {
             if (sendingDetail.uuid) {
                 $scope.loading = true;
@@ -363,7 +368,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                 $scope.lines.splice(index, 1);
                 $scope.updateAmount();
             }
-            usedBatchNumbers = usedBatchNumbers.filter(v => v !== sendingDetail.sendingItemBatch); 
+            usedBatchNumbers = usedBatchNumbers.filter(v => v !== sendingDetail.sendingItemBatch);
         }, function () {
 
         });
@@ -375,7 +380,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         });
     }
 
-    $scope.validate = function(){
+    $scope.validate = function () {
         var confirm = $mdDialog.confirm()
             .title($translate.instant('Confirmation'))
             .textContent($translate.instant('Do you really want to validate this dispense ?'))
@@ -387,12 +392,12 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
             $scope.saveSending();
         }, function (e) {
             console.error(e);
-                $scope.loading = false;
-                toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
-        });      
+            $scope.loading = false;
+            toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+        });
     }
-    
-    $scope.reject = function(){
+
+    $scope.reject = function () {
         var confirm = $mdDialog.confirm()
             .title($translate.instant('Confirmation'))
             .textContent($translate.instant('Do you really want to cancel this dispense ?'))
@@ -404,8 +409,8 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
             $scope.saveSending();
         }, function (e) {
             console.error(e);
-                $scope.loading = false;
-                toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
-        });      
+            $scope.loading = false;
+            toastr.error($translate.instant('An unexpected error has occured.'), 'Error');
+        });
     }
 }]);
