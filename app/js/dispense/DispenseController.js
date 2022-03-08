@@ -132,7 +132,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
     $scope.searchItemsLines = function (item, index, selectedItemsLine) {
         if (item && item.uuid)
-            return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id).then(function (response) {
+            return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id+"&active=yes").then(function (response) {
                 //$scope.lines[index].itemsLines = filterFullyUsedBatches(response.results);
                 if (response.results) {
                     $scope.lines[index].itemsLines = response.results.filter(function (el) {
