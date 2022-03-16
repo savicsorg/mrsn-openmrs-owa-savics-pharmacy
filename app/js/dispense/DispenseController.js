@@ -151,10 +151,12 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
     $scope.selectedCustomerChange = function (item) {
         $scope.sending.customer = item;
         $scope.sending.person = null;
+        $scope.sending.visit = null;
     };
 
     $scope.selectedPatientChange = function (item) {
         $scope.sending.person = item.patient;
+        $scope.sending.visit = item.uuid;//We indicate the concerned visit uuid
         $scope.sending.customer = null;
     };
 
@@ -179,6 +181,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
     $scope.dispenseModeChange = function (dispenseMode) {
         $scope.sending.person = undefined;
+        $scope.sending.visit = undefined;
         $scope.sending.customer = undefined;
         $scope.selectedCustomer = undefined;
         $scope.selectedPatient = undefined;
@@ -277,6 +280,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         var query = JSON.parse(JSON.stringify($scope.sending));
         query.customer = ($scope.sending.customer) ? $scope.sending.customer.id : null;
         query.person = ($scope.sending.person) ? $scope.sending.person.uuid : null;
+        query.visit = ($scope.sending.person) ? $scope.sending.visit : null;
         query.date = new Date($scope.sending.date);
         query.sendingDetails = [];
         query.customerType = $scope.dispenseMode;
