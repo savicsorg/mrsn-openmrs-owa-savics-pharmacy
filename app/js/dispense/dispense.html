@@ -10,7 +10,7 @@
             </md-button>
         </a>
         <md-button class="md-raised md-primary" aria-label="Add" ng-if="account.role === 1 && validateBtn.visible"
-            ng-disabled="!validateBtn.enabled" ng-click="validate()">
+                   ng-disabled="!validateBtn.enabled" ng-click="validate()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">check_circle</md-icon>
             <md-tooltip md-direction="top">
                 <span>{{validateBtn.text}}</span>
@@ -18,12 +18,12 @@
             {{validateBtn.text}}
         </md-button>
         <md-button class="md-raised md-accent" aria-label="Add" ng-if='account.role === 1 && validateBtn.enabled'
-            ng-click="reject()">
+                   ng-click="reject()">
             <md-icon class=" material-icons" role="img" aria-hidden="true">cancel</md-icon>
             <md-tooltip md-direction="top">
-                <span>{{'Cancel' | translate}}</span>
+                <span>{{'Cancel'| translate}}</span>
             </md-tooltip>
-            {{'Cancel' | translate}}
+            {{'Cancel'| translate}}
         </md-button>
     </div>
     <div layout="row" ng-if="loading" layout-sm="column" layout-align="space-around">
@@ -37,11 +37,11 @@
                     <md-input-container class="md-block" flex-gt-sm flex="20">
                         <label translate>Type of Dispensation</label>
                         <md-select ng-model="dispenseMode" ng-change="dispenseModeChange(dispenseMode)"
-                            ng-disabled="!isEditable" required>
+                                   ng-disabled="!isEditable" required>
                             <md-option ng-repeat="type in dispenseModes" value="{{type.id}}" ng-if="account.role === 4 && type.uuid === 'b54a1ddd-d25b-492e-98e9-5f1de0520e1a'">
                                 {{ type.name}}
                             </md-option>
-                            <md-option ng-repeat="type in dispenseModes" value="{{type.id}}" ng ng-if="account.role !== 4 ">
+                            <md-option ng-repeat="type in dispenseModes" value="{{type.id}}" ng ng-if="account.role !== 4">
                                 {{ type.name}}
                             </md-option>
                         </md-select>
@@ -49,14 +49,14 @@
                     <md-input-container class="md-block" flex-gt-sm flex="20">
                         <label translate>Date</label>
                         <input type="date" ng-model="sending.date" ng-model-options="{timezone: 'UTC'}"
-                            ng-disabled="!isEditable" required>
+                               ng-disabled="!isEditable" required>
                     </md-input-container>
                     <md-autocomplete md-selected-item="selectedCustomer" md-search-text="customerSearchText"
-                        md-items="customer in searchCustomers(customerSearchText)" md-item-text="customer.name"
-                        class="md-block" flex-gt-sm md-floating-label="{{'Customer' | translate}}" md-clear-button="true"
-                        md-no-cache="true" md-selected-item-change="selectedCustomerChange(customer,$index)" flex="60"
-                        ng-if="dispenseModeuuid === '37688e92-f19c-4f19-b369-cdd31c8e7fba' || dispenseModeuuid === 'a6284bc5-f3b0-4687-abce-16ff8423470b'"
-                        ng-disabled="!isEditable" required>
+                                     md-items="customer in searchCustomers(customerSearchText)" md-item-text="customer.name"
+                                     class="md-block" flex-gt-sm md-floating-label="{{'Customer'| translate}}" md-clear-button="true"
+                                     md-no-cache="true" md-selected-item-change="selectedCustomerChange(customer,$index)" flex="60"
+                                     ng-if="dispenseModeuuid === '37688e92-f19c-4f19-b369-cdd31c8e7fba' || dispenseModeuuid === 'a6284bc5-f3b0-4687-abce-16ff8423470b'"
+                                     ng-disabled="!isEditable" required>
                         <md-item-template>
                             <span md-highlight-text="customerSearchText">{{customer.name}}</span>
                         </md-item-template>
@@ -65,11 +65,11 @@
                         </md-not-found>
                     </md-autocomplete>
                     <md-autocomplete md-selected-item="selectedPatient" md-search-text="patientSearchText"
-                        md-items="patient in searchPatients(patientSearchText)" md-item-text="patient.patient.display"
-                        class="md-block" flex-gt-sm md-floating-label="{{'Patient (with active visit)' | translate}}" md-clear-button="true"
-                        md-no-cache="true" md-selected-item-change="selectedPatientChange(patient,$index)" flex="60"
-                        ng-if="dispenseModeuuid === 'b54a1ddd-d25b-492e-98e9-5f1de0520e1a'" ng-disabled="!isEditable"
-                        required>
+                                     md-items="patient in searchPatients(patientSearchText)" md-item-text="patient.patient.display"
+                                     class="md-block" flex-gt-sm md-floating-label="{{'Patient (with active visit)' | translate}}" md-clear-button="true"
+                                     md-no-cache="true" md-selected-item-change="selectedPatientChange(patient,$index)" flex="60"
+                                     ng-if="dispenseModeuuid === 'b54a1ddd-d25b-492e-98e9-5f1de0520e1a'" ng-disabled="!isEditable"
+                                     required>
                         <md-item-template>
                             <span md-highlight-text="patientSearchText">{{patient.patient.display}}</span>
                         </md-item-template>
@@ -81,15 +81,31 @@
             </md-card-content>
         </md-card>
         <md-card ng-if="!loading">
-            <md-card-title translate>List of drugs</md-card-title>
+            <md-card-title >
+                <span md-truncate="" flex="" translate>
+                    List of drugs
+                </span>
+
+
+            </md-card-title>
+            <div class="note-container" ng-if="isPrescribtionAvailable === true">
+                <div class="note warning">
+                    <div class="d-flex text">
+                        <p><i class="icon-warning-sign small"></i> <span translate>Une prescription médicale en attente a été importée.
+                            </span>
+                            <a href="" ng-click="hideWarning()" class="font-weight-bold">X</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
             <span style="font-size: 10px; color: red; margin-left: 15px; margin-top: -15px" ng-if="editMode" translate>If you want to modify the dispense of one of the drugs, you must delete the line and recreate it</span>
             <md-card-content>
                 <div layout="row" layout-xs="column" data-ng-repeat="l in lines" class="flex flex-col" style="overflow: auto;">
-                    <md-autocomplete md-selected-item="selectedItem" md-search-text="itemSearchText"
-                        md-items="item in searchItems(itemSearchText)" md-item-text="item.name" class="md-block"
-                        flex-gt-sm md-floating-label="{{'Drug'| translate}}" md-clear-button="true" md-no-cache="true"
-                        md-selected-item-change="selectedItemChange(item,$index)" flex="33"
-                        ng-if="l.id === null || l.id === undefined" required>
+                    <md-autocomplete md-selected-item="selectedItems[$index]" md-search-text="itemSearchText"
+                                     md-items="item in searchItems(itemSearchText)" md-item-text="item.name" class="md-block"
+                                     flex-gt-sm md-floating-label="{{'Drug'| translate}}" md-clear-button="true" md-no-cache="true"
+                                     md-selected-item-change="selectedItemChange(item,$index)" flex="33"
+                                     ng-if="l.id === null || l.id === undefined" required>
                         <md-item-template>
                             <span md-highlight-text="itemSearchText">{{item.name}}</span>
                         </md-item-template>
@@ -98,25 +114,25 @@
                         </md-not-found>
                     </md-autocomplete>
                     <md-input-container class="md-block" flex-gt-sm flex="33"
-                        ng-if="l.id !== null && l.id !== undefined" >
+                                        ng-if="l.id !== null && l.id !== undefined" >
                         <label>{{"Drug"| translate}}</label>
                         <input class="form-control" disabled type="text" ng-model="l.item.name" ng-
-                            ng="selectedItemChange(l.item,$index)">
+                               ng="selectedItemChange(l.item,$index)">
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label translate>Batch n°</label>
                         <md-select ng-model="l.sendingItemBatch"
-                            ng-change="selectedItemLineChange(l.sendingItemBatch, $index)" ng-disabled="!isEditable || !(l.id === null || l.id === undefined)"
-                            required>
-                            <md-option ng-repeat="iLine in l.itemsLines" value="{{iLine.itemBatch}}" >
-                                <span translate>Batch N°: </span> <span ng-bind="iLine.itemBatch | limitTo:7"></span><span ng-if="iLine.itemBatch.length > 7">...</span> | <span translate>Qty v.: </span> {{ iLine.itemVirtualstock }} | <span translate>Loc.: </span> <span ng-bind="iLine.pharmacyLocation.name | limitTo:7"></span><span ng-if="iLine.pharmacyLocation.name.length > 7">...</span> | <span translate>Exp.: </span> {{ iLine.itemExpiryDate | date:'dd/MM/yyyy'}} 
+                                   ng-change="selectedItemLineChange(l.sendingItemBatch, $index)" ng-disabled="!isEditable || !(l.id === null || l.id === undefined)"
+                                   required>
+                            <md-option ng-repeat="iLine in l.itemsLines" value="{{iLine.itemBatch}}" ng-selected="iLine.itemBatch === l.sendingItemBatch">
+                                <span translate>Batch N°: </span> <span ng-bind="iLine.itemBatch | limitTo:7"></span><span ng-if="iLine.itemBatch.length > 7">...</span> | <span translate>Qty v.: </span> {{ iLine.itemVirtualstock}} | <span translate>Loc.: </span> <span ng-bind="iLine.pharmacyLocation.name | limitTo:7"></span><span ng-if="iLine.pharmacyLocation.name.length > 7">...</span> | <span translate>Exp.: </span> {{ iLine.itemExpiryDate | date:'dd/MM/yyyy'}} 
                             </md-option>
                         </md-select>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm flex="15">
                         <label translate>Quantity</label>
                         <input class="form-control" type="number" ng-model="l.sendingDetailsQuantity"
-                            ng-change="selectedItemLineChange(l.sendingItemBatch, $index);updateLineValue(l.sendingItemBatch, $index)" ng-disabled="!isEditable || !(l.id === null || l.id === undefined)" required>
+                               ng-change="selectedItemLineChange(l.sendingItemBatch, $index);updateLineValue(l.sendingItemBatch, $index)" ng-disabled="!isEditable || !(l.id === null || l.id === undefined)" required>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm flex="15">
                         <label translate>Price</label>
@@ -124,7 +140,7 @@
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm flex="7">
                         <md-button class="md-fab md-mini md-danger md-button" aria-label="remove"
-                            ng-click="deleteSendingDetail(l, $index)" ng-disabled="!isEditable">
+                                   ng-click="deleteSendingDetail(l, $index)" ng-disabled="!isEditable">
                             <md-icon>remove</md-icon>
                         </md-button>
                     </md-input-container>

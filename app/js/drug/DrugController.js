@@ -96,6 +96,7 @@ angular.module('DrugController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.data.
         $scope.selectedItemChange = function (item) {
             if (item) {
                 $scope.drug.name = item.name;
+                $scope.drug.drug = item.uuid;
             }
         }
 
