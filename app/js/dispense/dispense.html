@@ -124,6 +124,7 @@
                         <md-select ng-model="l.sendingItemBatch"
                                    ng-change="selectedItemLineChange(l.sendingItemBatch, $index)" ng-disabled="!isEditable || !(l.id === null || l.id === undefined)"
                                    required>
+                            <md-option ng-if="l.itemsLines.length == 0"><em>Aucun lot disponible pour ce médicament</em></md-option>
                             <md-option ng-repeat="iLine in l.itemsLines" value="{{iLine.itemBatch}}" ng-selected="iLine.itemBatch === l.sendingItemBatch">
                                 <span translate>Batch N°: </span> <span ng-bind="iLine.itemBatch | limitTo:7"></span><span ng-if="iLine.itemBatch.length > 7">...</span> | <span translate>Qty v.: </span> {{ iLine.itemVirtualstock}} | <span translate>Loc.: </span> <span ng-bind="iLine.pharmacyLocation.name | limitTo:7"></span><span ng-if="iLine.pharmacyLocation.name.length > 7">...</span> | <span translate>Exp.: </span> {{ iLine.itemExpiryDate | date:'dd/MM/yyyy'}} 
                             </md-option>

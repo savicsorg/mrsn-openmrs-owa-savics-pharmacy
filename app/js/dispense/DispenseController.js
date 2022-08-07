@@ -2,7 +2,8 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         $scope.resource = "savicspharmacy";
         $rootScope.links = {"Pharmacy management module": "", "Dispense": "dispense"};
         $scope.sending = {customer: {}, person: {}, sendingAmount: 0};
-        $scope.dispenseModeuuid = "b54a1ddd-d25b-492e-98e9-5f1de0520e1a";
+//        $scope.dispenseModeuuid = "b54a1ddd-d25b-492e-98e9-5f1de0520e1a";
+        $scope.dispenseModeuuid = undefined;
         $scope.dispenseMode = undefined;
         $scope.dispenseModes = [];
         $scope.lines = [];
@@ -142,7 +143,6 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
             if (item && item.uuid)
                 return openmrsRest.get($scope.resource + "/itemsLine?item=" + item.id + "&active=yes").then(function (response) {
-                    //$scope.lines[index].itemsLines = filterFullyUsedBatches(response.results);
                     if (response.results) {
                         $scope.lines[index].itemsLines = response.results.filter(function (el) {
                             return (usedBatchNumbers.indexOf(el.itemBatch) === -1);
@@ -150,10 +150,8 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                         if (prescribedQuantity && prescribedQuantity > 0 && $scope.lines[index].itemsLines && $scope.lines[index].itemsLines.length > 0) {
                             var itemsLineIndex = 0;
                             var lineIndex = index;
-                            console.log("-------------------------------");
                             $scope.linesDuplicata = [];
                             while (prescribedQuantity > 0 && $scope.lines[index].itemsLines.length > 0 && itemsLineIndex <= $scope.lines[index].itemsLines.length) {
-                                console.log(prescribedQuantity);
                                 var newLine = {item: item};
                                 newLine.itemId = item.id;
                                 newLine.sendingDetailsQuantity = 0;
@@ -164,10 +162,11 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                                     if (itemsLineIndex === 0) {
                                         $scope.lines[index].sendingItemBatch = $scope.lines[index].itemsLines[itemsLineIndex].itemBatch;
                                         $scope.lines[index].sendingDetailsQuantity = prescribedQuantity;
+                                        $scope.lines[index].sendingDetailsValue = $scope.lines[index].item.sellPrice * prescribedQuantity;
                                     } else {
                                         newLine.sendingDetailsQuantity = prescribedQuantity;
                                         newLine.sendingItemBatch = $scope.lines[index].itemsLines[itemsLineIndex].itemBatch;
-                                        newLine.sendingDetailsValue = $scope.lines[index].item.sellPrice * $scope.lines[index].sendingDetailsQuantity;
+                                        newLine.sendingDetailsValue = $scope.lines[index].item.sellPrice * prescribedQuantity;
                                     }
                                     prescribedQuantity = 0;
                                 } else {
@@ -175,12 +174,12 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
 
                                     if (itemsLineIndex === 0) {
                                         $scope.lines[index].sendingItemBatch = $scope.lines[index].itemsLines[itemsLineIndex].itemBatch;
-                                        ;
                                         $scope.lines[index].sendingDetailsQuantity = $scope.lines[index].itemsLines[itemsLineIndex].itemVirtualstock;
+                                        $scope.lines[index].sendingDetailsValue = $scope.lines[index].item.sellPrice * $scope.lines[index].sendingDetailsQuantity;
                                     } else {
                                         newLine.sendingItemBatch = $scope.lines[index].itemsLines[itemsLineIndex].itemBatch;
                                         newLine.sendingDetailsQuantity = $scope.lines[index].itemsLines[itemsLineIndex].itemVirtualstock;
-                                        newLine.sendingDetailsValue = $scope.lines[index].item.sellPrice * $scope.lines[index].sendingDetailsQuantity;
+                                        newLine.sendingDetailsValue = $scope.lines[index].item.sellPrice * newLine.sendingDetailsQuantity;
                                     }
 
                                 }
@@ -195,7 +194,6 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                                 $scope.selectedItems.push($scope.linesDuplicata[i].item);
                                 $scope.lines.push($scope.linesDuplicata[i]);
                             }
-                            console.log("FIN", $scope.lines);
                         }
                     } else {
                         $scope.lines[index].itemsLines = [];
@@ -214,11 +212,16 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         };
 
         $scope.selectedPatientChange = function (item) {
-            $scope.sending.person = item.patient;
-            $scope.sending.visit = item.uuid;//We indicate the concerned visit uuid
-            $scope.sending.customer = null;
-            if ($stateParams.uuid === "new") {
-                $scope.findActiveVisitPrescription();
+            if (item === undefined || item === null) {
+                $scope.lines = [];
+                $scope.isPrescribtionAvailable = false;
+            } else {
+                $scope.sending.person = item.patient;
+                $scope.sending.visit = item.uuid;//We indicate the concerned visit uuid
+                $scope.sending.customer = null;
+                if ($stateParams.uuid === "new") {
+                    $scope.findActiveVisitPrescription();
+                }
             }
         };
 
@@ -387,8 +390,6 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
             query.date = new Date($scope.sending.date);
             query.sendingDetails = [];
             query.customerType = $scope.dispenseMode;
-            console.log("$scope.lines 377")
-            console.log($scope.lines)
             if ($scope.lines && $scope.lines.length > 0) {
                 for (var l in $scope.lines) {
                     var myLine = {
@@ -405,12 +406,6 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                     query.sendingDetails.push(myLine);
                 }
             }
-            console.log("query.sendingDetails");
-            console.log(query.sendingDetails);
-            console.log();
-
-            console.log("$scope.selectedItems");
-            console.log(query);
             if ($scope.sending && $scope.sending.uuid) {    //Edit
                 openmrsRest.update($scope.resource + "/sending", query).then(function (response) {
                     response.date = new Date(response.date);
