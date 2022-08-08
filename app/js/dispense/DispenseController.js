@@ -368,7 +368,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
         $scope.getData();
 
         $scope.addSendingLine = function () {
-            $scope.selectedItems.push({name: ""});
+            $scope.selectedItems.push("");
             $scope.lines.push({
                 sending: $scope.sending.id,
                 sendingDetailsQuantity: 0,
