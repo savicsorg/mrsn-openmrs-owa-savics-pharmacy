@@ -163,6 +163,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                                         $scope.lines[index].sendingItemBatch = $scope.lines[index].itemsLines[itemsLineIndex].itemBatch;
                                         $scope.lines[index].sendingDetailsQuantity = prescribedQuantity;
                                         $scope.lines[index].sendingDetailsValue = $scope.lines[index].item.sellPrice * prescribedQuantity;
+                                        $scope.updateAmount();
                                     } else {
                                         newLine.sendingDetailsQuantity = prescribedQuantity;
                                         newLine.sendingItemBatch = $scope.lines[index].itemsLines[itemsLineIndex].itemBatch;
@@ -176,6 +177,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                                         $scope.lines[index].sendingItemBatch = $scope.lines[index].itemsLines[itemsLineIndex].itemBatch;
                                         $scope.lines[index].sendingDetailsQuantity = $scope.lines[index].itemsLines[itemsLineIndex].itemVirtualstock;
                                         $scope.lines[index].sendingDetailsValue = $scope.lines[index].item.sellPrice * $scope.lines[index].sendingDetailsQuantity;
+                                        $scope.updateAmount();
                                     } else {
                                         newLine.sendingItemBatch = $scope.lines[index].itemsLines[itemsLineIndex].itemBatch;
                                         newLine.sendingDetailsQuantity = $scope.lines[index].itemsLines[itemsLineIndex].itemVirtualstock;
@@ -185,6 +187,7 @@ angular.module('DispenseController', ['ngMaterial', 'ngAnimate', 'toastr', 'md.d
                                 }
                                 if (itemsLineIndex > 0) {//We add new line for the same item and for batches different than the initial batch at position "index"
                                     $scope.linesDuplicata.push(newLine);
+                                    $scope.updateAmount();
                                 }
 
                                 itemsLineIndex++;
